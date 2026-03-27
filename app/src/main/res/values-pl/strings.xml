@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">Używane jest klasyczne tło aplikacji. Nie dotyczy trybu Ekstremalnie ciemny</string>
     <string name="category_dark_mode">Tryb ciemny</string>
     <string name="dark_mode_settings">Ustawienia trybu ciemnego</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Monochromatyczny Android Auto</string>
     <string name="aa_monochrome_description">Redukuje kolory Android Auto do jazdy nocnej. Wymaga trybu widoku GLES. Działa tylko przy włączonym trybie ciemnym</string>
     <string name="aa_desaturation">Desaturacja</string>
@@ -146,9 +148,11 @@
     <string name="auto_start_usb_description">Automatycznie otwórz aplikację i spróbuj połączyć po podłączeniu urządzenia USB</string>
     <string name="auto_start_settings">Ustawienia automatycznego uruchamiania</string>
     <string name="auto_start_settings_description">Skonfiguruj, kiedy aplikacja uruchamia się automatycznie</string>
-    <string name="auto_start_oem_warning">Na niektórych urządzeniach (Xiaomi, Huawei, Samsung, OPPO, Vivo) automatyczne uruchamianie może wymagać ręcznego włączenia w ustawieniach baterii lub uruchamiania urządzenia.</string>
+    <string name="auto_start_oem_warning">To urządzenie może wymagać włączenia automatycznego uruchamiania oraz usunięcia optymalizacji baterii lub ograniczeń w tle dla tej aplikacji. Jest to częste w urządzeniach Xiaomi, Huawei, Samsung, OPPO i Vivo.</string>
     <string name="auto_start_on_boot_label">Uruchamiaj przy starcie</string>
     <string name="auto_start_on_boot_description">Automatycznie otwórz aplikację po uruchomieniu urządzenia. Wymaga uprawnienia \'Wyświetlaj nad innymi aplikacjami\' na Android 10+</string>
+    <string name="auto_start_screen_on_label">Uruchom przy włączeniu ekranu</string>
+    <string name="auto_start_screen_on_description">Otwieraj aplikację za każdym razem, gdy ekran się włącza. Idealne dla radioodtwarzaczy samochodowych, które nigdy się całkowicie nie wyłączają lub używają trybów szybkiego uruchamiania, gdzie inne opcje automatycznego startu nie działają. Niezalecane dla telefonów i tabletów.</string>
     <string name="select_bt_device">Wybierz urządzenie Bluetooth</string>
     <string name="bt_device_not_set">Nie ustawiono</string>
     <string name="bt_permission_denied_title">Wymagane uprawnienie Bluetooth</string>
@@ -365,8 +369,11 @@
     <string name="kill_on_disconnect">Zamknij aplikację po rozłączeniu</string>
     <string name="kill_on_disconnect_description">Automatycznie zamknij aplikację po rozłączeniu Android Auto</string>
     <string name="kill_on_disconnect_warning_title">Ostrzeżenie</string>
-    <string name="kill_on_disconnect_warning">Następujące ustawienia ponownego łączenia będą kolidować z zamykaniem aplikacji po rozłączeniu:\n\n%1$s\n\nTwoje początkowe ustawienia połączenia (automatyczne łączenie, automatyczne uruchamianie) będą nadal działać po włączeniu radia samochodowego. Jednak po pierwszym rozłączeniu aplikacja zamknie się natychmiast zamiast próbować ponownie się połączyć.\n\nCzy chcesz wyłączyć wymienione powyżej ustawienia ponownego łączenia?</string>
+    <string name="kill_on_disconnect_warning">Następujące ustawienia ponownego łączenia będą kolidować z zamykaniem aplikacji po rozłączeniu:\n\n%1$s\n\nUstawienia połączenia początkowego (automatyczne łączenie, automatyczne uruchamianie) będą nadal działać po włączeniu radia. Jednak po pierwszym rozłączeniu aplikacja zostanie natychmiast zamknięta zamiast próbować się ponownie połączyć.\n\nUwaga: Niektóre radia aftermarket nigdy się całkowicie nie wyłączają — zamiast tego hibernują, podobnie jak telefon, który blokuje ekran, ale nigdy się naprawdę nie wyłącza. Z tą opcją aplikacja zamknie się po pierwszym rozłączeniu i może nie otworzyć się automatycznie przy następnym uruchomieniu.\n\nCzy chcesz wyłączyć wymienione powyżej ustawienia ponownego łączenia?</string>
     <string name="kill_on_disconnect_disable_and_enable">Wyłącz i włącz</string>
+    <string name="kill_on_disconnect_enable_anyway">Włącz mimo to</string>
+    <string name="kill_on_disconnect_boot_warning">Masz włączone \"Uruchom przy starcie\". Jeśli aplikacja zamknie się po rozłączeniu, a to urządzenie przejdzie w tryb hibernacji zamiast się wyłączyć, aplikacja może nie otworzyć się automatycznie przy następnym uruchomieniu, ponieważ nie zostanie wygenerowane zdarzenie rozruchu — urządzenie po prostu budzi się z trybu uśpienia.</string>
+    <string name="kill_on_disconnect_screen_on_warning">Masz włączoną opcję \"Uruchom przy włączeniu ekranu\". To ustawienie otwiera aplikację za każdym razem, gdy ekran się włącza. W połączeniu z zamykaniem przy rozłączeniu, aplikacja zamknie się po rozłączeniu, ale natychmiast otworzy się ponownie, gdy ekran się włączy, tworząc pętlę restartów.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Kolidujące ustawienia zostały wyłączone</string>
     <string name="wifi_disabled_info">Info: Wi-Fi jest wyłączone.</string>
     <string name="auto_enable_hotspot">Automatycznie włącz hotspot</string>

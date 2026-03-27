@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">Fundalul clasic al aplicației este utilizat. Nu se aplică modului Întunecat extrem</string>
     <string name="category_dark_mode">Mod întunecat</string>
     <string name="dark_mode_settings">Setări mod întunecat</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Android Auto monocrom</string>
     <string name="aa_monochrome_description">Reduce culorile din Android Auto pentru condusul pe timp de noapte. Necesită modul de vizualizare GLES. Are efect doar când modul întunecat este activat</string>
     <string name="aa_desaturation">Desaturare</string>
@@ -155,9 +157,11 @@
     <string name="auto_start_usb_description">Deschide aplicația automat și încearcă conectarea când un dispozitiv USB este conectat</string>
     <string name="auto_start_settings">Setări pornire automată</string>
     <string name="auto_start_settings_description">Configurează când aplicația pornește automat</string>
-    <string name="auto_start_oem_warning">Pe unele dispozitive (Xiaomi, Huawei, Samsung, OPPO, Vivo), pornirea automată poate necesita activarea manuală din setările de baterie sau de pornire ale dispozitivului.</string>
+    <string name="auto_start_oem_warning">Este posibil ca acest dispozitiv să necesite activarea pornirii automate și eliminarea optimizării bateriei sau a restricțiilor de fundal pentru această aplicație. Acest lucru este frecvent pe dispozitivele Xiaomi, Huawei, Samsung, OPPO și Vivo.</string>
     <string name="auto_start_on_boot_label">Pornire la boot</string>
     <string name="auto_start_on_boot_description">Deschide aplicația automat când dispozitivul pornește. Necesită permisiunea \'Afișare peste alte aplicații\' pe Android 10+</string>
+    <string name="auto_start_screen_on_label">Pornire la aprinderea ecranului</string>
+    <string name="auto_start_screen_on_description">Deschide aplicația de fiecare dată când ecranul se aprinde. Ideal pentru unitățile auto care nu se opresc niciodată complet sau folosesc moduri de pornire rapidă unde celelalte opțiuni de pornire automată nu funcționează. Nu este recomandat pentru telefoane sau tablete.</string>
     <string name="select_bt_device">Selectează dispozitivul Bluetooth</string>
     <string name="bt_device_not_set">Nesetat</string>
     <string name="bt_permission_denied_title">Permisiune Bluetooth necesară</string>
@@ -365,8 +369,10 @@
     <string name="kill_on_disconnect">Închide aplicația la deconectare</string>
     <string name="kill_on_disconnect_description">Închide automat aplicația când Android Auto se deconectează</string>
     <string name="kill_on_disconnect_warning_title">Avertisment</string>
-    <string name="kill_on_disconnect_warning">Următoarele setări de reconectare vor intra în conflict cu închiderea aplicației la deconectare:\n\n%1$s\n\nSetările tale inițiale de conexiune (conectare automată, pornire automată) vor funcționa în continuare când radioul mașinii pornește. Cu toate acestea, după prima deconectare aplicația se va închide imediat în loc să încerce să se reconecteze.\n\nDorești să dezactivezi setările de reconectare enumerate mai sus?</string>
+    <string name="kill_on_disconnect_warning">Următoarele setări de reconectare vor intra în conflict cu închiderea aplicației la deconectare:\n\n%1$s\n\nSetările de conectare inițială (conectare automată, pornire automată) vor funcționa în continuare la pornirea unității. Cu toate acestea, după prima deconectare aplicația se va închide imediat în loc să încerce reconectarea.\n\nNotă: Unele unități aftermarket nu se opresc complet niciodată — intră în hibernare, similar unui telefon care își blochează ecranul dar nu se oprește niciodată cu adevărat. Cu această opțiune activată, aplicația se va închide după prima deconectare și este posibil să nu se redeschidă automat la următoarea pornire.\n\nDoriți să dezactivați setările de reconectare menționate mai sus?</string>
     <string name="kill_on_disconnect_disable_and_enable">Dezactivează și activează</string>
+    <string name="kill_on_disconnect_enable_anyway">Activează oricum</string>
+    <string name="kill_on_disconnect_boot_warning">Aveți \"Pornire la boot\" activat. Dacă aplicația se închide la deconectare și acest dispozitiv intră în hibernare în loc să se oprească, aplicația s-ar putea să nu se redeschidă automat la următorul ciclu de pornire deoarece nu este generat un eveniment de boot — dispozitivul pur și simplu se trezește din modul de repaus.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Setările conflictuale au fost dezactivate</string>
     <string name="wifi_disabled_info">Info: Wi-Fi este dezactivat.</string>
     <string name="auto_enable_hotspot">Activare automată hotspot</string>

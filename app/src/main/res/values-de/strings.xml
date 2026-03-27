@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">Der klassische Hintergrund der App wird verwendet. Gilt nicht für den Modus Extrem Dunkel</string>
     <string name="category_dark_mode">Dunkelmodus</string>
     <string name="dark_mode_settings">Dunkelmodus-Einstellungen</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Android Auto einfarbig darstellen</string>
     <string name="aa_monochrome_description">Reduziert die Farben von Android Auto für Nachtfahrten. Erfordert den GLES-Anzeigemodus. Wirkt nur bei aktiviertem Dunkelmodus</string>
     <string name="aa_desaturation">Entsättigung</string>
@@ -149,9 +151,11 @@
     <string name="auto_start_usb_description">Die App automatisch öffnen und eine Verbindung versuchen, wenn ein USB-Gerät angeschlossen wird</string>
     <string name="auto_start_settings">Einstellungen für automatischen Start</string>
     <string name="auto_start_settings_description">Konfigurieren, wann die App automatisch startet</string>
-    <string name="auto_start_oem_warning">Auf einigen Geräten (Xiaomi, Huawei, Samsung, OPPO, Vivo) muss der automatische Start möglicherweise manuell in den Akku- oder Autostart-Einstellungen des Geräts aktiviert werden.</string>
+    <string name="auto_start_oem_warning">Dieses Gerät erfordert möglicherweise die Aktivierung des Autostarts und die Entfernung von Batterieoptimierung oder Hintergrundbeschränkungen für diese App. Dies ist häufig bei Geräten von Xiaomi, Huawei, Samsung, OPPO und Vivo.</string>
     <string name="auto_start_on_boot_label">Start beim Hochfahren</string>
     <string name="auto_start_on_boot_description">Die App automatisch öffnen, wenn das Gerät startet. Erfordert die Berechtigung \'Über anderen Apps einblenden\' ab Android 10+</string>
+    <string name="auto_start_screen_on_label">Start bei Bildschirm an</string>
+    <string name="auto_start_screen_on_description">Die App jedes Mal öffnen, wenn der Bildschirm eingeschaltet wird. Ideal für Autoradios, die nie vollständig herunterfahren oder Schnellstart-Modi verwenden, bei denen die anderen Autostart-Optionen nicht funktionieren. Nicht empfohlen für Telefone oder Tablets.</string>
     <string name="select_bt_device">Bluetooth-Gerät wählen</string>
     <string name="bt_device_not_set">Nicht festgelegt</string>
     <string name="bt_permission_denied_title">Bluetooth-Berechtigung erforderlich</string>
@@ -365,8 +369,11 @@
     <string name="kill_on_disconnect">App beim Trennen schließen</string>
     <string name="kill_on_disconnect_description">Die App automatisch schließen, wenn Android Auto getrennt wird</string>
     <string name="kill_on_disconnect_warning_title">Warnung</string>
-    <string name="kill_on_disconnect_warning">Die folgenden Wiederverbindungseinstellungen stehen im Konflikt mit dem Schließen der App beim Trennen:\n\n%1$s\n\nDeine anfänglichen Verbindungseinstellungen (Auto-Verbindung, Auto-Start) funktionieren weiterhin, wenn das Autoradio eingeschaltet wird. Nach der ersten Trennung wird die App jedoch sofort geschlossen, anstatt zu versuchen, die Verbindung wiederherzustellen.\n\nMöchtest du die oben aufgeführten Wiederverbindungseinstellungen deaktivieren?</string>
+    <string name="kill_on_disconnect_warning">Die folgenden Wiederverbindungseinstellungen stehen im Konflikt mit dem Schließen der App bei Trennung:\n\n%1$s\n\nIhre anfänglichen Verbindungseinstellungen (automatische Verbindung, automatischer Start) funktionieren weiterhin beim Einschalten der Headunit. Nach der ersten Trennung wird die App jedoch sofort geschlossen, anstatt eine erneute Verbindung zu versuchen.\n\nHinweis: Einige Aftermarket-Headunits schalten sich nie vollständig aus — sie gehen stattdessen in den Ruhezustand, ähnlich wie ein Telefon, das den Bildschirm sperrt, aber nie wirklich ausschaltet. Mit dieser Option wird die App nach der ersten Trennung geschlossen und öffnet sich möglicherweise beim nächsten Zündungszyklus nicht automatisch wieder.\n\nMöchten Sie die oben aufgeführten Wiederverbindungseinstellungen deaktivieren?</string>
     <string name="kill_on_disconnect_disable_and_enable">Deaktivieren und aktivieren</string>
+    <string name="kill_on_disconnect_enable_anyway">Trotzdem aktivieren</string>
+    <string name="kill_on_disconnect_boot_warning">\"Beim Booten starten\" ist aktiviert. Wenn die App beim Trennen geschlossen wird und dieses Gerät in den Ruhezustand wechselt statt sich auszuschalten, öffnet sich die App beim nächsten Zündungszyklus möglicherweise nicht automatisch, da kein Boot-Ereignis ausgelöst wird — das Gerät wacht einfach aus dem Schlafmodus auf.</string>
+    <string name="kill_on_disconnect_screen_on_warning">Sie haben \"Bei Bildschirmaktivierung starten\" aktiviert. Diese Einstellung öffnet die App jedes Mal, wenn der Bildschirm eingeschaltet wird. In Kombination mit dem Schließen bei Trennung wird die App nach der Trennung geschlossen, aber sofort wieder geöffnet, wenn der Bildschirm erneut eingeschaltet wird, was eine Neustartschleife erzeugt.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Konfliktierende Einstellungen wurden deaktiviert</string>
     <string name="wifi_disabled_info">Info: WLAN ist deaktiviert.</string>
     <string name="auto_enable_hotspot">Hotspot automatisch aktivieren</string>

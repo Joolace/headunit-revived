@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">Используется классический фон приложения. Не применяется к режиму Экстремально тёмный</string>
     <string name="category_dark_mode">Тёмный режим</string>
     <string name="dark_mode_settings">Настройки тёмного режима</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Монохромный Android Auto</string>
     <string name="aa_monochrome_description">Уменьшает цвета Android Auto для ночного вождения. Требуется режим отображения GLES. Действует только при включённом тёмном режиме</string>
     <string name="aa_desaturation">Обесцвечивание</string>
@@ -146,9 +148,11 @@
     <string name="auto_start_usb_description">Автоматически открывать приложение и пытаться подключиться при подключении USB-устройства</string>
     <string name="auto_start_settings">Настройки автозапуска</string>
     <string name="auto_start_settings_description">Настройте, когда приложение запускается автоматически</string>
-    <string name="auto_start_oem_warning">На некоторых устройствах (Xiaomi, Huawei, Samsung, OPPO, Vivo) автозапуск может потребовать ручного включения в настройках батареи или автозапуска устройства.</string>
+    <string name="auto_start_oem_warning">Возможно, на этом устройстве потребуется включить автозапуск и снять ограничения оптимизации батареи или фоновой работы для этого приложения. Это характерно для устройств Xiaomi, Huawei, Samsung, OPPO и Vivo.</string>
     <string name="auto_start_on_boot_label">Запуск при загрузке</string>
     <string name="auto_start_on_boot_description">Автоматически открывать приложение при запуске устройства. Требуется разрешение \'Поверх других приложений\' на Android 10+</string>
+    <string name="auto_start_screen_on_label">Запуск при включении экрана</string>
+    <string name="auto_start_screen_on_description">Открывать приложение каждый раз при включении экрана. Идеально для автомагнитол, которые никогда полностью не выключаются или используют режимы быстрого запуска, где другие параметры автозапуска не работают. Не рекомендуется для телефонов и планшетов.</string>
     <string name="select_bt_device">Выбрать Bluetooth-устройство</string>
     <string name="bt_device_not_set">Не задано</string>
     <string name="bt_permission_denied_title">Требуется разрешение Bluetooth</string>
@@ -365,8 +369,11 @@
     <string name="kill_on_disconnect">Закрывать приложение при отключении</string>
     <string name="kill_on_disconnect_description">Автоматически закрывать приложение при отключении Android Auto</string>
     <string name="kill_on_disconnect_warning_title">Предупреждение</string>
-    <string name="kill_on_disconnect_warning">Следующие настройки переподключения будут конфликтовать с закрытием приложения при отключении:\n\n%1$s\n\nВаши начальные настройки подключения (автоподключение, автозапуск) продолжат работать при включении магнитолы. Однако после первого отключения приложение закроется немедленно вместо попытки переподключения.\n\nХотите отключить перечисленные выше настройки переподключения?</string>
+    <string name="kill_on_disconnect_warning">Следующие настройки переподключения будут конфликтовать с закрытием приложения при отключении:\n\n%1$s\n\nНастройки начального подключения (автоподключение, автозапуск) продолжат работать при включении магнитолы. Однако после первого отключения приложение сразу закроется вместо попытки переподключения.\n\nПримечание: Некоторые автомагнитолы никогда полностью не выключаются — они переходят в спящий режим, подобно телефону, который блокирует экран, но никогда не выключается по-настоящему. С этой опцией приложение закроется после первого отключения и может не открыться автоматически при следующем запуске зажигания.\n\nОтключить перечисленные выше настройки переподключения?</string>
     <string name="kill_on_disconnect_disable_and_enable">Отключить и включить</string>
+    <string name="kill_on_disconnect_enable_anyway">Всё равно включить</string>
+    <string name="kill_on_disconnect_boot_warning">У вас включён \"Запуск при загрузке\". Если приложение закроется при отключении, а это устройство перейдёт в спящий режим вместо выключения, приложение может не открыться автоматически при следующем запуске, так как событие загрузки не генерируется — устройство просто просыпается из режима сна.</string>
+    <string name="kill_on_disconnect_screen_on_warning">У вас включена опция \"Запуск при включении экрана\". Эта настройка открывает приложение каждый раз при включении экрана. В сочетании с закрытием при отключении приложение закроется после отключения, но сразу откроется снова при включении экрана, создавая цикл перезапуска.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Конфликтующие настройки были отключены</string>
     <string name="wifi_disabled_info">Инфо: Wi-Fi отключен.</string>
     <string name="auto_enable_hotspot">Автоматически включать точку доступа</string>

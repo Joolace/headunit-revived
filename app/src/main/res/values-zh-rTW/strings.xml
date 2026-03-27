@@ -42,6 +42,8 @@
     <string name="use_gradient_background_description_off_auto">正在使用應用程式的傳統背景。不適用於極致深色模式</string>
     <string name="category_dark_mode">深色模式</string>
     <string name="dark_mode_settings">深色模式設定</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">將 Android Auto 設為單色</string>
     <string name="aa_monochrome_description">減少 Android Auto 的色彩以適應夜間駕駛。需要 GLES 檢視模式。僅在深色模式啟用時生效</string>
     <string name="aa_desaturation">去飽和度</string>
@@ -145,9 +147,11 @@
     <string name="auto_start_usb_description">當連接 USB 裝置時，自動開啟應用程式並嘗試連線</string>
     <string name="auto_start_settings">自動啟動設定</string>
     <string name="auto_start_settings_description">設定應用程式自動啟動的時機</string>
-    <string name="auto_start_oem_warning">在某些裝置（小米、華為、三星、OPPO、Vivo）上，自動啟動可能需要在裝置的電池或啟動設定中手動啟用。</string>
+    <string name="auto_start_oem_warning">此裝置可能需要啟用自動啟動並移除電池最佳化或背景限制才能使用此應用程式。這在小米、華為、三星、OPPO 和 Vivo 的裝置上很常見。</string>
     <string name="auto_start_on_boot_label">開機時啟動</string>
     <string name="auto_start_on_boot_description">裝置啟動時自動開啟應用程式。Android 10+ 需要「顯示在其他應用程式上層」權限</string>
+    <string name="auto_start_screen_on_label">螢幕開啟時啟動</string>
+    <string name="auto_start_screen_on_description">每次螢幕開啟時開啟應用程式。適用於從未完全關機或使用快速開機模式的車機，其中其他自動啟動選項無法使用。不建議用於手機或平板電腦。</string>
     <string name="select_bt_device">選擇藍牙裝置</string>
     <string name="bt_device_not_set">未設定</string>
     <string name="bt_permission_denied_title">需要藍牙權限</string>
@@ -364,8 +368,11 @@
     <string name="kill_on_disconnect">斷線時關閉應用程式</string>
     <string name="kill_on_disconnect_description">當 Android Auto 斷線時自動關閉應用程式</string>
     <string name="kill_on_disconnect_warning_title">警告</string>
-    <string name="kill_on_disconnect_warning">以下重新連線設定將與斷線時關閉應用程式發生衝突：\n\n%1$s\n\n您的初始連線設定（自動連線、自動啟動）在車機開啟時仍會正常運作。但在首次斷線後，應用程式將立即關閉，而不會嘗試重新連線。\n\n是否要停用上方列出的重新連線設定？</string>
+    <string name="kill_on_disconnect_warning">以下重新連線設定將與中斷連線時關閉應用程式衝突：\n\n%1$s\n\n您的初始連線設定（自動連線、自動啟動）在主機開機時仍然有效。但在第一次中斷連線後，應用程式將立即關閉，而不是嘗試重新連線。\n\n注意：部分副廠主機永遠不會完全關機，而是進入休眠狀態，類似手機鎖定螢幕但從未真正關機。啟用此選項後，應用程式將在第一次中斷連線後關閉，且可能不會在下次啟動時自動重新開啟。\n\n是否要停用上述重新連線設定？</string>
     <string name="kill_on_disconnect_disable_and_enable">停用並啟用</string>
+    <string name="kill_on_disconnect_enable_anyway">仍然啟用</string>
+    <string name="kill_on_disconnect_boot_warning">您已啟用「開機時啟動」。如果應用程式在中斷連線時關閉，而此裝置進入休眠模式而非關機，應用程式可能不會在下次點火時自動重新開啟，因為不會產生開機事件——裝置只是從睡眠模式中喚醒。</string>
+    <string name="kill_on_disconnect_screen_on_warning">您已啟用「螢幕開啟時啟動」。此設定會在每次螢幕開啟時開啟應用程式。結合中斷連線時關閉，應用程式將在中斷連線後關閉，但在螢幕再次開啟時立即重新開啟，形成重啟循環。</string>
     <string name="kill_on_disconnect_conflicts_disabled">衝突的設定已被停用</string>
     <string name="wifi_disabled_info">資訊：Wi-Fi 已關閉。</string>
     <string name="auto_enable_hotspot">自動啟用熱點</string>

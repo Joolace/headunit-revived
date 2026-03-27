@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">يتم استخدام الخلفية الكلاسيكية للتطبيق. لا ينطبق على وضع الداكن المتطرف</string>
     <string name="category_dark_mode">الوضع الداكن</string>
     <string name="dark_mode_settings">إعدادات الوضع الداكن</string>
+    <string name="app_theme_short">التطبيق</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">جعل Android Auto أحادي اللون</string>
     <string name="aa_monochrome_description">يقلل ألوان Android Auto للقيادة الليلية. يتطلب وضع عرض GLES. يسري فقط عند تفعيل الوضع الداكن</string>
     <string name="aa_desaturation">إزالة التشبع</string>
@@ -88,8 +90,8 @@
     <string name="margin_right">يمين</string>
     <string name="margin_bottom">أسفل</string>
 
-    <string name="start_in_fullscreen_mode">البدء في وضع ملء الشاشة</string>
-    <string name="start_in_fullscreen_mode_description">تبديل وضع ملء الشاشة. يلزم إعادة تشغيل التطبيق لتطبيق التغييرات.</string>
+    <string name="start_in_fullscreen_mode">وضع الشاشة</string>
+    <string name="start_in_fullscreen_mode_description">اختر كيفية التعامل مع أشرطة النظام (الحالة والتنقل).</string>
 
     <string name="usb_status">حالة USB: %s</string>
     <string name="projection_status">حالة الإسقاط: %s</string>
@@ -146,9 +148,11 @@
     <string name="auto_start_usb_description">فتح التطبيق تلقائيًا ومحاولة الاتصال عند توصيل جهاز USB</string>
     <string name="auto_start_settings">إعدادات التشغيل التلقائي</string>
     <string name="auto_start_settings_description">تهيئة متى يبدأ التطبيق تلقائياً</string>
-    <string name="auto_start_oem_warning">على بعض الأجهزة (Xiaomi، Huawei، Samsung، OPPO، Vivo)، قد يتطلب التشغيل التلقائي تفعيله يدوياً من إعدادات البطارية أو بدء التشغيل في جهازك.</string>
+    <string name="auto_start_oem_warning">قد يتطلب هذا الجهاز تفعيل التشغيل التلقائي وإزالة قيود توفير البطارية أو قيود الخلفية لهذا التطبيق. هذا شائع في أجهزة Xiaomi وHuawei وSamsung وOPPO وVivo.</string>
     <string name="auto_start_on_boot_label">التشغيل عند الإقلاع</string>
     <string name="auto_start_on_boot_description">فتح التطبيق تلقائيًا عند بدء تشغيل الجهاز. يتطلب إذن \'العرض فوق التطبيقات الأخرى\' على Android 10+</string>
+    <string name="auto_start_screen_on_label">التشغيل عند تشغيل الشاشة</string>
+    <string name="auto_start_screen_on_description">فتح التطبيق في كل مرة يتم فيها تشغيل الشاشة. مثالي لأجهزة الراديو التي لا تنطفئ تمامًا أو تستخدم أوضاع التشغيل السريع حيث لا تعمل خيارات التشغيل التلقائي الأخرى. غير موصى به للهواتف أو الأجهزة اللوحية.</string>
     <string name="select_bt_device">اختر جهاز البلوتوث</string>
     <string name="bt_device_not_set">غير محدد</string>
     <string name="bt_permission_denied_title">مطلوب إذن البلوتوث</string>
@@ -312,15 +316,15 @@
     <string name="setup_widescreen_detected">تم اكتشاف شاشة عريضة.</string>
     <string name="auto_optimize">تحسين الإعدادات تلقائياً</string>
     <string name="auto_optimize_desc">قم بتشغيل فحص النظام للعثور على أفضل الإعدادات لجهازك.</string>
-    <string name="fullscreen_none">Normal (All bars visible)</string>
-    <string name="fullscreen_immersive">Immersive (All bars hidden)</string>
-    <string name="fullscreen_status_only">Hide status bar only</string>
-    <string name="log_level">Log Level</string>
-    <string name="log_level_description">Choose the detail level of log output for debugging.</string>
-    <string name="start_log_capture">Start log capture</string>
-    <string name="start_log_capture_description">Begins recording system logs to a file.</string>
-    <string name="stop_log_capture">Stop log capture</string>
-    <string name="stop_log_capture_description">Stops recording and saves the log file.</string>
+    <string name="fullscreen_none">عادي (جميع الأشرطة مرئية)</string>
+    <string name="fullscreen_immersive">غامر (جميع الأشرطة مخفية)</string>
+    <string name="fullscreen_status_only">إخفاء شريط الحالة فقط</string>
+    <string name="log_level">مستوى السجل</string>
+    <string name="log_level_description">اختر مستوى تفصيل مخرجات السجل للتصحيح.</string>
+    <string name="start_log_capture">بدء التقاط السجل</string>
+    <string name="start_log_capture_description">يبدأ تسجيل سجلات النظام في ملف.</string>
+    <string name="stop_log_capture">إيقاف التقاط السجل</string>
+    <string name="stop_log_capture_description">يوقف التسجيل ويحفظ ملف السجل.</string>
 
     <!-- Navigation notifications -->
     <string name="show_navigation_notifications">إشعارات الملاحة</string>
@@ -365,8 +369,11 @@
     <string name="kill_on_disconnect">إغلاق التطبيق عند قطع الاتصال</string>
     <string name="kill_on_disconnect_description">إغلاق التطبيق تلقائيا عند انقطاع اتصال Android Auto</string>
     <string name="kill_on_disconnect_warning_title">تحذير</string>
-    <string name="kill_on_disconnect_warning">إعدادات إعادة الاتصال التالية ستتعارض مع إغلاق التطبيق عند قطع الاتصال:\n\n%1$s\n\nستستمر إعدادات الاتصال الأولية (الاتصال التلقائي، التشغيل التلقائي) في العمل عند تشغيل شاشة السيارة. ومع ذلك، بعد أول انقطاع سيُغلق التطبيق فوراً بدلاً من محاولة إعادة الاتصال.\n\nهل تريد تعطيل إعدادات إعادة الاتصال المذكورة أعلاه؟</string>
+    <string name="kill_on_disconnect_warning">إعدادات إعادة الاتصال التالية ستتعارض مع إغلاق التطبيق عند قطع الاتصال:\n\n%1$s\n\nستستمر إعدادات الاتصال الأولية (الاتصال التلقائي، التشغيل التلقائي) في العمل عند تشغيل شاشة السيارة. ومع ذلك، بعد أول انقطاع سيُغلق التطبيق فوراً بدلاً من محاولة إعادة الاتصال.\n\nملاحظة: بعض شاشات السيارات لا تنطفئ بالكامل، بل تدخل في وضع السبات، مثل هاتف يقفل شاشته لكنه لا ينطفئ فعلياً. مع تفعيل هذا الخيار، سيُغلق التطبيق بعد أول انقطاع وقد لا يُعاد فتحه تلقائياً في دورة التشغيل التالية.\n\nهل تريد تعطيل إعدادات إعادة الاتصال المذكورة أعلاه؟</string>
     <string name="kill_on_disconnect_disable_and_enable">تعطيل وتفعيل</string>
+    <string name="kill_on_disconnect_enable_anyway">تفعيل على أي حال</string>
+    <string name="kill_on_disconnect_boot_warning">لديك \"البدء عند التشغيل\" مفعّل. إذا أُغلق التطبيق عند قطع الاتصال وكان هذا الجهاز يدخل وضع السبات بدلاً من الإيقاف الكامل، فقد لا يُعاد فتح التطبيق تلقائياً في دورة التشغيل التالية لأنه لا يتم إنشاء حدث إقلاع — الجهاز يستيقظ ببساطة من وضع السكون.</string>
+    <string name="kill_on_disconnect_screen_on_warning">لديك خيار \"البدء عند تشغيل الشاشة\" مفعّل. هذا الإعداد يفتح التطبيق في كل مرة تُشغّل فيها الشاشة. مع خيار الإغلاق عند قطع الاتصال، سيُغلق التطبيق بعد قطع الاتصال لكنه سيُعاد فتحه فوراً عند تشغيل الشاشة مجدداً، مما يُنشئ حلقة إعادة تشغيل.</string>
     <string name="kill_on_disconnect_conflicts_disabled">تم تعطيل الإعدادات المتعارضة</string>
     <string name="wifi_disabled_info">معلومات: واي فاي معطل.</string>
     <string name="auto_enable_hotspot">تفعيل نقطة الاتصال تلقائياً</string>

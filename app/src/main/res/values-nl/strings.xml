@@ -42,6 +42,8 @@
     <string name="use_gradient_background_description_off_auto">De klassieke achtergrond van de app wordt gebruikt. Geldt niet voor de modus Extreem donker</string>
     <string name="category_dark_mode">Donkere modus</string>
     <string name="dark_mode_settings">Instellingen donkere modus</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Android Auto monochroom maken</string>
     <string name="aa_monochrome_description">Vermindert de kleuren van Android Auto voor nachtelijk rijden. Vereist GLES-weergavemodus. Werkt alleen wanneer donkere modus is ingeschakeld</string>
     <string name="aa_desaturation">Desaturatie</string>
@@ -145,9 +147,11 @@
     <string name="auto_start_usb_description">De app automatisch openen en verbinding proberen te maken wanneer een USB-apparaat wordt aangesloten</string>
     <string name="auto_start_settings">Instellingen automatisch starten</string>
     <string name="auto_start_settings_description">Stel in wanneer de app automatisch start</string>
-    <string name="auto_start_oem_warning">Op sommige apparaten (Xiaomi, Huawei, Samsung, OPPO, Vivo) moet automatisch starten mogelijk handmatig worden ingeschakeld in de batterij- of opstartinstellingen van uw apparaat.</string>
+    <string name="auto_start_oem_warning">Dit apparaat vereist mogelijk het inschakelen van automatisch starten en het verwijderen van batterijoptimalisatie of achtergrondbeperkingen voor deze app. Dit is gebruikelijk bij apparaten van Xiaomi, Huawei, Samsung, OPPO en Vivo.</string>
     <string name="auto_start_on_boot_label">Starten bij opstarten</string>
     <string name="auto_start_on_boot_description">De app automatisch openen wanneer het apparaat opstart. Vereist de machtiging \'Weergeven over andere apps\' op Android 10+</string>
+    <string name="auto_start_screen_on_label">Starten bij scherm aan</string>
+    <string name="auto_start_screen_on_description">De app openen telkens wanneer het scherm wordt ingeschakeld. Ideaal voor autoradio\'s die nooit volledig uitschakelen of snelle opstartmodi gebruiken waarbij de andere autostart-opties niet werken. Niet aanbevolen voor telefoons of tablets.</string>
     <string name="select_bt_device">Selecteer Bluetooth-apparaat</string>
     <string name="bt_device_not_set">Niet ingesteld</string>
     <string name="bt_permission_denied_title">Bluetooth-toestemming vereist</string>
@@ -364,8 +368,11 @@
     <string name="kill_on_disconnect">App sluiten bij verbreken</string>
     <string name="kill_on_disconnect_description">De app automatisch sluiten wanneer Android Auto wordt losgekoppeld</string>
     <string name="kill_on_disconnect_warning_title">Waarschuwing</string>
-    <string name="kill_on_disconnect_warning">De volgende herverbindingsinstellingen conflicteren met het sluiten van de app bij verbreken:\n\n%1$s\n\nUw initiële verbindingsinstellingen (automatisch verbinden, automatisch starten) blijven werken wanneer de autoradio wordt ingeschakeld. Na de eerste verbreking wordt de app echter onmiddellijk gesloten in plaats van te proberen opnieuw verbinding te maken.\n\nWilt u de hierboven vermelde herverbindingsinstellingen uitschakelen?</string>
+    <string name="kill_on_disconnect_warning">De volgende herverbindingsinstellingen conflicteren met het sluiten van de app bij ontkoppeling:\n\n%1$s\n\nUw initiële verbindingsinstellingen (automatisch verbinden, automatisch starten) blijven werken wanneer de headunit wordt ingeschakeld. Na de eerste ontkoppeling wordt de app echter direct gesloten in plaats van opnieuw te verbinden.\n\nOpmerking: Sommige aftermarket headunits schakelen nooit volledig uit — ze gaan in slaapstand, vergelijkbaar met een telefoon die het scherm vergrendelt maar nooit echt uitschakelt. Met deze optie wordt de app na de eerste ontkoppeling gesloten en mogelijk niet automatisch heropend bij de volgende start.\n\nWilt u de bovengenoemde herverbindingsinstellingen uitschakelen?</string>
     <string name="kill_on_disconnect_disable_and_enable">Uitschakelen en inschakelen</string>
+    <string name="kill_on_disconnect_enable_anyway">Toch inschakelen</string>
+    <string name="kill_on_disconnect_boot_warning">Je hebt \"Starten bij opstarten\" ingeschakeld. Als de app sluit bij het verbreken van de verbinding en dit apparaat in slaapstand gaat in plaats van uit te schakelen, wordt de app mogelijk niet automatisch geopend bij de volgende start omdat er geen opstartgebeurtenis wordt gegenereerd — het apparaat wordt simpelweg uit de slaapstand gewekt.</string>
+    <string name="kill_on_disconnect_screen_on_warning">U hebt \"Starten bij scherm aan\" ingeschakeld. Deze instelling opent de app telkens wanneer het scherm wordt ingeschakeld. Gecombineerd met sluiten bij ontkoppeling zal de app na ontkoppeling sluiten, maar onmiddellijk weer openen wanneer het scherm opnieuw wordt ingeschakeld, waardoor een herstartlus ontstaat.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Conflicterende instellingen zijn uitgeschakeld</string>
     <string name="wifi_disabled_info">Info: Wi-Fi is uitgeschakeld.</string>
     <string name="auto_enable_hotspot">Hotspot automatisch inschakelen</string>

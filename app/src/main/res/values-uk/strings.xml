@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">Використовується класичний фон додатку. Не застосовується до режиму Екстремально темний</string>
     <string name="category_dark_mode">Темний режим</string>
     <string name="dark_mode_settings">Налаштування темного режиму</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Монохромний Android Auto</string>
     <string name="aa_monochrome_description">Зменшує кольори Android Auto для нічного водіння. Потрібен режим відображення GLES. Діє лише при увімкненому темному режимі</string>
     <string name="aa_desaturation">Знебарвлення</string>
@@ -146,9 +148,11 @@
     <string name="auto_start_usb_description">Автоматично відкривати додаток і намагатися підключитися при підключенні USB-пристрою</string>
     <string name="auto_start_settings">Налаштування автозапуску</string>
     <string name="auto_start_settings_description">Налаштуйте, коли додаток запускається автоматично</string>
-    <string name="auto_start_oem_warning">На деяких пристроях (Xiaomi, Huawei, Samsung, OPPO, Vivo) автозапуск може потребувати ручного увімкнення в налаштуваннях батареї або запуску пристрою.</string>
+    <string name="auto_start_oem_warning">Можливо, на цьому пристрої потрібно увімкнути автозапуск та зняти обмеження оптимізації батареї або фонової роботи для цього додатку. Це поширено на пристроях Xiaomi, Huawei, Samsung, OPPO та Vivo.</string>
     <string name="auto_start_on_boot_label">Запуск при завантаженні</string>
     <string name="auto_start_on_boot_description">Автоматично відкривати додаток при запуску пристрою. Потрібен дозвіл \'Відображення поверх інших додатків\' на Android 10+</string>
+    <string name="auto_start_screen_on_label">Запуск при увімкненні екрана</string>
+    <string name="auto_start_screen_on_description">Відкривати додаток щоразу, коли вмикається екран. Ідеально для автомагнітол, які ніколи повністю не вимикаються або використовують режими швидкого запуску, де інші параметри автозапуску не працюють. Не рекомендується для телефонів та планшетів.</string>
     <string name="select_bt_device">Вибрати Bluetooth-пристрій</string>
     <string name="bt_device_not_set">Не задано</string>
     <string name="bt_permission_denied_title">Потрібен дозвіл Bluetooth</string>
@@ -365,8 +369,11 @@
     <string name="kill_on_disconnect">Закривати додаток при відключенні</string>
     <string name="kill_on_disconnect_description">Автоматично закривати додаток, коли Android Auto відключається</string>
     <string name="kill_on_disconnect_warning_title">Попередження</string>
-    <string name="kill_on_disconnect_warning">Наступні налаштування перепідключення конфліктуватимуть із закриттям додатку при відключенні:\n\n%1$s\n\nВаші початкові налаштування підключення (автопідключення, автозапуск) продовжать працювати при увімкненні магнітоли. Однак після першого відключення додаток закриється негайно замість спроби перепідключення.\n\nБажаєте вимкнути перелічені вище налаштування перепідключення?</string>
+    <string name="kill_on_disconnect_warning">Наступні налаштування перепідключення конфліктуватимуть із закриттям додатку при відключенні:\n\n%1$s\n\nНалаштування початкового підключення (автопідключення, автозапуск) продовжать працювати при увімкненні магнітоли. Однак після першого відключення додаток одразу закриється замість спроби перепідключення.\n\nПримітка: Деякі автомагнітоли ніколи повністю не вимикаються — вони переходять у сплячий режим, подібно до телефону, який блокує екран, але ніколи не вимикається насправді. З цією опцією додаток закриється після першого відключення і може не відкритися автоматично при наступному запуску запалювання.\n\nВимкнути перелічені вище налаштування перепідключення?</string>
     <string name="kill_on_disconnect_disable_and_enable">Вимкнути та увімкнути</string>
+    <string name="kill_on_disconnect_enable_anyway">Все одно увімкнути</string>
+    <string name="kill_on_disconnect_boot_warning">У вас увімкнено \"Запуск при завантаженні\". Якщо додаток закриється при від\'єднанні, а цей пристрій перейде в режим гібернації замість вимкнення, додаток може не відкритися автоматично при наступному запуску, оскільки подія завантаження не генерується — пристрій просто прокидається з режиму сну.</string>
+    <string name="kill_on_disconnect_screen_on_warning">У вас увімкнено \"Запуск при увімкненні екрана\". Це налаштування відкриває додаток щоразу, коли вмикається екран. У поєднанні із закриттям при від\'єднанні додаток закриється після від\'єднання, але одразу відкриється знову, коли екран увімкнеться, створюючи цикл перезапуску.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Конфліктуючі налаштування були вимкнені</string>
     <string name="wifi_disabled_info">Інфо: Wi-Fi вимкнено.</string>
     <string name="auto_enable_hotspot">Автоматично вмикати точку доступу</string>

@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">Používá se klasické pozadí aplikace. Neplatí pro režim Extrémně tmavý</string>
     <string name="category_dark_mode">Tmavý režim</string>
     <string name="dark_mode_settings">Nastavení tmavého režimu</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Černobílý Android Auto</string>
     <string name="aa_monochrome_description">Snižuje barvy Android Auto pro noční jízdu. Vyžaduje režim zobrazení GLES. Projeví se pouze při zapnutém tmavém režimu</string>
     <string name="aa_desaturation">Desaturace</string>
@@ -146,9 +148,11 @@
     <string name="auto_start_usb_description">Automaticky otevřít aplikaci a pokusit se o připojení při zapojení USB zařízení</string>
     <string name="auto_start_settings">Nastavení automatického spouštění</string>
     <string name="auto_start_settings_description">Nastavte, kdy se aplikace spouští automaticky</string>
-    <string name="auto_start_oem_warning">Na některých zařízeních (Xiaomi, Huawei, Samsung, OPPO, Vivo) může být nutné automatické spouštění povolit ručně v nastavení baterie nebo spouštění zařízení.</string>
+    <string name="auto_start_oem_warning">Toto zařízení může vyžadovat povolení automatického spuštění a odstranění optimalizace baterie nebo omezení na pozadí pro tuto aplikaci. To je běžné u zařízení Xiaomi, Huawei, Samsung, OPPO a Vivo.</string>
     <string name="auto_start_on_boot_label">Spustit při startu</string>
     <string name="auto_start_on_boot_description">Automaticky otevřít aplikaci při spuštění zařízení. Vyžaduje oprávnění \'Zobrazit přes jiné aplikace\' na Android 10+</string>
+    <string name="auto_start_screen_on_label">Spustit při zapnutí obrazovky</string>
+    <string name="auto_start_screen_on_description">Otevřít aplikaci pokaždé, když se zapne obrazovka. Ideální pro autorádia, která se nikdy úplně nevypnou nebo používají rychlé spuštění, kde ostatní možnosti automatického spuštění nefungují. Nedoporučeno pro telefony nebo tablety.</string>
     <string name="select_bt_device">Vybrat Bluetooth zařízení</string>
     <string name="bt_device_not_set">Nenastaveno</string>
     <string name="bt_permission_denied_title">Vyžadováno oprávnění Bluetooth</string>
@@ -365,8 +369,11 @@
     <string name="kill_on_disconnect">Zavřít aplikaci při odpojení</string>
     <string name="kill_on_disconnect_description">Automaticky zavřít aplikaci, když se Android Auto odpojí</string>
     <string name="kill_on_disconnect_warning_title">Varování</string>
-    <string name="kill_on_disconnect_warning">Následující nastavení opětovného připojení budou v konfliktu se zavřením aplikace při odpojení:\n\n%1$s\n\nVaše počáteční nastavení připojení (automatické připojení, automatické spuštění) budou nadále fungovat při zapnutí autorádia. Po prvním odpojení se však aplikace okamžitě zavře namísto pokusu o opětovné připojení.\n\nChcete deaktivovat výše uvedená nastavení opětovného připojení?</string>
+    <string name="kill_on_disconnect_warning">Následující nastavení opětovného připojení budou v konfliktu s ukončením aplikace při odpojení:\n\n%1$s\n\nVaše nastavení počátečního připojení (automatické připojení, automatické spuštění) budou fungovat i po zapnutí jednotky. Po prvním odpojení se však aplikace okamžitě ukončí místo opětovného připojení.\n\nPoznámka: Některé aftermarket jednotky se nikdy zcela nevypnou — místo toho hibernují, podobně jako telefon, který zamkne obrazovku, ale nikdy se skutečně nevypne. S touto možností se aplikace po prvním odpojení ukončí a nemusí se automaticky znovu otevřít při dalším nastartování.\n\nChcete zakázat výše uvedená nastavení opětovného připojení?</string>
     <string name="kill_on_disconnect_disable_and_enable">Deaktivovat a povolit</string>
+    <string name="kill_on_disconnect_enable_anyway">Přesto povolit</string>
+    <string name="kill_on_disconnect_boot_warning">Máte zapnuté \"Spustit při startu\". Pokud se aplikace zavře při odpojení a toto zařízení přejde do hibernace místo vypnutí, aplikace se při dalším zapnutí nemusí automaticky znovu otevřít, protože nedojde k události spuštění — zařízení se jednoduše probudí z režimu spánku.</string>
+    <string name="kill_on_disconnect_screen_on_warning">Máte zapnutou možnost \"Spustit při zapnutí obrazovky\". Toto nastavení otevře aplikaci při každém zapnutí obrazovky. V kombinaci se zavřením při odpojení se aplikace po odpojení zavře, ale ihned se znovu otevře při dalším zapnutí obrazovky, což vytvoří smyčku restartování.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Konfliktní nastavení byla deaktivována</string>
     <string name="wifi_disabled_info">Info: Wi-Fi je vypnuto.</string>
     <string name="auto_enable_hotspot">Automaticky zapnout hotspot</string>

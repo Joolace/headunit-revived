@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">Az alkalmazás klasszikus háttere van használatban. Nem vonatkozik az Extrém sötét módra</string>
     <string name="category_dark_mode">Sötét mód</string>
     <string name="dark_mode_settings">Sötét mód beállítások</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Android Auto monokróm megjelenítés</string>
     <string name="aa_monochrome_description">Csökkenti az Android Auto színeit az éjszakai vezetéshez. GLES megjelenítési mód szükséges. Csak bekapcsolt sötét módban lép érvénybe</string>
     <string name="aa_desaturation">Színtelenítés</string>
@@ -145,9 +147,11 @@
     <string name="auto_start_usb_description">Az alkalmazás automatikus megnyitása és csatlakozási kísérlet USB-eszköz csatlakoztatásakor</string>
     <string name="auto_start_settings">Automatikus indítás beállításai</string>
     <string name="auto_start_settings_description">Adja meg, mikor induljon el az alkalmazás automatikusan</string>
-    <string name="auto_start_oem_warning">Egyes eszközökön (Xiaomi, Huawei, Samsung, OPPO, Vivo) az automatikus indítást manuálisan kell engedélyezni az eszköz akkumulátor- vagy indítási beállításaiban.</string>
+    <string name="auto_start_oem_warning">Előfordulhat, hogy ezen az eszközön engedélyezni kell az automatikus indítást, valamint el kell távolítani az akkumulátor-optimalizálást vagy a háttérkorlátozásokat ehhez az alkalmazáshoz. Ez gyakori Xiaomi, Huawei, Samsung, OPPO és Vivo eszközökön.</string>
     <string name="auto_start_on_boot_label">Indítás rendszerindításkor</string>
     <string name="auto_start_on_boot_description">Az alkalmazás automatikus megnyitása az eszköz indításakor. Android 10+-on szükséges a \'Megjelenítés más alkalmazások felett\' engedély</string>
+    <string name="auto_start_screen_on_label">Indítás képernyő bekapcsolásakor</string>
+    <string name="auto_start_screen_on_description">Az alkalmazás megnyitása minden alkalommal, amikor a képernyő bekapcsol. Ideális olyan autórádiókhoz, amelyek soha nem kapcsolnak ki teljesen, vagy gyorsindítási módot használnak, ahol a többi automatikus indítási lehetőség nem működik. Telefonokhoz és táblagépekhez nem ajánlott.</string>
     <string name="select_bt_device">Bluetooth eszköz kiválasztása</string>
     <string name="bt_device_not_set">Nincs beállítva</string>
     <string name="bt_permission_denied_title">Bluetooth-engedély szükséges</string>
@@ -364,8 +368,10 @@
     <string name="kill_on_disconnect">Alkalmazás bezárása leválasztáskor</string>
     <string name="kill_on_disconnect_description">Az alkalmazás automatikus bezárása, amikor az Android Auto leválik</string>
     <string name="kill_on_disconnect_warning_title">Figyelmeztetés</string>
-    <string name="kill_on_disconnect_warning">A következő újracsatlakozási beállítások ütköznek az alkalmazás leválasztáskor történő bezárásával:\n\n%1$s\n\nA kezdeti csatlakozási beállításaid (automatikus csatlakozás, automatikus indítás) továbbra is működni fognak, amikor az autórádió bekapcsol. Az első leválasztás után azonban az alkalmazás azonnal bezáródik az újracsatlakozási kísérlet helyett.\n\nSzeretnéd letiltani a fent felsorolt újracsatlakozási beállításokat?</string>
+    <string name="kill_on_disconnect_warning">A következő újracsatlakozási beállítások ütköznek az alkalmazás leállításával leválasztáskor:\n\n%1$s\n\nA kezdeti csatlakozási beállítások (automatikus csatlakozás, automatikus indítás) továbbra is működnek a fejegység bekapcsolásakor. Az első leválasztás után azonban az alkalmazás azonnal bezárul az újracsatlakozás megkísérlése helyett.\n\nMegjegyzés: Egyes utólagos fejegységek soha nem kapcsolnak ki teljesen — ehelyett hibernálnak, hasonlóan egy telefonhoz, amely lezárja a képernyőjét, de soha nem kapcsol ki ténylegesen. Ezzel az opcióval az alkalmazás az első leválasztás után bezárul, és a következő indítási ciklusban nem biztos, hogy automatikusan újranyílik.\n\nSzeretné letiltani a fent felsorolt újracsatlakozási beállításokat?</string>
     <string name="kill_on_disconnect_disable_and_enable">Letiltás és engedélyezés</string>
+    <string name="kill_on_disconnect_enable_anyway">Engedélyezés mindenképp</string>
+    <string name="kill_on_disconnect_boot_warning">A \"Indítás rendszerindításkor\" be van kapcsolva. Ha az alkalmazás bezárul lecsatlakozáskor és ez az eszköz hibernálódik kikapcsolás helyett, az alkalmazás nem feltétlenül nyílik meg automatikusan a következő indításkor, mert nem jön létre rendszerindítási esemény — az eszköz egyszerűen felébred az alvó módból.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Az ütköző beállítások letiltásra kerültek</string>
     <string name="wifi_disabled_info">Infó: A Wi-Fi ki van kapcsolva.</string>
     <string name="auto_enable_hotspot">Hotspot automatikus bekapcsolása</string>

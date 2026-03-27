@@ -16,26 +16,57 @@ class BootCompleteReceiver : BroadcastReceiver() {
 
         AppLog.i("Boot auto-start: received action=$action")
 
-        if (!Settings.isAutoStartOnBootEnabled(context)) {
-            AppLog.i("Boot auto-start: disabled, skipping")
-            return
-        }
+        val bootEnabled = Settings.isAutoStartOnBootEnabled(context)
+        val screenOnEnabled = Settings.isAutoStartOnScreenOnEnabled(context)
+        val usbEnabled = Settings.isAutoStartOnUsbEnabled(context)
 
-        AppLog.i("Boot auto-start: starting AapService with BOOT_START (trigger=$action)")
-        val serviceIntent = Intent(context, AapService::class.java).apply {
-            putExtra(EXTRA_BOOT_START, true)
+        if (bootEnabled) {
+            AppLog.i("Boot auto-start: starting AapService with BOOT_START (trigger=$action)")
+            val serviceIntent = Intent(context, AapService::class.java).apply {
+                putExtra(EXTRA_BOOT_START, true)
+            }
+            ContextCompat.startForegroundService(context, serviceIntent)
+        } else if (screenOnEnabled) {
+            // "Start on screen on" needs the service alive to register its dynamic
+            // SCREEN_ON receiver. On Quick Boot devices this is a real reboot, so
+            // the service must be started after boot to listen for future SCREEN_ON.
+            AppLog.i("Boot auto-start: screen-on auto-start enabled, starting AapService to register SCREEN_ON receiver (trigger=$action)")
+            val serviceIntent = Intent(context, AapService::class.java)
+            ContextCompat.startForegroundService(context, serviceIntent)
+        } else if (usbEnabled) {
+            // On hibernating head units, USB_DEVICE_ATTACHED may not fire after wake.
+            // Start the service in the background so it can register its UsbReceiver
+            // and check for already-connected USB devices.
+            AppLog.i("Boot auto-start: USB auto-start enabled, starting AapService to check USB (trigger=$action)")
+            val serviceIntent = Intent(context, AapService::class.java).apply {
+                this.action = AapService.ACTION_CHECK_USB
+            }
+            ContextCompat.startForegroundService(context, serviceIntent)
+        } else {
+            AppLog.i("Boot auto-start: disabled, skipping")
         }
-        ContextCompat.startForegroundService(context, serviceIntent)
     }
 
     companion object {
         const val EXTRA_BOOT_START = "com.andrerinas.headunitrevived.EXTRA_BOOT_START"
 
         private val BOOT_ACTIONS = setOf(
+            // Standard Android boot
             Intent.ACTION_BOOT_COMPLETED,
             Intent.ACTION_LOCKED_BOOT_COMPLETED,
+            // Generic / OEM quick boot
             "android.intent.action.QUICKBOOT_POWERON",
-            "com.htc.intent.action.QUICKBOOT_POWERON"
+            "com.htc.intent.action.QUICKBOOT_POWERON",
+            // MediaTek IPO (Instant Power On)
+            "com.mediatek.intent.action.QUICKBOOT_POWERON",
+            "com.mediatek.intent.action.BOOT_IPO",
+            // FYT / GLSX head units (ACC ignition wake)
+            "com.fyt.boot.ACCON",
+            "com.glsx.boot.ACCON",
+            "android.intent.action.ACTION_MT_COMMAND_SLEEP_OUT",
+            // Microntek / MTCD / PX3 head units (ACC wake)
+            "com.cayboy.action.ACC_ON",
+            "com.carboy.action.ACC_ON"
         )
     }
 }

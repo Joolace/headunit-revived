@@ -37,7 +37,7 @@
         <item name="colorOnSecondary">@android:color/white</item>
         <item name="android:colorAccent">@color/brand_teal</item>
         <item name="android:background">@color/setting_background_color</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/adaptive_text_color</item>
         <item name="buttonBarPositiveButtonStyle">@style/DialogButton.Positive</item>
         <item name="buttonBarNegativeButtonStyle">@style/DialogButton.Negative</item>
     </style>

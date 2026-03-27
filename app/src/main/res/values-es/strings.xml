@@ -43,6 +43,8 @@
     <string name="use_gradient_background_description_off_auto">Se está usando el fondo clásico de la app. No aplica al modo Oscuro extremo</string>
     <string name="category_dark_mode">Modo oscuro</string>
     <string name="dark_mode_settings">Ajustes del modo oscuro</string>
+    <string name="app_theme_short">App</string>
+    <string name="night_mode_short">Android Auto</string>
     <string name="aa_monochrome">Android Auto monocromático</string>
     <string name="aa_monochrome_description">Reduce los colores de Android Auto para la conducción nocturna. Requiere el modo de vista GLES. Solo tiene efecto cuando el modo oscuro está activado</string>
     <string name="aa_desaturation">Desaturación</string>
@@ -146,9 +148,11 @@
     <string name="auto_start_usb_description">Abrir la app automáticamente e intentar conectar cuando se conecta un dispositivo USB</string>
     <string name="auto_start_settings">Ajustes de inicio automático</string>
     <string name="auto_start_settings_description">Configura cuándo la aplicación se inicia automáticamente</string>
-    <string name="auto_start_oem_warning">En algunos dispositivos (Xiaomi, Huawei, Samsung, OPPO, Vivo), el inicio automático puede requerir habilitarlo manualmente en los ajustes de batería o inicio del dispositivo.</string>
+    <string name="auto_start_oem_warning">Es posible que este dispositivo requiera habilitar el inicio automático y eliminar las restricciones de ahorro de batería o de segundo plano para esta app. Esto es común en dispositivos de Xiaomi, Huawei, Samsung, OPPO y Vivo.</string>
     <string name="auto_start_on_boot_label">Iniciar al arrancar</string>
     <string name="auto_start_on_boot_description">Abrir la app automáticamente cuando se enciende el dispositivo. Requiere el permiso \'Mostrar sobre otras apps\' en Android 10+</string>
+    <string name="auto_start_screen_on_label">Iniciar al encender pantalla</string>
+    <string name="auto_start_screen_on_description">Abrir la app cada vez que la pantalla se enciende. Ideal para radios que nunca se apagan completamente o usan modos de encendido rápido donde las otras opciones de inicio automático no funcionan. No recomendado para teléfonos o tablets.</string>
     <string name="select_bt_device">Seleccionar dispositivo Bluetooth</string>
     <string name="bt_device_not_set">No establecido</string>
     <string name="bt_permission_denied_title">Permiso de Bluetooth requerido</string>
@@ -365,8 +369,11 @@
     <string name="kill_on_disconnect">Cerrar app al desconectar</string>
     <string name="kill_on_disconnect_description">Cerrar automáticamente la aplicación cuando Android Auto se desconecta</string>
     <string name="kill_on_disconnect_warning_title">Advertencia</string>
-    <string name="kill_on_disconnect_warning">Los siguientes ajustes de reconexión entrarán en conflicto con el cierre de la app al desconectar:\n\n%1$s\n\nTus ajustes de conexión inicial (auto-conectar, auto-iniciar) seguirán funcionando cuando la radio del auto se encienda. Sin embargo, después de la primera desconexión la app se cerrará inmediatamente en lugar de intentar reconectarse.\n\n¿Deseas desactivar los ajustes de reconexión indicados arriba?</string>
+    <string name="kill_on_disconnect_warning">Los siguientes ajustes de reconexión entrarán en conflicto con el cierre de la app al desconectar:\n\n%1$s\n\nLos ajustes de conexión inicial (conexión automática, inicio automático) seguirán funcionando cuando la radio encienda. Sin embargo, tras la primera desconexión la app se cerrará inmediatamente en lugar de intentar reconectar.\n\nNota: Algunas radios aftermarket nunca se apagan completamente, solo hibernan, similar a un teléfono que bloquea la pantalla pero nunca se apaga realmente. Con esta opción activada, la app se cerrará tras la primera desconexión y podría no reabrirse automáticamente en el siguiente encendido.\n\n¿Deseas desactivar los ajustes de reconexión mencionados?</string>
     <string name="kill_on_disconnect_disable_and_enable">Desactivar y activar</string>
+    <string name="kill_on_disconnect_enable_anyway">Activar de todos modos</string>
+    <string name="kill_on_disconnect_boot_warning">Tienes \"Iniciar al arrancar\" activado. Si la app se cierra al desconectar y este dispositivo hiberna en lugar de apagarse, la app podría no reabrirse automáticamente en el siguiente encendido porque no se genera un evento de arranque — el dispositivo simplemente despierta del modo de reposo.</string>
+    <string name="kill_on_disconnect_screen_on_warning">Tienes activado \"Iniciar al encender la pantalla\". Esta opción abre la app cada vez que se enciende la pantalla. Combinado con cerrar al desconectar, la app se cerrará tras la desconexión pero se reabrirá inmediatamente cuando la pantalla se encienda de nuevo, creando un bucle de reinicio.</string>
     <string name="kill_on_disconnect_conflicts_disabled">Los ajustes en conflicto han sido desactivados</string>
     <string name="wifi_disabled_info">Info: El Wi-Fi está desactivado.</string>
     <string name="auto_enable_hotspot">Activar punto de acceso automáticamente</string>

@@ -296,6 +296,10 @@ class Settings(context: Context) {
         get() = prefs.getBoolean("auto-start-on-boot", false)
         set(value) { prefs.edit().putBoolean("auto-start-on-boot", value).apply() }
 
+    var autoStartOnScreenOn: Boolean
+        get() = prefs.getBoolean("auto-start-on-screen-on", false)
+        set(value) { prefs.edit().putBoolean("auto-start-on-screen-on", value).apply() }
+
     var reopenOnReconnection: Boolean
         get() = prefs.getBoolean("reopen-on-reconnection", true)
         set(value) { prefs.edit().putBoolean("reopen-on-reconnection", value).apply() }
@@ -465,6 +469,33 @@ class Settings(context: Context) {
                 deviceContext.getSharedPreferences(DEVICE_PREFS_NAME, Context.MODE_PRIVATE)
                     .edit()
                     .putBoolean(KEY_AUTO_START_ON_BOOT, enabled)
+                    .apply()
+            }
+        }
+
+        private const val KEY_AUTO_START_ON_SCREEN_ON = "auto-start-on-screen-on"
+
+        /**
+         * Reads auto-start-on-screen-on from device-protected storage (API 24+),
+         * falling back to regular prefs on older devices.
+         * Safe to call during locked boot when credential storage is unavailable.
+         */
+        fun isAutoStartOnScreenOnEnabled(context: Context): Boolean {
+            val prefs = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val deviceContext = context.createDeviceProtectedStorageContext()
+                deviceContext.getSharedPreferences(DEVICE_PREFS_NAME, Context.MODE_PRIVATE)
+            } else {
+                context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+            }
+            return prefs.getBoolean(KEY_AUTO_START_ON_SCREEN_ON, false)
+        }
+
+        fun syncAutoStartOnScreenOnToDeviceStorage(context: Context, enabled: Boolean) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val deviceContext = context.createDeviceProtectedStorageContext()
+                deviceContext.getSharedPreferences(DEVICE_PREFS_NAME, Context.MODE_PRIVATE)
+                    .edit()
+                    .putBoolean(KEY_AUTO_START_ON_SCREEN_ON, enabled)
                     .apply()
             }
         }

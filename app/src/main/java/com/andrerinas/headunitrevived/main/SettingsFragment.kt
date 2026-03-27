@@ -489,12 +489,14 @@ class SettingsFragment : Fragment() {
             onCheckedChanged = { isChecked ->
                 if (isChecked) {
                     val conflicts = getKillOnDisconnectConflicts()
-                    if (conflicts.isNotEmpty()) {
+                    val hasAutoStartOnBoot = settings.autoStartOnBoot
+                    val hasAutoStartOnScreenOn = settings.autoStartOnScreenOn
+                    if (conflicts.isNotEmpty() || hasAutoStartOnBoot || hasAutoStartOnScreenOn) {
                         // Sync data model to true so DiffUtil can detect the
                         // change back to false when the dialog is canceled
                         pendingKillOnDisconnect = true
                         updateSettingsList()
-                        showKillOnDisconnectWarning(conflicts)
+                        showKillOnDisconnectWarning(conflicts, hasAutoStartOnBoot, hasAutoStartOnScreenOn)
                     } else {
                         pendingKillOnDisconnect = true
                         checkChanges()
@@ -512,10 +514,13 @@ class SettingsFragment : Fragment() {
         items.add(SettingItem.CategoryHeader("darkMode", R.string.category_dark_mode))
 
         val appThemeTitles = resources.getStringArray(R.array.app_theme)
+        val nightModeTitles = resources.getStringArray(R.array.night_mode)
+        val darkModeValue = "${getString(R.string.app_theme_short)}: ${appThemeTitles[settings.appTheme.value]} · " +
+                "${getString(R.string.night_mode_short)}: ${nightModeTitles[settings.nightMode.value]}"
         items.add(SettingItem.SettingEntry(
             stableId = "darkModeSettings",
             nameResId = R.string.dark_mode_settings,
-            value = appThemeTitles[settings.appTheme.value],
+            value = darkModeValue,
             onClick = {
                 try {
                     findNavController().navigate(R.id.action_settingsFragment_to_darkModeFragment)
@@ -1185,22 +1190,43 @@ class SettingsFragment : Fragment() {
         return conflicts
     }
 
-    private fun showKillOnDisconnectWarning(conflicts: List<String>) {
-        val conflictList = conflicts.joinToString("\n") { "• $it" }
-        val message = getString(R.string.kill_on_disconnect_warning, conflictList)
+    private fun showKillOnDisconnectWarning(conflicts: List<String>, hasAutoStartOnBoot: Boolean, hasAutoStartOnScreenOn: Boolean = false) {
+        val message = buildString {
+            if (conflicts.isNotEmpty()) {
+                val conflictList = conflicts.joinToString("\n") { "• $it" }
+                append(getString(R.string.kill_on_disconnect_warning, conflictList))
+            }
+            if (hasAutoStartOnBoot) {
+                if (conflicts.isNotEmpty()) append("\n\n")
+                append(getString(R.string.kill_on_disconnect_boot_warning))
+            }
+            if (hasAutoStartOnScreenOn) {
+                if (conflicts.isNotEmpty() || hasAutoStartOnBoot) append("\n\n")
+                append(getString(R.string.kill_on_disconnect_screen_on_warning))
+            }
+        }
 
         var confirmed = false
+
+        val hasDisableableConflicts = conflicts.isNotEmpty()
+        val positiveTextRes = if (hasDisableableConflicts) {
+            R.string.kill_on_disconnect_disable_and_enable
+        } else {
+            R.string.kill_on_disconnect_enable_anyway
+        }
 
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.kill_on_disconnect_warning_title)
             .setMessage(message)
-            .setPositiveButton(R.string.kill_on_disconnect_disable_and_enable) { _, _ ->
+            .setPositiveButton(positiveTextRes) { _, _ ->
                 confirmed = true
-                disableKillOnDisconnectConflicts()
+                if (hasDisableableConflicts) {
+                    disableKillOnDisconnectConflicts()
+                    Toast.makeText(context, getString(R.string.kill_on_disconnect_conflicts_disabled), Toast.LENGTH_LONG).show()
+                }
                 pendingKillOnDisconnect = true
                 checkChanges()
                 updateSettingsList()
-                Toast.makeText(context, getString(R.string.kill_on_disconnect_conflicts_disabled), Toast.LENGTH_LONG).show()
             }
             .setNegativeButton(android.R.string.cancel, null)
             .create()
@@ -1211,7 +1237,7 @@ class SettingsFragment : Fragment() {
         val positiveButton = dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE)
         positiveButton.isEnabled = false
         positiveButton.alpha = 0.4f
-        val baseText = getString(R.string.kill_on_disconnect_disable_and_enable)
+        val baseText = getString(positiveTextRes)
         val handler = android.os.Handler(android.os.Looper.getMainLooper())
         var remaining = 4
 
