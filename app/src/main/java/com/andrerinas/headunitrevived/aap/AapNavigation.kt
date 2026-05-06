@@ -117,8 +117,10 @@ class AapNavigation(
         val firstStep = state.stepsList.firstOrNull() ?: return
         val maneuver = firstStep.maneuver
         
-        val distanceMeters = pos?.stepDistance?.distanceM?.toInt()
-        val timeSeconds = pos?.destinationDistancesList?.firstOrNull()?.timeToArrivalS
+        val distanceMeters = if (pos?.hasStepDistance() == true) pos.stepDistance.distanceM.toInt() else null
+        val timeSeconds = pos?.destinationDistancesList?.firstOrNull()?.let {
+            if (it.hasTimeToArrivalS()) it.timeToArrivalS else null
+        }
         
         val road = firstStep.road?.name ?: currentStreet
         val nextEvent = mapNavigationTypeToNextEvent(maneuver?.type ?: NavigationStatus.NavigationManeuver.NavigationType.UNKNOWN)
@@ -152,8 +154,8 @@ class AapNavigation(
         val road = (detail?.road?.takeIf { it.isNotBlank() } ?: currentStreet).ifBlank { "—" }
         val nextEventType = detail?.nextturn ?: NavigationStatus.NextTurnDetail.NextEvent.UNKNOWN
         val turnSide = detail?.side?.number
-        val turnNumber = detail?.takeIf { it.hasTrunnumer() }?.trunnumer?.toInt()
-        val turnAngle = detail?.takeIf { it.hasTurnangel() }?.turnangel?.toInt()
+        val turnNumber = detail?.takeIf { it.hasTurnnumber() }?.turnnumber?.toInt()
+        val turnAngle = detail?.takeIf { it.hasTurnangle() }?.turnangle?.toInt()
         
         sendNavigationBroadcast(
             distanceMeters = distanceMeters,
@@ -191,7 +193,7 @@ class AapNavigation(
 
     private fun mapNavigationTypeToNextEvent(type: NavigationStatus.NavigationManeuver.NavigationType): NavigationStatus.NextTurnDetail.NextEvent {
         return when (type) {
-            NavigationStatus.NavigationManeuver.NavigationType.DEPART -> NavigationStatus.NextTurnDetail.NextEvent.DEPARTE
+            NavigationStatus.NavigationManeuver.NavigationType.DEPART -> NavigationStatus.NextTurnDetail.NextEvent.DEPART
             NavigationStatus.NavigationManeuver.NavigationType.NAME_CHANGE -> NavigationStatus.NextTurnDetail.NextEvent.NAME_CHANGE
             NavigationStatus.NavigationManeuver.NavigationType.KEEP_LEFT,
             NavigationStatus.NavigationManeuver.NavigationType.KEEP_RIGHT,
@@ -210,13 +212,13 @@ class AapNavigation(
             NavigationStatus.NavigationManeuver.NavigationType.ON_RAMP_SHARP_LEFT,
             NavigationStatus.NavigationManeuver.NavigationType.ON_RAMP_SHARP_RIGHT,
             NavigationStatus.NavigationManeuver.NavigationType.ON_RAMP_U_TURN_LEFT,
-            NavigationStatus.NavigationManeuver.NavigationType.ON_RAMP_U_TURN_RIGHT -> NavigationStatus.NextTurnDetail.NextEvent.ONRAMPE
+            NavigationStatus.NavigationManeuver.NavigationType.ON_RAMP_U_TURN_RIGHT -> NavigationStatus.NextTurnDetail.NextEvent.ONRAMP
             NavigationStatus.NavigationManeuver.NavigationType.OFF_RAMP_SLIGHT_LEFT,
             NavigationStatus.NavigationManeuver.NavigationType.OFF_RAMP_SLIGHT_RIGHT,
             NavigationStatus.NavigationManeuver.NavigationType.OFF_RAMP_NORMAL_LEFT,
             NavigationStatus.NavigationManeuver.NavigationType.OFF_RAMP_NORMAL_RIGHT -> NavigationStatus.NextTurnDetail.NextEvent.OFFRAMP
             NavigationStatus.NavigationManeuver.NavigationType.FORK_LEFT,
-            NavigationStatus.NavigationManeuver.NavigationType.FORK_RIGHT -> NavigationStatus.NextTurnDetail.NextEvent.FORME
+            NavigationStatus.NavigationManeuver.NavigationType.FORK_RIGHT -> NavigationStatus.NextTurnDetail.NextEvent.FORM
             NavigationStatus.NavigationManeuver.NavigationType.MERGE_LEFT,
             NavigationStatus.NavigationManeuver.NavigationType.MERGE_RIGHT,
             NavigationStatus.NavigationManeuver.NavigationType.MERGE_SIDE_UNSPECIFIED -> NavigationStatus.NextTurnDetail.NextEvent.MERGE
@@ -226,9 +228,9 @@ class AapNavigation(
             NavigationStatus.NavigationManeuver.NavigationType.ROUNDABOUT_ENTER_AND_EXIT_CW_WITH_ANGLE,
             NavigationStatus.NavigationManeuver.NavigationType.ROUNDABOUT_ENTER_AND_EXIT_CCW,
             NavigationStatus.NavigationManeuver.NavigationType.ROUNDABOUT_ENTER_AND_EXIT_CCW_WITH_ANGLE -> NavigationStatus.NextTurnDetail.NextEvent.ROUNDABOUT_ENTER_AND_EXIT
-            NavigationStatus.NavigationManeuver.NavigationType.STRAIGHT -> NavigationStatus.NextTurnDetail.NextEvent.STRAIGHTE
+            NavigationStatus.NavigationManeuver.NavigationType.STRAIGHT -> NavigationStatus.NextTurnDetail.NextEvent.STRAIGHT
             NavigationStatus.NavigationManeuver.NavigationType.FERRY_BOAT -> NavigationStatus.NextTurnDetail.NextEvent.FERRY_BOAT
-            NavigationStatus.NavigationManeuver.NavigationType.FERRY_TRAIN -> NavigationStatus.NextTurnDetail.NextEvent.FERRY_TRAINE
+            NavigationStatus.NavigationManeuver.NavigationType.FERRY_TRAIN -> NavigationStatus.NextTurnDetail.NextEvent.FERRY_TRAIN
             NavigationStatus.NavigationManeuver.NavigationType.DESTINATION,
             NavigationStatus.NavigationManeuver.NavigationType.DESTINATION_STRAIGHT,
             NavigationStatus.NavigationManeuver.NavigationType.DESTINATION_LEFT,
@@ -308,22 +310,22 @@ class AapNavigation(
     private fun nextEventToAction(nextEvent: NavigationStatus.NextTurnDetail.NextEvent): String {
         return when (nextEvent) {
             NavigationStatus.NextTurnDetail.NextEvent.UNKNOWN -> context.getString(R.string.nav_action_unknown)
-            NavigationStatus.NextTurnDetail.NextEvent.DEPARTE -> context.getString(R.string.nav_action_depart)
+            NavigationStatus.NextTurnDetail.NextEvent.DEPART -> context.getString(R.string.nav_action_depart)
             NavigationStatus.NextTurnDetail.NextEvent.NAME_CHANGE -> context.getString(R.string.nav_action_name_change)
             NavigationStatus.NextTurnDetail.NextEvent.SLIGHT_TURN -> context.getString(R.string.nav_action_slight_turn)
             NavigationStatus.NextTurnDetail.NextEvent.TURN -> context.getString(R.string.nav_action_turn)
             NavigationStatus.NextTurnDetail.NextEvent.SHARP_TURN -> context.getString(R.string.nav_action_sharp_turn)
             NavigationStatus.NextTurnDetail.NextEvent.UTURN -> context.getString(R.string.nav_action_uturn)
-            NavigationStatus.NextTurnDetail.NextEvent.ONRAMPE -> context.getString(R.string.nav_action_on_ramp)
+            NavigationStatus.NextTurnDetail.NextEvent.ONRAMP -> context.getString(R.string.nav_action_on_ramp)
             NavigationStatus.NextTurnDetail.NextEvent.OFFRAMP -> context.getString(R.string.nav_action_off_ramp)
-            NavigationStatus.NextTurnDetail.NextEvent.FORME -> context.getString(R.string.nav_action_merge)
+            NavigationStatus.NextTurnDetail.NextEvent.FORM -> context.getString(R.string.nav_action_merge)
             NavigationStatus.NextTurnDetail.NextEvent.MERGE -> context.getString(R.string.nav_action_merge)
             NavigationStatus.NextTurnDetail.NextEvent.ROUNDABOUT_ENTER -> context.getString(R.string.nav_action_roundabout_enter)
             NavigationStatus.NextTurnDetail.NextEvent.ROUNDABOUT_EXIT -> context.getString(R.string.nav_action_roundabout_exit)
             NavigationStatus.NextTurnDetail.NextEvent.ROUNDABOUT_ENTER_AND_EXIT -> context.getString(R.string.nav_action_roundabout)
-            NavigationStatus.NextTurnDetail.NextEvent.STRAIGHTE -> context.getString(R.string.nav_action_straight)
+            NavigationStatus.NextTurnDetail.NextEvent.STRAIGHT -> context.getString(R.string.nav_action_straight)
             NavigationStatus.NextTurnDetail.NextEvent.FERRY_BOAT -> context.getString(R.string.nav_action_ferry)
-            NavigationStatus.NextTurnDetail.NextEvent.FERRY_TRAINE -> context.getString(R.string.nav_action_ferry_train)
+            NavigationStatus.NextTurnDetail.NextEvent.FERRY_TRAIN -> context.getString(R.string.nav_action_ferry_train)
             NavigationStatus.NextTurnDetail.NextEvent.DESTINATION -> context.getString(R.string.nav_action_destination)
         }
     }

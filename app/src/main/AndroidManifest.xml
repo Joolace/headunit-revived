@@ -168,7 +168,7 @@
 
         <service
             android:name=".aap.AapService"
-            android:foregroundServiceType="connectedDevice|mediaPlayback"
+            android:foregroundServiceType="connectedDevice|mediaPlayback|location|microphone"
             android:stopWithTask="false"
             android:exported="false">
             <!-- MediaButtonReceiver looks for a Service with this intent-filter -->

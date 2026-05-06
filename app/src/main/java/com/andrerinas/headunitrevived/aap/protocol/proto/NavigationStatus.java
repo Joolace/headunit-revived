@@ -184,26 +184,26 @@ public final class NavigationStatus {
     com.google.protobuf.ByteString getTurngraph();
 
     /**
-     * <code>optional uint32 trunnumer = 5;</code>
-     * @return Whether the trunnumer field is set.
+     * <code>optional uint32 turnnumber = 5;</code>
+     * @return Whether the turnnumber field is set.
      */
-    boolean hasTrunnumer();
+    boolean hasTurnnumber();
     /**
-     * <code>optional uint32 trunnumer = 5;</code>
-     * @return The trunnumer.
+     * <code>optional uint32 turnnumber = 5;</code>
+     * @return The turnnumber.
      */
-    int getTrunnumer();
+    int getTurnnumber();
 
     /**
-     * <code>optional uint32 turnangel = 6;</code>
-     * @return Whether the turnangel field is set.
+     * <code>optional uint32 turnangle = 6;</code>
+     * @return Whether the turnangle field is set.
      */
-    boolean hasTurnangel();
+    boolean hasTurnangle();
     /**
-     * <code>optional uint32 turnangel = 6;</code>
-     * @return The turnangel.
+     * <code>optional uint32 turnangle = 6;</code>
+     * @return The turnangle.
      */
-    int getTurnangel();
+    int getTurnangle();
   }
   /**
    * Protobuf type {@code com.andrerinas.headunitrevived.aap.protocol.proto.NextTurnDetail}
@@ -359,9 +359,9 @@ public final class NavigationStatus {
        */
       UNKNOWN(0),
       /**
-       * <code>DEPARTE = 1;</code>
+       * <code>DEPART = 1;</code>
        */
-      DEPARTE(1),
+      DEPART(1),
       /**
        * <code>NAME_CHANGE = 2;</code>
        */
@@ -383,17 +383,17 @@ public final class NavigationStatus {
        */
       UTURN(6),
       /**
-       * <code>ONRAMPE = 7;</code>
+       * <code>ONRAMP = 7;</code>
        */
-      ONRAMPE(7),
+      ONRAMP(7),
       /**
        * <code>OFFRAMP = 8;</code>
        */
       OFFRAMP(8),
       /**
-       * <code>FORME = 9;</code>
+       * <code>FORM = 9;</code>
        */
-      FORME(9),
+      FORM(9),
       /**
        * <code>MERGE = 10;</code>
        */
@@ -411,17 +411,17 @@ public final class NavigationStatus {
        */
       ROUNDABOUT_ENTER_AND_EXIT(13),
       /**
-       * <code>STRAIGHTE = 14;</code>
+       * <code>STRAIGHT = 14;</code>
        */
-      STRAIGHTE(14),
+      STRAIGHT(14),
       /**
        * <code>FERRY_BOAT = 16;</code>
        */
       FERRY_BOAT(16),
       /**
-       * <code>FERRY_TRAINE = 17;</code>
+       * <code>FERRY_TRAIN = 17;</code>
        */
-      FERRY_TRAINE(17),
+      FERRY_TRAIN(17),
       /**
        * <code>DESTINATION = 18;</code>
        */
@@ -433,9 +433,9 @@ public final class NavigationStatus {
        */
       public static final int UNKNOWN_VALUE = 0;
       /**
-       * <code>DEPARTE = 1;</code>
+       * <code>DEPART = 1;</code>
        */
-      public static final int DEPARTE_VALUE = 1;
+      public static final int DEPART_VALUE = 1;
       /**
        * <code>NAME_CHANGE = 2;</code>
        */
@@ -457,17 +457,17 @@ public final class NavigationStatus {
        */
       public static final int UTURN_VALUE = 6;
       /**
-       * <code>ONRAMPE = 7;</code>
+       * <code>ONRAMP = 7;</code>
        */
-      public static final int ONRAMPE_VALUE = 7;
+      public static final int ONRAMP_VALUE = 7;
       /**
        * <code>OFFRAMP = 8;</code>
        */
       public static final int OFFRAMP_VALUE = 8;
       /**
-       * <code>FORME = 9;</code>
+       * <code>FORM = 9;</code>
        */
-      public static final int FORME_VALUE = 9;
+      public static final int FORM_VALUE = 9;
       /**
        * <code>MERGE = 10;</code>
        */
@@ -485,17 +485,17 @@ public final class NavigationStatus {
        */
       public static final int ROUNDABOUT_ENTER_AND_EXIT_VALUE = 13;
       /**
-       * <code>STRAIGHTE = 14;</code>
+       * <code>STRAIGHT = 14;</code>
        */
-      public static final int STRAIGHTE_VALUE = 14;
+      public static final int STRAIGHT_VALUE = 14;
       /**
        * <code>FERRY_BOAT = 16;</code>
        */
       public static final int FERRY_BOAT_VALUE = 16;
       /**
-       * <code>FERRY_TRAINE = 17;</code>
+       * <code>FERRY_TRAIN = 17;</code>
        */
-      public static final int FERRY_TRAINE_VALUE = 17;
+      public static final int FERRY_TRAIN_VALUE = 17;
       /**
        * <code>DESTINATION = 18;</code>
        */
@@ -523,22 +523,22 @@ public final class NavigationStatus {
       public static NextEvent forNumber(int value) {
         switch (value) {
           case 0: return UNKNOWN;
-          case 1: return DEPARTE;
+          case 1: return DEPART;
           case 2: return NAME_CHANGE;
           case 3: return SLIGHT_TURN;
           case 4: return TURN;
           case 5: return SHARP_TURN;
           case 6: return UTURN;
-          case 7: return ONRAMPE;
+          case 7: return ONRAMP;
           case 8: return OFFRAMP;
-          case 9: return FORME;
+          case 9: return FORM;
           case 10: return MERGE;
           case 11: return ROUNDABOUT_ENTER;
           case 12: return ROUNDABOUT_EXIT;
           case 13: return ROUNDABOUT_ENTER_AND_EXIT;
-          case 14: return STRAIGHTE;
+          case 14: return STRAIGHT;
           case 16: return FERRY_BOAT;
-          case 17: return FERRY_TRAINE;
+          case 17: return FERRY_TRAIN;
           case 18: return DESTINATION;
           default: return null;
         }
@@ -694,42 +694,42 @@ public final class NavigationStatus {
       return turngraph_;
     }
 
-    public static final int TRUNNUMER_FIELD_NUMBER = 5;
-    private int trunnumer_ = 0;
+    public static final int TURNNUMBER_FIELD_NUMBER = 5;
+    private int turnnumber_ = 0;
     /**
-     * <code>optional uint32 trunnumer = 5;</code>
-     * @return Whether the trunnumer field is set.
+     * <code>optional uint32 turnnumber = 5;</code>
+     * @return Whether the turnnumber field is set.
      */
     @java.lang.Override
-    public boolean hasTrunnumer() {
+    public boolean hasTurnnumber() {
       return ((bitField0_ & 0x00000010) != 0);
     }
     /**
-     * <code>optional uint32 trunnumer = 5;</code>
-     * @return The trunnumer.
+     * <code>optional uint32 turnnumber = 5;</code>
+     * @return The turnnumber.
      */
     @java.lang.Override
-    public int getTrunnumer() {
-      return trunnumer_;
+    public int getTurnnumber() {
+      return turnnumber_;
     }
 
-    public static final int TURNANGEL_FIELD_NUMBER = 6;
-    private int turnangel_ = 0;
+    public static final int TURNANGLE_FIELD_NUMBER = 6;
+    private int turnangle_ = 0;
     /**
-     * <code>optional uint32 turnangel = 6;</code>
-     * @return Whether the turnangel field is set.
+     * <code>optional uint32 turnangle = 6;</code>
+     * @return Whether the turnangle field is set.
      */
     @java.lang.Override
-    public boolean hasTurnangel() {
+    public boolean hasTurnangle() {
       return ((bitField0_ & 0x00000020) != 0);
     }
     /**
-     * <code>optional uint32 turnangel = 6;</code>
-     * @return The turnangel.
+     * <code>optional uint32 turnangle = 6;</code>
+     * @return The turnangle.
      */
     @java.lang.Override
-    public int getTurnangel() {
-      return turnangel_;
+    public int getTurnangle() {
+      return turnangle_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -771,10 +771,10 @@ public final class NavigationStatus {
         output.writeBytes(4, turngraph_);
       }
       if (((bitField0_ & 0x00000010) != 0)) {
-        output.writeUInt32(5, trunnumer_);
+        output.writeUInt32(5, turnnumber_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
-        output.writeUInt32(6, turnangel_);
+        output.writeUInt32(6, turnangle_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -802,11 +802,11 @@ public final class NavigationStatus {
       }
       if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(5, trunnumer_);
+          .computeUInt32Size(5, turnnumber_);
       }
       if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(6, turnangel_);
+          .computeUInt32Size(6, turnangle_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -841,15 +841,15 @@ public final class NavigationStatus {
         if (!getTurngraph()
             .equals(other.getTurngraph())) return false;
       }
-      if (hasTrunnumer() != other.hasTrunnumer()) return false;
-      if (hasTrunnumer()) {
-        if (getTrunnumer()
-            != other.getTrunnumer()) return false;
+      if (hasTurnnumber() != other.hasTurnnumber()) return false;
+      if (hasTurnnumber()) {
+        if (getTurnnumber()
+            != other.getTurnnumber()) return false;
       }
-      if (hasTurnangel() != other.hasTurnangel()) return false;
-      if (hasTurnangel()) {
-        if (getTurnangel()
-            != other.getTurnangel()) return false;
+      if (hasTurnangle() != other.hasTurnangle()) return false;
+      if (hasTurnangle()) {
+        if (getTurnangle()
+            != other.getTurnangle()) return false;
       }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
@@ -878,13 +878,13 @@ public final class NavigationStatus {
         hash = (37 * hash) + TURNGRAPH_FIELD_NUMBER;
         hash = (53 * hash) + getTurngraph().hashCode();
       }
-      if (hasTrunnumer()) {
-        hash = (37 * hash) + TRUNNUMER_FIELD_NUMBER;
-        hash = (53 * hash) + getTrunnumer();
+      if (hasTurnnumber()) {
+        hash = (37 * hash) + TURNNUMBER_FIELD_NUMBER;
+        hash = (53 * hash) + getTurnnumber();
       }
-      if (hasTurnangel()) {
-        hash = (37 * hash) + TURNANGEL_FIELD_NUMBER;
-        hash = (53 * hash) + getTurnangel();
+      if (hasTurnangle()) {
+        hash = (37 * hash) + TURNANGLE_FIELD_NUMBER;
+        hash = (53 * hash) + getTurnangle();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -1021,8 +1021,8 @@ public final class NavigationStatus {
         side_ = 1;
         nextturn_ = 0;
         turngraph_ = com.google.protobuf.ByteString.EMPTY;
-        trunnumer_ = 0;
-        turnangel_ = 0;
+        turnnumber_ = 0;
+        turnangle_ = 0;
         return this;
       }
 
@@ -1074,11 +1074,11 @@ public final class NavigationStatus {
           to_bitField0_ |= 0x00000008;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.trunnumer_ = trunnumer_;
+          result.turnnumber_ = turnnumber_;
           to_bitField0_ |= 0x00000010;
         }
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.turnangel_ = turnangel_;
+          result.turnangle_ = turnangle_;
           to_bitField0_ |= 0x00000020;
         }
         result.bitField0_ |= to_bitField0_;
@@ -1142,11 +1142,11 @@ public final class NavigationStatus {
         if (other.hasTurngraph()) {
           setTurngraph(other.getTurngraph());
         }
-        if (other.hasTrunnumer()) {
-          setTrunnumer(other.getTrunnumer());
+        if (other.hasTurnnumber()) {
+          setTurnnumber(other.getTurnnumber());
         }
-        if (other.hasTurnangel()) {
-          setTurnangel(other.getTurnangel());
+        if (other.hasTurnangle()) {
+          setTurnangle(other.getTurnangle());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -1218,12 +1218,12 @@ public final class NavigationStatus {
                 break;
               } // case 34
               case 40: {
-                trunnumer_ = input.readUInt32();
+                turnnumber_ = input.readUInt32();
                 bitField0_ |= 0x00000010;
                 break;
               } // case 40
               case 48: {
-                turnangel_ = input.readUInt32();
+                turnangle_ = input.readUInt32();
                 bitField0_ |= 0x00000020;
                 break;
               } // case 48
@@ -1448,82 +1448,82 @@ public final class NavigationStatus {
         return this;
       }
 
-      private int trunnumer_ ;
+      private int turnnumber_ ;
       /**
-       * <code>optional uint32 trunnumer = 5;</code>
-       * @return Whether the trunnumer field is set.
+       * <code>optional uint32 turnnumber = 5;</code>
+       * @return Whether the turnnumber field is set.
        */
       @java.lang.Override
-      public boolean hasTrunnumer() {
+      public boolean hasTurnnumber() {
         return ((bitField0_ & 0x00000010) != 0);
       }
       /**
-       * <code>optional uint32 trunnumer = 5;</code>
-       * @return The trunnumer.
+       * <code>optional uint32 turnnumber = 5;</code>
+       * @return The turnnumber.
        */
       @java.lang.Override
-      public int getTrunnumer() {
-        return trunnumer_;
+      public int getTurnnumber() {
+        return turnnumber_;
       }
       /**
-       * <code>optional uint32 trunnumer = 5;</code>
-       * @param value The trunnumer to set.
+       * <code>optional uint32 turnnumber = 5;</code>
+       * @param value The turnnumber to set.
        * @return This builder for chaining.
        */
-      public Builder setTrunnumer(int value) {
+      public Builder setTurnnumber(int value) {
 
-        trunnumer_ = value;
+        turnnumber_ = value;
         bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint32 trunnumer = 5;</code>
+       * <code>optional uint32 turnnumber = 5;</code>
        * @return This builder for chaining.
        */
-      public Builder clearTrunnumer() {
+      public Builder clearTurnnumber() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        trunnumer_ = 0;
+        turnnumber_ = 0;
         onChanged();
         return this;
       }
 
-      private int turnangel_ ;
+      private int turnangle_ ;
       /**
-       * <code>optional uint32 turnangel = 6;</code>
-       * @return Whether the turnangel field is set.
+       * <code>optional uint32 turnangle = 6;</code>
+       * @return Whether the turnangle field is set.
        */
       @java.lang.Override
-      public boolean hasTurnangel() {
+      public boolean hasTurnangle() {
         return ((bitField0_ & 0x00000020) != 0);
       }
       /**
-       * <code>optional uint32 turnangel = 6;</code>
-       * @return The turnangel.
+       * <code>optional uint32 turnangle = 6;</code>
+       * @return The turnangle.
        */
       @java.lang.Override
-      public int getTurnangel() {
-        return turnangel_;
+      public int getTurnangle() {
+        return turnangle_;
       }
       /**
-       * <code>optional uint32 turnangel = 6;</code>
-       * @param value The turnangel to set.
+       * <code>optional uint32 turnangle = 6;</code>
+       * @param value The turnangle to set.
        * @return This builder for chaining.
        */
-      public Builder setTurnangel(int value) {
+      public Builder setTurnangle(int value) {
 
-        turnangel_ = value;
+        turnangle_ = value;
         bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint32 turnangel = 6;</code>
+       * <code>optional uint32 turnangle = 6;</code>
        * @return This builder for chaining.
        */
-      public Builder clearTurnangel() {
+      public Builder clearTurnangle() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        turnangel_ = 0;
+        turnangle_ = 0;
         onChanged();
         return this;
       }
@@ -12181,97 +12181,97 @@ public final class NavigationStatus {
   static {
     java.lang.String[] descriptorData = {
       "\n\020navigation.proto\0221com.andrerinas.headu" +
-      "nitrevived.aap.protocol.proto\"\345\004\n\016NextTu" +
+      "nitrevived.aap.protocol.proto\"\341\004\n\016NextTu" +
       "rnDetail\022\014\n\004road\030\001 \002(\t\022T\n\004side\030\002 \002(\0162F.c" +
       "om.andrerinas.headunitrevived.aap.protoc" +
       "ol.proto.NextTurnDetail.Side\022]\n\010nextturn" +
       "\030\003 \002(\0162K.com.andrerinas.headunitrevived." +
       "aap.protocol.proto.NextTurnDetail.NextEv" +
-      "ent\022\021\n\tturngraph\030\004 \001(\014\022\021\n\ttrunnumer\030\005 \001(" +
-      "\r\022\021\n\tturnangel\030\006 \001(\r\",\n\004Side\022\010\n\004LEFT\020\001\022\t" +
-      "\n\005RIGHT\020\002\022\017\n\013UNSPECIFIED\020\003\"\250\002\n\tNextEvent" +
-      "\022\013\n\007UNKNOWN\020\000\022\013\n\007DEPARTE\020\001\022\017\n\013NAME_CHANG" +
+      "ent\022\021\n\tturngraph\030\004 \001(\014\022\022\n\nturnnumber\030\005 \001" +
+      "(\r\022\021\n\tturnangle\030\006 \001(\r\",\n\004Side\022\010\n\004LEFT\020\001\022" +
+      "\t\n\005RIGHT\020\002\022\017\n\013UNSPECIFIED\020\003\"\243\002\n\tNextEven" +
+      "t\022\013\n\007UNKNOWN\020\000\022\n\n\006DEPART\020\001\022\017\n\013NAME_CHANG" +
       "E\020\002\022\017\n\013SLIGHT_TURN\020\003\022\010\n\004TURN\020\004\022\016\n\nSHARP_" +
-      "TURN\020\005\022\t\n\005UTURN\020\006\022\013\n\007ONRAMPE\020\007\022\013\n\007OFFRAM" +
-      "P\020\010\022\t\n\005FORME\020\t\022\t\n\005MERGE\020\n\022\024\n\020ROUNDABOUT_" +
-      "ENTER\020\013\022\023\n\017ROUNDABOUT_EXIT\020\014\022\035\n\031ROUNDABO" +
-      "UT_ENTER_AND_EXIT\020\r\022\r\n\tSTRAIGHTE\020\016\022\016\n\nFE" +
-      "RRY_BOAT\020\020\022\020\n\014FERRY_TRAINE\020\021\022\017\n\013DESTINAT" +
-      "ION\020\022\"7\n\025NextTurnDistanceEvent\022\020\n\010distan" +
-      "ce\030\001 \001(\r\022\014\n\004time\030\002 \001(\r\"\036\n\016NavigationRoad" +
-      "\022\014\n\004name\030\001 \001(\t\"\'\n\rNavigationCue\022\026\n\016alter" +
-      "nate_text\030\001 \003(\t\"\255\002\n\rLaneDirection\022U\n\005sha" +
-      "pe\030\001 \001(\0162F.com.andrerinas.headunitrevive" +
-      "d.aap.protocol.proto.LaneDirection.Shape" +
-      "\022\026\n\016is_highlighted\030\002 \001(\010\"\254\001\n\005Shape\022\013\n\007UN" +
-      "KNOWN\020\000\022\014\n\010STRAIGHT\020\001\022\017\n\013SLIGHT_LEFT\020\002\022\020" +
-      "\n\014SLIGHT_RIGHT\020\003\022\017\n\013NORMAL_LEFT\020\004\022\020\n\014NOR" +
-      "MAL_RIGHT\020\005\022\016\n\nSHARP_LEFT\020\006\022\017\n\013SHARP_RIG" +
-      "HT\020\007\022\017\n\013U_TURN_LEFT\020\010\022\020\n\014U_TURN_RIGHT\020\t\"" +
-      "k\n\016NavigationLane\022Y\n\017lane_directions\030\001 \003" +
-      "(\0132@.com.andrerinas.headunitrevived.aap." +
-      "protocol.proto.LaneDirection\"\235\t\n\022Navigat" +
-      "ionManeuver\022b\n\004type\030\001 \001(\0162T.com.andrerin" +
-      "as.headunitrevived.aap.protocol.proto.Na" +
-      "vigationManeuver.NavigationType\022\036\n\026round" +
-      "about_exit_number\030\002 \001(\005\022\035\n\025roundabout_ex" +
-      "it_angle\030\003 \001(\005\"\343\007\n\016NavigationType\022\013\n\007UNK" +
-      "NOWN\020\000\022\n\n\006DEPART\020\001\022\017\n\013NAME_CHANGE\020\002\022\r\n\tK" +
-      "EEP_LEFT\020\003\022\016\n\nKEEP_RIGHT\020\004\022\024\n\020TURN_SLIGH" +
-      "T_LEFT\020\005\022\025\n\021TURN_SLIGHT_RIGHT\020\006\022\024\n\020TURN_" +
-      "NORMAL_LEFT\020\007\022\025\n\021TURN_NORMAL_RIGHT\020\010\022\023\n\017" +
-      "TURN_SHARP_LEFT\020\t\022\024\n\020TURN_SHARP_RIGHT\020\n\022" +
-      "\017\n\013U_TURN_LEFT\020\013\022\020\n\014U_TURN_RIGHT\020\014\022\027\n\023ON" +
-      "_RAMP_SLIGHT_LEFT\020\r\022\030\n\024ON_RAMP_SLIGHT_RI" +
-      "GHT\020\016\022\027\n\023ON_RAMP_NORMAL_LEFT\020\017\022\030\n\024ON_RAM" +
-      "P_NORMAL_RIGHT\020\020\022\026\n\022ON_RAMP_SHARP_LEFT\020\021" +
-      "\022\027\n\023ON_RAMP_SHARP_RIGHT\020\022\022\027\n\023ON_RAMP_U_T" +
-      "URN_LEFT\020\023\022\030\n\024ON_RAMP_U_TURN_RIGHT\020\024\022\030\n\024" +
-      "OFF_RAMP_SLIGHT_LEFT\020\025\022\031\n\025OFF_RAMP_SLIGH" +
-      "T_RIGHT\020\026\022\030\n\024OFF_RAMP_NORMAL_LEFT\020\027\022\031\n\025O" +
-      "FF_RAMP_NORMAL_RIGHT\020\030\022\r\n\tFORK_LEFT\020\031\022\016\n" +
-      "\nFORK_RIGHT\020\032\022\016\n\nMERGE_LEFT\020\033\022\017\n\013MERGE_R" +
-      "IGHT\020\034\022\032\n\026MERGE_SIDE_UNSPECIFIED\020\035\022\024\n\020RO" +
-      "UNDABOUT_ENTER\020\036\022\023\n\017ROUNDABOUT_EXIT\020\037\022 \n" +
-      "\034ROUNDABOUT_ENTER_AND_EXIT_CW\020 \022+\n\'ROUND" +
-      "ABOUT_ENTER_AND_EXIT_CW_WITH_ANGLE\020!\022!\n\035" +
-      "ROUNDABOUT_ENTER_AND_EXIT_CCW\020\"\022,\n(ROUND" +
-      "ABOUT_ENTER_AND_EXIT_CCW_WITH_ANGLE\020#\022\014\n" +
-      "\010STRAIGHT\020$\022\016\n\nFERRY_BOAT\020%\022\017\n\013FERRY_TRA" +
-      "IN\020&\022\017\n\013DESTINATION\020\'\022\030\n\024DESTINATION_STR" +
-      "AIGHT\020(\022\024\n\020DESTINATION_LEFT\020)\022\025\n\021DESTINA" +
-      "TION_RIGHT\020*\"\333\002\n\016NavigationStep\022W\n\010maneu" +
-      "ver\030\001 \001(\0132E.com.andrerinas.headunitreviv" +
-      "ed.aap.protocol.proto.NavigationManeuver" +
-      "\022O\n\004road\030\002 \001(\0132A.com.andrerinas.headunit" +
-      "revived.aap.protocol.proto.NavigationRoa" +
-      "d\022P\n\005lanes\030\003 \003(\0132A.com.andrerinas.headun" +
-      "itrevived.aap.protocol.proto.NavigationL" +
-      "ane\022M\n\003cue\030\004 \001(\0132@.com.andrerinas.headun" +
-      "itrevived.aap.protocol.proto.NavigationC" +
-      "ue\"(\n\025NavigationDestination\022\017\n\007address\030\001" +
-      " \001(\t\"\303\001\n\017NavigationState\022P\n\005steps\030\001 \003(\0132" +
-      "A.com.andrerinas.headunitrevived.aap.pro" +
-      "tocol.proto.NavigationStep\022^\n\014destinatio" +
-      "ns\030\002 \003(\0132H.com.andrerinas.headunitrevive" +
-      "d.aap.protocol.proto.NavigationDestinati" +
-      "on\"C\n\026NavigationStepDistance\022\022\n\ndistance" +
-      "_m\030\001 \001(\001\022\025\n\rdistance_text\030\002 \001(\t\"\200\001\n\035Navi" +
-      "gationDestinationDistance\022\022\n\ndistance_m\030" +
-      "\001 \001(\001\022\025\n\rdistance_text\030\002 \001(\t\022\031\n\021arrival_" +
-      "time_text\030\003 \001(\t\022\031\n\021time_to_arrival_s\030\004 \001" +
-      "(\005\"\307\002\n\031NavigationCurrentPosition\022`\n\rstep" +
-      "_distance\030\001 \001(\0132I.com.andrerinas.headuni" +
-      "trevived.aap.protocol.proto.NavigationSt" +
-      "epDistance\022o\n\025destination_distances\030\002 \003(" +
-      "\0132P.com.andrerinas.headunitrevived.aap.p" +
-      "rotocol.proto.NavigationDestinationDista" +
-      "nce\022W\n\014current_road\030\003 \001(\0132A.com.andrerin" +
-      "as.headunitrevived.aap.protocol.proto.Na" +
-      "vigationRoad*z\n\007MsgType\022\025\n\017NEXTTURNDETAI" +
-      "LS\020\204\200\002\022\035\n\027NEXTTURNDISTANCEANDTIME\020\205\200\002\022\026\n" +
-      "\020NAVIGATION_STATE\020\206\200\002\022!\n\033NAVIGATION_CURR" +
-      "ENT_POSITION\020\207\200\002B\022B\020NavigationStatus"
+      "TURN\020\005\022\t\n\005UTURN\020\006\022\n\n\006ONRAMP\020\007\022\013\n\007OFFRAMP" +
+      "\020\010\022\010\n\004FORM\020\t\022\t\n\005MERGE\020\n\022\024\n\020ROUNDABOUT_EN" +
+      "TER\020\013\022\023\n\017ROUNDABOUT_EXIT\020\014\022\035\n\031ROUNDABOUT" +
+      "_ENTER_AND_EXIT\020\r\022\014\n\010STRAIGHT\020\016\022\016\n\nFERRY" +
+      "_BOAT\020\020\022\017\n\013FERRY_TRAIN\020\021\022\017\n\013DESTINATION\020" +
+      "\022\"7\n\025NextTurnDistanceEvent\022\020\n\010distance\030\001" +
+      " \001(\r\022\014\n\004time\030\002 \001(\r\"\036\n\016NavigationRoad\022\014\n\004" +
+      "name\030\001 \001(\t\"\'\n\rNavigationCue\022\026\n\016alternate" +
+      "_text\030\001 \003(\t\"\255\002\n\rLaneDirection\022U\n\005shape\030\001" +
+      " \001(\0162F.com.andrerinas.headunitrevived.aa" +
+      "p.protocol.proto.LaneDirection.Shape\022\026\n\016" +
+      "is_highlighted\030\002 \001(\010\"\254\001\n\005Shape\022\013\n\007UNKNOW" +
+      "N\020\000\022\014\n\010STRAIGHT\020\001\022\017\n\013SLIGHT_LEFT\020\002\022\020\n\014SL" +
+      "IGHT_RIGHT\020\003\022\017\n\013NORMAL_LEFT\020\004\022\020\n\014NORMAL_" +
+      "RIGHT\020\005\022\016\n\nSHARP_LEFT\020\006\022\017\n\013SHARP_RIGHT\020\007" +
+      "\022\017\n\013U_TURN_LEFT\020\010\022\020\n\014U_TURN_RIGHT\020\t\"k\n\016N" +
+      "avigationLane\022Y\n\017lane_directions\030\001 \003(\0132@" +
+      ".com.andrerinas.headunitrevived.aap.prot" +
+      "ocol.proto.LaneDirection\"\235\t\n\022NavigationM" +
+      "aneuver\022b\n\004type\030\001 \001(\0162T.com.andrerinas.h" +
+      "eadunitrevived.aap.protocol.proto.Naviga" +
+      "tionManeuver.NavigationType\022\036\n\026roundabou" +
+      "t_exit_number\030\002 \001(\005\022\035\n\025roundabout_exit_a" +
+      "ngle\030\003 \001(\005\"\343\007\n\016NavigationType\022\013\n\007UNKNOWN" +
+      "\020\000\022\n\n\006DEPART\020\001\022\017\n\013NAME_CHANGE\020\002\022\r\n\tKEEP_" +
+      "LEFT\020\003\022\016\n\nKEEP_RIGHT\020\004\022\024\n\020TURN_SLIGHT_LE" +
+      "FT\020\005\022\025\n\021TURN_SLIGHT_RIGHT\020\006\022\024\n\020TURN_NORM" +
+      "AL_LEFT\020\007\022\025\n\021TURN_NORMAL_RIGHT\020\010\022\023\n\017TURN" +
+      "_SHARP_LEFT\020\t\022\024\n\020TURN_SHARP_RIGHT\020\n\022\017\n\013U" +
+      "_TURN_LEFT\020\013\022\020\n\014U_TURN_RIGHT\020\014\022\027\n\023ON_RAM" +
+      "P_SLIGHT_LEFT\020\r\022\030\n\024ON_RAMP_SLIGHT_RIGHT\020" +
+      "\016\022\027\n\023ON_RAMP_NORMAL_LEFT\020\017\022\030\n\024ON_RAMP_NO" +
+      "RMAL_RIGHT\020\020\022\026\n\022ON_RAMP_SHARP_LEFT\020\021\022\027\n\023" +
+      "ON_RAMP_SHARP_RIGHT\020\022\022\027\n\023ON_RAMP_U_TURN_" +
+      "LEFT\020\023\022\030\n\024ON_RAMP_U_TURN_RIGHT\020\024\022\030\n\024OFF_" +
+      "RAMP_SLIGHT_LEFT\020\025\022\031\n\025OFF_RAMP_SLIGHT_RI" +
+      "GHT\020\026\022\030\n\024OFF_RAMP_NORMAL_LEFT\020\027\022\031\n\025OFF_R" +
+      "AMP_NORMAL_RIGHT\020\030\022\r\n\tFORK_LEFT\020\031\022\016\n\nFOR" +
+      "K_RIGHT\020\032\022\016\n\nMERGE_LEFT\020\033\022\017\n\013MERGE_RIGHT" +
+      "\020\034\022\032\n\026MERGE_SIDE_UNSPECIFIED\020\035\022\024\n\020ROUNDA" +
+      "BOUT_ENTER\020\036\022\023\n\017ROUNDABOUT_EXIT\020\037\022 \n\034ROU" +
+      "NDABOUT_ENTER_AND_EXIT_CW\020 \022+\n\'ROUNDABOU" +
+      "T_ENTER_AND_EXIT_CW_WITH_ANGLE\020!\022!\n\035ROUN" +
+      "DABOUT_ENTER_AND_EXIT_CCW\020\"\022,\n(ROUNDABOU" +
+      "T_ENTER_AND_EXIT_CCW_WITH_ANGLE\020#\022\014\n\010STR" +
+      "AIGHT\020$\022\016\n\nFERRY_BOAT\020%\022\017\n\013FERRY_TRAIN\020&" +
+      "\022\017\n\013DESTINATION\020\'\022\030\n\024DESTINATION_STRAIGH" +
+      "T\020(\022\024\n\020DESTINATION_LEFT\020)\022\025\n\021DESTINATION" +
+      "_RIGHT\020*\"\333\002\n\016NavigationStep\022W\n\010maneuver\030" +
+      "\001 \001(\0132E.com.andrerinas.headunitrevived.a" +
+      "ap.protocol.proto.NavigationManeuver\022O\n\004" +
+      "road\030\002 \001(\0132A.com.andrerinas.headunitrevi" +
+      "ved.aap.protocol.proto.NavigationRoad\022P\n" +
+      "\005lanes\030\003 \003(\0132A.com.andrerinas.headunitre" +
+      "vived.aap.protocol.proto.NavigationLane\022" +
+      "M\n\003cue\030\004 \001(\0132@.com.andrerinas.headunitre" +
+      "vived.aap.protocol.proto.NavigationCue\"(" +
+      "\n\025NavigationDestination\022\017\n\007address\030\001 \001(\t" +
+      "\"\303\001\n\017NavigationState\022P\n\005steps\030\001 \003(\0132A.co" +
+      "m.andrerinas.headunitrevived.aap.protoco" +
+      "l.proto.NavigationStep\022^\n\014destinations\030\002" +
+      " \003(\0132H.com.andrerinas.headunitrevived.aa" +
+      "p.protocol.proto.NavigationDestination\"C" +
+      "\n\026NavigationStepDistance\022\022\n\ndistance_m\030\001" +
+      " \001(\001\022\025\n\rdistance_text\030\002 \001(\t\"\200\001\n\035Navigati" +
+      "onDestinationDistance\022\022\n\ndistance_m\030\001 \001(" +
+      "\001\022\025\n\rdistance_text\030\002 \001(\t\022\031\n\021arrival_time" +
+      "_text\030\003 \001(\t\022\031\n\021time_to_arrival_s\030\004 \001(\005\"\307" +
+      "\002\n\031NavigationCurrentPosition\022`\n\rstep_dis" +
+      "tance\030\001 \001(\0132I.com.andrerinas.headunitrev" +
+      "ived.aap.protocol.proto.NavigationStepDi" +
+      "stance\022o\n\025destination_distances\030\002 \003(\0132P." +
+      "com.andrerinas.headunitrevived.aap.proto" +
+      "col.proto.NavigationDestinationDistance\022" +
+      "W\n\014current_road\030\003 \001(\0132A.com.andrerinas.h" +
+      "eadunitrevived.aap.protocol.proto.Naviga" +
+      "tionRoad*z\n\007MsgType\022\025\n\017NEXTTURNDETAILS\020\204" +
+      "\200\002\022\035\n\027NEXTTURNDISTANCEANDTIME\020\205\200\002\022\026\n\020NAV" +
+      "IGATION_STATE\020\206\200\002\022!\n\033NAVIGATION_CURRENT_" +
+      "POSITION\020\207\200\002B\022B\020NavigationStatus"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -12282,7 +12282,7 @@ public final class NavigationStatus {
     internal_static_com_andrerinas_headunitrevived_aap_protocol_proto_NextTurnDetail_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_andrerinas_headunitrevived_aap_protocol_proto_NextTurnDetail_descriptor,
-        new java.lang.String[] { "Road", "Side", "Nextturn", "Turngraph", "Trunnumer", "Turnangel", });
+        new java.lang.String[] { "Road", "Side", "Nextturn", "Turngraph", "Turnnumber", "Turnangle", });
     internal_static_com_andrerinas_headunitrevived_aap_protocol_proto_NextTurnDistanceEvent_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_andrerinas_headunitrevived_aap_protocol_proto_NextTurnDistanceEvent_fieldAccessorTable = new

@@ -22,22 +22,22 @@ message NextTurnDetail
     enum NextEvent
     {
         UNKNOWN = 0x00;
-        DEPARTE = 0x01;
+        DEPART = 0x01;
         NAME_CHANGE = 0x02;
         SLIGHT_TURN = 0x03;
         TURN = 0x04;
         SHARP_TURN = 0x05;
         UTURN = 0x06;
-        ONRAMPE = 0x07;
+        ONRAMP = 0x07;
         OFFRAMP = 0x08;
-        FORME = 0x09;
+        FORM = 0x09;
         MERGE = 0x0a;
         ROUNDABOUT_ENTER = 0x0b;
         ROUNDABOUT_EXIT = 0x0c;
         ROUNDABOUT_ENTER_AND_EXIT = 0x0d;
-        STRAIGHTE = 0x0e;
+        STRAIGHT = 0x0e;
         FERRY_BOAT = 0x10;
-        FERRY_TRAINE = 0x11;
+        FERRY_TRAIN = 0x11;
         DESTINATION = 0x12;
     }
 
@@ -45,8 +45,8 @@ message NextTurnDetail
     required Side side = 2;
     required NextEvent nextturn = 3;
     optional bytes turngraph = 4;
-    optional uint32 trunnumer = 5;
-    optional uint32 turnangel = 6;
+    optional uint32 turnnumber = 5;
+    optional uint32 turnangle = 6;
 
 }
 
