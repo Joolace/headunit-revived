@@ -57,6 +57,14 @@ class MainActivity : BaseActivity() {
     private var autoConnectWatchdog: Job? = null
     private var autoConnectKenBurnsAnim: ObjectAnimator? = null
     private var hasAdvancedToActiveState = false
+    /**
+     * Optional override for the loading-screen status text (e.g. "Connecting to
+     * Pixel 8…" from the Nearby selector). When `null`, the default
+     * `R.string.android_auto_starting` is used. Stored on the activity so the
+     * value survives the show/recreate cycle as long as the static
+     * [autoConnectInProgress] flag is set.
+     */
+    private var autoConnectStatusText: String? = null
 
     private val finishReceiver = object : android.content.BroadcastReceiver() {
         override fun onReceive(context: android.content.Context, intent: Intent) {
@@ -178,6 +186,29 @@ class MainActivity : BaseActivity() {
     }
 
     /**
+     * Mark that an automatic connection attempt has started and surface the loading
+     * overlay over the home screen. Called from HomeFragment auto-connect paths and
+     * from MainActivity itself when launched via USB auto-attach.
+     *
+     * @param reason Diagnostic label written to the log.
+     * @param customStatusText Optional override for the loading-screen status text.
+     *        If provided and the user has the show-text option enabled, this string
+     *        is shown instead of the generic "Android Auto is starting…". Used by
+     *        the Nearby selector to surface the picked device name.
+     */
+    @JvmOverloads
+    fun beginAutoConnect(reason: String, customStatusText: String? = null) {
+        if (autoConnectInProgress) return
+        // If we are already past the connection phase, no overlay is needed.
+        if (App.provide(this).commManager.isConnected) return
+        AppLog.i("Auto-connect overlay: begin ($reason)")
+        autoConnectInProgress = true
+        hasAdvancedToActiveState = false
+        autoConnectStatusText = customStatusText
+        showAutoConnectOverlay()
+    }
+
+    /**
      * Subscribes to [CommManager.connectionState] to drive the auto-connect overlay.
      *
      * Show: when the overlay is requested via [beginAutoConnect] and the connection
@@ -234,28 +265,12 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    /**
-     * Mark that an automatic connection attempt has started and surface the loading
-     * overlay over the home screen. Called from HomeFragment auto-connect paths and
-     * from MainActivity itself when launched via USB auto-attach.
-     *
-     * @param reason Diagnostic label written to the log.
-     */
-    fun beginAutoConnect(reason: String) {
-        if (autoConnectInProgress) return
-        // If we are already past the connection phase, no overlay is needed.
-        if (App.provide(this).commManager.isConnected) return
-        AppLog.i("Auto-connect overlay: begin ($reason)")
-        autoConnectInProgress = true
-        hasAdvancedToActiveState = false
-        showAutoConnectOverlay()
-    }
-
     private fun endAutoConnect(success: Boolean) {
         autoConnectWatchdog?.cancel()
         autoConnectWatchdog = null
         autoConnectInProgress = false
         hasAdvancedToActiveState = false
+        autoConnectStatusText = null
         if (success) {
             // On success the projection activity will cover our overlay almost
             // immediately. Hiding without an animation avoids the fade competing
@@ -311,6 +326,14 @@ class MainActivity : BaseActivity() {
         val customImage = findViewById<ImageView>(R.id.auto_connect_loading_custom_image)
         val customVideo = findViewById<VideoView>(R.id.auto_connect_loading_custom_video)
         val overlay = findViewById<View>(R.id.auto_connect_loading_overlay)
+
+        // Apply the optional custom status text (e.g. "Connecting to Pixel 8…").
+        // Falls back to the default "Android Auto is starting…" when no override
+        // is set. Both the default and custom-media text overlays share the same
+        // string so the wording stays consistent regardless of media presence.
+        val statusText = autoConnectStatusText ?: getString(R.string.android_auto_starting)
+        findViewById<android.widget.TextView>(R.id.auto_connect_loading_default_text)?.text = statusText
+        findViewById<android.widget.TextView>(R.id.auto_connect_loading_custom_text)?.text = statusText
 
         if (mediaPath.isEmpty() || mediaType.isEmpty()) {
             // No custom media — show default text + spinner over the dark backdrop.

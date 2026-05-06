@@ -448,11 +448,8 @@ class HomeFragment : Fragment() {
             })
 
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_nearby_selection, null)
-        val listContainer = dialogView.findViewById<View>(R.id.listContainer)
         val deviceListView = dialogView.findViewById<ListView>(R.id.deviceList)
         val searchingText = dialogView.findViewById<TextView>(R.id.searchingText)
-        val connectingContainer = dialogView.findViewById<View>(R.id.connectingContainer)
-        val connectingText = dialogView.findViewById<TextView>(R.id.connectingText)
         val connectionProgress = dialogView.findViewById<ProgressBar>(R.id.connectionProgress)
 
         // Ensure the loading spinner is visible in both Light and Dark modes by forcing our brand color.
@@ -506,14 +503,17 @@ class HomeFragment : Fragment() {
             if (which < endpoints.size) {
                 val endpoint = endpoints[which]
                 AppLog.i("HomeFragment: Selected Nearby device: ${endpoint.name} (${endpoint.id})")
-                
-                // UI Switch: Hide list, show connecting spinner
-                listContainer.visibility = View.GONE
-                connectingContainer.visibility = View.VISIBLE
-                connectingText.text = getString(R.string.connecting_to_nearby, endpoint.name)
-                
-                // Allow the user to see the progress
-                dialog.setCancelable(false) 
+
+                // Hand off to the auto-connect overlay so the user gets the same
+                // visual treatment as every other connection path. Pass the
+                // endpoint name so the loading screen can show "Connecting to
+                // <device>…" instead of the generic status text.
+                val statusText = getString(R.string.connecting_to_nearby, endpoint.name)
+                dialog.dismiss()
+                (requireActivity() as? MainActivity)?.beginAutoConnect(
+                    "manual Nearby select ${endpoint.name}",
+                    statusText
+                )
 
                 val intent = Intent(requireContext(), AapService::class.java).apply {
                     action = AapService.ACTION_NEARBY_CONNECT
