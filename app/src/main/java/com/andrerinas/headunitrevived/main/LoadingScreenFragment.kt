@@ -53,6 +53,14 @@ class LoadingScreenFragment : Fragment() {
     private var previewMediaPlayer: MediaPlayer? = null
     private var fullscreenMediaPlayer: MediaPlayer? = null
 
+    // SurfaceView added to preview_area at runtime when the loaded media is a
+    // video. Tracked so we can remove it on media swap / fragment teardown.
+    private var previewSurfaceView: SurfaceView? = null
+
+    // Ken Burns scale animator for static-image previews. Mirrors the live
+    // loading screen so the user sees what AAP will actually render.
+    private var previewKenBurnsAnimator: ObjectAnimator? = null
+
     private val filePicker = registerForActivityResult(PickMediaContract()) { uri ->
         uri?.let { handleFileSelected(it) }
     }
@@ -241,22 +249,144 @@ class LoadingScreenFragment : Fragment() {
         val file = File(path)
         if (!file.exists()) return
 
-        // Apply aspect ratio setting BEFORE loading
+        // Tear down whatever the previous load left behind (SurfaceView,
+        // MediaPlayer, animator) so we don't stack media on top of each other.
+        clearPreviewMedia()
+
         val keepRatio = settings.loadingScreenKeepAspectRatio
         previewImage?.scaleType = if (keepRatio) ImageView.ScaleType.FIT_CENTER else ImageView.ScaleType.FIT_XY
 
-        previewImage?.visibility = View.VISIBLE
         try {
-            if (type == "gif") {
-                Glide.with(this).asGif().load(file).into(previewImage!!)
-            } else {
-                Glide.with(this).load(file).into(previewImage!!)
+            when (type) {
+                "video" -> {
+                    // Hide the ImageView and play the video on a dynamically
+                    // added SurfaceView, mirroring setupFullscreenVideo. Glide
+                    // would otherwise only show a static first-frame thumbnail.
+                    previewImage?.visibility = View.GONE
+                    setupPreviewVideo(file, keepRatio)
+                }
+                "gif" -> {
+                    previewImage?.visibility = View.VISIBLE
+                    previewImage?.let { Glide.with(this).asGif().load(file).into(it) }
+                }
+                else -> {
+                    previewImage?.visibility = View.VISIBLE
+                    previewImage?.let { Glide.with(this).load(file).into(it) }
+                    // Ken Burns matches the live loading screen for static
+                    // images, so the user actually sees the slow zoom they're
+                    // configuring rather than a frozen frame.
+                    if (keepRatio) {
+                        previewImage?.let { imageView ->
+                            previewKenBurnsAnimator?.cancel()
+                            val anim = ObjectAnimator.ofPropertyValuesHolder(
+                                imageView,
+                                PropertyValuesHolder.ofFloat("scaleX", 1.0f, 1.05f),
+                                PropertyValuesHolder.ofFloat("scaleY", 1.0f, 1.05f)
+                            ).apply {
+                                duration = 8000
+                                repeatMode = ObjectAnimator.REVERSE
+                                repeatCount = ObjectAnimator.INFINITE
+                                start()
+                            }
+                            previewKenBurnsAnimator = anim
+                        }
+                    }
+                }
             }
         } catch (e: Exception) {
             AppLog.e("Failed to load preview: ${e.message}")
             previewImage?.visibility = View.GONE
             previewPlaceholder?.visibility = View.VISIBLE
         }
+    }
+
+    private fun setupPreviewVideo(file: File, keepRatio: Boolean) {
+        val area = previewArea ?: return
+        try {
+            val surfaceView = SurfaceView(requireContext())
+            surfaceView.layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+            // Insert below the status-text overlay so the spinner+label still
+            // float on top when the user enables show-text.
+            area.addView(surfaceView, 0)
+            previewSurfaceView = surfaceView
+
+            val mp = MediaPlayer()
+            previewMediaPlayer = mp
+            mp.setDataSource(file.absolutePath)
+            mp.isLooping = settings.loadingScreenLoopVideo
+            mp.setVolume(0f, 0f)
+
+            surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
+                override fun surfaceCreated(holder: SurfaceHolder) {
+                    try {
+                        mp.setDisplay(holder)
+                        mp.prepareAsync()
+                    } catch (_: Exception) {}
+                }
+                override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
+                override fun surfaceDestroyed(holder: SurfaceHolder) {
+                    try { mp.setDisplay(null) } catch (_: Exception) {}
+                }
+            })
+
+            mp.setOnPreparedListener { player ->
+                if (keepRatio) {
+                    try {
+                        val vw = player.videoWidth
+                        val vh = player.videoHeight
+                        val cw = area.width
+                        val ch = area.height
+                        if (vw > 0 && vh > 0 && cw > 0 && ch > 0) {
+                            val videoRatio = vw.toFloat() / vh
+                            val containerRatio = cw.toFloat() / ch
+                            val lp = surfaceView.layoutParams as FrameLayout.LayoutParams
+                            if (videoRatio > containerRatio) {
+                                lp.width = cw
+                                lp.height = (cw / videoRatio).toInt()
+                            } else {
+                                lp.height = ch
+                                lp.width = (ch * videoRatio).toInt()
+                            }
+                            lp.gravity = android.view.Gravity.CENTER
+                            surfaceView.layoutParams = lp
+                        }
+                    } catch (_: Exception) {}
+                }
+                try { player.start() } catch (_: Exception) {}
+            }
+            mp.setOnErrorListener { _, _, _ ->
+                AppLog.e("Preview video error")
+                true
+            }
+        } catch (e: Exception) {
+            AppLog.e("Preview video setup failed: ${e.message}")
+            // Fall back to placeholder if the video can't be initialised.
+            previewImage?.visibility = View.GONE
+            previewPlaceholder?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun clearPreviewMedia() {
+        previewKenBurnsAnimator?.cancel()
+        previewKenBurnsAnimator = null
+        previewImage?.scaleX = 1f
+        previewImage?.scaleY = 1f
+
+        try {
+            previewMediaPlayer?.stop()
+        } catch (_: Exception) {}
+        try {
+            previewMediaPlayer?.release()
+        } catch (_: Exception) {}
+        previewMediaPlayer = null
+
+        previewSurfaceView?.let { sv ->
+            try { previewArea?.removeView(sv) } catch (_: Exception) {}
+        }
+        previewSurfaceView = null
     }
 
     // --- File Selection ---
@@ -488,10 +618,7 @@ class LoadingScreenFragment : Fragment() {
 
     private fun releaseMediaPlayers() {
         releaseFullscreenMediaPlayer()
-        try {
-            previewMediaPlayer?.release()
-            previewMediaPlayer = null
-        } catch (_: Exception) {}
+        clearPreviewMedia()
     }
 
     private fun releaseFullscreenMediaPlayer() {
