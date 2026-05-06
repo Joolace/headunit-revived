@@ -359,7 +359,7 @@ class Settings(context: Context) {
         set(value) { prefs.edit().putBoolean("enable-audio-sink", value).apply() }
 
     var separateAudioStreams: Boolean
-        get() = prefs.getBoolean("separate-audio-streams", true)
+        get() = prefs.getBoolean("separate-audio-streams", false)
         set(value) { prefs.edit().putBoolean("separate-audio-streams", value).apply() }
 
     var micInputSource: Int
