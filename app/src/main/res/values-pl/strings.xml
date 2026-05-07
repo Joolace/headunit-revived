@@ -173,6 +173,7 @@
     <string name="auto_start_screen_on_description">Otwieraj aplikację za każdym razem, gdy ekran się włącza. Idealne dla radioodtwarzaczy samochodowych, które nigdy się całkowicie nie wyłączają lub używają trybów szybkiego uruchamiania, gdzie inne opcje automatycznego startu nie działają. Niezalecane dla telefonów i tabletów.</string>
     <string name="select_bt_device">Wybierz urządzenie Bluetooth</string>
     <string name="bt_device_not_set">Nie ustawiono</string>
+    <string name="bt_permission_denied">Uprawnienie Bluetooth odmówione</string>
     <string name="bt_permission_denied_title">Wymagane uprawnienie Bluetooth</string>
     <string name="bt_permission_denied_message">Uprawnienie Bluetooth jest wymagane do wyboru sparowanych urządzeń. Przyznaj je w ustawieniach aplikacji.</string>
     <string name="overlay_permission_title">Uprawnienie do startu w tle</string>
@@ -350,8 +351,12 @@
     <string name="fullscreen_status_only">Ukryj tylko pasek stanu</string>
     <string name="log_level">Poziom logowania</string>
     <string name="log_level_description">Wybierz poziom szczegółowości logów do debugowania.</string>
+    <string name="log_source">Źródło logów</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Bezpośrednio do pliku</string>
     <string name="start_log_capture">Rozpocznij przechwytywanie logów</string>
     <string name="start_log_capture_description">Rozpoczyna zapisywanie logów systemowych do pliku.</string>
+    <string name="start_log_capture_in_applog_file">Wiadomości Log są zapisywane do pliku tylko podczas aktywnego nagrywania</string>
     <string name="start_log_capture_in_silent">Nie można rozpocząć nagrywania: wybrano cichy poziom rejestrowania</string>
     <string name="stop_log_capture">Zatrzymaj przechwytywanie logów</string>
     <string name="stop_log_capture_description">Zatrzymuje zapisywanie i zapisuje plik logu.</string>

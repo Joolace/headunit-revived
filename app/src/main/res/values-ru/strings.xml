@@ -173,6 +173,7 @@
     <string name="auto_start_screen_on_description">Открывать приложение каждый раз при включении экрана. Идеально для автомагнитол, которые никогда полностью не выключаются или используют режимы быстрого запуска, где другие параметры автозапуска не работают. Не рекомендуется для телефонов и планшетов.</string>
     <string name="select_bt_device">Выбрать Bluetooth-устройство</string>
     <string name="bt_device_not_set">Не задано</string>
+    <string name="bt_permission_denied">Требуется разрешение Bluetooth</string>
     <string name="bt_permission_denied_title">Требуется разрешение Bluetooth</string>
     <string name="bt_permission_denied_message">Разрешение Bluetooth необходимо для выбора сопряжённых устройств. Предоставьте его в настройках приложения.</string>
     <string name="overlay_permission_title">Разрешение на запуск в фоне</string>
@@ -350,8 +351,12 @@
     <string name="fullscreen_status_only">Скрыть только строку состояния</string>
     <string name="log_level">Уровень логирования</string>
     <string name="log_level_description">Фильтр уровня логирования при экспорте.</string>
+    <string name="log_source">Источник логов</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Направить в файл</string>
     <string name="start_log_capture">Начать запись лога</string>
     <string name="start_log_capture_description">Начинает запись системных логов в файл.</string>
+    <string name="start_log_capture_in_applog_file">Сообщения записываются в файл только во время активной записи</string>
     <string name="start_log_capture_in_silent">Невозможно начать запись: выбран Silent уровень логирования</string>
     <string name="stop_log_capture">Остановить запись лога</string>
     <string name="stop_log_capture_description">Идет запись… нажмите, чтобы остановить.</string>

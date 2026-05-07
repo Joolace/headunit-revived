@@ -118,8 +118,12 @@
     <string name="debug_mode_description">Erweitertes Logging aktivieren</string>
     <string name="log_level">Log-Level</string>
     <string name="log_level_description">Filtert den Detailgrad beim Log-Export</string>
+    <string name="log_source">Logquelle</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Direkt in Datei</string>
     <string name="start_log_capture">Log-Aufzeichnung starten</string>
     <string name="start_log_capture_description">Startet das Mitschreiben von System-Logs für Debugging</string>
+    <string name="start_log_capture_in_applog_file">Log-Meldungen werden nur bei aktiver Aufzeichnung in eine Datei geschrieben</string>
     <string name="start_log_capture_in_silent">Aufzeichnung kann nicht gestartet werden: Stilles Protokollierungslevel ausgewählt</string>
     <string name="stop_log_capture">Log-Aufzeichnung stoppen</string>
     <string name="stop_log_capture_description">Aufzeichnung läuft… Zum Stoppen tippen</string>
@@ -189,6 +193,7 @@
     <string name="auto_start_screen_on_description">Die App jedes Mal öffnen, wenn der Bildschirm eingeschaltet wird. Ideal für Autoradios, die nie vollständig herunterfahren oder Schnellstart-Modi verwenden, bei denen die anderen Autostart-Optionen nicht funktionieren. Nicht empfohlen für Telefone oder Tablets.</string>
     <string name="select_bt_device">Bluetooth-Gerät wählen</string>
     <string name="bt_device_not_set">Nicht festgelegt</string>
+    <string name="bt_permission_denied">Bluetooth-Berechtigung verweigert</string>
     <string name="bt_permission_denied_title">Bluetooth-Berechtigung erforderlich</string>
     <string name="bt_permission_denied_message">Die Bluetooth-Berechtigung wird benötigt, um gekoppelte Geräte auszuwählen. Bitte in den App-Einstellungen erteilen.</string>
     <string name="overlay_permission_title">Hintergrund-Start Berechtigung</string>

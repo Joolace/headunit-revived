@@ -118,8 +118,12 @@
     <string name="debug_mode_description">Attiva più log</string>
     <string name="log_level">Livello Log</string>
     <string name="log_level_description">Filtra livello log durante l\'esportazione</string>
+    <string name="log_source">Origine dei log</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Direttamente su file</string>
     <string name="start_log_capture">Avvia acquisizione log</string>
     <string name="start_log_capture_description">Inizia a registrare i log completi per il debug</string>
+    <string name="start_log_capture_in_applog_file">I messaggi Log vengono scritti su file solo durante la cattura attiva</string>
     <string name="start_log_capture_in_silent">Impossibile avviare la registrazione: livello di registrazione silenzioso selezionato</string>
     <string name="stop_log_capture">Ferma acquisizione log</string>
     <string name="stop_log_capture_description">Registrazione in corso… tocca per fermare</string>
@@ -189,6 +193,7 @@
     <string name="auto_start_screen_on_description">Apri l\'app ogni volta che lo schermo si accende. Ideale per head unit che non si spengono mai completamente o utilizzano modalità di avvio rapido dove le altre opzioni di avvio automatico non funzionano. Non raccomandato per telefoni o tablet.</string>
     <string name="select_bt_device">Seleziona dispositivo Bluetooth</string>
     <string name="bt_device_not_set">Non impostato</string>
+    <string name="bt_permission_denied">Permesso Bluetooth negato</string>
     <string name="bt_permission_denied_title">Permesso Bluetooth richiesto</string>
     <string name="bt_permission_denied_message">Il permesso Bluetooth è necessario per selezionare i dispositivi associati. Per favore, concedilo nelle impostazioni dell\'app.</string>
     <string name="overlay_permission_title">Permesso avvio in background</string>

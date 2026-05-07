@@ -172,6 +172,7 @@
     <string name="auto_start_screen_on_description">Az alkalmazás megnyitása minden alkalommal, amikor a képernyő bekapcsol. Ideális olyan autórádiókhoz, amelyek soha nem kapcsolnak ki teljesen, vagy gyorsindítási módot használnak, ahol a többi automatikus indítási lehetőség nem működik. Telefonokhoz és táblagépekhez nem ajánlott.</string>
     <string name="select_bt_device">Bluetooth eszköz kiválasztása</string>
     <string name="bt_device_not_set">Nincs beállítva</string>
+    <string name="bt_permission_denied">Bluetooth-engedély megtagadva</string>
     <string name="bt_permission_denied_title">Bluetooth-engedély szükséges</string>
     <string name="bt_permission_denied_message">A párosított eszközök kiválasztásához Bluetooth-engedély szükséges. Kérjük, engedélyezze az alkalmazás beállításaiban.</string>
     <string name="overlay_permission_title">Háttérben indítás engedélye</string>
@@ -351,8 +352,12 @@
     <string name="fullscreen_status_only">Csak az állapotsor elrejtése</string>
     <string name="log_level">Naplózási szint</string>
     <string name="log_level_description">A hibaelhárításhoz szükséges részletesség beállítása.</string>
+    <string name="log_source">Naplóforrás</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Közvetlenül fájlba</string>
     <string name="start_log_capture">Naplózás indítása</string>
     <string name="start_log_capture_description">Rögzíti a rendszernaplókat egy helyi fájlba a hibaelhárításhoz.</string>
+    <string name="start_log_capture_in_applog_file">Az Log üzenetek csak aktív rögzítés közben íródnak fájlba</string>
     <string name="start_log_capture_in_silent">Nem lehet elindítani a rögzítést: Csendes naplózási szint kiválasztva</string>
     <string name="stop_log_capture">Naplózás leállítása</string>
     <string name="stop_log_capture_description">Leállítja a naplózást és menti a fájlt.</string>

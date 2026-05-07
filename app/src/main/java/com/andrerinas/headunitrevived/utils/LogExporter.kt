@@ -7,9 +7,6 @@ import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 object LogExporter {
 
@@ -22,9 +19,6 @@ object LogExporter {
         /** Do not perform any background capture. */
         SILENT("", Int.MAX_VALUE)
     }
-
-    private const val MAX_LOG_FILES = 10
-    private const val MAX_TOTAL_SIZE = 50L * 1024 * 1024 // 50 MB
 
     private var captureProcess: Process? = null
     private var captureThread: Thread? = null
@@ -40,32 +34,19 @@ object LogExporter {
         get() = if (isCapturing) captureVerbosity else null
 
     /**
-     * Deletes the oldest HUR_Log_* files until the count is below [MAX_LOG_FILES]
-     * and the total size is below [MAX_TOTAL_SIZE], preserving the most recent files.
-     */
-    private fun rotateLogs(logDir: File) {
-        val files = logDir.listFiles { _, name -> name.startsWith("HUR_Log_") }
-            ?.sortedBy { it.lastModified() }
-            ?.toMutableList() ?: return
-
-        while (files.size >= MAX_LOG_FILES) {
-            files.removeAt(0).delete()
-        }
-
-        var totalSize = files.sumOf { it.length() }
-        while (totalSize > MAX_TOTAL_SIZE && files.isNotEmpty()) {
-            val oldest = files.removeAt(0)
-            totalSize -= oldest.length()
-            oldest.delete()
-        }
-    }
-
-    /**
      * Starts a continuous logcat process writing to a timestamped file.
      * Unlike [saveLogToPublicFile], this captures everything from the moment it is called,
      * bypassing the small shared ring buffer.
      */
     fun startCapture(context: Context, verbosity: LogLevel) {
+        if (AppLog.logSource == Settings.LogSource.APPLOG_FILE) {
+            AppLog.w("LogExporter: log source is APPLOG_FILE; logcat capture is disabled")
+            stopCapture()
+            captureFile = null
+            captureVerbosity = verbosity
+            return
+        }
+
         // If SILENT requested, ensure capture is stopped and don't start a new one.
         if (verbosity == LogLevel.SILENT) {
             stopCapture()
@@ -75,12 +56,10 @@ object LogExporter {
         }
 
         stopCapture()
-        val logDir = context.getExternalFilesDir(null) ?: return
-        logDir.mkdirs()
-        rotateLogs(logDir)
+        val logDir = LogFilesHelper.resolveLogDirectory(context, allowInternalFallback = false) ?: return
+        LogFilesHelper.rotateLogs(logDir)
 
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-        val file = File(logDir, "HUR_Log_$timeStamp.txt")
+        val file = LogFilesHelper.createTimestampedLogFile(logDir)
         captureFile = file
         captureVerbosity = verbosity
         captureRestarts = 0
@@ -134,12 +113,18 @@ object LogExporter {
      * - Otherwise: dumps the current logcat ring buffer.
      */
     fun saveLogToPublicFile(context: Context, verbosity: LogLevel): File? {
-        val logDir = context.getExternalFilesDir(null) ?: return null
         if (verbosity == LogLevel.SILENT) {
             AppLog.w("LogExporter: export requested while SILENT; skipping export")
             return null
         }
-        if (!logDir.exists()) logDir.mkdirs()
+
+        if (AppLog.logSource == Settings.LogSource.APPLOG_FILE) {
+            return (AppLog.currentLogFile ?: AppLog.lastLogFile)
+                ?.takeIf { it.exists() && it.length() > 0 }
+        }
+
+        val logDir = LogFilesHelper.resolveLogDirectory(context, allowInternalFallback = false) ?: return null
+        LogFilesHelper.ensureDirectory(logDir)
 
         val source = captureFile
         if (source != null && source.exists() && source.length() > 0) {
@@ -147,9 +132,8 @@ object LogExporter {
         }
 
         return try {
-            rotateLogs(logDir)
-            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-            val logFile = File(logDir, "HUR_Log_$timeStamp.txt")
+            LogFilesHelper.rotateLogs(logDir)
+            val logFile = LogFilesHelper.createTimestampedLogFile(logDir)
             // Use stdout piping instead of -f flag; -f is unreliable on Android 4.4.
             val process = Runtime.getRuntime().exec(
                 arrayOf("logcat", "-d", "-v", "threadtime", verbosity.filter)

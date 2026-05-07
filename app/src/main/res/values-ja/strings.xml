@@ -118,8 +118,12 @@
     <string name="debug_mode_description">ログのエクスポート</string>
     <string name="log_level">ログレベル</string>
     <string name="log_level_description">エクスポート時にログレベルをフィルタリングする</string>
+    <string name="log_source">ログソース</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">ファイルへ直接</string>
     <string name="start_log_capture">ログ取得を開始する</string>
     <string name="start_log_capture_description">デバッグのためにログの記録を開始します</string>
+    <string name="start_log_capture_in_applog_file">Log のメッセージはキャプチャ中のみファイルに書き込まれます</string>
     <string name="start_log_capture_in_silent">記録を開始できません: サイレントログレベルが選択されています</string>
     <string name="stop_log_capture">ログ取得を停止</string>
     <string name="stop_log_capture_description">録画中です...タップして停止</string>
@@ -189,6 +193,7 @@
     <string name="auto_start_screen_on_description">画面が点灯するたびにアプリを起動します。完全にシャットダウンしないヘッドユニットや、他の自動起動オプションが機能しない高速起動モードを使用するヘッドユニットに最適です。スマートフォンやタブレットには推奨しません。</string>
     <string name="select_bt_device">Bluetooth デバイスの選択</string>
     <string name="bt_device_not_set">未設定</string>
+    <string name="bt_permission_denied">Bluetooth 権限が拒否されました</string>
     <string name="bt_permission_denied_title">Bluetooth 許可が必要です</string>
     <string name="bt_permission_denied_message">ペアリング済みデバイスを選択するには、Bluetoothのアクセス許可が必要です。アプリの設定で許可してください。</string>
     <string name="overlay_permission_title">バックグラウンド起動許可</string>

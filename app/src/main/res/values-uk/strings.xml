@@ -173,6 +173,7 @@
     <string name="auto_start_screen_on_description">Відкривати додаток щоразу, коли вмикається екран. Ідеально для автомагнітол, які ніколи повністю не вимикаються або використовують режими швидкого запуску, де інші параметри автозапуску не працюють. Не рекомендується для телефонів та планшетів.</string>
     <string name="select_bt_device">Вибрати Bluetooth-пристрій</string>
     <string name="bt_device_not_set">Не задано</string>
+    <string name="bt_permission_denied">Відмовлено в дозволі Bluetooth. Не вдається сканувати пристрої.</string>
     <string name="bt_permission_denied_title">Потрібен дозвіл Bluetooth</string>
     <string name="bt_permission_denied_message">Дозвіл Bluetooth необхідний для вибору сполучених пристроїв. Надайте його в налаштуваннях застосунку.</string>
     <string name="overlay_permission_title">Дозвіл на запуск у фоні</string>
@@ -297,7 +298,7 @@
     <string name="share">Поділитися</string>
     <string name="close">Закрити</string>
     <string name="failed_export_logs">Помилка експорту журналу</string>
-    <string name="failed_export_in_silent_logs">Не вдалося експортувати логи: вибрано рівень логування Silent</string>
+    <string name="failed_export_in_silent_logs">Не вдалося експортувати логи: вибрано рівень Silent</string>
     <string name="switching_to_android_auto">Перемикання на Android Auto…</string>
     <string name="switch_failed">Помилка перемикання</string>
     <string name="requesting_usb_permission">Запит дозволу USB…</string>
@@ -350,9 +351,13 @@
     <string name="fullscreen_status_only">Приховати лише рядок стану</string>
     <string name="log_level">Рівень логування</string>
     <string name="log_level_description">Виберіть рівень деталізації виводу логів для налагодження.</string>
+    <string name="log_source">Джерело логів</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Безпосередньо у файл</string>
     <string name="start_log_capture">Почати запис лога</string>
     <string name="start_log_capture_description">Починає запис системних логів у файл.</string>
-    <string name="start_log_capture_in_silent">Не вдалося розпочати запис: вибрано рівень логування Silent</string>
+    <string name="start_log_capture_in_applog_file">Повідомлення Log записуються у файл лише під час активного запису</string>
+    <string name="start_log_capture_in_silent">Не вдалося розпочати запис: вибрано рівень Silent</string>
     <string name="stop_log_capture">Зупинити запис лога</string>
     <string name="stop_log_capture_description">Зупиняє запис і зберігає файл лога.</string>
 

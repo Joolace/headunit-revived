@@ -119,15 +119,17 @@
     <string name="debug_mode_description">Daha fazla günlük kaydı (Log) tut</string>
     <string name="log_level">Günlük Seviyesi</string>
     <string name="log_level_description">Dışa aktarırken günlük seviyesini filtrele</string>
+    <string name="log_source">Günlük kaynağı</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Doğrudan dosyaya</string>
     <string name="start_log_capture">Günlük Kaydını Başlat</string>
     <string name="start_log_capture_description">Hata ayıklama için tam günlükleri kaydetmeye başla</string>
+    <string name="start_log_capture_in_applog_file">Log mesajları yalnızca yakalama etkin olduğunda bir dosyaya yazılır</string>
     <string name="start_log_capture_in_silent">Kayıt başlatılamıyor: Sessiz günlükleme seviyesi seçildi</string>
     <string name="stop_log_capture">Günlük Kaydını Durdur</string>
     <string name="stop_log_capture_description">Kayıt yapılıyor… durdurmak için dokunun</string>
     <string name="export_logs">Günlükleri Dışa Aktar</string>
     <string name="export_logs_description">Hata ayıklama için günlükleri kaydet</string>
-    <string name="use_native_ssl">Yerel SSL Kullan</string>
-    <string name="use_native_ssl_description">Yerel OpenSSL kütüphanesini kullan (eski cihazlarda daha hızlıdır). Yeniden başlatma gerektirir.</string>
     <string name="not_set">Ayarlanmadı</string>
     <string name="keymap_description">Multimedya sisteminiz için tuş atamalarını değiştirin</string>
 
@@ -188,6 +190,7 @@
     <string name="auto_start_screen_on_description">Ekran her açıldığında uygulamayı açar. Tamamen kapanmayan veya diğer otomatik başlatma seçeneklerinin çalışmadığı hızlı önyükleme modlarını kullanan sistemler için idealdir. Telefonlar veya tabletler için önerilmez.</string>
     <string name="select_bt_device">Bluetooth Cihazı Seç</string>
     <string name="bt_device_not_set">Ayarlanmadı</string>
+    <string name="bt_permission_denied">Bluetooth izni reddedildi</string>
     <string name="bt_permission_denied_title">Bluetooth İzni Gerekli</string>
     <string name="bt_permission_denied_message">Eşleşmiş cihazları seçmek için Bluetooth izni gereklidir. Lütfen uygulama ayarlarından izin verin.</string>
     <string name="overlay_permission_title">Arka Planda Başlatma İzni</string>
@@ -307,7 +310,7 @@
     <string name="share">Paylaş</string>
     <string name="close">Kapat</string>
     <string name="failed_export_logs">Günlükler dışa aktarılamadı</string>
-    <string name="failed_export_in_silent_logs">Günlükler dışa aktarılamıyor: Sessiz günlükleme seviyesi seçildi</string>
+    <string name="failed_export_in_silent_logs">G?nl?kler d??a aktar?lam?yor: Sessiz g?nl?kleme seviyesi se?ildi</string>
     <string name="switching_to_android_auto">Android Auto\'ya geçiliyor…</string>
     <string name="switch_failed">Geçiş başarısız</string>
     <string name="requesting_usb_permission">USB İzni İsteniyor…</string>

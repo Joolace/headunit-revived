@@ -173,6 +173,7 @@
     <string name="auto_start_screen_on_description">Otevřít aplikaci pokaždé, když se zapne obrazovka. Ideální pro autorádia, která se nikdy úplně nevypnou nebo používají rychlé spuštění, kde ostatní možnosti automatického spuštění nefungují. Nedoporučeno pro telefony nebo tablety.</string>
     <string name="select_bt_device">Vybrat Bluetooth zařízení</string>
     <string name="bt_device_not_set">Nenastaveno</string>
+    <string name="bt_permission_denied">Oprávnění Bluetooth zamítnuto</string>
     <string name="bt_permission_denied_title">Vyžadováno oprávnění Bluetooth</string>
     <string name="bt_permission_denied_message">Pro výběr spárovaných zařízení je vyžadováno oprávnění Bluetooth. Povolte ho prosím v nastavení aplikace.</string>
     <string name="overlay_permission_title">Oprávnění pro spuštění na pozadí</string>
@@ -352,8 +353,12 @@
     <string name="fullscreen_status_only">Skrýt pouze stavovou lištu</string>
     <string name="log_level">Úroveň protokolování</string>
     <string name="log_level_description">Vyberte úroveň podrobnosti výstupu protokolu pro ladění.</string>
+    <string name="log_source">Zdroj logů</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Přímo do souboru</string>
     <string name="start_log_capture">Spustit záznam protokolu</string>
     <string name="start_log_capture_description">Spustí nahrávání systémových protokolů do souboru.</string>
+    <string name="start_log_capture_in_applog_file">Zprávy Log se zapisují do souboru pouze během aktivního záznamu</string>
     <string name="start_log_capture_in_silent">Nelze zahájit záznam: vybrána úroveň tichého protokolování</string>
     <string name="stop_log_capture">Zastavit záznam protokolu</string>
     <string name="stop_log_capture_description">Zastaví nahrávání a uloží soubor protokolu.</string>

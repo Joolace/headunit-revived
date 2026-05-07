@@ -121,8 +121,12 @@
     <string name="debug_mode_description">Toggle more Logging</string>
     <string name="log_level">Log Level</string>
     <string name="log_level_description">Filter log level when exporting</string>
+    <string name="log_source">Log Source</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Direct to file</string>
     <string name="start_log_capture">Start Capturing Logs</string>
     <string name="start_log_capture_description">Begin recording full logs for debugging</string>
+    <string name="start_log_capture_in_applog_file">Log messages are written to a file only while capture is active</string>
     <string name="start_log_capture_in_silent">Unable to start recording: Silent logging level selected</string>
     <string name="stop_log_capture">Stop Capturing Logs</string>
     <string name="stop_log_capture_description">Recording in progress… tap to stop</string>

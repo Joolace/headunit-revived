@@ -173,6 +173,7 @@
     <string name="auto_start_screen_on_description">Abrir la app cada vez que la pantalla se enciende. Ideal para radios que nunca se apagan completamente o usan modos de encendido rápido donde las otras opciones de inicio automático no funcionan. No recomendado para teléfonos o tablets.</string>
     <string name="select_bt_device">Seleccionar dispositivo Bluetooth</string>
     <string name="bt_device_not_set">No establecido</string>
+    <string name="bt_permission_denied">Permiso de Bluetooth denegado</string>
     <string name="bt_permission_denied_title">Permiso de Bluetooth requerido</string>
     <string name="bt_permission_denied_message">Se necesita el permiso de Bluetooth para seleccionar dispositivos emparejados. Concédalo en los ajustes de la app.</string>
     <string name="overlay_permission_title">Permiso de inicio en segundo plano</string>
@@ -297,7 +298,7 @@
     <string name="share">Compartir</string>
     <string name="close">Cerrar</string>
     <string name="failed_export_logs">Error al exportar registros</string>
-    <string name="failed_export_in_silent_logs">No se pueden exportar los registros: nivel de registro silencioso seleccionado</string>
+    <string name="failed_export_in_silent_logs">No se pueden exportar los registros: se ha seleccionado el nivel de registro silencioso</string>
     <string name="switching_to_android_auto">Cambiando a Android Auto…</string>
     <string name="switch_failed">Fallo al cambiar</string>
     <string name="requesting_usb_permission">Solicitando permiso USB…</string>
@@ -352,9 +353,13 @@
     <string name="fullscreen_status_only">Ocultar solo barra de estado</string>
     <string name="log_level">Nivel de log</string>
     <string name="log_level_description">Elija el nivel de detalle de los mensajes de log para depuración.</string>
+    <string name="log_source">Fuente de registro</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Directo a archivo</string>
     <string name="start_log_capture">Iniciar captura de log</string>
     <string name="start_log_capture_description">Comienza a registrar los logs del sistema en un archivo.</string>
-    <string name="start_log_capture_in_silent">No se puede iniciar la grabación: nivel de registro silencioso seleccionado</string>
+    <string name="start_log_capture_in_applog_file">Los mensajes de Log se escriben en un archivo solo mientras la captura está activa</string>
+    <string name="start_log_capture_in_silent">No se puede iniciar la grabación: se ha seleccionado el nivel de registro silencioso</string>
     <string name="stop_log_capture">Detener captura de log</string>
     <string name="stop_log_capture_description">Detiene la grabación y guarda el archivo de log.</string>
 

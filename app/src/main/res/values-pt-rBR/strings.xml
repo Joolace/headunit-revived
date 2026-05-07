@@ -173,6 +173,7 @@
     <string name="auto_start_screen_on_description">Abrir o app sempre que a tela ligar. Ideal para centrais multimídia que nunca desligam completamente ou usam modos de inicialização rápida onde as outras opções de início automático não funcionam. Não recomendado para celulares ou tablets.</string>
     <string name="select_bt_device">Selecionar dispositivo Bluetooth</string>
     <string name="bt_device_not_set">Não definido</string>
+    <string name="bt_permission_denied">Permissão do Bluetooth negada</string>
     <string name="bt_permission_denied_title">Permissão de Bluetooth necessária</string>
     <string name="bt_permission_denied_message">A permissão de Bluetooth é necessária para selecionar dispositivos pareados. Conceda-a nas configurações do app.</string>
     <string name="overlay_permission_title">Permissão de início em segundo plano</string>
@@ -350,8 +351,12 @@
     <string name="fullscreen_status_only">Ocultar apenas a barra de status</string>
     <string name="log_level">Nível de Log</string>
     <string name="log_level_description">Escolha o nível de detalhe da saída de log para depuração.</string>
+    <string name="log_source">Fonte de logs</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">Direto para arquivo</string>
     <string name="start_log_capture">Iniciar captura de log</string>
     <string name="start_log_capture_description">Começa a registrar os logs do sistema em um arquivo.</string>
+    <string name="start_log_capture_in_applog_file">As mensagens do Log são gravadas em um arquivo somente enquanto a captura estiver ativa</string>
     <string name="start_log_capture_in_silent">Não é possível iniciar a gravação: nível de registro Silencioso selecionado</string>
     <string name="stop_log_capture">Parar captura de log</string>
     <string name="stop_log_capture_description">Interrompe a gravação e salva o arquivo de log.</string>

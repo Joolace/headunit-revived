@@ -173,6 +173,7 @@
     <string name="auto_start_screen_on_description">فتح التطبيق في كل مرة يتم فيها تشغيل الشاشة. مثالي لأجهزة الراديو التي لا تنطفئ تمامًا أو تستخدم أوضاع التشغيل السريع حيث لا تعمل خيارات التشغيل التلقائي الأخرى. غير موصى به للهواتف أو الأجهزة اللوحية.</string>
     <string name="select_bt_device">اختر جهاز البلوتوث</string>
     <string name="bt_device_not_set">غير محدد</string>
+    <string name="bt_permission_denied">تم رفض إذن Bluetooth</string>
     <string name="bt_permission_denied_title">مطلوب إذن البلوتوث</string>
     <string name="bt_permission_denied_message">إذن البلوتوث مطلوب لاختيار الأجهزة المقترنة. يرجى منحه في إعدادات التطبيق.</string>
     <string name="overlay_permission_title">إذن البدء في الخلفية</string>
@@ -352,8 +353,12 @@
     <string name="fullscreen_status_only">إخفاء شريط الحالة فقط</string>
     <string name="log_level">مستوى السجل</string>
     <string name="log_level_description">اختر مستوى تفصيل مخرجات السجل للتصحيح.</string>
+    <string name="log_source">مصدر السجلات</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">مباشرة إلى الملف</string>
     <string name="start_log_capture">بدء التقاط السجل</string>
     <string name="start_log_capture_description">يبدأ تسجيل سجلات النظام في ملف.</string>
+    <string name="start_log_capture_in_applog_file">تُكتب رسائل Log في ملف فقط أثناء تنشيط الالتقاط</string>
     <string name="start_log_capture_in_silent">تعذر بدء التسجيل: تم تحديد مستوى التسجيل الصامت</string>
     <string name="stop_log_capture">إيقاف التقاط السجل</string>
     <string name="stop_log_capture_description">يوقف التسجيل ويحفظ ملف السجل.</string>

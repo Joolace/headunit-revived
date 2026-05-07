@@ -118,14 +118,17 @@
     <string name="debug_mode_description">더 많은 로깅을 토글합니다.</string>
     <string name="log_level">로그 레벨</string>
     <string name="log_level_description">내보낼 때 로그 레벨을 필터링합니다.</string>
+    <string name="log_source">로그 원천</string>
+    <string name="log_source_logcat">Logcat</string>
+    <string name="log_source_applog_file">파일에 직접</string>
     <string name="start_log_capture">로그 캡처 시작</string>
     <string name="start_log_capture_description">디버깅을 위해 전체 로그를 기록합니다.</string>
+    <string name="start_log_capture_in_applog_file">Log 메시지는 캡처가 활성화된 동안에만 파일에 기록됩니다</string>
+    <string name="start_log_capture_in_silent">기록을 시작할 수 없습니다: Silent 로깅 수준이 선택되었습니다</string>
     <string name="stop_log_capture">로그 캡처 중지</string>
     <string name="stop_log_capture_description">녹화 중… 멈추려면 탭하세요.</string>
     <string name="export_logs">로그 내보내기</string>
     <string name="export_logs_description">디버깅을 위해 로그를 저장합니다.</string>
-    <string name="use_native_ssl">Native SSL 사용</string>
-    <string name="use_native_ssl_description">Native OpenSSL 라이브러리를 사용합니다 (이전 기기에서 더 빠릅니다). 재시작 후 적용됩니다.</string>
     <string name="not_set">설정되지 않음</string>
     <string name="keymap_description">헤드유닛의 키 바인딩을 변경합니다.</string>
 
@@ -188,6 +191,7 @@
     <string name="auto_start_screen_on_description">화면이 켜질 때마다 애플리케이션을 엽니다. 완전히 끄지 않는 헤드유닛이나 다른 자동시작 옵션이 작동하지 않는 빠른 부팅 모드에 적합합니다. 휴대폰이나 태블릿에는 권장하지 않습니다.</string>
     <string name="select_bt_device">Bluetooth 기기 선택</string>
     <string name="bt_device_not_set">설정되지 않음</string>
+    <string name="bt_permission_denied">Bluetooth 권한이 거부되었습니다</string>
     <string name="bt_permission_denied_title">Bluetooth 권한 필요</string>
     <string name="bt_permission_denied_message">Bluetooth 권한이 필요하여 페어링된 기기를 선택할 수 있습니다. 애플리케이션 설정에서 권한을 부여하세요.</string>
     <string name="overlay_permission_title">백그라운드 시작 권한</string>
@@ -312,6 +316,7 @@
     <string name="share">공유</string>
     <string name="close">닫기</string>
     <string name="failed_export_logs">로그 내보내기 실패</string>
+    <string name="failed_export_in_silent_logs">로그를 내보낼 수 없습니다: Silent 로깅 수준이 선택되었습니다</string>
     <string name="switching_to_android_auto">Android Auto로 전환…</string>
     <string name="switch_failed">전환 실패</string>
     <string name="requesting_usb_permission">USB 권한 요청…</string>

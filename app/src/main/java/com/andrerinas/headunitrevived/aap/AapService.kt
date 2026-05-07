@@ -143,29 +143,43 @@ class AapService : Service(), UsbReceiver.Listener {
                 }
             }
 
-            if (key == Settings.KEY_LOG_LEVEL || key == Settings.KEY_LOG_CAPTURE_ENABLED) {
+            if (key == Settings.KEY_LOG_SOURCE || key == Settings.KEY_LOG_LEVEL || key == Settings.KEY_LOG_CAPTURE_ENABLED) {
                 serviceScope.launch(Dispatchers.Main) {
                     try {
-                        val newLogLevel = settings.exporterLogLevel
-                        val exporterCaptureEnabled = settings.exporterCaptureEnabled
-                        val isCapturing = LogExporter.isCapturing
-                        val currentLogLevel = LogExporter.currentLevel
-
-                        if (!exporterCaptureEnabled || newLogLevel == LogExporter.LogLevel.SILENT) {
-                            if (isCapturing) {
-                                LogExporter.stopCapture()
-                                AppLog.d("LogExporter: stopped (enabled=$exporterCaptureEnabled, level=${newLogLevel.name})")
-                            }
-                        } else if (!isCapturing || currentLogLevel != newLogLevel) {
-                            LogExporter.startCapture(this@AapService, newLogLevel)
-                            AppLog.d("LogExporter: started with level ${newLogLevel.name}")
-                        }
+                        syncLogBackendState()
                     } catch (e: Exception) {
                         AppLog.e("LogExporter: failed to sync state", e)
                     }
                 }
             }
         }
+
+    private fun syncLogBackendState() {
+        AppLog.init(settings, this@AapService)
+
+        if (settings.logSource == Settings.LogSource.APPLOG_FILE) {
+            if (LogExporter.isCapturing) {
+                LogExporter.stopCapture()
+                AppLog.d("LogExporter: stopped because logSource=APPLOG_FILE")
+            }
+            return
+        }
+
+        val newLogLevel = settings.exporterLogLevel
+        val exporterCaptureEnabled = settings.exporterCaptureEnabled
+        val isCapturing = LogExporter.isCapturing
+        val currentLogLevel = LogExporter.currentLevel
+
+        if (!exporterCaptureEnabled || newLogLevel == LogExporter.LogLevel.SILENT) {
+            if (isCapturing) {
+                LogExporter.stopCapture()
+                AppLog.d("LogExporter: stopped (enabled=$exporterCaptureEnabled, level=${newLogLevel.name})")
+            }
+        } else if (!isCapturing || currentLogLevel != newLogLevel) {
+            LogExporter.startCapture(this@AapService, newLogLevel)
+            AppLog.d("LogExporter: started with level ${newLogLevel.name}")
+        }
+    }
 
     /**
      * Set to `true` before calling [stopSelf] or entering [onDestroy] to suppress any
@@ -652,11 +666,8 @@ class AapService : Service(), UsbReceiver.Listener {
             prefs.registerOnSharedPreferenceChangeListener(settingsPreferenceListener)
         }
 
-        val exporterLevel = App.provide(this).settings.exporterLogLevel
-        val settings = App.provide(this).settings
-        if (settings.exporterCaptureEnabled && exporterLevel != LogExporter.LogLevel.SILENT) {
-            LogExporter.startCapture(this, exporterLevel)
-        }
+        AppLog.init(settings, this)
+        syncLogBackendState()
 
         startService(GpsLocationService.intent(this))
 
@@ -666,8 +677,8 @@ class AapService : Service(), UsbReceiver.Listener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             try {
                 nearbyManager = NearbyManager(this, serviceScope) { socket ->
-                    val settings = App.provide(this).settings
-                    settings.saveLastConnection(Settings.CONNECTION_TYPE_NEARBY)
+                    val appSettings = App.provide(this).settings
+                    appSettings.saveLastConnection(Settings.CONNECTION_TYPE_NEARBY)
                     serviceScope.launch(Dispatchers.IO) {
                         commManager.connect(socket)
                     }
@@ -679,8 +690,8 @@ class AapService : Service(), UsbReceiver.Listener {
         
         initWifiModeWithOptionalWait()
         wifiDirectManager?.setCredentialsListener { ssid, psk, ip, bssid ->
-            val settings = App.provide(this).settings
-            if (settings.wifiConnectionMode == 3) {
+            val appSettings = App.provide(this).settings
+            if (appSettings.wifiConnectionMode == 3) {
                 AppLog.i("AapService: Received WiFi credentials from manager (SSID=$ssid, IP=$ip). Updating and Triggering Poke.")
                 nativeAaHandshakeManager?.updateWifiCredentials(ssid, psk, ip, bssid)
                 // [FIX] Only auto-poke if the user didn't explicitly exit.
