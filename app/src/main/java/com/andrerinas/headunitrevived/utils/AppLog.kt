@@ -26,18 +26,28 @@ object AppLog {
 
         class File(val file: IoFile) : Logger, Closeable {
             private val lock = Any()
-            private val writer: BufferedWriter = BufferedWriter(
-                OutputStreamWriter(FileOutputStream(file, true), Charsets.UTF_8)
-            )
+            private val writer = BufferedWriter(OutputStreamWriter(FileOutputStream(file, true), Charsets.UTF_8))
+            private val dateFormat = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
             @Volatile private var closed = false
+
+
 
             override fun println(priority: Int, tag: String, msg: String) {
                 synchronized(lock) {
                     if (closed) return
                     try {
-                        writer.write("[$tag:$priority] $msg")
+                        val ts = dateFormat.format(java.util.Date())
+                        val level = when (priority) {
+                            Log.VERBOSE -> "V"
+                            Log.DEBUG -> "D"
+                            Log.INFO -> "I"
+                            Log.WARN -> "W"
+                            Log.ERROR -> "E"
+                            Log.ASSERT -> "A"
+                            else -> priority.toString()
+                        }
+                        writer.write("$ts [$tag:$level] $msg")
                         writer.newLine()
-                        writer.flush()
                     } catch (e: IOException) {
                         Log.e(TAG, "Failed to write AppLog file ${file.absolutePath}", e)
                     }
@@ -110,6 +120,7 @@ object AppLog {
         currentLogSource = desiredSource
     }
 
+    @Volatile
     var LOGGER: Logger = Logger.Android()
     private val LOG_LEVEL get() = settings?.logLevel ?: Log.INFO
 
