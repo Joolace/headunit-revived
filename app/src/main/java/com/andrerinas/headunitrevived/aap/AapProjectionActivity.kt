@@ -431,6 +431,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
         setFullscreen()
     }
 
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         AppLog.i("AapProjectionActivity: onNewIntent received")
@@ -577,6 +578,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                     paramsBuilder.setSeamlessResizeEnabled(true)
                 }
 
+                App.isPiPActive = true
                 enterPictureInPictureMode(paramsBuilder.build())
             } catch (e: Exception) {
                 AppLog.e("Failed to enter PiP mode: ${e.message}")
@@ -597,6 +599,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: android.content.res.Configuration) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        App.isPiPActive = isInPictureInPictureMode
         if (isInPictureInPictureMode) {
             // Hide UI elements during PiP (like FPS counter, loading overlay)
             findViewById<View>(R.id.loading_overlay)?.visibility = View.GONE
@@ -869,6 +872,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
             isKeyEventReceiverRegistered = false
         }
         AppLog.i("AapProjectionActivity.onDestroy called. isFinishing=$isFinishing")
+        App.isPiPActive = false
         videoDecoder.dimensionsListener = null
     }
 

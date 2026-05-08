@@ -70,7 +70,7 @@ class MainActivity : BaseActivity() {
         logLaunchSource()
 
         // If an Android Auto session is active, bring the projection activity to front
-        if (App.provide(this).commManager.isConnected) {
+        if (App.provide(this).commManager.isConnected && !App.isPiPActive) {
             AppLog.i("MainActivity: Active session detected in onCreate, bringing projection to front")
             val aapIntent = AapProjectionActivity.intent(this).apply {
                 putExtra(AapProjectionActivity.EXTRA_FOCUS, true)
@@ -333,7 +333,7 @@ class MainActivity : BaseActivity() {
         isOrientationReceiverRegistered = true
 
         // If an Android Auto session is active, bring the projection activity to front
-        if (App.provide(this).commManager.isConnected) {
+        if (App.provide(this).commManager.isConnected && !App.isPiPActive) {
             AppLog.i("MainActivity: Active session detected, bringing projection to front")
             val aapIntent = AapProjectionActivity.intent(this).apply {
                 putExtra(AapProjectionActivity.EXTRA_FOCUS, true)

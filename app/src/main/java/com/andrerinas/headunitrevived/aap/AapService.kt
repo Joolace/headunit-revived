@@ -583,6 +583,10 @@ class AapService : Service(), UsbReceiver.Listener {
 
         if (commManager.isConnected) {
             // Connection still alive — return to projection screen
+            if (App.isPiPActive) {
+                AppLog.i("WakeDetect: connection active, but PiP is active. Skipping return to full screen.")
+                return
+            }
             AppLog.i("WakeDetect: connection active, returning to projection")
             try {
                 val projectionIntent = AapProjectionActivity.intent(this).apply {
@@ -891,6 +895,10 @@ class AapService : Service(), UsbReceiver.Listener {
     }
 
     private fun launchAapProjectionActivity() {
+        if (App.isPiPActive) {
+            AppLog.i("AapService: Skipping projection launch because PiP is active")
+            return
+        }
         startActivity(AapProjectionActivity.intent(this).apply {
             putExtra(AapProjectionActivity.EXTRA_FOCUS, true)
             addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)

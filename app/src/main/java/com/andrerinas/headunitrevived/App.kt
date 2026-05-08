@@ -109,6 +109,7 @@ class App : Application() {
         const val bootStartChannel = "headunit_boot_start"
         val appStartTime = SystemClock.elapsedRealtime()
         var appThemeManager: AppThemeManager? = null
+        var isPiPActive = false
 
         fun get(context: Context): App {
             return context.applicationContext as App
