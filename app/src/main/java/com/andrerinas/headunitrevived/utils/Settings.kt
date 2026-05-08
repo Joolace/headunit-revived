@@ -378,6 +378,18 @@ class Settings(context: Context) {
         get() = prefs.getBoolean("use-aac-audio", false)
         set(value) { prefs.edit().putBoolean("use-aac-audio", value).apply() }
 
+    var micEchoCanceler: Boolean
+        get() = prefs.getBoolean("mic-echo-canceler", false)
+        set(value) { prefs.edit().putBoolean("mic-echo-canceler", value).apply() }
+
+    var micNoiseSuppressor: Boolean
+        get() = prefs.getBoolean("mic-noise-suppressor", false)
+        set(value) { prefs.edit().putBoolean("mic-noise-suppressor", value).apply() }
+
+    var micAutoGainControl: Boolean
+        get() = prefs.getBoolean("mic-auto-gain-control", false)
+        set(value) { prefs.edit().putBoolean("mic-auto-gain-control", value).apply() }
+
     var useNativeSsl: Boolean
         get() = prefs.getBoolean("use-native-ssl", false)
         set(value) { prefs.edit().putBoolean("use-native-ssl", value).apply() }
