@@ -826,6 +826,11 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
 
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        val action = event.action
+        if (action != KeyEvent.ACTION_DOWN && action != KeyEvent.ACTION_UP) {
+            return super.dispatchKeyEvent(event)
+        }
+
         // 1. Let the system handle volume and back keys
         if (event.keyCode == KeyEvent.KEYCODE_BACK || 
             event.keyCode == KeyEvent.KEYCODE_VOLUME_UP || 
