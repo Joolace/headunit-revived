@@ -57,7 +57,7 @@ class MainActivity : BaseActivity() {
             if (intent.action == ACTION_RECREATE_MAIN) {
                 AppLog.i("MainActivity: Received recreate request. Recreating.")
                 try {
-                    runOnUiThread { recreate() }
+                    recreate()
                 } catch (e: Exception) {
                     AppLog.e("MainActivity: Failed to recreate activity", e)
                 }
