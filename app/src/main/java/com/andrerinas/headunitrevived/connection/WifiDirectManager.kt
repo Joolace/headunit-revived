@@ -29,6 +29,7 @@ class WifiDirectManager(private val context: Context) : WifiP2pManager.Connectio
     private val handler = Handler(Looper.getMainLooper())
     private var localDeviceAddress: String? = null
     private var lastKnownBssid: String? = null
+    private var isReceiverRegistered = false
 
     private var onCredentialsReady: ((ssid: String, psk: String, ip: String, bssid: String) -> Unit)? = null
 
@@ -89,11 +90,7 @@ class WifiDirectManager(private val context: Context) : WifiP2pManager.Connectio
                         localDeviceAddress = address
                     }
 
-                    val filter = IntentFilter().apply {
-                        addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)
-                        addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)
-                    }
-                    ContextCompat.registerReceiver(context, receiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+                    registerReceiverIfNeeded()
                 } ?: run {
                     AppLog.e("WifiDirectManager: WIFI_P2P_SERVICE manager is NULL!")
                 }
@@ -104,6 +101,21 @@ class WifiDirectManager(private val context: Context) : WifiP2pManager.Connectio
             AppLog.w("WifiDirectManager: WiFi Direct unavailable — permission denied: ${e.message}")
         } catch (e: Exception) {
             AppLog.e("WifiDirectManager: Unexpected error in init", e)
+        }
+    }
+
+    private fun registerReceiverIfNeeded() {
+        if (isReceiverRegistered) return
+        try {
+            val filter = IntentFilter().apply {
+                addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)
+                addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)
+            }
+            ContextCompat.registerReceiver(context, receiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+            isReceiverRegistered = true
+            AppLog.d("WifiDirectManager: BroadcastReceiver registered.")
+        } catch (e: Exception) {
+            AppLog.e("WifiDirectManager: Failed to register receiver", e)
         }
     }
 
@@ -418,6 +430,7 @@ class WifiDirectManager(private val context: Context) : WifiP2pManager.Connectio
                     mgr = newManager
                     ch = newChannel
                     AppLog.i("WifiDirectManager: Re-init successful and fields updated.")
+                    registerReceiverIfNeeded()
                 } else {
                     AppLog.e("WifiDirectManager: Re-init failed. Cannot start Quiet Host.")
                     return
