@@ -192,7 +192,7 @@ class MicSettingsFragment : Fragment() {
         items.add(SettingItem.ToggleSettingEntry(
             stableId = "micEchoCanceler",
             nameResId = R.string.mic_echo_canceler,
-            descriptionResId = if (NoiseSuppressor.isAvailable())
+            descriptionResId = if (AcousticEchoCanceler.isAvailable())
                 R.string.mic_echo_canceler_description else R.string.mic_feature_unsupported,
             isChecked = pendingMicEchoCanceler!!,
             isEnabled = AcousticEchoCanceler.isAvailable(),
