@@ -495,6 +495,7 @@
     <string name="mic_noise_suppressor_description">Megpróbálja csökkenteni a háttérzajt. Kapcsolja ki, ha a hangja tompának tűnik.</string>
     <string name="mic_auto_gain_control">Automatikus erősítésszabályozás (AGC)</string>
     <string name="mic_auto_gain_control_description">Automatikusan szabályozza a mikrofon hangerejét. Kapcsolja ki, ha a hangerő instabil.</string>
+    <string name="mic_feature_unsupported">Ez a funkció nem támogatott az eszközén.</string>
     <string name="bt_permission_denied">Bluetooth engedély megtagadva. Nem lehet eszközöket keresni.</string>
     <string name="wifi_autostart_title">WiFi automatikus indítás</string>
     <string name="wifi_autostart_content">Csatlakozva a következőhöz: %s. Koppintson az Android Auto indításához.</string>

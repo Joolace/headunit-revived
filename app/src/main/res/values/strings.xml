@@ -270,6 +270,7 @@
     <string name="mic_noise_suppressor_description">Attempts to reduce background noise. Disable if your voice sounds muffled.</string>
     <string name="mic_auto_gain_control">Automatic gain control (AGC)</string>
     <string name="mic_auto_gain_control_description">Automatically adjusts microphone volume. Disable if the volume is unstable.</string>
+    <string name="mic_feature_unsupported">This feature is not supported on your device.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Info</string>

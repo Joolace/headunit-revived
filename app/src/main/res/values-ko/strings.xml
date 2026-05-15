@@ -271,6 +271,7 @@
     <string name="mic_noise_suppressor_description">배경 소음을 줄입니다. 목소리가 먹먹하게 들리면 비활성화하세요.</string>
     <string name="mic_auto_gain_control">자동 게인 제어(AGC)</string>
     <string name="mic_auto_gain_control_description">마이크 음량을 자동으로 조절합니다. 음량이 불안정하면 비활성화하세요.</string>
+    <string name="mic_feature_unsupported">이 기능은 사용 중인 기기에서 지원되지 않습니다.</string>
 
     <!-- Info Settings -->
     <string name="category_info">정보</string>

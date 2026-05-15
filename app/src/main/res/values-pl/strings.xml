@@ -497,6 +497,7 @@
     <string name="mic_noise_suppressor_description">Próbuje zredukować hałas w tle. Wyłącz, jeśli Twój głos brzmi przytłumiony.</string>
     <string name="mic_auto_gain_control">Automatyczna regulacja wzmocnienia (AGC)</string>
     <string name="mic_auto_gain_control_description">Automatycznie dostosowuje głośność mikrofonu. Wyłącz, jeśli głośność jest niestabilna.</string>
+    <string name="mic_feature_unsupported">Ta funkcja nie jest obsługiwana na Twoim urządzeniu.</string>
     <string name="bt_permission_denied">Odmowa uprawnień Bluetooth. Nie można skanować urządzeń.</string>
     <string name="wifi_autostart_title">Auto-Start WiFi</string>
     <string name="wifi_autostart_content">Połączono z %s. Dotknij, aby uruchomić Android Auto.</string>

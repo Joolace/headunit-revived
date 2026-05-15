@@ -496,6 +496,7 @@
     <string name="mic_noise_suppressor_description">يحاول تقليل ضوضاء الخلفية. قم بتعطيله إذا كان صوتك يبدو مكتوماً.</string>
     <string name="mic_auto_gain_control">التحكم التلقائي في الكسب (AGC)</string>
     <string name="mic_auto_gain_control_description">يضبط مستوى صوت الميكروفون تلقائياً. قم بتعطيله إذا كان مستوى الصوت غير مستقر.</string>
+    <string name="mic_feature_unsupported">هذه الميزة غير مدعومة على جهازك.</string>
     <string name="bt_permission_denied">تم رفض إذن البلوتوث. لا يمكن مسح الأجهزة.</string>
     <string name="wifi_autostart_title">بدء تشغيل WiFi تلقائياً</string>
     <string name="wifi_autostart_content">متصل بـ %s. اضغط لبدء أندرويد أوتو.</string>

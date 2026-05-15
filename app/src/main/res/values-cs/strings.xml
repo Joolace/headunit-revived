@@ -496,6 +496,7 @@
     <string name="mic_noise_suppressor_description">Pokusí se snížit hluk na pozadí. Vypněte, pokud váš hlas zní tlumeně.</string>
     <string name="mic_auto_gain_control">Automatické řízení zesílení (AGC)</string>
     <string name="mic_auto_gain_control_description">Automaticky upravuje hlasitost mikrofonu. Vypněte, pokud je hlasitost nestabilní.</string>
+    <string name="mic_feature_unsupported">Tato funkce není na vašem zařízení podporována.</string>
     <string name="bt_permission_denied">Oprávnění Bluetooth bylo zamítnuto. Nelze skenovat zařízení.</string>
     <string name="wifi_autostart_title">Automatické spuštění WiFi</string>
     <string name="wifi_autostart_content">Připojeno k %s. Klepnutím spustíte Android Auto.</string>

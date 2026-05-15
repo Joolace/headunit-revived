@@ -496,6 +496,7 @@
     <string name="mic_noise_suppressor_description">嘗試降低背景雜音。若您的聲音聽起來很沉悶，請停用此功能。</string>
     <string name="mic_auto_gain_control">自動增益控制 (AGC)</string>
     <string name="mic_auto_gain_control_description">自動調整麥克風音量。若音量不穩定，請停用此功能。</string>
+    <string name="mic_feature_unsupported">此功能在您的裝置上不受支援。</string>
     <string name="bt_permission_denied">藍牙權限遭拒，無法掃描裝置。</string>
     <string name="wifi_autostart_title">WiFi 自動啟動</string>
     <string name="wifi_autostart_content">已連接至 %s。點擊以啟動 Android Auto。</string>

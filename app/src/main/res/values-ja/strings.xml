@@ -504,6 +504,7 @@
     <string name="mic_noise_suppressor_description">背景のノイズを低減します。声がこもって聞こえる場合は無効にしてください。</string>
     <string name="mic_auto_gain_control">自動ゲイン制御 (AGC)</string>
     <string name="mic_auto_gain_control_description">マイクの音量を自動的に調整します。音量が不安定な場合は無効にしてください。</string>
+    <string name="mic_feature_unsupported">この機能はお使いのデバイスでサポートされていません。</string>
     <string name="bt_permission_denied">Bluetooth権限が拒否されました。デバイスのスキャンができません。</string>
     <string name="wifi_autostart_title">WiFi自動起動</string>
     <string name="wifi_autostart_content">%s に接続されました。タップしてAndroid Autoを開始します。</string>

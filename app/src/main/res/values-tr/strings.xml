@@ -494,6 +494,7 @@
     <string name="mic_noise_suppressor_description">Arka plan gürültüsünü azaltmaya çalışır. Sesiniz boğuk geliyorsa bunu devre dışı bırakın.</string>
     <string name="mic_auto_gain_control">Otomatik kazanç kontrolü (AGC)</string>
     <string name="mic_auto_gain_control_description">Mikrofon ses seviyesini otomatik olarak ayarlar. Ses seviyesi dengesizse bunu devre dışı bırakın.</string>
+    <string name="mic_feature_unsupported">Bu özellik cihazınızda desteklenmiyor.</string>
     <string name="bt_permission_denied">Bluetooth izni reddedildi. Cihazlar taranamıyor.</string>
     <string name="wifi_autostart_title">WiFi Otomatik Başlatma</string>
     <string name="wifi_autostart_content">%s ağına bağlandı. Android Auto\'yu başlatmak için dokunun.</string>

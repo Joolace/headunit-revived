@@ -496,6 +496,7 @@
     <string name="mic_noise_suppressor_description">Intenta reducir el ruido de fondo. Desactívalo si tu voz suena apagada.</string>
     <string name="mic_auto_gain_control">Control automático de ganancia (AGC)</string>
     <string name="mic_auto_gain_control_description">Ajusta automáticamente el volumen del micrófono. Desactívalo si el volumen es inestable.</string>
+    <string name="mic_feature_unsupported">Esta función no es compatible con tu dispositivo.</string>
     <string name="bt_permission_denied">Permiso de Bluetooth denegado. No se pueden escanear dispositivos.</string>
     <string name="wifi_autostart_title">Inicio automático de WiFi</string>
     <string name="wifi_autostart_content">Conectado a %s. Pulsa para iniciar Android Auto.</string>
