@@ -4,6 +4,8 @@ import android.media.AudioAttributes
 import android.media.AudioFocusRequest
 import android.media.AudioManager
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import com.andrerinas.headunitrevived.aap.protocol.AudioConfigs
 import com.andrerinas.headunitrevived.aap.protocol.Channel
 import com.andrerinas.headunitrevived.aap.protocol.proto.Control
@@ -18,6 +20,41 @@ internal class AapAudio(
 
     private var audioFocusRequest: AudioFocusRequest? = null
     private var legacyFocusListener: AudioManager.OnAudioFocusChangeListener? = null
+
+    private var isDucked = false
+    private val handler = Handler(Looper.getMainLooper())
+    private val unduckRunnable = Runnable {
+        unduckMedia()
+    }
+
+    private fun duckMedia() {
+        if (!isDucked) {
+            val mediaTrack = audioDecoder.getTrack(Channel.ID_AUD)
+            if (mediaTrack != null) {
+                val duckedVolume = getMediaGain() * 0.4f
+                AppLog.i("Static Audio Focus: Ducking media volume to $duckedVolume")
+                mediaTrack.setVolume(duckedVolume)
+                isDucked = true
+            }
+        }
+    }
+
+    private fun unduckMedia() {
+        if (isDucked) {
+            val mediaTrack = audioDecoder.getTrack(Channel.ID_AUD)
+            if (mediaTrack != null) {
+                val originalVolume = getMediaGain()
+                AppLog.i("Static Audio Focus: Restoring media volume to $originalVolume")
+                mediaTrack.setVolume(originalVolume)
+            }
+            isDucked = false
+        }
+    }
+
+    private fun getMediaGain(): Float {
+        val offset = settings.mediaVolumeOffset
+        return (1.0f + (offset / 100.0f)).coerceIn(0.0f, 2.0f)
+    }
 
     fun requestFocusChange(stream: Int, focusRequest: Int, callback: AudioManager.OnAudioFocusChangeListener): Int {
         AppLog.i("Audio Focus Request: stream=$stream, type=$focusRequest")
@@ -138,11 +175,21 @@ internal class AapAudio(
         }
 
         audioDecoder.decode(channel, buf, start, length)
+
+        if (channel == Channel.ID_AU2 && settings.staticAudioFocus) {
+            duckMedia()
+            handler.removeCallbacks(unduckRunnable)
+            handler.postDelayed(unduckRunnable, 1500)
+        }
     }
 
     fun stopAudio(channel: Int) {
         AppLog.i("Audio Stop: " + Channel.name(channel))
         audioDecoder.stop(channel)
+        if (channel == Channel.ID_AU2 && settings.staticAudioFocus) {
+            handler.removeCallbacks(unduckRunnable)
+            unduckMedia()
+        }
     }
 
     companion object {

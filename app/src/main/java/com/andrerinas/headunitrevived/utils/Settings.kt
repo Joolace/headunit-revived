@@ -368,6 +368,10 @@ class Settings(context: Context) {
         get() = prefs.getBoolean("enable-audio-sink", true)
         set(value) { prefs.edit().putBoolean("enable-audio-sink", value).apply() }
 
+    var staticAudioFocus: Boolean
+        get() = prefs.getBoolean("static-audio-focus", false)
+        set(value) { prefs.edit().putBoolean("static-audio-focus", value).apply() }
+
     var separateAudioStreams: Boolean
         get() = prefs.getBoolean("separate-audio-streams", false)
         set(value) { prefs.edit().putBoolean("separate-audio-streams", value).apply() }
