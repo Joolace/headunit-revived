@@ -503,6 +503,7 @@
     <string name="mic_noise_suppressor_description">Tenta di ridurre il rumore di fondo. Disabilita se la tua voce risulta ovattata.</string>
     <string name="mic_auto_gain_control">Controllo automatico del guadagno (AGC)</string>
     <string name="mic_auto_gain_control_description">Regola automaticamente il volume del microfono. Disabilita se il volume è instabile.</string>
+    <string name="mic_feature_unsupported">Questa funzionalità non è supportata sul tuo dispositivo.</string>
     <string name="bt_permission_denied">Autorizzazione Bluetooth negata. Impossibile scansionare i dispositivi.</string>
     <string name="wifi_autostart_title">Avvio automatico WiFi</string>
     <string name="wifi_autostart_content">Connesso a %s. Tocca per avviare Android Auto.</string>

@@ -497,6 +497,7 @@
     <string name="mic_noise_suppressor_description">Încearcă să reducă zgomotul de fundal. Dezactivați dacă vocea dvs. sună înfundat.</string>
     <string name="mic_auto_gain_control">Control automat al amplificării (AGC)</string>
     <string name="mic_auto_gain_control_description">Reglează automat volumul microfonului. Dezactivați dacă volumul este instabil.</string>
+    <string name="mic_feature_unsupported">Această funcție nu este acceptată pe dispozitivul dvs.</string>
     <string name="bt_permission_denied">Permisiunea Bluetooth a fost refuzată. Nu se pot scana dispozitive.</string>
     <string name="wifi_autostart_title">Pornire automată WiFi</string>
     <string name="wifi_autostart_content">Conectat la %s. Atingeți pentru a porni Android Auto.</string>

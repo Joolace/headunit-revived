@@ -496,6 +496,7 @@
     <string name="mic_noise_suppressor_description">Probeert achtergrondgeluid te verminderen. Schakel dit uit als uw stem gedempt klinkt.</string>
     <string name="mic_auto_gain_control">Automatische versterkingsregeling (AGC)</string>
     <string name="mic_auto_gain_control_description">Past automatisch het microfoonvolume aan. Schakel dit uit als het volume onstabiel is.</string>
+    <string name="mic_feature_unsupported">Deze functie wordt niet ondersteund op uw apparaat.</string>
     <string name="bt_permission_denied">Bluetooth-toestemming geweigerd. Kan niet scannen naar apparaten.</string>
     <string name="wifi_autostart_title">WiFi Auto-Start</string>
     <string name="wifi_autostart_content">Verbonden met %s. Tik om Android Auto te starten.</string>

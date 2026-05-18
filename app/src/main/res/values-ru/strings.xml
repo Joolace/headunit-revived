@@ -497,6 +497,7 @@
     <string name="mic_noise_suppressor_description">Попытка уменьшить фоновый шум. Отключите, если ваш голос звучит приглушенно.</string>
     <string name="mic_auto_gain_control">Автоматическая регулировка усиления (AGC)</string>
     <string name="mic_auto_gain_control_description">Автоматически регулирует громкость микрофона. Отключите, если громкость нестабильна.</string>
+    <string name="mic_feature_unsupported">Эта функция не поддерживается на вашем устройстве.</string>
     <string name="bt_permission_denied">В разрешении Bluetooth отказано. Невозможно сканировать устройства.</string>
     <string name="wifi_autostart_title">Автозапуск WiFi</string>
     <string name="wifi_autostart_content">Подключено к %s. Нажмите, чтобы запустить Android Auto.</string>

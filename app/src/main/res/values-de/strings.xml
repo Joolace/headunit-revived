@@ -273,6 +273,7 @@
     <string name="mic_noise_suppressor_description">Versucht, Hintergrundgeräusche zu reduzieren. Deaktivieren, wenn die Stimme dumpf klingt.</string>
     <string name="mic_auto_gain_control">Automatische Pegelanpassung (AGC)</string>
     <string name="mic_auto_gain_control_description">Passt die Mikrofonlautstärke automatisch an. Deaktivieren bei instabiler Lautstärke.</string>
+    <string name="mic_feature_unsupported">Diese Funktion wird auf Ihrem Gerät nicht unterstützt.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Info</string>
