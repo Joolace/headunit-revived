@@ -153,6 +153,37 @@ internal class AapAudio(
         return false
     }
 
+    private fun startAudioTrack(channel: Int) {
+        if (audioDecoder.getTrack(channel) != null) return
+
+        val config = AudioConfigs.get(channel)
+        val stream = AudioConfigs.stream(channel, separateAudioStreams)
+
+        val offset = when (channel) {
+            Channel.ID_AUD -> mediaVolumeOffset
+            Channel.ID_AU1 -> assistantVolumeOffset
+            Channel.ID_AU2 -> navigationVolumeOffset
+            else -> 0
+        }
+        val gain = (1.0f + (offset / 100.0f)).coerceIn(0.0f, 2.0f)
+
+        // Voice and Navigation benefit from lower latency. Cap the multiplier for those channels.
+        val effectiveMultiplier = if (channel == Channel.ID_AUD) {
+            audioLatencyMultiplier
+        } else {
+            audioLatencyMultiplier.coerceAtMost(4)
+        }
+
+        AppLog.i("AudioDecoder.start: channel=$channel, stream=$stream, gain=$gain, sampleRate=${config.sampleRate}, numberOfBits=${config.numberOfBits}, numberOfChannels=${config.numberOfChannels}, isAac=$useAacAudio, latencyMultiplier=$effectiveMultiplier, queueCapacity=$audioQueueCapacity")
+        audioDecoder.start(channel, stream, config.sampleRate, config.numberOfBits, config.numberOfChannels, useAacAudio, gain, effectiveMultiplier, audioQueueCapacity)
+    }
+
+    fun precreateAudioTrack(channel: Int) {
+        if (!staticAudioFocus) return
+        if (channel != Channel.ID_AU2) return
+        startAudioTrack(channel)
+    }
+
     private fun decode(channel: Int, start: Int, buf: ByteArray, len: Int) {
         var length = len
         if (length > AUDIO_BUFS_SIZE) {
@@ -161,26 +192,7 @@ internal class AapAudio(
         }
 
         if (audioDecoder.getTrack(channel) == null) {
-            val config = AudioConfigs.get(channel)
-            val stream = AudioConfigs.stream(channel, separateAudioStreams)
-
-            val offset = when (channel) {
-                Channel.ID_AUD -> mediaVolumeOffset
-                Channel.ID_AU1 -> assistantVolumeOffset
-                Channel.ID_AU2 -> navigationVolumeOffset
-                else -> 0
-            }
-            val gain = (1.0f + (offset / 100.0f)).coerceIn(0.0f, 2.0f)
-
-            // Voice and Navigation benefit from lower latency. Cap the multiplier for those channels.
-            val effectiveMultiplier = if (channel == Channel.ID_AUD) {
-                audioLatencyMultiplier
-            } else {
-                audioLatencyMultiplier.coerceAtMost(4)
-            }
-
-            AppLog.i("AudioDecoder.start: channel=$channel, stream=$stream, gain=$gain, sampleRate=${config.sampleRate}, numberOfBits=${config.numberOfBits}, numberOfChannels=${config.numberOfChannels}, isAac=$useAacAudio, latencyMultiplier=$effectiveMultiplier, queueCapacity=$audioQueueCapacity")
-            audioDecoder.start(channel, stream, config.sampleRate, config.numberOfBits, config.numberOfChannels, useAacAudio, gain, effectiveMultiplier, audioQueueCapacity)
+            startAudioTrack(channel)
         }
 
         audioDecoder.decode(channel, buf, start, length)
@@ -194,10 +206,13 @@ internal class AapAudio(
 
     fun stopAudio(channel: Int) {
         AppLog.i("Audio Stop: " + Channel.name(channel))
-        audioDecoder.stop(channel)
         if (channel == Channel.ID_AU2 && staticAudioFocus) {
+            // Keep the navigation AudioTrack alive to prevent firmware
+            // from reacting to its destruction. Just restore media volume.
             handler.removeCallbacks(unduckRunnable)
             unduckMedia()
+        } else {
+            audioDecoder.stop(channel)
         }
     }
 

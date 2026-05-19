@@ -95,6 +95,7 @@ internal class AapControlMedia(
 
         // Pushing AudioFocusNotification
         if (Channel.isAudio(channel)) {
+            aapAudio.precreateAudioTrack(channel)
             val focusNotification = Control.AudioFocusNotification.newBuilder()
                 .setFocusState(Control.AudioFocusNotification.AudioFocusStateType.STATE_GAIN)
                 .setUnsolicited(true)
