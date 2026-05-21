@@ -175,7 +175,7 @@ internal class AapAudio(
         }
 
         AppLog.i("AudioDecoder.start: channel=$channel, stream=$stream, gain=$gain, sampleRate=${config.sampleRate}, numberOfBits=${config.numberOfBits}, numberOfChannels=${config.numberOfChannels}, isAac=$useAacAudio, latencyMultiplier=$effectiveMultiplier, queueCapacity=$audioQueueCapacity")
-        audioDecoder.start(channel, stream, config.sampleRate, config.numberOfBits, config.numberOfChannels, useAacAudio, gain, effectiveMultiplier, audioQueueCapacity)
+        audioDecoder.start(channel, stream, config.sampleRate, config.numberOfBits, config.numberOfChannels, useAacAudio, gain, effectiveMultiplier, audioQueueCapacity, staticAudioFocus)
     }
 
     fun precreateAudioTrack(channel: Int) {
@@ -197,7 +197,7 @@ internal class AapAudio(
 
         audioDecoder.decode(channel, buf, start, length)
 
-        if (channel == Channel.ID_AU2 && staticAudioFocus) {
+        if ((channel == Channel.ID_AU1 || channel == Channel.ID_AU2) && staticAudioFocus) {
             duckMedia()
             handler.removeCallbacks(unduckRunnable)
             handler.postDelayed(unduckRunnable, UNDUCK_DELAY_MS)
@@ -206,9 +206,9 @@ internal class AapAudio(
 
     fun stopAudio(channel: Int) {
         AppLog.i("Audio Stop: " + Channel.name(channel))
-        if (channel == Channel.ID_AU2 && staticAudioFocus) {
-            // Keep the navigation AudioTrack alive to prevent firmware
-            // from reacting to its destruction. Just restore media volume.
+        if ((channel == Channel.ID_AU1 || channel == Channel.ID_AU2) && staticAudioFocus) {
+            // Keep the speech wrappers alive to prevent recreate overhead and keep state consistent.
+            // Just restore media volume.
             handler.removeCallbacks(unduckRunnable)
             unduckMedia()
         } else {

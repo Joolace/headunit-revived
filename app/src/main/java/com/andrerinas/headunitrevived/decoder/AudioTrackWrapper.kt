@@ -22,10 +22,12 @@ class AudioTrackWrapper(
     private val isAac: Boolean = false,
     gain: Float,
     private val audioLatencyMultiplier: Int = 8,
-    private val audioQueueCapacity: Int = 0
+    private val audioQueueCapacity: Int = 0,
+    private val mixer: AudioMixer? = null,
+    private val channelId: Int = -1
 ) : Thread() {
 
-    private val audioTrack: AudioTrack
+    private val audioTrack: AudioTrack?
     private var decoder: MediaCodec? = null
     private var codecHandlerThread: HandlerThread? = null
     private val freeInputBuffers = LinkedBlockingQueue<Int>()
@@ -46,15 +48,20 @@ class AudioTrackWrapper(
 
     fun setVolume(gain: Float) {
         currentGain = gain
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                audioTrack.setVolume(gain)
-            } else {
-                @Suppress("DEPRECATION")
-                audioTrack.setStereoVolume(gain, gain)
+        val track = audioTrack
+        if (track != null) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    track.setVolume(gain)
+                } else {
+                    @Suppress("DEPRECATION")
+                    track.setStereoVolume(gain, gain)
+                }
+            } catch (e: Exception) {
+                AppLog.e("Failed to set volume on AudioTrack", e)
             }
-        } catch (e: Exception) {
-            AppLog.e("Failed to set volume on AudioTrack", e)
+        } else {
+            mixer?.setChannelGain(channelId, gain)
         }
     }
 
@@ -70,23 +77,38 @@ class AudioTrackWrapper(
 
     init {
         this.name = "AudioPlaybackThread"
-        audioTrack = createAudioTrack(stream, sampleRateInHz, bitDepth, channelCount, audioLatencyMultiplier)
-        setVolume(gain)
-        audioTrack.play()
+        audioTrack = if (mixer == null) {
+            createAudioTrack(stream, sampleRateInHz, bitDepth, channelCount, audioLatencyMultiplier)
+        } else {
+            null
+        }
+
+        if (mixer != null) {
+            mixer.registerChannel(channelId, sampleRateInHz, channelCount)
+            mixer.setChannelGain(channelId, gain)
+        } else {
+            setVolume(gain)
+            audioTrack?.play()
+        }
 
         if (isAac) {
             initDecoder(sampleRateInHz, channelCount)
         }
 
-        // Initialised here so audioTrack is guaranteed to exist before the lambda captures it
+        // Initialised here so writeThread is guaranteed to run correctly
         writeThread = Thread({
             Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO)
             while (isRunning || pcmQueue.isNotEmpty()) {
                 try {
                     val chunk = pcmQueue.poll(50, TimeUnit.MILLISECONDS) ?: continue
-                    val result = audioTrack.write(chunk, 0, chunk.size)
-                    if (result > 0) {
-                        framesWritten += result / bytesPerFrame
+                    if (mixer != null) {
+                        mixer.feed(channelId, chunk, 0, chunk.size)
+                        framesWritten += chunk.size / bytesPerFrame
+                    } else {
+                        val result = audioTrack?.write(chunk, 0, chunk.size) ?: 0
+                        if (result > 0) {
+                            framesWritten += result / bytesPerFrame
+                        }
                     }
                 } catch (e: InterruptedException) {
                     if (!isRunning && pcmQueue.isEmpty()) break
@@ -381,10 +403,15 @@ class AudioTrackWrapper(
             AppLog.e("Error releasing audio decoder", e)
         }
 
+        if (mixer != null) {
+            mixer.unregisterChannel(channelId)
+        }
+
         // 2. Gracefully stop the AudioTrack – stop() plays remaining buffer data
-        if (audioTrack.playState == AudioTrack.PLAYSTATE_PLAYING) {
+        val track = audioTrack
+        if (track != null && track.playState == AudioTrack.PLAYSTATE_PLAYING) {
             try {
-                audioTrack.stop()
+                track.stop()
 
                 // Wait for the AudioTrack hardware buffer to drain.
                 // Especially important on older devices (KitKat etc.).
@@ -392,7 +419,7 @@ class AudioTrackWrapper(
                 var stagnantCount = 0
                 val startTime = System.currentTimeMillis()
                 while (System.currentTimeMillis() - startTime < 2500) {
-                    val pos = audioTrack.playbackHeadPosition
+                    val pos = track.playbackHeadPosition
                     if (framesWritten > 0 && pos >= framesWritten) break
                     if (pos == lastPos && pos > 0) {
                         stagnantCount++
@@ -410,7 +437,7 @@ class AudioTrackWrapper(
 
         // 3. Release the AudioTrack
         try {
-            audioTrack.release()
+            audioTrack?.release()
         } catch (e: Exception) {
             AppLog.e("Error releasing audio track", e)
         }
