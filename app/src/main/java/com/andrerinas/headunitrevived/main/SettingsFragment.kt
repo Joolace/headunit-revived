@@ -33,6 +33,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import androidx.activity.result.contract.ActivityResultContracts
 import android.content.pm.PackageManager
 import com.andrerinas.headunitrevived.connection.NativeAaHandshakeManager
+import com.andrerinas.headunitrevived.utils.BluetoothHelper
 
 class SettingsFragment : Fragment() {
     private lateinit var settings: Settings
@@ -54,6 +55,7 @@ class SettingsFragment : Fragment() {
     private var pendingFpsLimit: Int? = null
     private var pendingBluetoothAddress: String? = null
     private var pendingEnableAudioSink: Boolean? = null
+    private var pendingStaticAudioFocus: Boolean? = null
     private var pendingSeparateAudioStreams: Boolean? = null
     private var pendingUseAacAudio: Boolean? = null
     private var pendingUseNativeSsl: Boolean? = null
@@ -70,6 +72,7 @@ class SettingsFragment : Fragment() {
     private var pendingAutoEnableHotspot: Boolean? = null
     private var pendingWaitForWifi: Boolean? = null
     private var pendingWaitForWifiTimeout: Int? = null
+    private var pendingBluetoothManagerServiceName: String? = null
 
     // Flag to determine if the projection should stretch to fill the screen
     private var pendingStretchToFill: Boolean? = null
@@ -124,6 +127,7 @@ class SettingsFragment : Fragment() {
         pendingFpsLimit = settings.fpsLimit
         pendingBluetoothAddress = settings.bluetoothAddress
         pendingEnableAudioSink = settings.enableAudioSink
+        pendingStaticAudioFocus = settings.staticAudioFocus
         pendingSeparateAudioStreams = settings.separateAudioStreams
         pendingUseAacAudio = settings.useAacAudio
         pendingUseNativeSsl = settings.useNativeSsl
@@ -146,6 +150,7 @@ class SettingsFragment : Fragment() {
         pendingHelperConnectionStrategy = settings.helperConnectionStrategy
         pendingWaitForWifi = settings.waitForWifiBeforeWifiDirect
         pendingWaitForWifiTimeout = settings.waitForWifiTimeout
+        pendingBluetoothManagerServiceName = settings.bluetoothManagerServiceName
         
         pendingInsetLeft = settings.insetLeft
         pendingInsetTop = settings.insetTop
@@ -254,6 +259,7 @@ class SettingsFragment : Fragment() {
         pendingFpsLimit?.let { settings.fpsLimit = it }
         pendingBluetoothAddress?.let { settings.bluetoothAddress = it }
         pendingEnableAudioSink?.let { settings.enableAudioSink = it }
+        pendingStaticAudioFocus?.let { settings.staticAudioFocus = it }
         pendingSeparateAudioStreams?.let { settings.separateAudioStreams = it }
         pendingUseAacAudio?.let { settings.useAacAudio = it }
         pendingUseNativeSsl?.let { settings.useNativeSsl = it }
@@ -280,10 +286,12 @@ class SettingsFragment : Fragment() {
 
         val oldWifiMode = settings.wifiConnectionMode
         val oldHelperStrategy = settings.helperConnectionStrategy
+        val oldBluetoothManagerServiceName = settings.bluetoothManagerServiceName
         pendingWifiConnectionMode?.let { settings.wifiConnectionMode = it }
         pendingHelperConnectionStrategy?.let { settings.helperConnectionStrategy = it }
         pendingWaitForWifi?.let { settings.waitForWifiBeforeWifiDirect = it }
         pendingWaitForWifiTimeout?.let { settings.waitForWifiTimeout = it }
+        pendingBluetoothManagerServiceName?.let { settings.bluetoothManagerServiceName = it }
         
         pendingInsetLeft?.let { settings.insetLeft = it }
         pendingInsetTop?.let { settings.insetTop = it }
@@ -292,7 +300,9 @@ class SettingsFragment : Fragment() {
 
         settings.commit()
 
-        if (oldWifiMode != settings.wifiConnectionMode || oldHelperStrategy != settings.helperConnectionStrategy) {
+        if (oldWifiMode != settings.wifiConnectionMode || 
+            oldHelperStrategy != settings.helperConnectionStrategy ||
+            oldBluetoothManagerServiceName != settings.bluetoothManagerServiceName) {
             val intent = Intent(requireContext(), AapService::class.java).apply {
                 val mode = settings.wifiConnectionMode
                 action = if (mode == 1 || mode == 2 || mode == 3)
@@ -338,6 +348,7 @@ class SettingsFragment : Fragment() {
                         pendingFpsLimit != settings.fpsLimit ||
                         pendingBluetoothAddress != settings.bluetoothAddress ||
                         pendingEnableAudioSink != settings.enableAudioSink ||
+                        pendingStaticAudioFocus != settings.staticAudioFocus ||
                         pendingSeparateAudioStreams != settings.separateAudioStreams ||
                         pendingUseAacAudio != settings.useAacAudio ||
                         pendingUseNativeSsl != settings.useNativeSsl ||
@@ -362,7 +373,8 @@ class SettingsFragment : Fragment() {
                         pendingWifiConnectionMode != settings.wifiConnectionMode ||
                         pendingHelperConnectionStrategy != settings.helperConnectionStrategy ||
                         pendingWaitForWifi != settings.waitForWifiBeforeWifiDirect ||
-                        pendingWaitForWifiTimeout != settings.waitForWifiTimeout
+                        pendingWaitForWifiTimeout != settings.waitForWifiTimeout ||
+                        pendingBluetoothManagerServiceName != settings.bluetoothManagerServiceName
 
         hasChanges = anyChange
 
@@ -374,6 +386,7 @@ class SettingsFragment : Fragment() {
                           pendingForceSoftware != settings.forceSoftwareDecoding ||
                           pendingEnableRotary != settings.enableRotary ||
                           pendingEnableAudioSink != settings.enableAudioSink ||
+                          pendingStaticAudioFocus != settings.staticAudioFocus ||
                           pendingSeparateAudioStreams != settings.separateAudioStreams ||
                           pendingUseAacAudio != settings.useAacAudio ||
                           pendingAudioLatencyMultiplier != settings.audioLatencyMultiplier ||
@@ -513,6 +526,33 @@ class SettingsFragment : Fragment() {
                 }
             }
         ))
+
+        if (pendingWifiConnectionMode == 3) {
+            val currentServiceName = pendingBluetoothManagerServiceName ?: "bluetooth_manager"
+            items.add(SettingItem.SettingEntry(
+                stableId = "bluetoothAdapterServiceName",
+                nameResId = R.string.bluetooth_adapter_label,
+                value = BluetoothHelper.getAdapterDescription(requireContext(), currentServiceName),
+                onClick = { _ ->
+                    val serviceNames = BluetoothHelper.listBluetoothServices()
+                    val displayNames = serviceNames.map { name ->
+                        BluetoothHelper.getAdapterDescription(requireContext(), name)
+                    }.toTypedArray()
+                    
+                    val selectedIndex = serviceNames.indexOf(currentServiceName).coerceAtLeast(0)
+                    
+                    MaterialAlertDialogBuilder(requireContext(), R.style.DarkAlertDialog)
+                        .setTitle(R.string.select_bt_adapter)
+                        .setSingleChoiceItems(displayNames, selectedIndex) { dialog, which ->
+                            dialog.dismiss()
+                            pendingBluetoothManagerServiceName = serviceNames[which]
+                            checkChanges()
+                            updateSettingsList()
+                        }
+                        .show()
+                }
+            ))
+        }
 
         // Sub-setting for Headunit Server (Manual vs Auto)
         if (pendingWifiConnectionMode == 0 || pendingWifiConnectionMode == 1) {
@@ -966,6 +1006,20 @@ class SettingsFragment : Fragment() {
                 updateSettingsList()
             }
         ))
+
+        if (pendingEnableAudioSink == true) {
+            items.add(SettingItem.ToggleSettingEntry(
+                stableId = "staticAudioFocus",
+                nameResId = R.string.static_audio_focus,
+                descriptionResId = R.string.static_audio_focus_description,
+                isChecked = pendingStaticAudioFocus ?: false,
+                onCheckedChanged = { isChecked ->
+                    pendingStaticAudioFocus = isChecked
+                    checkChanges()
+                    updateSettingsList()
+                }
+            ))
+        }
 
         items.add(SettingItem.ToggleSettingEntry(
             stableId = "separateAudioStreams",

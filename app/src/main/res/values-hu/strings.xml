@@ -36,6 +36,10 @@
     <string name="app_theme">Sötét mód (Alkalmazás)</string>
     <string name="app_theme_description">Az alkalmazás megjelenésének vezérlése</string>
     <string name="change_app_theme">Téma módosítása</string>
+    <string name="monochrome_icons">Monokróm ikonok</string>
+    <string name="monochrome_icons_description">Szürkeárnyalatos ikonok használata a kezdőképernyőn Sötét vagy Extrém sötét módban</string>
+    <string name="use_extreme_dark">Extrém sötét használata</string>
+    <string name="use_extreme_dark_description">Tiszta fekete háttér használata sötét módban</string>
     <string name="use_gradient_background">Színátmenetes háttér használata</string>
     <string name="use_gradient_background_description_on">Az alkalmazás saját hátteret rajzol a középre igazított színátmenetes körrel</string>
     <string name="use_gradient_background_description_off">Az alkalmazás klasszikus háttere van használatban</string>
@@ -58,6 +62,7 @@
 
     <string name="reconnection_required_title">Újrakapcsolódás szükséges</string>
     <string name="reconnection_required_message">Az eszköz várakozó állapotban van. Kérlek húzd ki, majd dugd vissza az USB-kábelt az Android Auto újraindításához.</string>
+
     <string name="bluetooth_address_s">Bluetooth cím</string>
     <string name="enter_bluetooth_mac">Add meg a Bluetooth MAC-et</string>
     <string name="reset">Visszaállítás</string>
@@ -93,6 +98,11 @@
 
     <string name="start_in_fullscreen_mode">Indítás teljes képernyős módban</string>
     <string name="start_in_fullscreen_mode_description">A változtatások érvényesítéséhez újra kell indítani az alkalmazást.</string>
+    <string name="fullscreen_none">Normál (Minden sáv látható)</string>
+    <string name="fullscreen_immersive">Teljes képernyő (Minden sáv rejtett)</string>
+    <string name="fullscreen_status_only">Csak az állapotsor elrejtése</string>
+    <string name="fullscreen_immersive_avoid_notch">Immerzív (Notch elkerülése)</string>
+    <string name="fullscreen_immersive_avoid_notch_desc">Elrejti az összes sávot, és kitöltést ad hozzá, hogy megakadályozza a vetítés Notch/Kivágás általi lefedését.</string>
 
     <string name="usb_status">USB állapota: %s</string>
     <string name="projection_status">Kivetítés állapota: %s</string>
@@ -106,6 +116,13 @@
     <string name="back">Vissza</string>
     <string name="debug_mode">Hibakeresési mód</string>
     <string name="debug_mode_description">Naplózás ki- és bekapcsolása.</string>
+    <string name="log_level">Naplózási szint</string>
+    <string name="log_level_description">A hibaelhárításhoz szükséges részletesség beállítása.</string>
+    <string name="start_log_capture">Naplózás indítása</string>
+    <string name="start_log_capture_description">Rögzíti a rendszernaplókat egy helyi fájlba a hibaelhárításhoz.</string>
+    <string name="start_log_capture_in_silent">Nem lehet elindítani a rögzítést: Csendes naplózási szint kiválasztva</string>
+    <string name="stop_log_capture">Naplózás leállítása</string>
+    <string name="stop_log_capture_description">Leállítja a naplózást és menti a fájlt.</string>
     <string name="export_logs">Naplók exportálása</string>
     <string name="export_logs_description">Naplók mentése hibakereséshez.</string>
     <string name="use_native_ssl">Natív SSL használata</string>
@@ -137,7 +154,6 @@
     <string name="key_button_a">A gomb (Kiválasztás)</string>
     <string name="key_button_b">B gomb (Vissza)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">Alkalmazás nyelve</string>
     <string name="system_default">Rendszer alapértelmezett</string>
@@ -151,14 +167,6 @@
     <string name="usb_auto_connect_description">Az alkalmazás megnyitásakor automatikus csatlakozás egy ismert USB-eszközhöz.</string>
     <string name="auto_start_bt_label">Bluetooth automatikus indítás</string>
     <string name="auto_start_bt_description">A Headunit Revived automatikus megnyitása, amikor egy adott Bluetooth-eszköz csatlakozik.</string>
-    <string name="auto_start_wifi_label">WiFi automatikus indítás</string>
-    <string name="auto_start_wifi_description">A Headunit Revived automatikus megnyitása egy adott WiFi SSID-hez való csatlakozáskor.</string>
-    <string name="auto_start_wifi_ssid_label">WiFi SSID</string>
-    <string name="auto_start_wifi_ssid_description">Csak akkor csatlakozzon, ha ehhez a WiFi SSID-hez kapcsolódik</string>
-    <string name="auto_start_wifi_warning">Régi funkció: a háttérbeli korlátozások miatt Android 8+ rendszeren nem biztos, hogy megbízhatóan működik. Győződjön meg róla, hogy az alkalmazás ki van véve az akkumulátor-optimalizálás alól.</string>
-    <string name="enter_wifi_ssid">Adja meg a WiFi SSID-t</string>
-    <string name="wifi_ssid_not_set">Nen beállítva</string>
-
     <string name="listen_for_usb_devices_label">USB-eszközök figyelése</string>
     <string name="listen_for_usb_devices_description">Android rendszerüzenet megjelenítése, ha USB-eszköz van csatlakoztatva.</string>
     <string name="auto_start_usb_label">Automatikus indítás USB-n</string>
@@ -172,14 +180,22 @@
     <string name="auto_start_screen_on_description">Az alkalmazás megnyitása minden alkalommal, amikor a képernyő bekapcsol. Ideális olyan autórádiókhoz, amelyek soha nem kapcsolnak ki teljesen, vagy gyorsindítási módot használnak, ahol a többi automatikus indítási lehetőség nem működik. Telefonokhoz és táblagépekhez nem ajánlott.</string>
     <string name="select_bt_device">Bluetooth eszköz kiválasztása</string>
     <string name="bt_device_not_set">Nincs beállítva</string>
+    <string name="bt_devices_selected">kiválasztott eszköz</string>
+    <string name="auto_start_wifi_label">WiFi automatikus indítás</string>
+    <string name="auto_start_wifi_description">A Headunit Revived automatikus megnyitása egy adott WiFi SSID-hez való csatlakozáskor.</string>
+    <string name="auto_start_wifi_ssid_label">WiFi SSID</string>
+    <string name="auto_start_wifi_ssid_description">Csak akkor csatlakozzon, ha ehhez a WiFi SSID-hez kapcsolódik</string>
+    <string name="auto_start_wifi_warning">Régi funkció: a háttérbeli korlátozások miatt Android 8+ rendszeren nem biztos, hogy megbízhatóan működik. Győződjön meg róla, hogy az alkalmazás ki van véve az akkumulátor-optimalizálás alól.</string>
+    <string name="enter_wifi_ssid">Adja meg a WiFi SSID-t</string>
+    <string name="wifi_ssid_not_set">Nen beállítva</string>
     <string name="bt_permission_denied_title">Bluetooth-engedély szükséges</string>
     <string name="bt_permission_denied_message">A párosított eszközök kiválasztásához Bluetooth-engedély szükséges. Kérjük, engedélyezze az alkalmazás beállításaiban.</string>
     <string name="overlay_permission_title">Háttérben indítás engedélye</string>
     <string name="overlay_permission_description">Ahhoz, hogy a Headunit Revived automatikusan megnyíljon Bluetooth-csatlakozáskor, engedélyezd a következő képernyőn a „Megjelenítés más alkalmazások felett” jogosultságot.</string>
     <string name="open_settings">Beállítások</string>
-    <string name="wireless_connection_settings">Vezeték nélküli kapcsolat</string>
     <string name="right_hand_drive">Jobbkormányos vezetés</string>
     <string name="right_hand_drive_description">Felhasználói felület pozícionálása jobbkormányos vezetéshez</string>
+    <string name="wireless_connection_settings">Vezeték nélküli kapcsolat</string>
     <string name="category_graphic">Grafika</string>
     <string name="custom_insets">Egyéni behúzás (margók)</string>
     <string name="inset_top">Felső</string>
@@ -204,7 +220,6 @@
     <string name="auto_connect_last_session_description">Indításkor automatikus újracsatlakozás a legutóbb használt eszközhöz.</string>
     <string name="auto_connect_single_usb">USB-eszköz automatikus csatlakoztatása</string>
     <string name="auto_connect_single_usb_description">Automatikus csatlakozás, ha csak egy kompatibilis eszköz érhető el</string>
-    <string name="auto_connecting_single_usb">Automatikus csatlakozás USB-eszközhöz…</string>
     <string name="auto_connect_settings">Automatikus csatlakozás beállítások</string>
     <string name="auto_connect_settings_description">Az automatikus csatlakozási módok és prioritásuk konfigurálása</string>
     <string name="auto_connect_help">Ezek a módszerek automatikusan futnak az alkalmazás megnyitásakor. Engedélyezze a kívántakat, majd húzza őket a sorrend beállításához. Az első sikeres engedélyezett módszer kerül felhasználásra.</string>
@@ -213,6 +228,7 @@
     <string name="drag_to_reorder">Húzza az átrendezéshez</string>
     <string name="move_up">Felfelé</string>
     <string name="move_down">Lefelé</string>
+    <string name="auto_connecting_single_usb">Automatikus csatlakozás USB-eszközhöz…</string>
     <string name="video_codec">Videókódek</string>
     <string name="fps_limit">FPS korlát</string>
     <string name="save">Mentés</string>
@@ -222,14 +238,16 @@
     <string name="enable">Engedélyezés</string>
     <string name="pref_stretch_screen_title">Kinyújtás teljes képernyőre</string>
     <string name="pref_stretch_screen_summary">Figyelmen kívül hagyja a képarányt a teljes kijelző kitöltéséhez (eltávolítja a fekete sávokat)</string>
-
-    <!-- Audio Settings -->
-        <string name="forced_scale">Kényszerített méretezés (Legacy javítás)</string>
+    <string name="forced_scale">Kényszerített méretezés (Legacy javítás)</string>
     <string name="forced_scale_description">Javítja a méretezési problémákat egyes régebbi, SurfaceView-t használó eszközökön. Csak akkor használja, ha a kép torz vagy eltolt.</string>
 
-<string name="category_audio">Hang</string>
+
+    <!-- Audio Settings -->
+    <string name="category_audio">Hang</string>
     <string name="enable_audio_sink">Hang fogadása</string>
     <string name="enable_audio_sink_description">Ha nincs engedélyezve, a fejegység nem kap hangot. A hang a telefonon fog szólni.</string>
+    <string name="static_audio_focus">Statikus audió fókusz</string>
+    <string name="static_audio_focus_description">Arra kényszeríti a telefont, hogy azt higgye, az audió fókusz mindig aktív, megakadályozva az audió útvonalválasztási hibákat az univerzális fejegységeken. Szoftveres hangerő-csökkentést (ducking) is végez a navigációs hangutasítások alatt.</string>
     <string name="separate_audio_streams">Különálló hangfolyamok</string>
     <string name="separate_audio_streams_description">Különálló hangcsatornák a zene, a hívások és az értesítések számára az egységes multimédia folyam helyett (előfordulhat, hogy néhány eszközön nem működik megfelelően).</string>
     <string name="use_aac_audio">AAC hang használata</string>
@@ -238,6 +256,8 @@
     <string name="media_volume_offset">Média hangerő-eltolás</string>
     <string name="assistant_volume_offset">Asszisztens hangerő-eltolás</string>
     <string name="navigation_volume_offset">Navigációs hangerő-eltolás</string>
+    <string name="microphone_settings">Mikrofon beállítások</string>
+    <string name="microphone_settings_description">A mikrofonbemenet és a hangfeldolgozás konfigurálása.</string>
     <string name="mic_input_source">Mikrofon bemeneti forrás</string>
     <string name="mic_input_source_description">Válaszd ki a mikrofon hangforrását.</string>
     <string-array name="mic_input_sources">
@@ -247,6 +267,13 @@
         <item>Hangkommunikáció</item>
         <item>Bluetooth headset (SCO)</item>
     </string-array>
+    <string name="mic_echo_canceler">Visszhangkioltás (AEC)</string>
+    <string name="mic_echo_canceler_description">Megpróbálja eltávolítani a visszhangot a mikrofonból. Kapcsolja ki, ha csendet vagy torzítást tapasztal.</string>
+    <string name="mic_noise_suppressor">Zajcsökkentés (NS)</string>
+    <string name="mic_noise_suppressor_description">Megpróbálja csökkenteni a háttérzajt. Kapcsolja ki, ha a hangja tompának tűnik.</string>
+    <string name="mic_auto_gain_control">Automatikus erősítésszabályozás (AGC)</string>
+    <string name="mic_auto_gain_control_description">Automatikusan szabályozza a mikrofon hangerejét. Kapcsolja ki, ha a hangerő instabil.</string>
+    <string name="mic_feature_unsupported">Ez a funkció nem támogatott az eszközén.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Információ</string>
@@ -310,6 +337,8 @@
     <string name="connection_interrupted">Kapcsolat elveszett</string>
     <string name="connection_interrupted_detail">Újrapróbálkozás…</string>
     <string name="wifi_disconnect_toast">Android Auto leválasztva: Ha vezeték nélküli AA-t használ, tiltsa le a \"Hálózatok közötti váltás\" vagy \"Hálózatgyorsítás\" opciót a telefon WiFi beállításaiban</string>
+    <string name="reset_usb_option">USB kapcsolat visszaállítása</string>
+    <string name="reset_usb_timeout">USB eszköz nem található. Ellenőrizze a csatlakozást.</string>
     <string name="notification_service_running">Headunit Revived fut</string>
     <string name="notification_projection_active">Android Auto kivetítve</string>
     <string name="shortcut_connect_title">Kapcsolódás</string>
@@ -326,8 +355,6 @@
     <string name="shortcut_night_mode_day_desc">Nappali mód kényszerítése</string>
     <string name="shortcut_night_mode_night_title">Mód: Éjszakai</string>
     <string name="shortcut_night_mode_night_desc">Éjszakai mód kényszerítése</string>
-    <string name="reset_usb_option">USB kapcsolat visszaállítása</string>
-    <string name="reset_usb_timeout">USB eszköz nem található. Ellenőrizze a csatlakozást.</string>
     <string name="setup_welcome_title">Gyorsbeállítás</string>
     <string name="setup_welcome_msg">Ez a varázsló segít kiválasztani a legjobb beállításokat a zökkenőmentes Android Auto élményhez.\n\nEzeket a beállításokat bármikor módosíthatja később az alkalmazás beállításaiban.</string>
     <string name="setup_start">Indítás</string>
@@ -344,22 +371,13 @@
     <string name="setup_widescreen_detected">Szélesvásznú kijelző észlelve.</string>
     <string name="auto_optimize">Beállítások automatikus optimalizálása</string>
     <string name="auto_optimize_desc">Rendszerellenőrzés futtatása az eszközhöz legjobban illő beállítások megtalálásához.</string>
-    <string name="fullscreen_none">Normál (Minden sáv látható)</string>
-    <string name="fullscreen_immersive">Teljes képernyő (Minden sáv rejtett)</string>
-    <string name="fullscreen_immersive_avoid_notch">Immerzív (Notch elkerülése)</string>
-    <string name="fullscreen_immersive_avoid_notch_desc">Elrejti az összes sávot, és kitöltést ad hozzá, hogy megakadályozza a vetítés Notch/Kivágás általi lefedését.</string>
-    <string name="fullscreen_status_only">Csak az állapotsor elrejtése</string>
-    <string name="log_level">Naplózási szint</string>
-    <string name="log_level_description">A hibaelhárításhoz szükséges részletesség beállítása.</string>
-    <string name="start_log_capture">Naplózás indítása</string>
-    <string name="start_log_capture_description">Rögzíti a rendszernaplókat egy helyi fájlba a hibaelhárításhoz.</string>
-    <string name="start_log_capture_in_silent">Nem lehet elindítani a rögzítést: Csendes naplózási szint kiválasztva</string>
-    <string name="stop_log_capture">Naplózás leállítása</string>
-    <string name="stop_log_capture_description">Leállítja a naplózást és menti a fájlt.</string>
 
-    <!-- Navigation notifications -->
+    <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">Navigációs értesítések</string>
-    <string name="show_navigation_notifications_description">„X méter múlva Y" és az aktuális utca megjelenítése az értesítésekben (hibakereséshez)</string>
+    <string name="show_navigation_notifications_description">„X méter múlva Y\" és az aktuális utca megjelenítése az értesítésekben (hibakereséshez)</string>
+    <string name="media_session_aa_status_placeholder">Csatlakoztatva</string>
+    <string name="sync_media_session_aa_metadata">AA aktuális szám a médialejátszási munkamenetben</string>
+    <string name="sync_media_session_aa_metadata_description">A telefonról származó számcímet, előadót, időtartamot és borítót jelenítse meg a rendszer médialejátszási munkamenetében és médiás értesítésben</string>
     <string name="nav_notification_channel_name">Navigáció</string>
     <string name="nav_notification_channel_description">Részletes navigációs utasítások az Android Auto-tól</string>
     <string name="nav_notification_title_format">%1$d m múlva — %2$s</string>
@@ -381,33 +399,35 @@
     <string name="nav_action_ferry">Komp</string>
     <string name="nav_action_ferry_train">Komp / vonat</string>
     <string name="nav_action_destination">Megérkezés</string>
-    <string name="monochrome_icons">Monokróm ikonok</string>
-    <string name="monochrome_icons_description">Szürkeárnyalatos ikonok használata a kezdőképernyőn Sötét vagy Extrém sötét módban</string>
-    <string name="use_extreme_dark">Extrém sötét használata</string>
-    <string name="use_extreme_dark_description">Tiszta fekete háttér használata sötét módban</string>
     <string name="show_fps_counter">FPS számláló megjelenítése</string>
+    <string name="show_fps_counter_description">Valós idejű FPS overlay megjelenítése a bal felső sarokban a vetítés alatt.</string>
+
+    <!-- Auto-start permission strings -->
+    <string name="reopen_on_reconnection_label">Újranyitás újracsatlakozáskor</string>
+    <string name="reopen_on_reconnection_description">A Kilépés gomb megnyomásakor az alkalmazás a háttérben fut tovább, és folyamatosan figyeli az USB-kapcsolatokat. Ha egy eszköz újracsatlakozik, az alkalmazás automatikusan megnyílik.</string>
     <string name="overlay_permission_required">Az automatikus indításhoz szükséges a \'Megjelenítés más alkalmazások felett\' engedély</string>
     <string name="usb_permission_denied">USB-engedély megtagadva. Kérjük, engedélyezze az USB-hozzáférést az automatikus csatlakozáshoz.</string>
     <string name="overlay_permission_denied_auto_start_disabled">Az átfedési engedély nem lett megadva. Az automatikus indítás letiltásra került.</string>
-    <string name="use_white_background">Fehér főképernyő háttérkép használata</string>
-    <string name="reopen_on_reconnection_label">Újranyitás újracsatlakozáskor</string>
-    <string name="reopen_on_reconnection_description">A Kilépés gomb megnyomásakor az alkalmazás a háttérben fut tovább, és folyamatosan figyeli az USB-kapcsolatokat. Ha egy eszköz újracsatlakozik, az alkalmazás automatikusan megnyílik.</string>
-    <string name="show_fps_counter_description">Valós idejű FPS overlay megjelenítése a bal felső sarokban a vetítés alatt.</string>
 
+    <!-- Theme -->
+    <string name="use_white_background">Fehér főképernyő háttérkép használata</string>
     <string name="category_input">Beviteli beállítások</string>
     <string name="enable_rotary">Forgókapcsoló (Rotary) engedélyezése</string>
     <string name="enable_rotary_description">Fizikai forgatógombok és kerekek támogatásának bejelentése. Kapcsolja ki, ha az érintőképernyő nem működik megfelelően.</string>
+
     <string name="kill_on_disconnect">Alkalmazás bezárása leválasztáskor</string>
     <string name="kill_on_disconnect_description">Az alkalmazás automatikus bezárása, amikor az Android Auto leválik</string>
     <string name="kill_on_disconnect_warning_title">Figyelmeztetés</string>
     <string name="kill_on_disconnect_warning">A következő újracsatlakozási beállítások ütköznek az alkalmazás leállításával leválasztáskor:\n\n%1$s\n\nA kezdeti csatlakozási beállítások (automatikus csatlakozás, automatikus indítás) továbbra is működnek a fejegység bekapcsolásakor. Az első leválasztás után azonban az alkalmazás azonnal bezárul az újracsatlakozás megkísérlése helyett.\n\nMegjegyzés: Egyes utólagos fejegységek soha nem kapcsolnak ki teljesen — ehelyett hibernálnak, hasonlóan egy telefonhoz, amely lezárja a képernyőjét, de soha nem kapcsol ki ténylegesen. Ezzel az opcióval az alkalmazás az első leválasztás után bezárul, és a következő indítási ciklusban nem biztos, hogy automatikusan újranyílik.\n\nSzeretné letiltani a fent felsorolt újracsatlakozási beállításokat?</string>
     <string name="kill_on_disconnect_disable_and_enable">Letiltás és engedélyezés</string>
     <string name="kill_on_disconnect_enable_anyway">Engedélyezés mindenképp</string>
+    <string name="kill_on_disconnect_conflicts_disabled">Az ütköző beállítások letiltásra kerültek</string>
     <string name="kill_on_disconnect_boot_warning">A \"Indítás rendszerindításkor\" be van kapcsolva. Ha az alkalmazás bezárul lecsatlakozáskor és ez az eszköz hibernálódik kikapcsolás helyett, az alkalmazás nem feltétlenül nyílik meg automatikusan a következő indításkor, mert nem jön létre rendszerindítási esemény — az eszköz egyszerűen felébred az alvó módból.</string>
     <string name="kill_on_disconnect_screen_on_warning">A \"Bekapcsolás a képernyő bekapcsolásakor\" funkció aktív. Ez a beállítás minden alkalommal megnyitja az alkalmazást, amikor a képernyő bekapcsol. A lekapcsoláskor történő bezárással kombinálva az alkalmazás lekapcsolás után bezárul, de azonnal újranyílik, amikor a képernyő ismét bekapcsol, ami újraindítási hurkot eredményez.</string>
-    <string name="kill_on_disconnect_conflicts_disabled">Az ütköző beállítások letiltásra kerültek</string>
+
     <string name="wifi_disabled_info">Infó: A Wi-Fi ki van kapcsolva.</string>
     <string name="bt_not_enabled">Infó: A Bluetooth ki van kapcsolva.</string>
+    <string name="bt_permission_denied">Bluetooth engedély megtagadva. Nem lehet eszközöket keresni.</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">Járműinformáció</string>
@@ -435,20 +455,23 @@
     <string name="vehicle_year_error_invalid">Adjon meg egy érvényes évet</string>
     <string name="vehicle_year_error_max">Az év nem lehet későbbi, mint %1$d</string>
     <string name="vehicle_info_restart_note">Ezek az adatok minden csatlakozáskor elküldésre kerülnek az Android Auto-nak.</string>
+
     <string name="auto_enable_hotspot">Hotspot automatikus bekapcsolása</string>
     <string name="auto_enable_hotspot_description">Automatikusan bekapcsolja a Wi-Fi hotspotot ezen az eszközön. (Nem minden eszközön fog működni)</string>
     <string name="hotspot_warning_title">Kísérleti funkció</string>
     <string name="hotspot_warning_message">Ez a funkció reflexiót használ, és nem minden eszközön működik. Szükség lehet a \"Rendszerbeállítások módosítása\" engedély manuális megadására.</string>
     <string name="hotspot_permission_title">Engedély szükséges</string>
     <string name="hotspot_permission_message">A hotspot funkció a \"Rendszerbeállítások módosítása\" engedélyt igényli. Kérjük, engedélyezze a következő képernyőn.</string>
+
+    <string name="supported_nativeaa">Speciális vezeték nélküli támogatás</string>
+    <string name="supported_nativeaa_desc">Jó hírek! Eszköze támogatja a „Native Wireless” módot, amely zökkenőmentesebb Android Auto élményt nyújt. \n\nA bekapcsoláshoz frissítenünk kell a Bluetooth-gyorsítótárat. Kérjük: \n1. Távolítsa el a meglévő párosítást a telefonjáról \n2. Kattintson az OK gombra a Bluetooth újraindításához \n3. Párosítsa újra a telefont \n\nSzeretne jetzt átváltani a Native AA módra?</string>
     <string name="not_supported_nativeaa">A natív vezeték nélküli mód úgy tűnik, nem támogatott</string>
     <string name="not_supported_nativeaa_desc">Lehet, hogy eszköze nem támogatja a natív vezeték nélküli módhoz szükséges Bluetooth vagy Wi-Fi funkciókat. Ennek ellenére megpróbálhatja, de ha nem sikerül, kérjük, használja helyette a „Wireless Helper” vagy az „Auto (Headunit Server)” módot.</string>
+
     <string name="wait_for_wifi">Várakozás WiFi-re a WiFi Direct előtt</string>
     <string name="wait_for_wifi_description">Indításkor megvárja a WiFi csatlakozást a WiFi Direct elindítása előtt. Hasznos, ha a fejegység néhány másodpercet vesz igénybe a WiFi csatlakozáshoz bekapcsolás után.</string>
     <string name="wait_for_wifi_timeout">WiFi várakozási időkorlát</string>
     <string name="wireless_24ghz_warning">Megjegyzés: A vezeték nélküli Android Auto 2,4 GHz-es eszközökön akadozáshoz, szaggatáshoz és leálláshoz vezethet. Ha problémákat tapasztal, kérjük, tesztelje USB-n keresztül, hogy megerősítse, hálózati korlátozásról van-e szó.</string>
-    <string name="supported_nativeaa">Speciális vezeték nélküli támogatás</string>
-    <string name="supported_nativeaa_desc">Jó hírek! Eszköze támogatja a „Native Wireless” módot, amely zökkenőmentesebb Android Auto élményt nyújt. \n\nA bekapcsoláshoz frissítenünk kell a Bluetooth-gyorsítótárat. Kérjük: \n1. Távolítsa el a meglévő párosítást a telefonjáról \n2. Kattintson az OK gombra a Bluetooth újraindításához \n3. Párosítsa újra a telefont \n\nSzeretne jetzt átváltani a Native AA módra?</string>
     <string name="fake_speed_title">Videózár letiltása (Fake Speed)</string>
     <string name="fake_speed_description">Folyamatos alacsony sebességet (0,5 m/s) jelent a telefonnak, hogy megakadályozza a videótartalmak blokkolását vezetés közben. Óvatosan használja.</string>
     <string name="wireless_mode_helper">Wireless Helper</string>
@@ -483,19 +506,12 @@
     <string name="media_action_play">Lejátszás</string>
     <string name="media_action_pause">Szünet</string>
     <string name="media_action_next">Következő</string>
-    <string name="media_session_aa_status_placeholder">Csatlakoztatva</string>
-    <string name="sync_media_session_aa_metadata">AA aktuális szám a médialejátszási munkamenetben</string>
-    <string name="sync_media_session_aa_metadata_description">A telefonról származó számcímet, előadót, időtartamot és borítót jelenítse meg a rendszer médialejátszási munkamenetében és médiás értesítésben</string>
     <string name="error_usb_permission_failed">Rendszerhiba: Nem sikerült lekérni az USB engedélykérő ablakot.</string>
-    <string name="microphone_settings">Mikrofon beállítások</string>
-    <string name="microphone_settings_description">A mikrofonbemenet és a hangfeldolgozás konfigurálása.</string>
-    <string name="mic_echo_canceler">Visszhangkioltás (AEC)</string>
-    <string name="mic_echo_canceler_description">Megpróbálja eltávolítani a visszhangot a mikrofonból. Kapcsolja ki, ha csendet vagy torzítást tapasztal.</string>
-    <string name="mic_noise_suppressor">Zajcsökkentés (NS)</string>
-    <string name="mic_noise_suppressor_description">Megpróbálja csökkenteni a háttérzajt. Kapcsolja ki, ha a hangja tompának tűnik.</string>
-    <string name="mic_auto_gain_control">Automatikus erősítésszabályozás (AGC)</string>
-    <string name="mic_auto_gain_control_description">Automatikusan szabályozza a mikrofon hangerejét. Kapcsolja ki, ha a hangerő instabil.</string>
-    <string name="bt_permission_denied">Bluetooth engedély megtagadva. Nem lehet eszközöket keresni.</string>
     <string name="wifi_autostart_title">WiFi automatikus indítás</string>
     <string name="wifi_autostart_content">Csatlakozva a következőhöz: %s. Koppintson az Android Auto indításához.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Bluetooth adapter</string>
+    <string name="bluetooth_adapter_description">Válassza ki a kézfogáshoz használandó Bluetooth adaptert/vezérlőt. Kettős Bluetooth-rendszerek esetén hasznos.</string>
+    <string name="select_bt_adapter">Bluetooth adapter kiválasztása</string>
 </resources>

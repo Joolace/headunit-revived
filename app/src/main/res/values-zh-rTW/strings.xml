@@ -2,6 +2,7 @@
     <string name="app_name">Headunit Revived</string>
     <string name="menu">選單</string>
     <string name="settings">設定</string>
+
     <string name="title_activity_settings">設定行為</string>
     <string name="dummy_button">虛擬按鈕</string>
     <string name="dummy_content">虛擬\n內容</string>
@@ -35,6 +36,10 @@
     <string name="app_theme">深色模式（應用程式）</string>
     <string name="app_theme_description">控制應用的視覺外觀</string>
     <string name="change_app_theme">更改應用主題</string>
+    <string name="monochrome_icons">單色圖示</string>
+    <string name="monochrome_icons_description">在深色或極致黑暗模式中使用灰階圖示</string>
+    <string name="use_extreme_dark">使用極致黑暗</string>
+    <string name="use_extreme_dark_description">在深色模式啟用時使用純黑背景</string>
     <string name="use_gradient_background">使用漸層背景</string>
     <string name="use_gradient_background_description_on">應用程式繪製自己的背景，漸層圓形置中顯示</string>
     <string name="use_gradient_background_description_off">正在使用應用程式的傳統背景</string>
@@ -93,6 +98,11 @@
 
     <string name="start_in_fullscreen_mode">開始進入全螢幕模式</string>
     <string name="start_in_fullscreen_mode_description">切換全螢幕模式。 您需要重新啟動應用程式才能套用變更。</string>
+    <string name="fullscreen_none">正常（顯示所有欄位）</string>
+    <string name="fullscreen_immersive">沉浸模式（隱藏所有欄位）</string>
+    <string name="fullscreen_status_only">僅隱藏狀態列</string>
+    <string name="fullscreen_immersive_avoid_notch">沈浸模式 (避開瀏海)</string>
+    <string name="fullscreen_immersive_avoid_notch_desc">隱藏所有工具列並增加間距，以防止投影被瀏海或切口遮擋。</string>
 
     <string name="usb_status">USB 狀態： %s</string>
     <string name="projection_status">投射狀態： %s</string>
@@ -106,6 +116,13 @@
     <string name="back">返回</string>
     <string name="debug_mode">除錯模式</string>
     <string name="debug_mode_description">切換更多日誌記錄</string>
+    <string name="log_level">日誌級別</string>
+    <string name="log_level_description">選擇日誌輸出的詳細程度以進行偵錯。</string>
+    <string name="start_log_capture">開始擷取日誌</string>
+    <string name="start_log_capture_description">開始將系統日誌記錄到檔案中。</string>
+    <string name="start_log_capture_in_silent">無法開始記錄：已選擇靜音日誌級別</string>
+    <string name="stop_log_capture">停止擷取日誌</string>
+    <string name="stop_log_capture_description">停止記錄並儲存日誌檔案。</string>
     <string name="export_logs">匯出日誌</string>
     <string name="export_logs_description">儲存日誌以進行除錯</string>
     <string name="use_native_ssl">使用原生 SSL</string>
@@ -137,7 +154,6 @@
     <string name="key_button_a">A 按鈕 (選擇)</string>
     <string name="key_button_b">B 按鈕 (返回)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">應用程式語言</string>
     <string name="system_default">系統預設</string>
@@ -151,14 +167,6 @@
     <string name="usb_auto_connect_description">應用程式開啟時自動連接到已知的 USB 裝置。</string>
     <string name="auto_start_bt_label">藍牙自動啟動</string>
     <string name="auto_start_bt_description">當特定藍牙裝置連接時，自動開啟 Headunit Revived。</string>
-    <string name="auto_start_wifi_label">Wi-Fi 自動啟動</string>
-    <string name="auto_start_wifi_description">當連接到特定 Wi-Fi SSID 時，自動開啟 Headunit Revived。</string>
-    <string name="auto_start_wifi_ssid_label">Wi-Fi SSID</string>
-    <string name="auto_start_wifi_ssid_description">僅在連線到此 Wi-Fi SSID 時進行連線</string>
-    <string name="auto_start_wifi_warning">舊版功能：由於背景限制，在 Android 8+ 上可能無法可靠運行。請確保已將應用程式排除在電池最佳化之外。</string>
-    <string name="enter_wifi_ssid">輸入 Wi-Fi SSID</string>
-    <string name="wifi_ssid_not_set">未設定</string>
-
     <string name="listen_for_usb_devices_label">監聽 USB 裝置</string>
     <string name="listen_for_usb_devices_description">當插入 USB 裝置時顯示 Android 系統提示。</string>
     <string name="auto_start_usb_label">USB 自動啟動</string>
@@ -172,14 +180,22 @@
     <string name="auto_start_screen_on_description">每次螢幕開啟時開啟應用程式。適用於從未完全關機或使用快速開機模式的車機，其中其他自動啟動選項無法使用。不建議用於手機或平板電腦。</string>
     <string name="select_bt_device">選擇藍牙裝置</string>
     <string name="bt_device_not_set">未設定</string>
+    <string name="bt_devices_selected">個已選擇的裝置</string>
+    <string name="auto_start_wifi_label">Wi-Fi 自動啟動</string>
+    <string name="auto_start_wifi_description">當連接到特定 Wi-Fi SSID 時，自動開啟 Headunit Revived。</string>
+    <string name="auto_start_wifi_ssid_label">Wi-Fi SSID</string>
+    <string name="auto_start_wifi_ssid_description">僅在連線到此 Wi-Fi SSID 時進行連線</string>
+    <string name="auto_start_wifi_warning">舊版功能：由於背景限制，在 Android 8+ 上可能無法可靠運行。請確保已將應用程式排除在電池最佳化之外。</string>
+    <string name="enter_wifi_ssid">輸入 Wi-Fi SSID</string>
+    <string name="wifi_ssid_not_set">未設定</string>
     <string name="bt_permission_denied_title">需要藍牙權限</string>
     <string name="bt_permission_denied_message">需要藍牙權限才能選擇已配對的裝置。請在應用程式設定中授予權限。</string>
     <string name="overlay_permission_title">背景啟動權限</string>
     <string name="overlay_permission_description">為了讓 Headunit Revived 在藍牙連接時自動開啟，請在下一個畫面啟用「顯示在其他應用程式上層」的權限。</string>
     <string name="open_settings">設定</string>
-    <string name="wireless_connection_settings">無線連線</string>
     <string name="right_hand_drive">右側駕駛</string>
     <string name="right_hand_drive_description">右側行駛位置 UI</string>
+    <string name="wireless_connection_settings">無線連線</string>
     <string name="category_graphic">圖形</string>
     <string name="custom_insets">自定義邊距</string>
     <string name="inset_top">上</string>
@@ -222,14 +238,16 @@
     <string name="enable">啟用</string>
     <string name="pref_stretch_screen_title">延展以填滿螢幕</string>
     <string name="pref_stretch_screen_summary">忽略長寬比以填滿整個顯示器（移除黑邊）</string>
-
-    <!-- Audio Settings -->
-        <string name="forced_scale">強制縮放 (舊版修正)</string>
+    <string name="forced_scale">強制縮放 (舊版修正)</string>
     <string name="forced_scale_description">修正某些使用 SurfaceView 的舊裝置上的縮放問題。僅在影像看起來扭曲 or 位移時使用。</string>
 
-<string name="category_audio">音訊</string>
+
+    <!-- Audio Settings -->
+    <string name="category_audio">音訊</string>
     <string name="enable_audio_sink">啟用音訊接收器</string>
     <string name="enable_audio_sink_description">如果已停用，主機將不會作為音訊接收器。 音訊將從手機播放。</string>
+    <string name="static_audio_focus">靜態音訊焦點</string>
+    <string name="static_audio_focus_description">強制讓手機認為音訊焦點一直被保留，以防止通用車機上的音訊路由丟失。在導航語音提示期間也會執行軟體音量衰減（Ducking）。</string>
     <string name="separate_audio_streams">分離音訊串流</string>
     <string name="separate_audio_streams_description">為音樂、通話和通知分離音訊頻道，而不是單一的多媒體串流（可能在某些設備上無法正常運作）。</string>
     <string name="use_aac_audio">使用 AAC 音訊</string>
@@ -238,6 +256,8 @@
     <string name="media_volume_offset">媒體</string>
     <string name="assistant_volume_offset">語音助理</string>
     <string name="navigation_volume_offset">導航</string>
+    <string name="microphone_settings">麥克風設定</string>
+    <string name="microphone_settings_description">設定麥克風輸入和音訊處理。</string>
     <string name="mic_input_source">麥克風輸入來源</string>
     <string name="mic_input_source_description">選擇麥克風的音訊來源。</string>
     <string-array name="mic_input_sources">
@@ -247,6 +267,13 @@
         <item>語音通訊</item>
         <item>藍牙耳機 (SCO)</item>
     </string-array>
+    <string name="mic_echo_canceler">回音消除 (AEC)</string>
+    <string name="mic_echo_canceler_description">嘗試消除麥克風回音。若遇到無聲或音訊失真，請停用此功能。</string>
+    <string name="mic_noise_suppressor">雜音抑制 (NS)</string>
+    <string name="mic_noise_suppressor_description">嘗試降低背景雜音。若您的聲音聽起來很沉悶，請停用此功能。</string>
+    <string name="mic_auto_gain_control">自動增益控制 (AGC)</string>
+    <string name="mic_auto_gain_control_description">自動調整麥克風音量。若音量不穩定，請停用此功能。</string>
+    <string name="mic_feature_unsupported">此功能在您的裝置上不受支援。</string>
 
     <!-- Info Settings -->
     <string name="category_info">資訊</string>
@@ -316,6 +343,8 @@
     <string name="notification_projection_active">Android Auto 投射中</string>
     <string name="shortcut_connect_title">連接</string>
     <string name="shortcut_connect_desc">連接至上次使用的裝置</string>
+    <string name="shortcut_selfmode_title">本機模式</string>
+    <string name="shortcut_selfmode_desc">在此裝置上啟動 Android Auto</string>
     <string name="shortcut_disconnect_title">斷開連接</string>
     <string name="shortcut_disconnect_desc">結束當前工作階段</string>
     <string name="shortcut_exit_title">結束應用程式</string>
@@ -342,22 +371,13 @@
     <string name="setup_widescreen_detected">偵測到寬螢幕顯示。</string>
     <string name="auto_optimize">自動最佳化設定</string>
     <string name="auto_optimize_desc">執行系統檢查，為您的裝置尋找最佳設定。</string>
-    <string name="fullscreen_none">正常（顯示所有欄位）</string>
-    <string name="fullscreen_immersive">沉浸模式（隱藏所有欄位）</string>
-    <string name="fullscreen_immersive_avoid_notch">沈浸模式 (避開瀏海)</string>
-    <string name="fullscreen_immersive_avoid_notch_desc">隱藏所有工具列並增加間距，以防止投影被瀏海或切口遮擋。</string>
-    <string name="fullscreen_status_only">僅隱藏狀態列</string>
-    <string name="log_level">日誌級別</string>
-    <string name="log_level_description">選擇日誌輸出的詳細程度以進行偵錯。</string>
-    <string name="start_log_capture">開始擷取日誌</string>
-    <string name="start_log_capture_description">開始將系統日誌記錄到檔案中。</string>
-    <string name="start_log_capture_in_silent">無法開始記錄：已選擇靜音日誌級別</string>
-    <string name="stop_log_capture">停止擷取日誌</string>
-    <string name="stop_log_capture_description">停止記錄並儲存日誌檔案。</string>
 
-    <!-- Navigation notifications -->
+    <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">導航通知</string>
     <string name="show_navigation_notifications_description">在通知中顯示「X 公尺後 Y」及目前街道（用於除錯）</string>
+    <string name="media_session_aa_status_placeholder">已連線</string>
+    <string name="sync_media_session_aa_metadata">在媒體工作階段顯示 AA 目前播放</string>
+    <string name="sync_media_session_aa_metadata_description">在系統媒體工作階段與媒體通知中顯示來自手機的歌曲名稱、演出者、時長與專輯封面</string>
     <string name="nav_notification_channel_name">導航</string>
     <string name="nav_notification_channel_description">來自 Android Auto 的轉彎導航指示</string>
     <string name="nav_notification_title_format">%1$d 公尺後 — %2$s</string>
@@ -379,33 +399,35 @@
     <string name="nav_action_ferry">渡輪</string>
     <string name="nav_action_ferry_train">渡輪／火車</string>
     <string name="nav_action_destination">抵達</string>
-    <string name="monochrome_icons">單色圖示</string>
-    <string name="monochrome_icons_description">在深色或極致黑暗模式中使用灰階圖示</string>
-    <string name="use_extreme_dark">使用極致黑暗</string>
-    <string name="use_extreme_dark_description">在深色模式啟用時使用純黑背景</string>
     <string name="show_fps_counter">顯示 FPS 計數器</string>
+    <string name="show_fps_counter_description">在投影期間於左上角顯示即時 FPS 疊加層。</string>
+
+    <!-- Auto-start permission strings -->
+    <string name="reopen_on_reconnection_label">重新連線時重新開啟</string>
+    <string name="reopen_on_reconnection_description">當您按下退出按鈕時，應用程式會在背景繼續運行並持續監控 USB 連線。如果裝置重新連線，應用程式會自動開啟。</string>
     <string name="overlay_permission_required">自動啟動需要「顯示在其他應用程式上層」權限</string>
     <string name="usb_permission_denied">USB 權限被拒絕。請允許 USB 存取以自動連線。</string>
     <string name="overlay_permission_denied_auto_start_disabled">未授予覆蓋權限。自動啟動已被停用。</string>
-    <string name="use_white_background">使用白色主畫面桌布</string>
-    <string name="reopen_on_reconnection_label">重新連線時重新開啟</string>
-    <string name="reopen_on_reconnection_description">當您按下退出按鈕時，應用程式會在背景繼續運行並持續監控 USB 連線。如果裝置重新連線，應用程式會自動開啟。</string>
-    <string name="show_fps_counter_description">在投影期間於左上角顯示即時 FPS 疊加層。</string>
 
+    <!-- Theme -->
+    <string name="use_white_background">使用白色主畫面桌布</string>
     <string name="category_input">輸入設定</string>
     <string name="enable_rotary">啟用旋鈕控制器 (Rotary)</string>
     <string name="enable_rotary_description">宣告支援實體旋鈕和控制輪。如果您的觸控螢幕運作不正常，請停用此選項。</string>
+
     <string name="kill_on_disconnect">斷線時關閉應用程式</string>
     <string name="kill_on_disconnect_description">當 Android Auto 斷線時自動關閉應用程式</string>
     <string name="kill_on_disconnect_warning_title">警告</string>
     <string name="kill_on_disconnect_warning">以下重新連線設定將與中斷連線時關閉應用程式衝突：\n\n%1$s\n\n您的初始連線設定（自動連線、自動啟動）在主機開機時仍然有效。但在第一次中斷連線後，應用程式將立即關閉，而不是嘗試重新連線。\n\n注意：部分副廠主機永遠不會完全關機，而是進入休眠狀態，類似手機鎖定螢幕但從未真正關機。啟用此選項後，應用程式將在第一次中斷連線後關閉，且可能不會在下次啟動時自動重新開啟。\n\n是否要停用上述重新連線設定？</string>
     <string name="kill_on_disconnect_disable_and_enable">停用並啟用</string>
     <string name="kill_on_disconnect_enable_anyway">仍然啟用</string>
+    <string name="kill_on_disconnect_conflicts_disabled">衝突的設定已被停用</string>
     <string name="kill_on_disconnect_boot_warning">您已啟用「開機時啟動」。如果應用程式在中斷連線時關閉，而此裝置進入休眠模式而非關機，應用程式可能不會在下次點火時自動重新開啟，因為不會產生開機事件——裝置只是從睡眠模式中喚醒。</string>
     <string name="kill_on_disconnect_screen_on_warning">您已啟用「螢幕開啟時啟動」。此設定會在每次螢幕開啟時開啟應用程式。結合中斷連線時關閉，應用程式將在中斷連線後關閉，但在螢幕再次開啟時立即重新開啟，形成重啟循環。</string>
-    <string name="kill_on_disconnect_conflicts_disabled">衝突的設定已被停用</string>
+
     <string name="wifi_disabled_info">資訊：Wi-Fi 已關閉。</string>
     <string name="bt_not_enabled">資訊：Bluetooth 已關閉。</string>
+    <string name="bt_permission_denied">藍牙權限遭拒，無法掃描裝置。</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">車輛資訊</string>
@@ -433,6 +455,7 @@
     <string name="vehicle_year_error_invalid">請輸入有效年份</string>
     <string name="vehicle_year_error_max">年份不能晚於 %1$d</string>
     <string name="vehicle_info_restart_note">每次連接時，這些資料都會傳送至 Android Auto。</string>
+
     <string name="auto_enable_hotspot">自動啟用熱點</string>
     <string name="auto_enable_hotspot_description">自動在此裝置上啟用 Wi-Fi 熱點。（不保證在所有裝置上都能運作）</string>
     <string name="hotspot_warning_title">實驗性功能</string>
@@ -440,16 +463,15 @@
     <string name="hotspot_permission_title">需要權限</string>
     <string name="hotspot_permission_message">熱點功能需要「修改系統設定」權限。請在下一個畫面中啟用。</string>
 
+    <string name="supported_nativeaa">增強型無線支援</string>
+    <string name="supported_nativeaa_desc">好消息！您的裝置支援「原生無線」模式，這將提供更無縫的 Android Auto 體驗。\n\n要啟用此功能，我們需要重新整理您的藍牙快取。請：\n1. 移除手機上現有的配對\n2. 點擊「確定」以重新啟動藍牙\n3. 重新配對您的手機\n\n您想現在切換到原生 AA 模式嗎？</string>
     <string name="not_supported_nativeaa">似乎不支援原生無線連接</string>
     <string name="not_supported_nativeaa_desc">您的裝置可能不支援原生無線所需的藍牙或 Wi-Fi 功能。您可以嘗試連線，但如果失敗，請改用「Wireless Helper」或「Auto (主機伺服器)」模式。</string>
-    <string name="shortcut_selfmode_title">本機模式</string>
-    <string name="shortcut_selfmode_desc">在此裝置上啟動 Android Auto</string>
+
     <string name="wait_for_wifi">啟動 WiFi Direct 前等待 WiFi</string>
     <string name="wait_for_wifi_description">開機時，在啟動 WiFi Direct 之前等待 WiFi 連接。適用於主機開機後需要幾秒才能連上 WiFi 的情況。</string>
     <string name="wait_for_wifi_timeout">WiFi 等待逾時</string>
     <string name="wireless_24ghz_warning">注意：在 2.4GHz 設備上使用無線 Android Auto 可能會導致延遲、卡頓和斷開連接。如果您遇到問題，請透過 USB 進行測試，以確認是否為網絡限制。</string>
-    <string name="supported_nativeaa">增強型無線支援</string>
-    <string name="supported_nativeaa_desc">好消息！您的裝置支援「原生無線」模式，這將提供更無縫的 Android Auto 體驗。\n\n要啟用此功能，我們需要重新整理您的藍牙快取。請：\n1. 移除手機上現有的配對\n2. 點擊「確定」以重新啟動藍牙\n3. 重新配對您的手機\n\n您想現在切換到原生 AA 模式嗎？</string>
     <string name="fake_speed_title">停用影片鎖定 (虛擬速度)</string>
     <string name="fake_speed_description">向手機報告穩定的低速 (0.5 m/s)，以防止駕駛時影片內容被鎖定。請謹慎使用。</string>
     <string name="wireless_mode_helper">蘇醒助手 (Wireless Helper)</string>
@@ -484,19 +506,12 @@
     <string name="media_action_play">播放</string>
     <string name="media_action_pause">暫停</string>
     <string name="media_action_next">下一首</string>
-    <string name="media_session_aa_status_placeholder">已連線</string>
-    <string name="sync_media_session_aa_metadata">在媒體工作階段顯示 AA 目前播放</string>
-    <string name="sync_media_session_aa_metadata_description">在系統媒體工作階段與媒體通知中顯示來自手機的歌曲名稱、演出者、時長與專輯封面</string>
     <string name="error_usb_permission_failed">系統錯誤：無法要求 USB 權限對話框。</string>
-    <string name="microphone_settings">麥克風設定</string>
-    <string name="microphone_settings_description">設定麥克風輸入和音訊處理。</string>
-    <string name="mic_echo_canceler">回音消除 (AEC)</string>
-    <string name="mic_echo_canceler_description">嘗試消除麥克風回音。若遇到無聲或音訊失真，請停用此功能。</string>
-    <string name="mic_noise_suppressor">雜音抑制 (NS)</string>
-    <string name="mic_noise_suppressor_description">嘗試降低背景雜音。若您的聲音聽起來很沉悶，請停用此功能。</string>
-    <string name="mic_auto_gain_control">自動增益控制 (AGC)</string>
-    <string name="mic_auto_gain_control_description">自動調整麥克風音量。若音量不穩定，請停用此功能。</string>
-    <string name="bt_permission_denied">藍牙權限遭拒，無法掃描裝置。</string>
     <string name="wifi_autostart_title">WiFi 自動啟動</string>
     <string name="wifi_autostart_content">已連接至 %s。點擊以啟動 Android Auto。</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">藍牙適配器</string>
+    <string name="bluetooth_adapter_description">選擇用於交握的藍牙適配器/控制器。適用於雙藍牙系統。</string>
+    <string name="select_bt_adapter">選擇藍牙適配器</string>
 </resources>

@@ -21,6 +21,9 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.content.Intent
+import android.media.audiofx.AcousticEchoCanceler
+import android.media.audiofx.AutomaticGainControl
+import android.media.audiofx.NoiseSuppressor
 
 class MicSettingsFragment : Fragment() {
     private lateinit var settings: Settings
@@ -189,8 +192,10 @@ class MicSettingsFragment : Fragment() {
         items.add(SettingItem.ToggleSettingEntry(
             stableId = "micEchoCanceler",
             nameResId = R.string.mic_echo_canceler,
-            descriptionResId = R.string.mic_echo_canceler_description,
-            isChecked = pendingMicEchoCanceler!!,
+            descriptionResId = if (AcousticEchoCanceler.isAvailable())
+                R.string.mic_echo_canceler_description else R.string.mic_feature_unsupported,
+            isChecked = pendingMicEchoCanceler ?:false,
+            isEnabled = AcousticEchoCanceler.isAvailable(),
             onCheckedChanged = { isChecked ->
                 pendingMicEchoCanceler = isChecked
                 checkChanges()
@@ -202,8 +207,10 @@ class MicSettingsFragment : Fragment() {
         items.add(SettingItem.ToggleSettingEntry(
             stableId = "micNoiseSuppressor",
             nameResId = R.string.mic_noise_suppressor,
-            descriptionResId = R.string.mic_noise_suppressor_description,
-            isChecked = pendingMicNoiseSuppressor!!,
+            descriptionResId = if (NoiseSuppressor.isAvailable())
+                R.string.mic_noise_suppressor_description else R.string.mic_feature_unsupported,
+            isChecked = pendingMicNoiseSuppressor ?:false,
+            isEnabled = NoiseSuppressor.isAvailable(),
             onCheckedChanged = { isChecked ->
                 pendingMicNoiseSuppressor = isChecked
                 checkChanges()
@@ -215,8 +222,10 @@ class MicSettingsFragment : Fragment() {
         items.add(SettingItem.ToggleSettingEntry(
             stableId = "micAutoGainControl",
             nameResId = R.string.mic_auto_gain_control,
-            descriptionResId = R.string.mic_auto_gain_control_description,
-            isChecked = pendingMicAutoGainControl!!,
+            descriptionResId = if (AutomaticGainControl.isAvailable())
+                R.string.mic_auto_gain_control_description else R.string.mic_feature_unsupported,
+            isChecked = pendingMicAutoGainControl ?:false,
+            isEnabled = AutomaticGainControl.isAvailable(),
             onCheckedChanged = { isChecked ->
                 pendingMicAutoGainControl = isChecked
                 checkChanges()

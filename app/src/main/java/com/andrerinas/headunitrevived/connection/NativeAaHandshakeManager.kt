@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothServerSocket
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import com.andrerinas.headunitrevived.aap.AapService
+import com.andrerinas.headunitrevived.utils.BluetoothHelper
 import com.andrerinas.headunitrevived.aap.protocol.proto.Wireless
 import com.andrerinas.headunitrevived.utils.AppLog
 import kotlinx.coroutines.*
@@ -39,7 +40,7 @@ class NativeAaHandshakeManager(
                     return false
                 }
             }
-            val adapter = BluetoothAdapter.getDefaultAdapter() ?: return false
+            val adapter = BluetoothHelper.getBluetoothAdapter(context) ?: return false
             if (!adapter.isEnabled) return false
             return try {
                 val socket = adapter.listenUsingRfcommWithServiceRecord("Compatibility Check", AA_UUID)
@@ -53,6 +54,7 @@ class NativeAaHandshakeManager(
         }
     }
 
+    private val settings = com.andrerinas.headunitrevived.App.provide(context).settings
     private var aaServerSocket: BluetoothServerSocket? = null
     private var hfpServerSocket: BluetoothServerSocket? = null
     private var isRunning = false
@@ -87,7 +89,7 @@ class NativeAaHandshakeManager(
         }
 
         isRunning = true
-        val adapter = BluetoothAdapter.getDefaultAdapter()
+        val adapter = BluetoothHelper.getBluetoothAdapter(context)
         if (adapter == null || !adapter.isEnabled) {
             AppLog.e("NativeAA: Bluetooth adapter not available or disabled")
             return
@@ -196,17 +198,22 @@ class NativeAaHandshakeManager(
                 return
             }
         }
-        val adapter = BluetoothAdapter.getDefaultAdapter() ?: return
-        val settings = com.andrerinas.headunitrevived.App.provide(context).settings
-        val lastMac = settings.autoStartBluetoothDeviceMac
+        val adapter = BluetoothHelper.getBluetoothAdapter(context) ?: return
+        val lastMacs = settings.autoStartBluetoothDeviceMacs
 
         pokeJob?.cancel()
         pokeJob = scope.launch(Dispatchers.IO + CoroutineName("NativeAa-Wakeup")) {
             AppLog.d("NativeAA: triggerPoke() delay starting (2s)...")
             delay(2000) // Small safety delay before connecting
 
-            val devicesToPoke = if (lastMac.isNotEmpty()) {
-                listOf(adapter.getRemoteDevice(lastMac))
+            val devicesToPoke = if (lastMacs.isNotEmpty()) {
+                lastMacs.mapNotNull { mac ->
+                    try {
+                        adapter.getRemoteDevice(mac)
+                    } catch (e: Exception) {
+                        null
+                    }
+                }
             } else {
                 AppLog.w("NativeAA: No 'Auto Start BT Device' selected in settings. Poking all paired devices as fallback...")
                 adapter.bondedDevices.toList()
@@ -248,7 +255,7 @@ class NativeAaHandshakeManager(
                 return
             }
         }
-        val adapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter() ?: return
+        val adapter = BluetoothHelper.getBluetoothAdapter(context) ?: return
         try {
             val device = adapter.getRemoteDevice(address)
             AppLog.i("NativeAA: Manual poke requested for ${device.name} ($address)")
@@ -280,13 +287,13 @@ class NativeAaHandshakeManager(
             val device = socket.remoteDevice
             AppLog.i("NativeAA: Handling handshake for ${device.name} (${device.address})")
             
-            // Auto-save this device as the last successful one for future pokes
-            val settings = com.andrerinas.headunitrevived.App.provide(context).settings
-            if (settings.autoStartBluetoothDeviceMac != device.address) {
-                AppLog.i("NativeAA: Saving ${device.address} (${device.name}) as the new default auto-start device.")
-                settings.autoStartBluetoothDeviceMac = device.address
+            val macs = settings.autoStartBluetoothDeviceMacs
+            if (!macs.contains(device.address)) {
+                AppLog.i("NativeAA: Saving ${device.address} (${device.name}) to the list of auto-start devices.")
+                val newMacs = macs + device.address
+                settings.autoStartBluetoothDeviceMacs = newMacs
                 settings.autoStartBluetoothDeviceName = device.name ?: "Unknown Device"
-                com.andrerinas.headunitrevived.utils.Settings.syncAutoStartBtMacToDeviceStorage(context, device.address)
+                com.andrerinas.headunitrevived.utils.Settings.syncAutoStartBtMacsToDeviceStorage(context, newMacs)
             }
 
             val input = DataInputStream(socket.inputStream)

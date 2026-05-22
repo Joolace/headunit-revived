@@ -95,6 +95,7 @@ internal class AapControlMedia(
 
         // Pushing AudioFocusNotification
         if (Channel.isAudio(channel)) {
+            aapAudio.precreateAudioTrack(channel)
             val focusNotification = Control.AudioFocusNotification.newBuilder()
                 .setFocusState(Control.AudioFocusNotification.AudioFocusStateType.STATE_GAIN)
                 .setUnsolicited(true)
@@ -317,9 +318,13 @@ internal class AapControlService(
         // Best-effort: request system audio focus to duck other apps on the headunit.
         // The result is intentionally ignored for the protocol response above.
         if (settings.enableAudioSink) {
-            aapAudio.requestFocusChange(AudioConfigs.stream(channel, settings.separateAudioStreams), notification.request.number, AudioManager.OnAudioFocusChangeListener {
-                AppLog.i("System audio focus changed: $it ${systemFocusName[it]}")
-            })
+            if (settings.staticAudioFocus) {
+                AppLog.i("Static Audio Focus active - skipping dynamic system focus request to prevent routing loss")
+            } else {
+                aapAudio.requestFocusChange(AudioConfigs.stream(channel, settings.separateAudioStreams), notification.request.number, AudioManager.OnAudioFocusChangeListener {
+                    AppLog.i("System audio focus changed: $it ${systemFocusName[it]}")
+                })
+            }
         } else {
             AppLog.i("Audio Sink disabled - skipping system audio focus request for channel ${Channel.name(channel)}")
         }

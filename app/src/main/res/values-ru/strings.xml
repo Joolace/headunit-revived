@@ -36,6 +36,10 @@
     <string name="app_theme">Тёмный режим (Приложение)</string>
     <string name="app_theme_description">Управление внешним видом приложения</string>
     <string name="change_app_theme">Изменить тему</string>
+    <string name="monochrome_icons">Монохромные значки</string>
+    <string name="monochrome_icons_description">Использовать серые значки на главном экране в тёмном или сверхтёмном режиме</string>
+    <string name="use_extreme_dark">Использовать сверхтёмный режим</string>
+    <string name="use_extreme_dark_description">Использовать чисто чёрный фон при активном тёмном режиме</string>
     <string name="use_gradient_background">Градиентный фон</string>
     <string name="use_gradient_background_description_on">Приложение рисует собственный фон с центрированным градиентным кругом</string>
     <string name="use_gradient_background_description_off">Используется классический фон приложения</string>
@@ -94,6 +98,11 @@
 
     <string name="start_in_fullscreen_mode">Запускать в полноэкранном режиме</string>
     <string name="start_in_fullscreen_mode_description">Включить полноэкранный режим. Для применения изменений необходимо перезапустить приложение.</string>
+    <string name="fullscreen_none">Обычный (Все панели видны)</string>
+    <string name="fullscreen_immersive">Погружение (Все панели скрыты)</string>
+    <string name="fullscreen_status_only">Скрыть только строку состояния</string>
+    <string name="fullscreen_immersive_avoid_notch">Иммерсивный (Избегать выреза)</string>
+    <string name="fullscreen_immersive_avoid_notch_desc">Скрывает все полосы и добавляет отступы, чтобы предотвратить перекрытие проекции вырезом или челкой.</string>
 
     <string name="usb_status">Статус USB: %s</string>
     <string name="projection_status">Статус проекции: %s</string>
@@ -107,6 +116,13 @@
     <string name="back">Назад</string>
     <string name="debug_mode">Режим отладки</string>
     <string name="debug_mode_description">Включить расширенное логирование</string>
+    <string name="log_level">Уровень логирования</string>
+    <string name="log_level_description">Фильтр уровня логирования при экспорте.</string>
+    <string name="start_log_capture">Начать запись лога</string>
+    <string name="start_log_capture_description">Начинает запись системных логов в файл.</string>
+    <string name="start_log_capture_in_silent">Невозможно начать запись: выбран Silent уровень логирования</string>
+    <string name="stop_log_capture">Остановить запись лога</string>
+    <string name="stop_log_capture_description">Идет запись… нажмите, чтобы остановить.</string>
     <string name="export_logs">Выгрузка логов</string>
     <string name="export_logs_description">Сохранить логи для отладки</string>
     <string name="use_native_ssl">Использовать Native SSL</string>
@@ -138,7 +154,6 @@
     <string name="key_button_a">Кнопка A (Выбрать)</string>
     <string name="key_button_b">Кнопка B (Назад)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">Язык приложения</string>
     <string name="system_default">По умолчанию системы</string>
@@ -152,14 +167,6 @@
     <string name="usb_auto_connect_description">Автоматически подключаться к известному USB-устройству при запуске приложения.</string>
     <string name="auto_start_bt_label">Автозапуск при Bluetooth</string>
     <string name="auto_start_bt_description">Автоматически открывать Headunit Revived при подключении определенного Bluetooth-устройства.</string>
-    <string name="auto_start_wifi_label">Автозапуск при WiFi</string>
-    <string name="auto_start_wifi_description">Автоматически открывать Headunit Revived при подключении к определенной WiFi-сети (SSID).</string>
-    <string name="auto_start_wifi_ssid_label">SSID WiFi</string>
-    <string name="auto_start_wifi_ssid_description">Подключаться только при сопряжении with этой WiFi-сетью (SSID)</string>
-    <string name="auto_start_wifi_warning">Устаревшая функция: может работать нестабильно на Android 8+ из-за фоновых ограничений. Убедитесь, что приложение исключено из оптимизации батареи.</string>
-    <string name="enter_wifi_ssid">Введите SSID WiFi</string>
-    <string name="wifi_ssid_not_set">Не задано</string>
-
     <string name="listen_for_usb_devices_label">Реагировать на USB-устройства</string>
     <string name="listen_for_usb_devices_description">Показывать системное окно Android при подключении USB-устройства.</string>
     <string name="auto_start_usb_label">Автозапуск при USB</string>
@@ -173,14 +180,22 @@
     <string name="auto_start_screen_on_description">Открывать приложение каждый раз при включении экрана. Идеально для автомагнитол, которые никогда полностью не выключаются или используют режимы быстрого запуска, где другие параметры автозапуска не работают. Не рекомендуется для телефонов и планшетов.</string>
     <string name="select_bt_device">Выбрать Bluetooth-устройство</string>
     <string name="bt_device_not_set">Не задано</string>
+    <string name="bt_devices_selected">устройств выбрано</string>
+    <string name="auto_start_wifi_label">Автозапуск при WiFi</string>
+    <string name="auto_start_wifi_description">Автоматически открывать Headunit Revived при подключении к определенной WiFi-сети (SSID).</string>
+    <string name="auto_start_wifi_ssid_label">SSID WiFi</string>
+    <string name="auto_start_wifi_ssid_description">Подключаться только при сопряжении with этой WiFi-сетью (SSID)</string>
+    <string name="auto_start_wifi_warning">Устаревшая функция: может работать нестабильно на Android 8+ из-за фоновых ограничений. Убедитесь, что приложение исключено из оптимизации батареи.</string>
+    <string name="enter_wifi_ssid">Введите SSID WiFi</string>
+    <string name="wifi_ssid_not_set">Не задано</string>
     <string name="bt_permission_denied_title">Требуется разрешение Bluetooth</string>
     <string name="bt_permission_denied_message">Разрешение Bluetooth необходимо для выбора сопряжённых устройств. Предоставьте его в настройках приложения.</string>
     <string name="overlay_permission_title">Разрешение на запуск в фоне</string>
-    <string name="overlay_permission_description">Чтобы Headunit Revived мог автоматически открываться при подключении Bluetooth, включите разрешение "Показывать поверх других приложений" на следующем экране.</string>
+    <string name="overlay_permission_description">Чтобы Headunit Revived мог автоматически открываться при подключении Bluetooth, включите разрешение \"Показывать поверх других приложений\" на следующем экране.</string>
     <string name="open_settings">Настройки</string>
-    <string name="wireless_connection_settings">Беспроводное соединение</string>
     <string name="right_hand_drive">Праворульный автомобиль</string>
     <string name="right_hand_drive_description">Адаптировать интерфейс для праворульного автомобиля</string>
+    <string name="wireless_connection_settings">Беспроводное соединение</string>
     <string name="category_graphic">Графика</string>
     <string name="custom_insets">Пользовательские отступы</string>
     <string name="inset_top">Сверху</string>
@@ -223,14 +238,16 @@
     <string name="enable">Включить</string>
     <string name="pref_stretch_screen_title">Растянуть на весь экран</string>
     <string name="pref_stretch_screen_summary">Игнорирует соотношение сторон для заполнения всего дисплея (убирает черные полосы)</string>
-
-    <!-- Audio Settings -->
-        <string name="forced_scale">Принудительное масштабирование (Legacy Fix)</string>
+    <string name="forced_scale">Принудительное масштабирование (Legacy Fix)</string>
     <string name="forced_scale_description">Исправляет проблемы с масштабированием на некоторых старых устройствах, использующих SurfaceView. Используйте только если изображение выглядит искаженным или смещенным.</string>
 
-<string name="category_audio">Аудио</string>
+
+    <!-- Audio Settings -->
+    <string name="category_audio">Аудио</string>
     <string name="enable_audio_sink">Включить вывод звука</string>
     <string name="enable_audio_sink_description">Если выключить этот параметр, то ГУ не будет выводить звук. Звук будет воспроизводиться на телефоне.</string>
+    <string name="static_audio_focus">Статический аудиофокус</string>
+    <string name="static_audio_focus_description">Принудительно заставляет телефон считать, что аудиофокус удерживается постоянно, предотвращая потерю маршрутизации звука на универсальных магнитолах. Также выполняет программное приглушение звука (ducking) во время голосовых подсказок навигатора.</string>
     <string name="separate_audio_streams">Раздельные аудиопотоки</string>
     <string name="separate_audio_streams_description">Разделять каналы звука для музыки, звонков и уведомлений вместо единого мультимедийного потока (может некорректно работать на некоторых устройствах).</string>
     <string name="use_aac_audio">Использовать AAC</string>
@@ -239,6 +256,8 @@
     <string name="media_volume_offset">Медиа</string>
     <string name="assistant_volume_offset">Ассистент</string>
     <string name="navigation_volume_offset">Навигация</string>
+    <string name="microphone_settings">Настройки микрофона</string>
+    <string name="microphone_settings_description">Настройка входа микрофона и обработки звука.</string>
     <string name="mic_input_source">Источник микрофона</string>
     <string name="mic_input_source_description">Выберите источник звука для микрофона.</string>
     <string-array name="mic_input_sources">
@@ -248,6 +267,13 @@
         <item>Голосовая связь</item>
         <item>Bluetooth-гарнитура (SCO)</item>
     </string-array>
+    <string name="mic_echo_canceler">Эхоподавление (AEC)</string>
+    <string name="mic_echo_canceler_description">Попытка удалить эхо из микрофона. Отключите, если слышите тишину или искажения.</string>
+    <string name="mic_noise_suppressor">Шумоподавление (NS)</string>
+    <string name="mic_noise_suppressor_description">Попытка уменьшить фоновый шум. Отключите, если ваш голос звучит приглушенно.</string>
+    <string name="mic_auto_gain_control">Автоматическая регулировка усиления (AGC)</string>
+    <string name="mic_auto_gain_control_description">Автоматически регулирует громкость микрофона. Отключите, если громкость нестабильна.</string>
+    <string name="mic_feature_unsupported">Эта функция не поддерживается на вашем устройстве.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Информация</string>
@@ -311,10 +337,14 @@
     <string name="connection_interrupted">Соединение потеряно</string>
     <string name="connection_interrupted_detail">Повторное подключение…</string>
     <string name="wifi_disconnect_toast">Android Auto отключён: При беспроводном AA отключите \"Переключение между сетями\" или \"Ускорение сети\" в настройках WiFi телефона</string>
+    <string name="reset_usb_option">Сбросить USB-подключение</string>
+    <string name="reset_usb_timeout">USB-устройство не найдено. Проверьте подключение.</string>
     <string name="notification_service_running">Headunit Revived запущен</string>
     <string name="notification_projection_active">Трансляция Android Auto активна</string>
     <string name="shortcut_connect_title">Подключить</string>
     <string name="shortcut_connect_desc">Подключиться к последнему устройству</string>
+    <string name="shortcut_selfmode_title">Self Mode</string>
+    <string name="shortcut_selfmode_desc">Запустить Android Auto на этом устройстве</string>
     <string name="shortcut_disconnect_title">Отключить</string>
     <string name="shortcut_disconnect_desc">Завершить текущий сеанс</string>
     <string name="shortcut_exit_title">Выйти из приложения</string>
@@ -325,8 +355,6 @@
     <string name="shortcut_night_mode_day_desc">Принудительный дневной режим</string>
     <string name="shortcut_night_mode_night_title">Режим: Ночь</string>
     <string name="shortcut_night_mode_night_desc">Принудительный ночной режим</string>
-    <string name="reset_usb_option">Сбросить USB-подключение</string>
-    <string name="reset_usb_timeout">USB-устройство не найдено. Проверьте подключение.</string>
     <string name="setup_welcome_title">Быстрая настройка</string>
     <string name="setup_welcome_msg">Этот мастер поможет вам выбрать оптимальные настройки для стабильной работы Android Auto.\n\nВы всегда можете изменить эти параметры позже в настройках приложения.</string>
     <string name="setup_start">Начать</string>
@@ -343,20 +371,8 @@
     <string name="setup_widescreen_detected">Обнаружен широкоформатный дисплей.</string>
     <string name="auto_optimize">Автоматическая оптимизация</string>
     <string name="auto_optimize_desc">Запустить проверку системы для подбора лучших настроек для вашего устройства.</string>
-    <string name="fullscreen_none">Обычный (Все панели видны)</string>
-    <string name="fullscreen_immersive">Погружение (Все панели скрыты)</string>
-    <string name="fullscreen_immersive_avoid_notch">Иммерсивный (Избегать выреза)</string>
-    <string name="fullscreen_immersive_avoid_notch_desc">Скрывает все полосы и добавляет отступы, чтобы предотвратить перекрытие проекции вырезом или челкой.</string>
-    <string name="fullscreen_status_only">Скрыть только строку состояния</string>
-    <string name="log_level">Уровень логирования</string>
-    <string name="log_level_description">Фильтр уровня логирования при экспорте.</string>
-    <string name="start_log_capture">Начать запись лога</string>
-    <string name="start_log_capture_description">Начинает запись системных логов в файл.</string>
-    <string name="start_log_capture_in_silent">Невозможно начать запись: выбран Silent уровень логирования</string>
-    <string name="stop_log_capture">Остановить запись лога</string>
-    <string name="stop_log_capture_description">Идет запись… нажмите, чтобы остановить.</string>
 
-    <!-- Navigation notifications -->
+    <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">Уведомления навигации</string>
     <string name="show_navigation_notifications_description">Показывать «Через X метров Y» и текущую улицу в уведомлениях (для отладки)</string>
     <string name="media_session_aa_status_placeholder">Подключено</string>
@@ -383,33 +399,35 @@
     <string name="nav_action_ferry">Паром</string>
     <string name="nav_action_ferry_train">Паром / поезд</string>
     <string name="nav_action_destination">Прибытие</string>
-    <string name="monochrome_icons">Монохромные значки</string>
-    <string name="monochrome_icons_description">Использовать серые значки на главном экране в тёмном или сверхтёмном режиме</string>
-    <string name="use_extreme_dark">Использовать сверхтёмный режим</string>
-    <string name="use_extreme_dark_description">Использовать чисто чёрный фон при активном тёмном режиме</string>
     <string name="show_fps_counter">Показывать счетчик FPS</string>
     <string name="show_fps_counter_description">Отображать текущую частоту кадров в верхнем левом углу во время проекции.</string>
+
+    <!-- Auto-start permission strings -->
+    <string name="reopen_on_reconnection_label">Открывать при повторном подключении</string>
+    <string name="reopen_on_reconnection_description">При нажатии кнопки «Выход» приложение продолжает работать в фоновом режиме и отслеживает USB-подключения. Если устройство подключается повторно, приложение открывается автоматически.</string>
     <string name="overlay_permission_required">Автозапуск требует разрешение \'Поверх других приложений\'</string>
     <string name="usb_permission_denied">Разрешение USB отклонено. Пожалуйста, разрешите доступ к USB для автоматического подключения.</string>
     <string name="overlay_permission_denied_auto_start_disabled">Разрешение на наложение не предоставлено. Автозапуск был отключён.</string>
-    <string name="use_white_background">Использовать белые обои главного экрана</string>
-    <string name="reopen_on_reconnection_label">Открывать при повторном подключении</string>
-    <string name="reopen_on_reconnection_description">При нажатии кнопки «Выход» приложение продолжает работать в фоновом режиме и отслеживает USB-подключения. Если устройство подключается повторно, приложение открывается автоматически.</string>
 
+    <!-- Theme -->
+    <string name="use_white_background">Использовать белые обои главного экрана</string>
     <string name="category_input">Настройки ввода</string>
     <string name="enable_rotary">Включить поворотный контроллер (Rotary)</string>
     <string name="enable_rotary_description">Объявить поддержку физических поворотных ручек и колес. Отключите это, если ваш сенсорный экран работает неправильно.</string>
+
     <string name="kill_on_disconnect">Закрывать приложение при отключении</string>
     <string name="kill_on_disconnect_description">Автоматически закрывать приложение при отключении Android Auto</string>
     <string name="kill_on_disconnect_warning_title">Предупреждение</string>
     <string name="kill_on_disconnect_warning">Следующие настройки переподключения будут конфликтовать с закрытием приложения при отключении:\n\n%1$s\n\nНастройки начального подключения (автоподключение, автозапуск) продолжат работать при включении магнитолы. Однако после первого отключения приложение сразу закроется вместо попытки переподключения.\n\nПримечание: Некоторые автомагнитолы никогда полностью не выключаются — они переходят в спящий режим, подобно телефону, который блокирует экран, но никогда не выключается по-настоящему. С этой опцией приложение закроется после первого отключения и может не открыться автоматически при следующем запуске зажигания.\n\nОтключить перечисленные выше настройки переподключения?</string>
     <string name="kill_on_disconnect_disable_and_enable">Отключить и включить</string>
     <string name="kill_on_disconnect_enable_anyway">Всё равно включить</string>
+    <string name="kill_on_disconnect_conflicts_disabled">Конфликтующие настройки были отключены</string>
     <string name="kill_on_disconnect_boot_warning">У вас включён \"Запуск при загрузке\". Если приложение закроется при отключении, а это устройство перейдёт в спящий режим вместо выключения, приложение может не открыться автоматически при следующем запуске, так как событие загрузки не генерируется — устройство просто просыпается из режима сна.</string>
     <string name="kill_on_disconnect_screen_on_warning">У вас включена опция \"Запуск при включении экрана\". Эта настройка открывает приложение каждый раз при включении экрана. В сочетании с закрытием при отключении приложение закроется после отключения, но сразу откроется снова при включении экрана, создавая цикл перезапуска.</string>
-    <string name="kill_on_disconnect_conflicts_disabled">Конфликтующие настройки были отключены</string>
+
     <string name="wifi_disabled_info">Инфо: Wi-Fi отключен.</string>
     <string name="bt_not_enabled">Инфо: Bluetooth отключен.</string>
+    <string name="bt_permission_denied">В разрешении Bluetooth отказано. Невозможно сканировать устройства.</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">Информация о транспортном средстве</string>
@@ -437,6 +455,7 @@
     <string name="vehicle_year_error_invalid">Введите корректный год</string>
     <string name="vehicle_year_error_max">Год не может быть позднее %1$d</string>
     <string name="vehicle_info_restart_note">Эти данные отправляются в Android Auto при каждом подключении.</string>
+
     <string name="auto_enable_hotspot">Автоматически включать точку доступа</string>
     <string name="auto_enable_hotspot_description">Автоматически включает Wi-Fi точку доступа на этом устройстве. (Будет работать не на всех устройствах)</string>
     <string name="hotspot_warning_title">Экспериментальная функция</string>
@@ -444,16 +463,15 @@
     <string name="hotspot_permission_title">Требуется разрешение</string>
     <string name="hotspot_permission_message">Функция точки доступа требует разрешения \"Изменение системных настроек\". Пожалуйста, включите его на следующем экране.</string>
 
+    <string name="supported_nativeaa">Расширенная беспроводная поддержка</string>
+    <string name="supported_nativeaa_desc">Отличные новости! Ваше устройство поддерживает режим «Native Wireless», который обеспечивает более плавную работу Android Auto. \n\nЧтобы включить его, нам нужно обновить кеш Bluetooth. Пожалуйста: \n1. Удалите существующее сопряжение на телефоне \n2. Нажмите ОК, чтобы перезапустить Bluetooth \n3. Снова выполните сопряжение с телефоном \n\nХотите переключиться на режим Native AA сейчас?</string>
     <string name="not_supported_nativeaa">Нативный беспроводной режим, похоже, не поддерживается</string>
     <string name="not_supported_nativeaa_desc">Ваше устройство может не поддерживать необходимые функции Bluetooth или Wi-Fi для нативного беспроводного режима. Вы можете попробовать в любом случае, но если не получится, используйте режим «Wireless Helper» или «Auto (Headunit Server)».</string>
-    <string name="shortcut_selfmode_title">Self Mode</string>
-    <string name="shortcut_selfmode_desc">Запустить Android Auto на этом устройстве</string>
+
     <string name="wait_for_wifi">Ждать WiFi перед WiFi Direct</string>
     <string name="wait_for_wifi_description">При запуске ждать подключения WiFi перед запуском WiFi Direct. Полезно, если вашему головному устройству требуется несколько секунд для подключения к WiFi после включения.</string>
     <string name="wait_for_wifi_timeout">Тайм-аут ожидания WiFi</string>
     <string name="wireless_24ghz_warning">Примечание: Беспроводной Android Auto на устройствах 2,4 ГГц может приводить к задержкам, рывкам и разрывам соединения. Если вы столкнулись с проблемами, проверьте работу через USB, чтобы подтвердить ограничение сети.</string>
-    <string name="supported_nativeaa">Расширенная беспроводная поддержка</string>
-    <string name="supported_nativeaa_desc">Отличные новости! Ваше устройство поддерживает режим «Native Wireless», который обеспечивает более плавную работу Android Auto. \n\nЧтобы включить его, нам нужно обновить кеш Bluetooth. Пожалуйста: \n1. Удалите существующее сопряжение на телефоне \n2. Нажмите ОК, чтобы перезапустить Bluetooth \n3. Снова выполните сопряжение с телефоном \n\nХотите переключиться на режим Native AA сейчас?</string>
     <string name="fake_speed_title">Отключить блокировку видео (Fake Speed)</string>
     <string name="fake_speed_description">Сообщает телефону постоянную низкую скорость (0.5 м/с), чтобы предотвратить блокировку видеоконтента во время вождения. Используйте с осторожностью.</string>
     <string name="wireless_mode_helper">Wireless Helper</string>
@@ -489,15 +507,11 @@
     <string name="media_action_pause">Пауза</string>
     <string name="media_action_next">Следующий</string>
     <string name="error_usb_permission_failed">Системная ошибка: Не удалось запросить диалоговое окно разрешения USB.</string>
-    <string name="microphone_settings">Настройки микрофона</string>
-    <string name="microphone_settings_description">Настройка входа микрофона и обработки звука.</string>
-    <string name="mic_echo_canceler">Эхоподавление (AEC)</string>
-    <string name="mic_echo_canceler_description">Попытка удалить эхо из микрофона. Отключите, если слышите тишину или искажения.</string>
-    <string name="mic_noise_suppressor">Шумоподавление (NS)</string>
-    <string name="mic_noise_suppressor_description">Попытка уменьшить фоновый шум. Отключите, если ваш голос звучит приглушенно.</string>
-    <string name="mic_auto_gain_control">Автоматическая регулировка усиления (AGC)</string>
-    <string name="mic_auto_gain_control_description">Автоматически регулирует громкость микрофона. Отключите, если громкость нестабильна.</string>
-    <string name="bt_permission_denied">В разрешении Bluetooth отказано. Невозможно сканировать устройства.</string>
     <string name="wifi_autostart_title">Автозапуск WiFi</string>
     <string name="wifi_autostart_content">Подключено к %s. Нажмите, чтобы запустить Android Auto.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Bluetooth-адаптер</string>
+    <string name="bluetooth_adapter_description">Выберите Bluetooth-адаптер/контроллер для сопряжения. Полезно для систем с двойным Bluetooth.</string>
+    <string name="select_bt_adapter">Выбор Bluetooth-адаптера</string>
 </resources>

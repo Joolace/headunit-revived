@@ -368,6 +368,10 @@ class Settings(context: Context) {
         get() = prefs.getBoolean("enable-audio-sink", true)
         set(value) { prefs.edit().putBoolean("enable-audio-sink", value).apply() }
 
+    var staticAudioFocus: Boolean
+        get() = prefs.getBoolean("static-audio-focus", false)
+        set(value) { prefs.edit().putBoolean("static-audio-focus", value).apply() }
+
     var separateAudioStreams: Boolean
         get() = prefs.getBoolean("separate-audio-streams", false)
         set(value) { prefs.edit().putBoolean("separate-audio-streams", value).apply() }
@@ -458,13 +462,35 @@ class Settings(context: Context) {
             prefs.edit().putString("auto-connect-priority-order", value.joinToString(",")).apply()
         }
 
+    var autoStartBluetoothDeviceMacs: Set<String>
+        get() {
+            var macs = prefs.getStringSet("auto-start-bt-macs", null)
+            if (macs == null) {
+                val legacyMac = prefs.getString("auto-start-bt-mac", "") ?: ""
+                macs = if (legacyMac.isNotEmpty()) setOf(legacyMac) else emptySet()
+                prefs.edit().putStringSet("auto-start-bt-macs", macs).apply()
+            }
+            return macs
+        }
+        set(value) {
+            prefs.edit().putStringSet("auto-start-bt-macs", value).apply()
+        }
+
     var autoStartBluetoothDeviceName: String
         get() = prefs.getString("auto-start-bt-name", "")!!
         set(value) { prefs.edit().putString("auto-start-bt-name", value).apply() }
 
     var autoStartBluetoothDeviceMac: String
-        get() = prefs.getString("auto-start-bt-mac", "")!!
-        set(value) = prefs.edit().putString("auto-start-bt-mac", value).apply()
+        get() = autoStartBluetoothDeviceMacs.firstOrNull() ?: ""
+        set(value) {
+            val current = autoStartBluetoothDeviceMacs.toMutableSet()
+            if (value.isNotEmpty()) {
+                current.add(value)
+            } else {
+                current.clear()
+            }
+            autoStartBluetoothDeviceMacs = current
+        }
 
     var appLanguage: String
         get() = prefs.getString("app-language", "")!!
@@ -639,6 +665,7 @@ class Settings(context: Context) {
         const val KEY_SCREEN_ORIENTATION = "screen-orientation"
         private const val KEY_LISTEN_FOR_USB_DEVICES = "listen-for-usb-devices"
         private const val KEY_AUTO_START_BT_MAC = "auto-start-bt-mac"
+        private const val KEY_AUTO_START_BT_MACS = "auto-start-bt-macs"
 
         /**
          * Reads auto-start-on-usb from device-protected storage (API 24+),
@@ -747,6 +774,10 @@ class Settings(context: Context) {
          * falling back to regular prefs on older devices.
          */
         fun getAutoStartBtMac(context: Context): String {
+            val macs = getAutoStartBtMacs(context)
+            if (macs.isNotEmpty()) {
+                return macs.first()
+            }
             val prefs = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val deviceContext = context.createDeviceProtectedStorageContext()
                 deviceContext.getSharedPreferences(DEVICE_PREFS_NAME, Context.MODE_PRIVATE)
@@ -762,6 +793,31 @@ class Settings(context: Context) {
                 deviceContext.getSharedPreferences(DEVICE_PREFS_NAME, Context.MODE_PRIVATE)
                     .edit()
                     .putString(KEY_AUTO_START_BT_MAC, mac)
+                    .apply()
+            }
+        }
+
+        fun getAutoStartBtMacs(context: Context): Set<String> {
+            val prefs = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val deviceContext = context.createDeviceProtectedStorageContext()
+                deviceContext.getSharedPreferences(DEVICE_PREFS_NAME, Context.MODE_PRIVATE)
+            } else {
+                context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+            }
+            var macs = prefs.getStringSet(KEY_AUTO_START_BT_MACS, null)
+            if (macs == null) {
+                val legacyMac = prefs.getString(KEY_AUTO_START_BT_MAC, "") ?: ""
+                macs = if (legacyMac.isNotEmpty()) setOf(legacyMac) else emptySet()
+            }
+            return macs
+        }
+
+        fun syncAutoStartBtMacsToDeviceStorage(context: Context, macs: Set<String>) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val deviceContext = context.createDeviceProtectedStorageContext()
+                deviceContext.getSharedPreferences(DEVICE_PREFS_NAME, Context.MODE_PRIVATE)
+                    .edit()
+                    .putStringSet(KEY_AUTO_START_BT_MACS, macs)
                     .apply()
             }
         }
@@ -890,5 +946,9 @@ class Settings(context: Context) {
     var lastNearbyDeviceName: String
         get() = prefs.getString("last-nearby-device-name", "")!!
         set(value) = prefs.edit().putString("last-nearby-device-name", value).apply()
+
+    var bluetoothManagerServiceName: String
+        get() = prefs.getString("bluetooth-manager-service-name", "bluetooth_manager")!!
+        set(value) = prefs.edit().putString("bluetooth-manager-service-name", value).apply()
 
 }

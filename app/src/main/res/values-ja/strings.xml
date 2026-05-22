@@ -154,7 +154,6 @@
     <string name="key_button_a">Aボタン (選択)</string>
     <string name="key_button_b">Bボタン (戻る)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">アプリ言語</string>
     <string name="system_default">システム標準</string>
@@ -168,14 +167,6 @@
     <string name="usb_auto_connect_description">アプリケーションが開始された時に既知のUSBデバイスに接続されると自動的に接続します。</string>
     <string name="auto_start_bt_label">Bluetooth自動開始</string>
     <string name="auto_start_bt_description">特定のBluetoothデバイスが接続されたときに、Headunit Revivedを自動的に起動します。</string>
-    <string name="auto_start_wifi_label">Wi-Fi自動起動</string>
-    <string name="auto_start_wifi_description">特定のWi-Fi SSIDに接続されたときにHeadunit Revivedを自動的に起動します。</string>
-    <string name="auto_start_wifi_ssid_label">Wi-Fi SSID</string>
-    <string name="auto_start_wifi_ssid_description">このWi-Fi SSIDに接続されている場合のみ接続を試みます</string>
-    <string name="auto_start_wifi_warning">レガシー機能：バックグラウンド制限のため、Android 8以降では動作が不安定になる場合があります。アプリをバッテリー最適化から除外してください。</string>
-    <string name="enter_wifi_ssid">Wi-Fi SSIDを入力してください</string>
-    <string name="wifi_ssid_not_set">未設定</string>
-
     <string name="listen_for_usb_devices_label">USBデバイスへの反応</string>
     <string name="listen_for_usb_devices_description">USBデバイスが接続されたときにAndroidのシステムプロンプトを表示します。</string>
     <string name="auto_start_usb_label">USBから自動起動</string>
@@ -189,14 +180,22 @@
     <string name="auto_start_screen_on_description">画面が点灯するたびにアプリを起動します。完全にシャットダウンしないヘッドユニットや、他の自動起動オプションが機能しない高速起動モードを使用するヘッドユニットに最適です。スマートフォンやタブレットには推奨しません。</string>
     <string name="select_bt_device">Bluetooth デバイスの選択</string>
     <string name="bt_device_not_set">未設定</string>
+    <string name="bt_devices_selected">個のデバイスを選択中</string>
+    <string name="auto_start_wifi_label">Wi-Fi自動起動</string>
+    <string name="auto_start_wifi_description">特定のWi-Fi SSIDに接続されたときにHeadunit Revivedを自動的に起動します。</string>
+    <string name="auto_start_wifi_ssid_label">Wi-Fi SSID</string>
+    <string name="auto_start_wifi_ssid_description">このWi-Fi SSIDに接続されている場合のみ接続を試みます</string>
+    <string name="auto_start_wifi_warning">レガシー機能：バックグラウンド制限のため、Android 8以降では動作が不安定になる場合があります。アプリをバッテリー最適化から除外してください。</string>
+    <string name="enter_wifi_ssid">Wi-Fi SSIDを入力してください</string>
+    <string name="wifi_ssid_not_set">未設定</string>
     <string name="bt_permission_denied_title">Bluetooth 許可が必要です</string>
     <string name="bt_permission_denied_message">ペアリング済みデバイスを選択するには、Bluetoothのアクセス許可が必要です。アプリの設定で許可してください。</string>
     <string name="overlay_permission_title">バックグラウンド起動許可</string>
     <string name="overlay_permission_description">Bluetooth接続時にHeadunit Revivedが自動的に起動するようにするには、次の画面で「他のアプリの上に表示する」権限を有効にしてください。</string>
     <string name="open_settings">設定</string>
-    <string name="wireless_connection_settings">ワイヤレス接続</string>
     <string name="right_hand_drive">右ハンドル</string>
     <string name="right_hand_drive_description">右側通行用のUI配置</string>
+    <string name="wireless_connection_settings">ワイヤレス接続</string>
     <string name="category_graphic">グラフィック</string>
     <string name="custom_insets">カスタム挿入（余白）</string>
     <string name="inset_top">上</string>
@@ -238,15 +237,16 @@
     <string name="enable">有効にする</string>
     <string name="pref_stretch_screen_title">画面いっぱいに伸ばす</string>
     <string name="pref_stretch_screen_summary">アスペクト比を無視して画面全体に表示します（黒帯を削除）。</string>
-
-
-    <!-- Audio Settings -->
     <string name="forced_scale">強制スケール (レガシー修正)</string>
     <string name="forced_scale_description">SurfaceViewを使用する一部の古いデバイスでのスケーリングの問題を修正します。画像が歪んだりずれたりして見える場合にのみ使用してください。</string>
 
+
+    <!-- Audio Settings -->
     <string name="category_audio">オーディオ</string>
     <string name="enable_audio_sink">オーディオシンク</string>
     <string name="enable_audio_sink_description">無効にすると、ヘッドユニットは音声を受信しなくなります。音声はスマートフォンから再生されます。</string>
+    <string name="static_audio_focus">静的オーディオフォーカス</string>
+    <string name="static_audio_focus_description">オーディオフォーカスが常に保持されているとスマートフォンに認識させ、一般的なヘッドユニットでのオーディオルーティングの切断を防ぎます。ナビゲーションの音声案内中には、ソフトウェアによる音量减衰（ダッキング）も実行します。</string>
     <string name="separate_audio_streams">音声ストリームの分離</string>
     <string name="separate_audio_streams_description">単一のマルチメディアストリームの代わりに、音楽、通話、通知の音声チャネルを分離します（一部のデバイスでは正しく機能しない場合があります）。</string>
     <string name="use_aac_audio">AAC Audioを利用する</string>
@@ -255,6 +255,8 @@
     <string name="media_volume_offset">メディアボリュームオフセット</string>
     <string name="assistant_volume_offset">アシスタントボリュームオフセット</string>
     <string name="navigation_volume_offset">ナビゲーションボリュームオフセット</string>
+    <string name="microphone_settings">マイク設定</string>
+    <string name="microphone_settings_description">マイク入力とオーディオ処理の設定を行います。</string>
     <string name="mic_input_source">マイク入力ソース</string>
     <string name="mic_input_source_description">マイクの音声ソースを選択します。</string>
     <string-array name="mic_input_sources">
@@ -264,6 +266,13 @@
         <item>ボイスコミュニケーション（エコー＋ノイズキャンセリング機能付き）</item>
         <item>Bluetoothヘッドセット（SCO）</item>
     </string-array>
+    <string name="mic_echo_canceler">エコーキャンセラー (AEC)</string>
+    <string name="mic_echo_canceler_description">マイクからのエコーを除去します。無音になったり音が歪んだりする場合は無効にしてください。</string>
+    <string name="mic_noise_suppressor">ノイズサプレッサー (NS)</string>
+    <string name="mic_noise_suppressor_description">背景のノイズを低減します。声がこもって聞こえる場合は無効にしてください。</string>
+    <string name="mic_auto_gain_control">自動ゲイン制御 (AGC)</string>
+    <string name="mic_auto_gain_control_description">マイクの音量を自動的に調整します。音量が不安定な場合は無効にしてください。</string>
+    <string name="mic_feature_unsupported">この機能はお使いのデバイスでサポートされていません。</string>
 
     <!-- Info Settings -->
     <string name="category_info">情報</string>
@@ -365,6 +374,9 @@
     <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">ナビゲーション通知</string>
     <string name="show_navigation_notifications_description">通知に「Xメートル先でYを実行する」と現在の道路を表示する（デバッグ用）</string>
+    <string name="media_session_aa_status_placeholder">接続済み</string>
+    <string name="sync_media_session_aa_metadata">メディアセッションにAAの再生中トラックを表示</string>
+    <string name="sync_media_session_aa_metadata_description">スマートフォンの曲名、アーティスト、再生時間、アルバムアートをシステムのメディアセッションとメディア通知に表示します</string>
     <string name="nav_notification_channel_name">ナビゲーション</string>
     <string name="nav_notification_channel_description">Android Autoのナビゲーション指示をターンする</string>
     <string name="nav_notification_title_format">%1$d メートル先 — %2$s</string>
@@ -413,8 +425,8 @@
     <string name="kill_on_disconnect_screen_on_warning">「画面オン時に起動」が有効になっています。この設定では、画面がオンになるたびにアプリが起動します。「切断時に終了」と組み合わせると、切断後にアプリは終了しますが、画面が再びオンになるとすぐに再起動するため、再起動ループが発生します。</string>
 
     <string name="wifi_disabled_info">お知らせ：Wi-Fiは無効になっています。</string>
-
     <string name="bt_not_enabled">Bluetoothが無効です</string>
+    <string name="bt_permission_denied">Bluetooth権限が拒否されました。デバイスのスキャンができません。</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">車両情報</string>
@@ -450,14 +462,15 @@
     <string name="hotspot_permission_title">許可が必要です</string>
     <string name="hotspot_permission_message">ホットスポット機能を使用するには、「システム設定の変更」権限が必要です。次の画面で有効にしてください。</string>
 
-    <string name="wait_for_wifi">Wi-Fi Directを使用する前に、Wi-Fiが有効になるまでお待ちください。</string>
-    <string name="wait_for_wifi_description">起動時に、Wi-Fi接続が完了するまで待ってからWi-Fi Directを開始します。ヘッドユニットの電源投入後、Wi-Fi接続に数秒かかる場合は、この設定を有効にしてください。</string>
-    <string name="wait_for_wifi_timeout">WiFi待機タイムアウト</string>
-    <string name="wireless_24ghz_warning">注意：2.4GHzデバイスでのワイヤレスAndroid Autoは、ラグ、カクつき、切断の原因となる場合があります。問題が発生した場合は、USB接続でテストし、ネットワークの制限かどうかを確認してください。</string>
     <string name="supported_nativeaa">高度なワイヤレスサポート</string>
     <string name="supported_nativeaa_desc">素晴らしいニュース！お使いのデバイスは「ネイティブワイヤレス」モードをサポートしており、よりシームレスな Android Auto 体験を提供します。\n\nこれを有効にするには、Bluetooth キャッシュをリフレッシュする必要があります。次の手順をお願いします：\n1. スマートフォンにある既存のペアリングを削除する\n2. OK をクリックして Bluetooth を再起動する\n3. スマートフォンを再度ペアリングする\n\n今すぐネイティブ AA モードに切り替えますか？</string>
     <string name="not_supported_nativeaa">ネイティブワイヤレスはサポートされていないようです</string>
     <string name="not_supported_nativeaa_desc">お使いのデバイスは、ネイティブワイヤレスに必要な Bluetooth または Wi-Fi 機能をサポートしていない可能性があります。とにかく試してみることもできますが、失敗した場合は、代わりに「Wireless Helper」または「Auto (Headunit Server)」モードを使用してください。</string>
+
+    <string name="wait_for_wifi">Wi-Fi Directを使用する前に、Wi-Fiが有効になるまでお待ちください。</string>
+    <string name="wait_for_wifi_description">起動時に、Wi-Fi接続が完了するまで待ってからWi-Fi Directを開始します。ヘッドユニットの電源投入後、Wi-Fi接続に数秒かかる場合は、この設定を有効にしてください。</string>
+    <string name="wait_for_wifi_timeout">WiFi待機タイムアウト</string>
+    <string name="wireless_24ghz_warning">注意：2.4GHzデバイスでのワイヤレスAndroid Autoは、ラグ、カクつき、切断の原因となる場合があります。問題が発生した場合は、USB接続でテストし、ネットワークの制限かどうかを確認してください。</string>
     <string name="fake_speed_title">ビデオロックの無効化 (Fake Speed)</string>
     <string name="fake_speed_description">走行中にビデオコンテンツがブロックされるのを防ぐため、一定の低速 (0.5 m/s) をスマートフォンに報告します。注意して使用してください。</string>
     <string name="wireless_mode_helper">Wireless Helper</string>
@@ -492,19 +505,12 @@
     <string name="media_action_play">再生</string>
     <string name="media_action_pause">一時停止</string>
     <string name="media_action_next">次へ</string>
-    <string name="media_session_aa_status_placeholder">接続済み</string>
-    <string name="sync_media_session_aa_metadata">メディアセッションにAAの再生中トラックを表示</string>
-    <string name="sync_media_session_aa_metadata_description">スマートフォンの曲名、アーティスト、再生時間、アルバムアートをシステムのメディアセッションとメディア通知に表示します</string>
     <string name="error_usb_permission_failed">システムエラー: USBパーミッションダイアログの要求に失敗しました。</string>
-    <string name="microphone_settings">マイク設定</string>
-    <string name="microphone_settings_description">マイク入力とオーディオ処理の設定を行います。</string>
-    <string name="mic_echo_canceler">エコーキャンセラー (AEC)</string>
-    <string name="mic_echo_canceler_description">マイクからのエコーを除去します。無音になったり音が歪んだりする場合は無効にしてください。</string>
-    <string name="mic_noise_suppressor">ノイズサプレッサー (NS)</string>
-    <string name="mic_noise_suppressor_description">背景のノイズを低減します。声がこもって聞こえる場合は無効にしてください。</string>
-    <string name="mic_auto_gain_control">自動ゲイン制御 (AGC)</string>
-    <string name="mic_auto_gain_control_description">マイクの音量を自動的に調整します。音量が不安定な場合は無効にしてください。</string>
-    <string name="bt_permission_denied">Bluetooth権限が拒否されました。デバイスのスキャンができません。</string>
     <string name="wifi_autostart_title">WiFi自動起動</string>
     <string name="wifi_autostart_content">%s に接続されました。タップしてAndroid Autoを開始します。</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Bluetooth アダプター</string>
+    <string name="bluetooth_adapter_description">ハンドシェイクに使用する Bluetooth アダプター/コントローラーを選択します。デュアル Bluetooth システムで役立ちます。</string>
+    <string name="select_bt_adapter">Bluetooth アダプターの選択</string>
 </resources>

@@ -154,7 +154,6 @@
     <string name="key_button_a">Taste A (Auswählen)</string>
     <string name="key_button_b">Taste B (Zurück)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">App-Sprache</string>
     <string name="system_default">Systemstandard</string>
@@ -168,14 +167,6 @@
     <string name="usb_auto_connect_description">Verbindet sich automatisch mit einem bekannten USB-Gerät, sobald die App geöffnet wird.</string>
     <string name="auto_start_bt_label">Auto-Start bei Bluetooth</string>
     <string name="auto_start_bt_description">Startet Headunit Revived automatisch, wenn sich ein bestimmtes Bluetooth-Gerät verbindet.</string>
-    <string name="auto_start_wifi_label">Auto-Start bei WLAN</string>
-    <string name="auto_start_wifi_description">Öffnet Headunit Revived automatisch, wenn eine Verbindung zu einer bestimmten WLAN-SSID besteht.</string>
-    <string name="auto_start_wifi_ssid_label">WLAN-SSID</string>
-    <string name="auto_start_wifi_ssid_description">Nur verbinden, wenn mit dieser WLAN-SSID gekoppelt</string>
-    <string name="auto_start_wifi_warning">Legacy-Funktion: Dies funktioniert unter Android 8+ aufgrund von Hintergrundbeschränkungen möglicherweise nicht zuverlässig. Stellen Sie sicher, dass die App von der Akku-Optimierung ausgeschlossen ist.</string>
-    <string name="enter_wifi_ssid">WLAN-SSID eingeben</string>
-    <string name="wifi_ssid_not_set">Nicht festgelegt</string>
-
     <string name="listen_for_usb_devices_label">USB System Anbindung</string>
     <string name="listen_for_usb_devices_description">Zeigt den Systemdialog, wenn ein USB-Gerät angeschlossen wird.</string>
     <string name="auto_start_usb_label">Autostart bei USB</string>
@@ -189,10 +180,18 @@
     <string name="auto_start_screen_on_description">Die App jedes Mal öffnen, wenn der Bildschirm eingeschaltet wird. Ideal für Autoradios, die nie vollständig herunterfahren oder Schnellstart-Modi verwenden, bei denen die anderen Autostart-Optionen nicht funktionieren. Nicht empfohlen für Telefone oder Tablets.</string>
     <string name="select_bt_device">Bluetooth-Gerät wählen</string>
     <string name="bt_device_not_set">Nicht festgelegt</string>
+    <string name="bt_devices_selected">Geräte ausgewählt</string>
+    <string name="auto_start_wifi_label">Auto-Start bei WLAN</string>
+    <string name="auto_start_wifi_description">Öffnet Headunit Revived automatisch, wenn eine Verbindung zu einer bestimmten WLAN-SSID besteht.</string>
+    <string name="auto_start_wifi_ssid_label">WLAN-SSID</string>
+    <string name="auto_start_wifi_ssid_description">Nur verbinden, wenn mit dieser WLAN-SSID gekoppelt</string>
+    <string name="auto_start_wifi_warning">Legacy-Funktion: Dies funktioniert unter Android 8+ aufgrund von Hintergrundbeschränkungen möglicherweise nicht zuverlässig. Stellen Sie sicher, dass die App von der Akku-Optimierung ausgeschlossen ist.</string>
+    <string name="enter_wifi_ssid">WLAN-SSID eingeben</string>
+    <string name="wifi_ssid_not_set">Nicht festgelegt</string>
     <string name="bt_permission_denied_title">Bluetooth-Berechtigung erforderlich</string>
     <string name="bt_permission_denied_message">Die Bluetooth-Berechtigung wird benötigt, um gekoppelte Geräte auszuwählen. Bitte in den App-Einstellungen erteilen.</string>
     <string name="overlay_permission_title">Hintergrund-Start Berechtigung</string>
-    <string name="overlay_permission_description">Damit Headunit Revived automatisch starten kann, wenn Bluetooth verbindet, aktivieren Sie bitte die Berechtigung "Über anderen Apps einblenden" im nächsten Bildschirm.</string>
+    <string name="overlay_permission_description">Damit Headunit Revived automatisch starten kann, wenn Bluetooth verbindet, aktivieren Sie bitte die Berechtigung \"Über anderen Apps einblenden\" im nächsten Bildschirm.</string>
     <string name="open_settings">Einstellungen</string>
     <string name="right_hand_drive">Rechtslenker</string>
     <string name="right_hand_drive_description">Benutzeroberfläche für Rechtsverkehr ausrichten</string>
@@ -242,10 +241,13 @@
     <string name="forced_scale">Erzwungene Skalierung (Legacy Fix)</string>
     <string name="forced_scale_description">Korrigiert Skalierungsprobleme auf einigen älteren Geräten mit SurfaceView. Nur verwenden, wenn das Bild verzerrt oder verschoben aussieht.</string>
 
+
     <!-- Audio Settings -->
     <string name="category_audio">Audio</string>
     <string name="enable_audio_sink">Audio-Ausgabe</string>
     <string name="enable_audio_sink_description">Wenn deaktiviert, empfängt die Headunit keinen Ton. Der Ton wird über das Handy abgespielt.</string>
+    <string name="static_audio_focus">Statischer Audio-Fokus</string>
+    <string name="static_audio_focus_description">Zwingt das Telefon dazu, zu glauben, dass der Audio-Fokus dauerhaft gehalten wird. Verhindert Ton-Ausfälle auf chinesischen Headunits. Aktiviert Software-Ducking für Navigationsansagen.</string>
     <string name="separate_audio_streams">Separate Audio-Streams</string>
     <string name="separate_audio_streams_description">Trenne Audiokanäle für Musik, Anrufe und Benachrichtigungen statt eines einzelnen Multimedia-Streams (funktioniert auf einigen Geräten möglicherweise nicht richtig).</string>
     <string name="use_aac_audio">AAC-Audio verwenden</string>
@@ -271,6 +273,7 @@
     <string name="mic_noise_suppressor_description">Versucht, Hintergrundgeräusche zu reduzieren. Deaktivieren, wenn die Stimme dumpf klingt.</string>
     <string name="mic_auto_gain_control">Automatische Pegelanpassung (AGC)</string>
     <string name="mic_auto_gain_control_description">Passt die Mikrofonlautstärke automatisch an. Deaktivieren bei instabiler Lautstärke.</string>
+    <string name="mic_feature_unsupported">Diese Funktion wird auf Ihrem Gerät nicht unterstützt.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Info</string>
@@ -369,9 +372,12 @@
     <string name="auto_optimize">Einstellungen automatisch optimieren</string>
     <string name="auto_optimize_desc">System-Check ausführen, um die besten Werte für dieses Gerät zu finden.</string>
 
-    <!-- Navigation notifications -->
+    <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">Navigationsbenachrichtigungen</string>
-    <string name="show_navigation_notifications_description">„In X Metern Y" und aktuelle Straße in Benachrichtigungen anzeigen (zum Debuggen)</string>
+    <string name="show_navigation_notifications_description">„In X Metern Y\" und aktuelle Straße in Benachrichtigungen anzeigen (zum Debuggen)</string>
+    <string name="media_session_aa_status_placeholder">Verbunden</string>
+    <string name="sync_media_session_aa_metadata">AA-Now-Playing in der Mediensitzung</string>
+    <string name="sync_media_session_aa_metadata_description">Titel, Interpret, Dauer und Albumcover vom Telefon in der System-Mediensitzung und in der Medienbenachrichtigung anzeigen</string>
     <string name="nav_notification_channel_name">Navigation</string>
     <string name="nav_notification_channel_description">Abbiegehinweise von Android Auto</string>
     <string name="nav_notification_title_format">In %1$d m — %2$s</string>
@@ -396,12 +402,14 @@
     <string name="show_fps_counter">FPS-Zähler anzeigen</string>
     <string name="show_fps_counter_description">Echtzeit-FPS oben links während der Projektion einblenden.</string>
 
+    <!-- Auto-start permission strings -->
     <string name="reopen_on_reconnection_label">Bei Neuverbindung erneut öffnen</string>
     <string name="reopen_on_reconnection_description">Wenn Sie die Beenden-Taste drücken, läuft die App im Hintergrund weiter und überwacht USB-Verbindungen. Wenn ein Gerät erneut verbunden wird, öffnet sich die App automatisch.</string>
     <string name="overlay_permission_required">Autostart erfordert die Berechtigung \'Über anderen Apps einblenden\'</string>
     <string name="usb_permission_denied">USB-Berechtigung verweigert. Bitte erlauben Sie den USB-Zugriff für automatische Verbindung.</string>
     <string name="overlay_permission_denied_auto_start_disabled">Overlay-Berechtigung nicht erteilt. Autostart wurde deaktiviert.</string>
 
+    <!-- Theme -->
     <string name="use_white_background">Weißes Startbildschirm-Hintergrundbild verwenden</string>
     <string name="category_input">Eingabeeinstellungen</string>
     <string name="enable_rotary">Rotary-Controller aktivieren</string>
@@ -419,6 +427,7 @@
 
     <string name="wifi_disabled_info">Info: WLAN ist deaktiviert.</string>
     <string name="bt_not_enabled">Bluetooth ist deaktiviert</string>
+    <string name="bt_permission_denied">Bluetooth-Berechtigung verweigert. Suche nach Geräten nicht möglich.</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">Fahrzeuginformationen</string>
@@ -497,11 +506,12 @@
     <string name="media_action_play">Wiedergabe</string>
     <string name="media_action_pause">Pause</string>
     <string name="media_action_next">Weiter</string>
-    <string name="media_session_aa_status_placeholder">Verbunden</string>
-    <string name="sync_media_session_aa_metadata">AA-Now-Playing in der Mediensitzung</string>
-    <string name="sync_media_session_aa_metadata_description">Titel, Interpret, Dauer und Albumcover vom Telefon in der System-Mediensitzung und in der Medienbenachrichtigung anzeigen</string>
     <string name="error_usb_permission_failed">Systemfehler: Anforderung des USB-Berechtigungsdialogs fehlgeschlagen.</string>
-    <string name="bt_permission_denied">Bluetooth-Berechtigung verweigert. Suche nach Geräten nicht möglich.</string>
     <string name="wifi_autostart_title">WiFi Auto-Start</string>
     <string name="wifi_autostart_content">Verbunden mit %s. Tippen, um Android Auto zu starten.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Bluetooth-Adapter</string>
+    <string name="bluetooth_adapter_description">Wähle den Bluetooth-Adapter/Controller für den Handshake aus. Nützlich bei Systemen mit zwei Bluetooth-Modulen.</string>
+    <string name="select_bt_adapter">Bluetooth-Adapter auswählen</string>
 </resources>

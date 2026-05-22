@@ -2,6 +2,7 @@
     <string name="app_name">Headunit Revived</string>
     <string name="menu">Menu</string>
     <string name="settings">Instellingen</string>
+
     <string name="title_activity_settings">Instellingen</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -35,6 +36,10 @@
     <string name="app_theme">Donkere modus (Applicatie)</string>
     <string name="app_theme_description">Bepaal het uiterlijk van de app</string>
     <string name="change_app_theme">Thema wijzigen</string>
+    <string name="monochrome_icons">Monochrome pictogrammen</string>
+    <string name="monochrome_icons_description">Grijstinten pictogrammen op het startscherm gebruiken in Donker of Extra donker modus</string>
+    <string name="use_extreme_dark">Extra donker gebruiken</string>
+    <string name="use_extreme_dark_description">Puur zwarte achtergrond gebruiken wanneer donkere modus actief is</string>
     <string name="use_gradient_background">Verloopachtergrond gebruiken</string>
     <string name="use_gradient_background_description_on">De app tekent een eigen achtergrond met de gecentreerde verloopcirkel</string>
     <string name="use_gradient_background_description_off">De klassieke achtergrond van de app wordt gebruikt</string>
@@ -93,6 +98,11 @@
 
     <string name="start_in_fullscreen_mode">Start in volledig scherm modus</string>
     <string name="start_in_fullscreen_mode_description">Toggle full screen mode. Je moet de app opnieuw opstarten om de wijzigigens toe te passen.</string>
+    <string name="fullscreen_none">Normaal (Alle balken zichtbaar)</string>
+    <string name="fullscreen_immersive">Meislepende modus (Alle balken verborgen)</string>
+    <string name="fullscreen_status_only">Alleen statusbalk verbergen</string>
+    <string name="fullscreen_immersive_avoid_notch">Immersief (Notch vermijden)</string>
+    <string name="fullscreen_immersive_avoid_notch_desc">Verbergt alle balken en voegt opvulling toe om te voorkomen dat de projectie wordt afgedekt door de Notch/Uitsparing.</string>
 
     <string name="usb_status">USB Status: %s</string>
     <string name="projection_status">Projectie Status: %s</string>
@@ -106,6 +116,13 @@
     <string name="back">Terug</string>
     <string name="debug_mode">Debug Modus</string>
     <string name="debug_mode_description">Meer logboekregistratie inschakelen/uitschakelen</string>
+    <string name="log_level">Logboekniveau</string>
+    <string name="log_level_description">Kies het detailniveau van de loguitvoer voor foutopsporing.</string>
+    <string name="start_log_capture">Logboekregistratie starten</string>
+    <string name="start_log_capture_description">Begint met het opnemen van systeemlogs in een bestand.</string>
+    <string name="start_log_capture_in_silent">Kan opname niet starten: Stille logboekregistratie geselecteerd</string>
+    <string name="stop_log_capture">Logboekregistratie stoppen</string>
+    <string name="stop_log_capture_description">Stopt de opname en slaat het logbestand op.</string>
     <string name="export_logs">Logs exporteren</string>
     <string name="export_logs_description">Logs opslaan voor debugging</string>
     <string name="use_native_ssl">Gebruik Native SSL</string>
@@ -137,7 +154,6 @@
     <string name="key_button_a">Knop A (Selecteren)</string>
     <string name="key_button_b">Knop B (Terug)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">App-taal</string>
     <string name="system_default">Systeemstandaard</string>
@@ -151,14 +167,6 @@
     <string name="usb_auto_connect_description">Automatisch verbinden met een bekend USB-apparaat wanneer de applicatie wordt geopend.</string>
     <string name="auto_start_bt_label">Automatisch starten bij Bluetooth</string>
     <string name="auto_start_bt_description">Start Headunit Revived automatisch wanneer een specifiek Bluetooth-apparaat verbinding maakt.</string>
-    <string name="auto_start_wifi_label">Automatisch starten bij WiFi</string>
-    <string name="auto_start_wifi_description">Opent Headunit Revived automatisch bij verbinding met een specifieke WiFi-SSID.</string>
-    <string name="auto_start_wifi_ssid_label">WiFi-SSID</string>
-    <string name="auto_start_wifi_ssid_description">Alleen verbinden bij verbinding met deze WiFi-SSID</string>
-    <string name="auto_start_wifi_warning">Legacy-functie: Dit werkt mogelijk niet betrouwbaar op Android 8+ vanwege achtergrondbeperkingen. Zorg ervoor dat de app is uitgesloten van batterijoptimalisatie.</string>
-    <string name="enter_wifi_ssid">WiFi-SSID invoeren</string>
-    <string name="wifi_ssid_not_set">Niet ingesteld</string>
-
     <string name="listen_for_usb_devices_label">Luister naar USB-apparaten</string>
     <string name="listen_for_usb_devices_description">Toon de Android-systeemprompt wanneer een USB-apparaat wordt aangesloten.</string>
     <string name="auto_start_usb_label">Automatisch starten via USB</string>
@@ -172,14 +180,22 @@
     <string name="auto_start_screen_on_description">De app openen telkens wanneer het scherm wordt ingeschakeld. Ideaal voor autoradio\'s die nooit volledig uitschakelen of snelle opstartmodi gebruiken waarbij de andere autostart-opties niet werken. Niet aanbevolen voor telefoons of tablets.</string>
     <string name="select_bt_device">Selecteer Bluetooth-apparaat</string>
     <string name="bt_device_not_set">Niet ingesteld</string>
+    <string name="bt_devices_selected">apparaten geselecteerd</string>
+    <string name="auto_start_wifi_label">Automatisch starten bij WiFi</string>
+    <string name="auto_start_wifi_description">Opent Headunit Revived automatisch bij verbinding met een specifieke WiFi-SSID.</string>
+    <string name="auto_start_wifi_ssid_label">WiFi-SSID</string>
+    <string name="auto_start_wifi_ssid_description">Alleen verbinden bij verbinding met deze WiFi-SSID</string>
+    <string name="auto_start_wifi_warning">Legacy-functie: Dit werkt mogelijk niet betrouwbaar op Android 8+ vanwege achtergrondbeperkingen. Zorg ervoor dat de app is uitgesloten van batterijoptimalisatie.</string>
+    <string name="enter_wifi_ssid">WiFi-SSID invoeren</string>
+    <string name="wifi_ssid_not_set">Niet ingesteld</string>
     <string name="bt_permission_denied_title">Bluetooth-toestemming vereist</string>
     <string name="bt_permission_denied_message">Bluetooth-toestemming is nodig om gekoppelde apparaten te selecteren. Verleen deze in de app-instellingen.</string>
     <string name="overlay_permission_title">Toestemming voor starten op achtergrond</string>
-    <string name="overlay_permission_description">Om Headunit Revived automatisch te openen wanneer Bluetooth verbinding maakt, dient u de toestemming "Weergeven over andere apps" in te schakelen in het volgende scherm.</string>
+    <string name="overlay_permission_description">Om Headunit Revived automatisch te openen wanneer Bluetooth verbinding maakt, dient u de toestemming \"Weergeven over andere apps\" in te schakelen in het volgende scherm.</string>
     <string name="open_settings">Instellingen</string>
-    <string name="wireless_connection_settings">Draadloze verbinding</string>
     <string name="right_hand_drive">Rechts hand gestuurd</string>
     <string name="right_hand_drive_description">Positioneer de gebruikersinterface voor rechts rijden.</string>
+    <string name="wireless_connection_settings">Draadloze verbinding</string>
     <string name="category_graphic">Grafisch</string>
     <string name="custom_insets">Aangepaste marges</string>
     <string name="inset_top">Boven</string>
@@ -222,14 +238,16 @@
     <string name="enable">Inschakelen</string>
     <string name="pref_stretch_screen_title">Uitrekken om scherm te vullen</string>
     <string name="pref_stretch_screen_summary">Negeert de beeldverhouding om het volledige display te vullen (verwijdert zwarte balken)</string>
-
-    <!-- Audio Settings -->
-        <string name="forced_scale">Geforceerde schaal (Legacy Fix)</string>
+    <string name="forced_scale">Geforceerde schaal (Legacy Fix)</string>
     <string name="forced_scale_description">Corrigeert schalingsproblemen op sommige oudere apparaten die SurfaceView gebruiken. Alleen gebruiken als het beeld vervormd of verschoven is.</string>
 
-<string name="category_audio">Audio</string>
+
+    <!-- Audio Settings -->
+    <string name="category_audio">Audio</string>
     <string name="enable_audio_sink">Audio-sink inschakelen</string>
     <string name="enable_audio_sink_description">Indien uitgeschakeld, fungeert de autoradio niet als audio-uitgang. Het geluid wordt dan vanaf de telefoon afgespeeld.</string>
+    <string name="static_audio_focus">Statische audiofocus</string>
+    <string name="static_audio_focus_description">Dwingt de telefoon te geloven dat de audiofocus altijd behouden blijft, wat verlies van audioroutering op generieke headunits voorkomt. Voert ook softwarematige volumevermindering (ducking) uit tijdens navigatie-aanwijzingen.</string>
     <string name="separate_audio_streams">Afzonderlijke audiostreams</string>
     <string name="separate_audio_streams_description">Scheid audiokanalen voor muziek, oproepen en meldingen in plaats van één multimediastroom (werkt mogelijk niet correct op sommige apparaten).</string>
     <string name="use_aac_audio">Gebruik AAC Audio</string>
@@ -238,6 +256,8 @@
     <string name="media_volume_offset">Media</string>
     <string name="assistant_volume_offset">Assistent</string>
     <string name="navigation_volume_offset">Navigatie</string>
+    <string name="microphone_settings">Microfooninstellingen</string>
+    <string name="microphone_settings_description">Microfooningang en audioverwerking configureren.</string>
     <string name="mic_input_source">Microfoon ingangsbron</string>
     <string name="mic_input_source_description">Kies de audiobron voor de microfoon.</string>
     <string-array name="mic_input_sources">
@@ -247,6 +267,13 @@
         <item>Spraakcommunicatie</item>
         <item>Bluetooth-headset (SCO)</item>
     </string-array>
+    <string name="mic_echo_canceler">Echonderdrukking (AEC)</string>
+    <string name="mic_echo_canceler_description">Probeert echo van de microfoon te verwijderen. Schakel dit uit als u stilte of vervorming ervaart.</string>
+    <string name="mic_noise_suppressor">Ruisonderdrukking (NS)</string>
+    <string name="mic_noise_suppressor_description">Probeert achtergrondgeluid te verminderen. Schakel dit uit als uw stem gedempt klinkt.</string>
+    <string name="mic_auto_gain_control">Automatische versterkingsregeling (AGC)</string>
+    <string name="mic_auto_gain_control_description">Past automatisch het microfoonvolume aan. Schakel dit uit als het volume onstabiel is.</string>
+    <string name="mic_feature_unsupported">Deze functie wordt niet ondersteund op uw apparaat.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Info</string>
@@ -316,6 +343,8 @@
     <string name="notification_projection_active">Android Auto wordt geprojecteerd</string>
     <string name="shortcut_connect_title">Verbinden</string>
     <string name="shortcut_connect_desc">Verbinden met laatst bekende apparaat</string>
+    <string name="shortcut_selfmode_title">Self Mode</string>
+    <string name="shortcut_selfmode_desc">Start Android Auto op dit apparaat</string>
     <string name="shortcut_disconnect_title">Verbinding verbreken</string>
     <string name="shortcut_disconnect_desc">Beëindig huidige sessie</string>
     <string name="shortcut_exit_title">App afsluiten</string>
@@ -342,22 +371,13 @@
     <string name="setup_widescreen_detected">Breedbeeldscherm gedetecteerd.</string>
     <string name="auto_optimize">Instellingen automatisch optimaliseren</string>
     <string name="auto_optimize_desc">Voer de systeemcontrole uit om de beste instellingen voor je apparaat te vinden.</string>
-    <string name="fullscreen_none">Normaal (Alle balken zichtbaar)</string>
-    <string name="fullscreen_immersive">Meislepende modus (Alle balken verborgen)</string>
-    <string name="fullscreen_immersive_avoid_notch">Immersief (Notch vermijden)</string>
-    <string name="fullscreen_immersive_avoid_notch_desc">Verbergt alle balken en voegt opvulling toe om te voorkomen dat de projectie wordt afgedekt door de Notch/Uitsparing.</string>
-    <string name="fullscreen_status_only">Alleen statusbalk verbergen</string>
-    <string name="log_level">Logboekniveau</string>
-    <string name="log_level_description">Kies het detailniveau van de loguitvoer voor foutopsporing.</string>
-    <string name="start_log_capture">Logboekregistratie starten</string>
-    <string name="start_log_capture_description">Begint met het opnemen van systeemlogs in een bestand.</string>
-    <string name="start_log_capture_in_silent">Kan opname niet starten: Stille logboekregistratie geselecteerd</string>
-    <string name="stop_log_capture">Logboekregistratie stoppen</string>
-    <string name="stop_log_capture_description">Stopt de opname en slaat het logbestand op.</string>
 
-    <!-- Navigation notifications -->
+    <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">Navigatiemeldingen</string>
-    <string name="show_navigation_notifications_description">Toon "Over X meter Y" en huidige straat in meldingen (voor foutopsporing)</string>
+    <string name="show_navigation_notifications_description">Toon \"Over X meter Y\" en huidige straat in meldingen (voor foutopsporing)</string>
+    <string name="media_session_aa_status_placeholder">Verbonden</string>
+    <string name="sync_media_session_aa_metadata">Huidig AA-nummer in mediasessie</string>
+    <string name="sync_media_session_aa_metadata_description">Toon titel, artiest, duur en albumhoes van de telefoon in de mediasessie van het systeem en in de mediamelding</string>
     <string name="nav_notification_channel_name">Navigatie</string>
     <string name="nav_notification_channel_description">Afslag-voor-afslag navigatie van Android Auto</string>
     <string name="nav_notification_title_format">Over %1$d m — %2$s</string>
@@ -379,33 +399,35 @@
     <string name="nav_action_ferry">Veerboot</string>
     <string name="nav_action_ferry_train">Veerboot / trein</string>
     <string name="nav_action_destination">Aankomst</string>
-    <string name="monochrome_icons">Monochrome pictogrammen</string>
-    <string name="monochrome_icons_description">Grijstinten pictogrammen op het startscherm gebruiken in Donker of Extra donker modus</string>
-    <string name="use_extreme_dark">Extra donker gebruiken</string>
-    <string name="use_extreme_dark_description">Puur zwarte achtergrond gebruiken wanneer donkere modus actief is</string>
     <string name="show_fps_counter">FPS-teller weergeven</string>
+    <string name="show_fps_counter_description">Toon een real-time FPS-overlay in de linkerbovenhoek tijdens de projectie.</string>
+
+    <!-- Auto-start permission strings -->
+    <string name="reopen_on_reconnection_label">Heropenen bij herverbinding</string>
+    <string name="reopen_on_reconnection_description">Wanneer u op de knop Afsluiten drukt, blijft de app op de achtergrond draaien en blijft USB-verbindingen monitoren. Als een apparaat opnieuw verbinding maakt, opent de app automatisch.</string>
     <string name="overlay_permission_required">Automatisch starten vereist de machtiging \'Weergeven over andere apps\'</string>
     <string name="usb_permission_denied">USB-machtiging geweigerd. Sta USB-toegang toe om automatisch te verbinden.</string>
     <string name="overlay_permission_denied_auto_start_disabled">Overlay-machtiging niet verleend. Automatisch starten is uitgeschakeld.</string>
-    <string name="use_white_background">Wit startscherm achtergrond gebruiken</string>
-    <string name="reopen_on_reconnection_label">Heropenen bij herverbinding</string>
-    <string name="reopen_on_reconnection_description">Wanneer u op de knop Afsluiten drukt, blijft de app op de achtergrond draaien en blijft USB-verbindingen monitoren. Als een apparaat opnieuw verbinding maakt, opent de app automatisch.</string>
-    <string name="show_fps_counter_description">Toon een real-time FPS-overlay in de linkerbovenhoek tijdens de projectie.</string>
 
+    <!-- Theme -->
+    <string name="use_white_background">Wit startscherm achtergrond gebruiken</string>
     <string name="category_input">Invoerinstellingen</string>
     <string name="enable_rotary">Draaiknop (Rotary) inschakelen</string>
     <string name="enable_rotary_description">Ondersteuning voor fysieke draaiknoppen en wielen aankondigen. Schakel dit uit als uw touchscreen niet correct werkt.</string>
+
     <string name="kill_on_disconnect">App sluiten bij verbreken</string>
     <string name="kill_on_disconnect_description">De app automatisch sluiten wanneer Android Auto wordt losgekoppeld</string>
     <string name="kill_on_disconnect_warning_title">Waarschuwing</string>
     <string name="kill_on_disconnect_warning">De volgende herverbindingsinstellingen conflicteren met het sluiten van de app bij ontkoppeling:\n\n%1$s\n\nUw initiële verbindingsinstellingen (automatisch verbinden, automatisch starten) blijven werken wanneer de headunit wordt ingeschakeld. Na de eerste ontkoppeling wordt de app echter direct gesloten in plaats van opnieuw te verbinden.\n\nOpmerking: Sommige aftermarket headunits schakelen nooit volledig uit — ze gaan in slaapstand, vergelijkbaar met een telefoon die het scherm vergrendelt maar nooit echt uitschakelt. Met deze optie wordt de app na de eerste ontkoppeling gesloten en mogelijk niet automatisch heropend bij de volgende start.\n\nWilt u de bovengenoemde herverbindingsinstellingen uitschakelen?</string>
     <string name="kill_on_disconnect_disable_and_enable">Uitschakelen en inschakelen</string>
     <string name="kill_on_disconnect_enable_anyway">Toch inschakelen</string>
+    <string name="kill_on_disconnect_conflicts_disabled">Conflicterende instellingen zijn uitgeschakeld</string>
     <string name="kill_on_disconnect_boot_warning">Je hebt \"Starten bij opstarten\" ingeschakeld. Als de app sluit bij het verbreken van de verbinding en dit apparaat in slaapstand gaat in plaats van uit te schakelen, wordt de app mogelijk niet automatisch geopend bij de volgende start omdat er geen opstartgebeurtenis wordt gegenereerd — het apparaat wordt simpelweg uit de slaapstand gewekt.</string>
     <string name="kill_on_disconnect_screen_on_warning">U hebt \"Starten bij scherm aan\" ingeschakeld. Deze instelling opent de app telkens wanneer het scherm wordt ingeschakeld. Gecombineerd met sluiten bij ontkoppeling zal de app na ontkoppeling sluiten, maar onmiddellijk weer openen wanneer het scherm opnieuw wordt ingeschakeld, waardoor een herstartlus ontstaat.</string>
-    <string name="kill_on_disconnect_conflicts_disabled">Conflicterende instellingen zijn uitgeschakeld</string>
+
     <string name="wifi_disabled_info">Info: Wi-Fi is uitgeschakeld.</string>
     <string name="bt_not_enabled">Info: Bluetooth is uitgeschakeld.</string>
+    <string name="bt_permission_denied">Bluetooth-toestemming geweigerd. Kan niet scannen naar apparaten.</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">Voertuiginformatie</string>
@@ -433,6 +455,7 @@
     <string name="vehicle_year_error_invalid">Voer een geldig jaar in</string>
     <string name="vehicle_year_error_max">Het jaar mag niet later zijn dan %1$d</string>
     <string name="vehicle_info_restart_note">Deze gegevens worden elke keer dat u verbinding maakt naar Android Auto verzonden.</string>
+
     <string name="auto_enable_hotspot">Hotspot automatisch inschakelen</string>
     <string name="auto_enable_hotspot_description">Start automatisch een Wi-Fi-hotspot op dit apparaat. (Werkt niet op alle apparaten)</string>
     <string name="hotspot_warning_title">Experimentele functie</string>
@@ -440,16 +463,15 @@
     <string name="hotspot_permission_title">Toestemming vereist</string>
     <string name="hotspot_permission_message">De hotspotfunctie vereist de toestemming \"Systeeminstellingen wijzigen\". Schakel deze in op het volgende scherm.</string>
 
+    <string name="supported_nativeaa">Verbeterde draadloze ondersteuning</string>
+    <string name="supported_nativeaa_desc">Goed nieuws! Je apparaat ondersteunt de modus \"Native Wireless\", wat zorgt voor een vlottere Android Auto-ervaring. \n\nOm dit in te schakelen, moeten we je Bluetooth-cache vernieuwen. Graag: \n1. Verwijder de bestaande koppeling op je telefoon \n2. Klik op OK om Bluetooth te herstarten \n3. Koppel je telefoon opnieuw \n\nWil je nu overschakelen naar de Native AA-modus?</string>
     <string name="not_supported_nativeaa">Native Draadloos lijkt niet ondersteund</string>
     <string name="not_supported_nativeaa_desc">Je apparaat ondersteunt mogelijk de vereiste Bluetooth- of Wi-Fi-functies voor Native Draadloos niet. Je kunt het toch proberen, maar als het mislukt, gebruik dan de \"Wireless Helper\"- of \"Auto (Headunit Server)\"-modus.</string>
-    <string name="shortcut_selfmode_title">Self Mode</string>
-    <string name="shortcut_selfmode_desc">Start Android Auto op dit apparaat</string>
+
     <string name="wait_for_wifi">Wacht op WiFi voor WiFi Direct</string>
     <string name="wait_for_wifi_description">Wacht bij het opstarten tot WiFi verbonden is voordat WiFi Direct wordt gestart. Handig als uw headunit een paar seconden nodig heeft om verbinding te maken met WiFi na het opstarten.</string>
     <string name="wait_for_wifi_timeout">WiFi wachttijd</string>
     <string name="wireless_24ghz_warning">Opmerking: Draadloze Android Auto op 2,4 GHz-apparaten kan leiden tot vertragingen, haperingen en verbrekingen. Als u problemen ondervindt, test dan via USB om te bevestigen of het een netwerkbeperking is.</string>
-    <string name="supported_nativeaa">Verbeterde draadloze ondersteuning</string>
-    <string name="supported_nativeaa_desc">Goed nieuws! Je apparaat ondersteunt de modus \"Native Wireless\", wat zorgt voor een vlottere Android Auto-ervaring. \n\nOm dit in te schakelen, moeten we je Bluetooth-cache vernieuwen. Graag: \n1. Verwijder de bestaande koppeling op je telefoon \n2. Klik op OK om Bluetooth te herstarten \n3. Koppel je telefoon opnieuw \n\nWil je nu overschakelen naar de Native AA-modus?</string>
     <string name="fake_speed_title">Video-blokkade uitschakelen (Fake Speed)</string>
     <string name="fake_speed_description">Meldt een constante lage snelheid (0,5 m/s) aan de telefoon om te voorkomen dat video-inhoud wordt geblokkeerd tijdens het rijden. Gebruik met zorg.</string>
     <string name="wireless_mode_helper">Wireless Helper</string>
@@ -484,19 +506,12 @@
     <string name="media_action_play">Afspelen</string>
     <string name="media_action_pause">Pauze</string>
     <string name="media_action_next">Volgende</string>
-    <string name="media_session_aa_status_placeholder">Verbonden</string>
-    <string name="sync_media_session_aa_metadata">Huidig AA-nummer in mediasessie</string>
-    <string name="sync_media_session_aa_metadata_description">Toon titel, artiest, duur en albumhoes van de telefoon in de mediasessie van het systeem en in de mediamelding</string>
     <string name="error_usb_permission_failed">Systeemfout: Aanvragen van USB-toestemmingsvenster mislukt.</string>
-    <string name="microphone_settings">Microfooninstellingen</string>
-    <string name="microphone_settings_description">Microfooningang en audioverwerking configureren.</string>
-    <string name="mic_echo_canceler">Echonderdrukking (AEC)</string>
-    <string name="mic_echo_canceler_description">Probeert echo van de microfoon te verwijderen. Schakel dit uit als u stilte of vervorming ervaart.</string>
-    <string name="mic_noise_suppressor">Ruisonderdrukking (NS)</string>
-    <string name="mic_noise_suppressor_description">Probeert achtergrondgeluid te verminderen. Schakel dit uit als uw stem gedempt klinkt.</string>
-    <string name="mic_auto_gain_control">Automatische versterkingsregeling (AGC)</string>
-    <string name="mic_auto_gain_control_description">Past automatisch het microfoonvolume aan. Schakel dit uit als het volume onstabiel is.</string>
-    <string name="bt_permission_denied">Bluetooth-toestemming geweigerd. Kan niet scannen naar apparaten.</string>
     <string name="wifi_autostart_title">WiFi Auto-Start</string>
     <string name="wifi_autostart_content">Verbonden met %s. Tik om Android Auto te starten.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Bluetooth-adapter</string>
+    <string name="bluetooth_adapter_description">Selecteer de Bluetooth-adapter/-controller die moet worden gebruikt voor de handshake. Handig voor systemen met dubbele Bluetooth.</string>
+    <string name="select_bt_adapter">Selecteer Bluetooth-adapter</string>
 </resources>

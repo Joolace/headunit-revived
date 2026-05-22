@@ -1877,6 +1877,18 @@ class AapService : Service(), UsbReceiver.Listener {
             }
             if (candidates.size == 1) {
                 performSingleUsbConnect(candidates[0])
+                return
+            }
+        }
+
+        // Fallback: if force=true and we have a single Google VID device in normal mode,
+        // switch it to accessory mode. This handles cases where UsbAttachedActivity didn't fire.
+        if (force) {
+            val nonAccessoryDevices = deviceList.values.filter { !UsbDeviceCompat.isInAccessoryMode(it) }
+            val googleDevices = nonAccessoryDevices.filter { it.vendorId == 0x18D1 }
+            if (googleDevices.size == 1) {
+                AppLog.i("Fallback: force=true and found single Google normal-mode device ${UsbDeviceCompat(googleDevices[0]).uniqueName}. Switching to accessory mode.")
+                performSingleUsbConnect(googleDevices[0])
             }
         }
     }

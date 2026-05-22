@@ -36,6 +36,10 @@
     <string name="app_theme">Tmavý režim (Aplikace)</string>
     <string name="app_theme_description">Ovládejte vzhled aplikace</string>
     <string name="change_app_theme">Změnit téma</string>
+    <string name="monochrome_icons">Monochromatické ikony</string>
+    <string name="monochrome_icons_description">Použít šedé ikony na domovské obrazovce v tmavém nebo extrémně tmavém režimu</string>
+    <string name="use_extreme_dark">Použít extrémně tmavý režim</string>
+    <string name="use_extreme_dark_description">Použít čistě černé pozadí při aktivním tmavém režimu</string>
     <string name="use_gradient_background">Použít přechodové pozadí</string>
     <string name="use_gradient_background_description_on">Aplikace kreslí vlastní pozadí s přechodovým kruhem uprostřed</string>
     <string name="use_gradient_background_description_off">Používá se klasické pozadí aplikace</string>
@@ -94,6 +98,11 @@
 
     <string name="start_in_fullscreen_mode">Spustit v režimu celé obrazovky</string>
     <string name="start_in_fullscreen_mode_description">Přepnout režim celé obrazovky. Pro uplatnění změn je nutný restart aplikace.</string>
+    <string name="fullscreen_none">Normální (Všechny lišty viditelné)</string>
+    <string name="fullscreen_immersive">Imerzivní (Všechny lišty skryté)</string>
+    <string name="fullscreen_status_only">Skrýt pouze stavovou lištu</string>
+    <string name="fullscreen_immersive_avoid_notch">Imerzivní (Vyhnout se Notch)</string>
+    <string name="fullscreen_immersive_avoid_notch_desc">Skryje všechny lišty a přidá odsazení, aby se zabránilo zakrytí projekce výřezem (Notch).</string>
 
     <string name="usb_status">Stav USB: %s</string>
     <string name="projection_status">Stav projekce: %s</string>
@@ -107,6 +116,13 @@
     <string name="back">Zpět</string>
     <string name="debug_mode">Režim ladění</string>
     <string name="debug_mode_description">Povolit podrobnější protokolování (logging)</string>
+    <string name="log_level">Úroveň protokolování</string>
+    <string name="log_level_description">Vyberte úroveň podrobnosti výstupu protokolu pro ladění.</string>
+    <string name="start_log_capture">Spustit záznam protokolu</string>
+    <string name="start_log_capture_description">Spustí nahrávání systémových protokolů do souboru.</string>
+    <string name="start_log_capture_in_silent">Nelze zahájit záznam: vybrána úroveň tichého protokolování</string>
+    <string name="stop_log_capture">Zastavit záznam protokolu</string>
+    <string name="stop_log_capture_description">Zastaví nahrávání a uloží soubor protokolu.</string>
     <string name="export_logs">Exportovat protokoly</string>
     <string name="export_logs_description">Uložit protokoly pro účely ladění</string>
     <string name="use_native_ssl">Použít nativní SSL</string>
@@ -138,7 +154,6 @@
     <string name="key_button_a">Tlačítko A (Vybrat)</string>
     <string name="key_button_b">Tlačítko B (Zpět)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">Jazyk aplikace</string>
     <string name="system_default">Výchozí systémový</string>
@@ -152,14 +167,6 @@
     <string name="usb_auto_connect_description">Automatically connect to a known USB device when the application is opened.</string>
     <string name="auto_start_bt_label">Automaticky spustit při Bluetooth</string>
     <string name="auto_start_bt_description">Automaticky otevřít Headunit Revived při připojení konkrétního Bluetooth zařízení.</string>
-    <string name="auto_start_wifi_label">Automatické spuštění přes Wi-Fi</string>
-    <string name="auto_start_wifi_description">Automaticky otevřít Headunit Revived při připojení k určité Wi-Fi síti (SSID).</string>
-    <string name="auto_start_wifi_ssid_label">SSID Wi-Fi</string>
-    <string name="auto_start_wifi_ssid_description">Připojovat se pouze při spojení s touto Wi-Fi sítí (SSID)</string>
-    <string name="auto_start_wifi_warning">Zastaralá funkce: na Androidu 8+ může kvůli omezením na pozadí fungovat nespolehlivě. Ujistěte se, že aplikace je vyloučena z optimalizace baterie.</string>
-    <string name="enter_wifi_ssid">Zadejte SSID Wi-Fi</string>
-    <string name="wifi_ssid_not_set">Nenastaveno</string>
-
     <string name="listen_for_usb_devices_label">Naslouchat zařízením USB</string>
     <string name="listen_for_usb_devices_description">Zobrazit systémovou výzvu Androidu po připojení zařízení USB.</string>
     <string name="auto_start_usb_label">Automatické spuštění přes USB</string>
@@ -173,14 +180,22 @@
     <string name="auto_start_screen_on_description">Otevřít aplikaci pokaždé, když se zapne obrazovka. Ideální pro autorádia, která se nikdy úplně nevypnou nebo používají rychlé spuštění, kde ostatní možnosti automatického spuštění nefungují. Nedoporučeno pro telefony nebo tablety.</string>
     <string name="select_bt_device">Vybrat Bluetooth zařízení</string>
     <string name="bt_device_not_set">Nenastaveno</string>
+    <string name="bt_devices_selected">vybraných zařízení</string>
+    <string name="auto_start_wifi_label">Automatické spuštění přes Wi-Fi</string>
+    <string name="auto_start_wifi_description">Automaticky otevřít Headunit Revived při připojení k určité Wi-Fi síti (SSID).</string>
+    <string name="auto_start_wifi_ssid_label">SSID Wi-Fi</string>
+    <string name="auto_start_wifi_ssid_description">Připojovat se pouze při spojení s touto Wi-Fi sítí (SSID)</string>
+    <string name="auto_start_wifi_warning">Zastaralá funkce: na Androidu 8+ může kvůli omezením na pozadí fungovat nespolehlivě. Ujistěte se, že aplikace je vyloučena z optimalizace baterie.</string>
+    <string name="enter_wifi_ssid">Zadejte SSID Wi-Fi</string>
+    <string name="wifi_ssid_not_set">Nenastaveno</string>
     <string name="bt_permission_denied_title">Vyžadováno oprávnění Bluetooth</string>
     <string name="bt_permission_denied_message">Pro výběr spárovaných zařízení je vyžadováno oprávnění Bluetooth. Povolte ho prosím v nastavení aplikace.</string>
     <string name="overlay_permission_title">Oprávnění pro spuštění na pozadí</string>
-    <string name="overlay_permission_description">Pro automatické otevření Headunit Revived při připojení Bluetooth povolte prosím oprávnění "Zobrazit přes ostatní aplikace" na další obrazovce.</string>
+    <string name="overlay_permission_description">Pro automatické otevření Headunit Revived při připojení Bluetooth povolte prosím oprávnění \"Zobrazit přes ostatní aplikace\" na další obrazovce.</string>
     <string name="open_settings">Nastavení</string>
-    <string name="wireless_connection_settings">Bezdrátové připojení</string>
     <string name="right_hand_drive">Pravostranné řízení</string>
     <string name="right_hand_drive_description">Upravit rozhraní pro řízení na pravé straně</string>
+    <string name="wireless_connection_settings">Bezdrátové připojení</string>
     <string name="category_graphic">Grafické</string>
     <string name="custom_insets">Vlastní okraje</string>
     <string name="inset_top">Nahoře</string>
@@ -223,14 +238,16 @@
     <string name="enable">Povolit</string>
     <string name="pref_stretch_screen_title">Roztáhnout na celou obrazovku</string>
     <string name="pref_stretch_screen_summary">Ignoruje poměr stran a vyplní celý displej (odstraní černé pruhy)</string>
-
-    <!-- Audio Settings -->
-        <string name="forced_scale">Vynucené měřítko (Legacy oprava)</string>
+    <string name="forced_scale">Vynucené měřítko (Legacy oprava)</string>
     <string name="forced_scale_description">Opravuje problémy s měřítkem u některých starších zařízení používajících SurfaceView. Používejte pouze v případě, že obraz vypadá zkresleně nebo posunutě.</string>
 
-<string name="category_audio">Audio</string>
+
+    <!-- Audio Settings -->
+    <string name="category_audio">Audio</string>
     <string name="enable_audio_sink">Povolit audio výstup (Sink)</string>
     <string name="enable_audio_sink_description">Pokud je zakázáno, hlavní jednotka nebude přijímat zvuk. Zvuk se bude přehrávat z telefonu.</string>
+    <string name="static_audio_focus">Statické zaměření zvuku</string>
+    <string name="static_audio_focus_description">Vynutí, aby si telefon myslel, že má neustále zaměřený zvuk, což zabraňuje ztrátě směrování zvuku na běžných hlavních jednotkách. Také provádí softwarové ztlumení (ducking) během navigačních hlasových pokynů.</string>
     <string name="separate_audio_streams">Oddělit zvukové streamy</string>
     <string name="separate_audio_streams_description">Odděluje zvukové kanály pro hudbu, hovory a oznámení místo jednoho multimediálního streamu (nemusí na některých zařízeních fungovat správně).</string>
     <string name="use_aac_audio">Použít AAC audio</string>
@@ -239,6 +256,8 @@
     <string name="media_volume_offset">Média</string>
     <string name="assistant_volume_offset">Asistent</string>
     <string name="navigation_volume_offset">Navigace</string>
+    <string name="microphone_settings">Nastavení mikrofonu</string>
+    <string name="microphone_settings_description">Konfigurace vstupu mikrofonu a zpracování zvuku.</string>
     <string name="mic_input_source">Zdroj vstupu mikrofonu</string>
     <string name="mic_input_source_description">Vyberte zdroj zvuku pro mikrofon.</string>
     <string-array name="mic_input_sources">
@@ -248,6 +267,13 @@
         <item>Hlasová komunikace</item>
         <item>Bluetooth náhlavní souprava (SCO)</item>
     </string-array>
+    <string name="mic_echo_canceler">Potlačení ozvěny (AEC)</string>
+    <string name="mic_echo_canceler_description">Pokusí se odstranit ozvěnu z mikrofonu. Vypněte, pokud zaznamenáte ticho nebo zkreslení.</string>
+    <string name="mic_noise_suppressor">Potlačení šumu (NS)</string>
+    <string name="mic_noise_suppressor_description">Pokusí se snížit hluk na pozadí. Vypněte, pokud váš hlas zní tlumeně.</string>
+    <string name="mic_auto_gain_control">Automatické řízení zesílení (AGC)</string>
+    <string name="mic_auto_gain_control_description">Automaticky upravuje hlasitost mikrofonu. Vypněte, pokud je hlasitost nestabilní.</string>
+    <string name="mic_feature_unsupported">Tato funkce není na vašem zařízení podporována.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Informace</string>
@@ -311,6 +337,8 @@
     <string name="connection_interrupted">Spojení ztraceno</string>
     <string name="connection_interrupted_detail">Opětovné připojování…</string>
     <string name="wifi_disconnect_toast">Android Auto odpojeno: Pokud používáte bezdrátové AA, vypněte \"Přepínání mezi sítěmi\" nebo \"Zrychlení sítě\" v nastavení WiFi telefonu</string>
+    <string name="reset_usb_option">Resetovat USB připojení</string>
+    <string name="reset_usb_timeout">USB zařízení nenalezeno. Zkontrolujte připojení.</string>
     <string name="notification_service_running">Headunit Revived je spuštěna</string>
     <string name="notification_projection_active">Android Auto je promítáno</string>
     <string name="shortcut_connect_title">Připojit</string>
@@ -327,8 +355,6 @@
     <string name="shortcut_night_mode_day_desc">Vynutit denní režim</string>
     <string name="shortcut_night_mode_night_title">Režim: Noc</string>
     <string name="shortcut_night_mode_night_desc">Vynutit noční režim</string>
-    <string name="reset_usb_option">Resetovat USB připojení</string>
-    <string name="reset_usb_timeout">USB zařízení nenalezeno. Zkontrolujte připojení.</string>
     <string name="setup_welcome_title">Rychlé nastavení</string>
     <string name="setup_welcome_msg">Tento průvodce vám pomůže vybrat nejlepší nastavení pro plynulý zážitek z Android Auto.\n\nTato nastavení můžete kdykoli změnit později v nastavení aplikace.</string>
     <string name="setup_start">Spustit</string>
@@ -345,22 +371,13 @@
     <string name="setup_widescreen_detected">Detekován širokoúhlý displej.</string>
     <string name="auto_optimize">Automaticky optimalizovat nastavení</string>
     <string name="auto_optimize_desc">Spustit kontrolu systému pro nalezení nejlepšího nastavení pro vaše zařízení.</string>
-    <string name="fullscreen_none">Normální (Všechny lišty viditelné)</string>
-    <string name="fullscreen_immersive">Imerzivní (Všechny lišty skryté)</string>
-    <string name="fullscreen_immersive_avoid_notch">Imerzivní (Vyhnout se Notch)</string>
-    <string name="fullscreen_immersive_avoid_notch_desc">Skryje všechny lišty a přidá odsazení, aby se zabránilo zakrytí projekce výřezem (Notch).</string>
-    <string name="fullscreen_status_only">Skrýt pouze stavovou lištu</string>
-    <string name="log_level">Úroveň protokolování</string>
-    <string name="log_level_description">Vyberte úroveň podrobnosti výstupu protokolu pro ladění.</string>
-    <string name="start_log_capture">Spustit záznam protokolu</string>
-    <string name="start_log_capture_description">Spustí nahrávání systémových protokolů do souboru.</string>
-    <string name="start_log_capture_in_silent">Nelze zahájit záznam: vybrána úroveň tichého protokolování</string>
-    <string name="stop_log_capture">Zastavit záznam protokolu</string>
-    <string name="stop_log_capture_description">Zastaví nahrávání a uloží soubor protokolu.</string>
 
-    <!-- Navigation notifications -->
+    <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">Oznámení navigace</string>
-    <string name="show_navigation_notifications_description">Zobrazit „Za X metrů Y" a aktuální ulici v oznámeních (pro ladění)</string>
+    <string name="show_navigation_notifications_description">Zobrazit „Za X metrů Y\" a aktuální ulici v oznámeních (pro ladění)</string>
+    <string name="media_session_aa_status_placeholder">Připojeno</string>
+    <string name="sync_media_session_aa_metadata">Aktuální skladba AA v mediální relaci</string>
+    <string name="sync_media_session_aa_metadata_description">Zobrazovat název skladby, interpreta, délku a obal alba z telefonu v systémové mediální relaci a mediálním oznámení</string>
     <string name="nav_notification_channel_name">Navigace</string>
     <string name="nav_notification_channel_description">Podrobné navigační pokyny z Android Auto</string>
     <string name="nav_notification_title_format">Za %1$d m — %2$s</string>
@@ -382,33 +399,35 @@
     <string name="nav_action_ferry">Trajekt</string>
     <string name="nav_action_ferry_train">Trajekt / vlak</string>
     <string name="nav_action_destination">Příjezd</string>
-    <string name="monochrome_icons">Monochromatické ikony</string>
-    <string name="monochrome_icons_description">Použít šedé ikony na domovské obrazovce v tmavém nebo extrémně tmavém režimu</string>
-    <string name="use_extreme_dark">Použít extrémně tmavý režim</string>
-    <string name="use_extreme_dark_description">Použít čistě černé pozadí při aktivním tmavém režimu</string>
     <string name="show_fps_counter">Zobrazit počítadlo FPS</string>
     <string name="show_fps_counter_description">Během projekce zobrazí v levém horním rohu aktuální FPS.</string>
+
+    <!-- Auto-start permission strings -->
+    <string name="reopen_on_reconnection_label">Znovu otevřít při opětovném připojení</string>
+    <string name="reopen_on_reconnection_description">Po stisknutí tlačítka Ukončit aplikace zůstane běžet na pozadí a nadále sleduje USB připojení. Pokud se zařízení znovu připojí, aplikace se automaticky otevře.</string>
     <string name="overlay_permission_required">Automatické spuštění vyžaduje oprávnění \'Zobrazit přes jiné aplikace\'</string>
     <string name="usb_permission_denied">Oprávnění USB bylo zamítnuto. Povolte prosím přístup k USB pro automatické připojení.</string>
     <string name="overlay_permission_denied_auto_start_disabled">Oprávnění pro překrytí nebylo uděleno. Automatické spuštění bylo zakázáno.</string>
-    <string name="use_white_background">Použít bílou tapetu hlavní obrazovky</string>
-    <string name="reopen_on_reconnection_label">Znovu otevřít při opětovném připojení</string>
-    <string name="reopen_on_reconnection_description">Po stisknutí tlačítka Ukončit aplikace zůstane běžet na pozadí a nadále sleduje USB připojení. Pokud se zařízení znovu připojí, aplikace se automaticky otevře.</string>
 
+    <!-- Theme -->
+    <string name="use_white_background">Použít bílou tapetu hlavní obrazovky</string>
     <string name="category_input">Nastavení vstupu</string>
     <string name="enable_rotary">Povolit otočný ovladač (Rotary)</string>
     <string name="enable_rotary_description">Oznámit podporu pro fyzické otočné knoflíky a kolečka. Deaktivujte toto, pokud vaše dotyková obrazovka nefunguje správně.</string>
+
     <string name="kill_on_disconnect">Zavřít aplikaci při odpojení</string>
     <string name="kill_on_disconnect_description">Automaticky zavřít aplikaci, když se Android Auto odpojí</string>
     <string name="kill_on_disconnect_warning_title">Varování</string>
     <string name="kill_on_disconnect_warning">Následující nastavení opětovného připojení budou v konfliktu s ukončením aplikace při odpojení:\n\n%1$s\n\nVaše nastavení počátečního připojení (automatické připojení, automatické spuštění) budou fungovat i po zapnutí jednotky. Po prvním odpojení se však aplikace okamžitě ukončí místo opětovného připojení.\n\nPoznámka: Některé aftermarket jednotky se nikdy zcela nevypnou — místo toho hibernují, podobně jako telefon, který zamkne obrazovku, ale nikdy se skutečně nevypne. S touto možností se aplikace po prvním odpojení ukončí a nemusí se automaticky znovu otevřít při dalším nastartování.\n\nChcete zakázat výše uvedená nastavení opětovného připojení?</string>
     <string name="kill_on_disconnect_disable_and_enable">Deaktivovat a povolit</string>
     <string name="kill_on_disconnect_enable_anyway">Přesto povolit</string>
+    <string name="kill_on_disconnect_conflicts_disabled">Konfliktní nastavení byla deaktivována</string>
     <string name="kill_on_disconnect_boot_warning">Máte zapnuté \"Spustit při startu\". Pokud se aplikace zavře při odpojení a toto zařízení přejde do hibernace místo vypnutí, aplikace se při dalším zapnutí nemusí automaticky znovu otevřít, protože nedojde k události spuštění — zařízení se jednoduše probudí z režimu spánku.</string>
     <string name="kill_on_disconnect_screen_on_warning">Máte zapnutou možnost \"Spustit při zapnutí obrazovky\". Toto nastavení otevře aplikaci při každém zapnutí obrazovky. V kombinaci se zavřením při odpojení se aplikace po odpojení zavře, ale ihned se znovu otevře při dalším zapnutí obrazovky, což vytvoří smyčku restartování.</string>
-    <string name="kill_on_disconnect_conflicts_disabled">Konfliktní nastavení byla deaktivována</string>
+
     <string name="wifi_disabled_info">Info: Wi-Fi je vypnuto.</string>
     <string name="bt_not_enabled">Info: Bluetooth je vypnuto.</string>
+    <string name="bt_permission_denied">Oprávnění Bluetooth bylo zamítnuto. Nelze skenovat zařízení.</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">Informace o vozidle</string>
@@ -436,20 +455,23 @@
     <string name="vehicle_year_error_invalid">Zadejte platný rok</string>
     <string name="vehicle_year_error_max">Rok nemůže být pozdější než %1$d</string>
     <string name="vehicle_info_restart_note">Tyto údaje jsou odeslány do Android Auto při každém připojení.</string>
+
     <string name="auto_enable_hotspot">Automaticky zapnout hotspot</string>
     <string name="auto_enable_hotspot_description">Automaticky zapne Wi-Fi hotspot na tomto zařízení. (Nebude fungovat na všech zařízeních)</string>
     <string name="hotspot_warning_title">Experimentální funkce</string>
     <string name="hotspot_warning_message">Tato funkce používá reflexi a nemusí fungovat na všech zařízeních. Může být nutné ručně udělit oprávnění \"Změna systémových nastavení\".</string>
     <string name="hotspot_permission_title">Vyžadováno oprávnění</string>
     <string name="hotspot_permission_message">Funkce hotspotu vyžaduje oprávnění \"Změna systémových nastavení\". Povolte jej prosím na další obrazovce.</string>
+
+    <string name="supported_nativeaa">Vylepšená bezdrátová podpora</string>
+    <string name="supported_nativeaa_desc">Skvělá zpráva! Vaše zařízení podporuje režim „Native Wireless“, který poskytuje plynulejší zážitek z Android Auto. \n\nPro aktivaci potřebujeme obnovit vaši Bluetooth mezipaměť. Prosím: \n1. Odstraňte stávající spárování v telefonu \n2. Klikněte na OK pro restart Bluetooth \n3. Znovu spárujte telefon \n\nChcete nyní přepnout do režimu Native AA?\"</string>
     <string name="not_supported_nativeaa">Nativní bezdrátové připojení se zdá být nepodporováno</string>
     <string name="not_supported_nativeaa_desc">Vaše zařízení nemusí podporovat požadované funkce Bluetooth nebo Wi-Fi pro nativní bezdrátové připojení. Můžete to přesto zkusit, ale pokud to selže, použijte prosím místo toho režim „Wireless Helper“ nebo „Auto (Headunit Server)“.</string>
+
     <string name="wait_for_wifi">Počkat na WiFi před WiFi Direct</string>
     <string name="wait_for_wifi_description">Při startu počká na připojení WiFi před spuštěním WiFi Direct. Užitečné, pokud vaše headunit potřebuje několik sekund na připojení k WiFi po zapnutí.</string>
     <string name="wait_for_wifi_timeout">Časový limit čekání na WiFi</string>
     <string name="wireless_24ghz_warning">Poznámka: Bezdrátové Android Auto na 2,4GHz zařízeních může vést k lagům, sekání a odpojování. Pokud máte problémy, otestujte připojení přes USB, abyste potvrdili, zda se jedná o omezení sítě.</string>
-    <string name="supported_nativeaa">Vylepšená bezdrátová podpora</string>
-    <string name="supported_nativeaa_desc">Skvělá zpráva! Vaše zařízení podporuje režim „Native Wireless“, který poskytuje plynulejší zážitek z Android Auto. \n\nPro aktivaci potřebujeme obnovit vaši Bluetooth mezipaměť. Prosím: \n1. Odstraňte stávající spárování v telefonu \n2. Klikněte na OK pro restart Bluetooth \n3. Znovu spárujte telefon \n\nChcete nyní přepnout do režimu Native AA?"</string>
     <string name="fake_speed_title">Zakázat blokování videa (Fake Speed)</string>
     <string name="fake_speed_description">Hlásí telefonu konstantní nízkou rychlost (0,5 m/s), aby se zabránilo blokování video obsahu během jízdy. Používejte opatrně.</string>
     <string name="wireless_mode_helper">Wireless Helper</string>
@@ -484,19 +506,12 @@
     <string name="media_action_play">Přehrát</string>
     <string name="media_action_pause">Pozastavit</string>
     <string name="media_action_next">Další</string>
-    <string name="media_session_aa_status_placeholder">Připojeno</string>
-    <string name="sync_media_session_aa_metadata">Aktuální skladba AA v mediální relaci</string>
-    <string name="sync_media_session_aa_metadata_description">Zobrazovat název skladby, interpreta, délku a obal alba z telefonu v systémové mediální relaci a mediálním oznámení</string>
     <string name="error_usb_permission_failed">Systémová chyba: Nepodařilo se vyžádat dialogové okno pro povolení USB.</string>
-    <string name="microphone_settings">Nastavení mikrofonu</string>
-    <string name="microphone_settings_description">Konfigurace vstupu mikrofonu a zpracování zvuku.</string>
-    <string name="mic_echo_canceler">Potlačení ozvěny (AEC)</string>
-    <string name="mic_echo_canceler_description">Pokusí se odstranit ozvěnu z mikrofonu. Vypněte, pokud zaznamenáte ticho nebo zkreslení.</string>
-    <string name="mic_noise_suppressor">Potlačení šumu (NS)</string>
-    <string name="mic_noise_suppressor_description">Pokusí se snížit hluk na pozadí. Vypněte, pokud váš hlas zní tlumeně.</string>
-    <string name="mic_auto_gain_control">Automatické řízení zesílení (AGC)</string>
-    <string name="mic_auto_gain_control_description">Automaticky upravuje hlasitost mikrofonu. Vypněte, pokud je hlasitost nestabilní.</string>
-    <string name="bt_permission_denied">Oprávnění Bluetooth bylo zamítnuto. Nelze skenovat zařízení.</string>
     <string name="wifi_autostart_title">Automatické spuštění WiFi</string>
     <string name="wifi_autostart_content">Připojeno k %s. Klepnutím spustíte Android Auto.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Adaptér Bluetooth</string>
+    <string name="bluetooth_adapter_description">Vyberte adaptér/ovladač Bluetooth, který se má použít pro handshake. Užitečné pro systémy s duálním Bluetooth.</string>
+    <string name="select_bt_adapter">Vybrat adaptér Bluetooth</string>
 </resources>

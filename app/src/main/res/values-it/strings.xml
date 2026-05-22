@@ -154,7 +154,6 @@
     <string name="key_button_a">Pulsante A (Seleziona)</string>
     <string name="key_button_b">Pulsante B (Indietro)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">Lingua app</string>
     <string name="system_default">Predefinita di sistema</string>
@@ -168,14 +167,6 @@
     <string name="usb_auto_connect_description">Connettiti automaticamente a un dispositivo USB noto all\'apertura dell\'applicazione.</string>
     <string name="auto_start_bt_label">Avvio automatico su Bluetooth</string>
     <string name="auto_start_bt_description">Apri automaticamente Headunit Revived quando si connette un dispositivo Bluetooth specifico.</string>
-    <string name="auto_start_wifi_label">Avvio automatico su WiFi</string>
-    <string name="auto_start_wifi_description">Apre Headunit Revived automaticamente quando ci si connette a un SSID WiFi specifico.</string>
-    <string name="auto_start_wifi_ssid_label">SSID WiFi</string>
-    <string name="auto_start_wifi_ssid_description">Connetti solo se associato a questo SSID WiFi</string>
-    <string name="auto_start_wifi_warning">Funzione legacy: Potrebbe non funzionare in modo affidabile su Android 8+ a causa delle restrizioni in background. Assicurati che l\'app sia esclusa dall\'ottimizzazione della batteria.</string>
-    <string name="enter_wifi_ssid">Inserisci SSID WiFi</string>
-    <string name="wifi_ssid_not_set">Non impostato</string>
-
     <string name="listen_for_usb_devices_label">Ascolta dispositivi USB</string>
     <string name="listen_for_usb_devices_description">Mostra la richiesta di sistema Android quando viene collegato un dispositivo USB.</string>
     <string name="auto_start_usb_label">Avvio automatico su USB</string>
@@ -189,10 +180,18 @@
     <string name="auto_start_screen_on_description">Apri l\'app ogni volta che lo schermo si accende. Ideale per head unit che non si spengono mai completamente o utilizzano modalità di avvio rapido dove le altre opzioni di avvio automatico non funzionano. Non raccomandato per telefoni o tablet.</string>
     <string name="select_bt_device">Seleziona dispositivo Bluetooth</string>
     <string name="bt_device_not_set">Non impostato</string>
+    <string name="bt_devices_selected">dispositivi selezionati</string>
+    <string name="auto_start_wifi_label">Avvio automatico su WiFi</string>
+    <string name="auto_start_wifi_description">Apre Headunit Revived automaticamente quando ci si connette a un SSID WiFi specifico.</string>
+    <string name="auto_start_wifi_ssid_label">SSID WiFi</string>
+    <string name="auto_start_wifi_ssid_description">Connetti solo se associato a questo SSID WiFi</string>
+    <string name="auto_start_wifi_warning">Funzione legacy: Potrebbe non funzionare in modo affidabile su Android 8+ a causa delle restrizioni in background. Assicurati che l\'app sia esclusa dall\'ottimizzazione della batteria.</string>
+    <string name="enter_wifi_ssid">Inserisci SSID WiFi</string>
+    <string name="wifi_ssid_not_set">Non impostato</string>
     <string name="bt_permission_denied_title">Permesso Bluetooth richiesto</string>
     <string name="bt_permission_denied_message">Il permesso Bluetooth è necessario per selezionare i dispositivi associati. Per favore, concedilo nelle impostazioni dell\'app.</string>
     <string name="overlay_permission_title">Permesso avvio in background</string>
-    <string name="overlay_permission_description">Per consentire a Headunit Revived di aprirsi automaticamente quando si connette il Bluetooth, abilita il permesso "Mostra sopra altre app" nella schermata successiva.</string>
+    <string name="overlay_permission_description">Per consentire a Headunit Revived di aprirsi automaticamente quando si connette il Bluetooth, abilita il permesso \"Mostra sopra altre app\" nella schermata successiva.</string>
     <string name="open_settings">Impostazioni</string>
     <string name="right_hand_drive">Guida a destra</string>
     <string name="right_hand_drive_description">Posiziona l\'interfaccia utente per la guida sul lato destro</string>
@@ -247,6 +246,8 @@
     <string name="category_audio">Audio</string>
     <string name="enable_audio_sink">Audio Sink</string>
     <string name="enable_audio_sink_description">Se disabilitato, la headunit non riceverà l\'audio. Il suono verrà riprodotto dal telefono.</string>
+    <string name="static_audio_focus">Focus audio statico</string>
+    <string name="static_audio_focus_description">Forza il telefono a credere che il focus audio sia sempre attivo, prevenendo perdite di instradamento dell\'audio sulle unità principali generiche. Esegue anche l\'attenuazione software del volume (ducking) durante le istruzioni vocali di navigazione.</string>
     <string name="separate_audio_streams">Flussi audio separati</string>
     <string name="separate_audio_streams_description">Separa i canali audio per musica, chiamate e notifiche invece di un singolo flusso multimediale (potrebbe non funzionare correttamente su alcuni dispositivi).</string>
     <string name="use_aac_audio">Usa Audio AAC</string>
@@ -255,6 +256,8 @@
     <string name="media_volume_offset">Offset volume media</string>
     <string name="assistant_volume_offset">Offset volume assistente</string>
     <string name="navigation_volume_offset">Offset volume navigazione</string>
+    <string name="microphone_settings">Impostazioni Microfono</string>
+    <string name="microphone_settings_description">Configura l\'ingresso del microfono e l\'elaborazione audio.</string>
     <string name="mic_input_source">Sorgente ingresso microfono</string>
     <string name="mic_input_source_description">Scegli la sorgente audio per il microfono.</string>
     <string-array name="mic_input_sources">
@@ -264,6 +267,13 @@
         <item>Comunicazione vocale (Cancellazione eco + rumore)</item>
         <item>Cuffie Bluetooth (SCO)</item>
     </string-array>
+    <string name="mic_echo_canceler">Cancellazione dell\'eco (AEC)</string>
+    <string name="mic_echo_canceler_description">Tenta di rimuovere l\'eco dal microfono. Disabilita se riscontri silenzio o distorsione.</string>
+    <string name="mic_noise_suppressor">Soppressione del rumore (NS)</string>
+    <string name="mic_noise_suppressor_description">Tenta di ridurre il rumore di fondo. Disabilita se la tua voce risulta ovattata.</string>
+    <string name="mic_auto_gain_control">Controllo automatico del guadagno (AGC)</string>
+    <string name="mic_auto_gain_control_description">Regola automaticamente il volume del microfono. Disabilita se il volume è instabile.</string>
+    <string name="mic_feature_unsupported">Questa funzionalità non è supportata sul tuo dispositivo.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Informazioni</string>
@@ -365,6 +375,9 @@
     <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">Notifiche di navigazione</string>
     <string name="show_navigation_notifications_description">Mostra \"Tra X metri fai Y\" e la strada attuale nelle notifiche (per il debug)</string>
+    <string name="media_session_aa_status_placeholder">Connesso</string>
+    <string name="sync_media_session_aa_metadata">Brano AA corrente nella sessione multimediale</string>
+    <string name="sync_media_session_aa_metadata_description">Mostra titolo, artista, durata e copertina dal telefono nella sessione multimediale di sistema e nella notifica multimediale</string>
     <string name="nav_notification_channel_name">Navigazione</string>
     <string name="nav_notification_channel_description">Aggiornamenti di navigazione turn-by-turn da Android Auto</string>
     <string name="nav_notification_title_format">Tra %1$d m — %2$s</string>
@@ -414,6 +427,7 @@
 
     <string name="wifi_disabled_info">Info: Il Wi-Fi è disabilitato.</string>
     <string name="bt_not_enabled">Il Bluetooth è disabilitato</string>
+    <string name="bt_permission_denied">Autorizzazione Bluetooth negata. Impossibile scansionare i dispositivi.</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">Informazioni veicolo</string>
@@ -466,6 +480,7 @@
     <string name="server_mode_label">Modalità Server</string>
     <string name="server_mode_manual">Manuale</string>
     <string name="server_mode_auto">Auto</string>
+
     <string name="helper_strategy_label">Metodo di connessione (Helper)</string>
     <string-array name="helper_strategies">
         <item>WiFi Comune (NSD)</item>
@@ -491,19 +506,12 @@
     <string name="media_action_play">Riproduci</string>
     <string name="media_action_pause">Pausa</string>
     <string name="media_action_next">Successivo</string>
-    <string name="media_session_aa_status_placeholder">Connesso</string>
-    <string name="sync_media_session_aa_metadata">Brano AA corrente nella sessione multimediale</string>
-    <string name="sync_media_session_aa_metadata_description">Mostra titolo, artista, durata e copertina dal telefono nella sessione multimediale di sistema e nella notifica multimediale</string>
     <string name="error_usb_permission_failed">Errore di sistema: Impossibile richiedere la finestra di dialogo del permesso USB.</string>
-    <string name="microphone_settings">Impostazioni Microfono</string>
-    <string name="microphone_settings_description">Configura l\'ingresso del microfono e l\'elaborazione audio.</string>
-    <string name="mic_echo_canceler">Cancellazione dell\'eco (AEC)</string>
-    <string name="mic_echo_canceler_description">Tenta di rimuovere l\'eco dal microfono. Disabilita se riscontri silenzio o distorsione.</string>
-    <string name="mic_noise_suppressor">Soppressione del rumore (NS)</string>
-    <string name="mic_noise_suppressor_description">Tenta di ridurre il rumore di fondo. Disabilita se la tua voce risulta ovattata.</string>
-    <string name="mic_auto_gain_control">Controllo automatico del guadagno (AGC)</string>
-    <string name="mic_auto_gain_control_description">Regola automaticamente il volume del microfono. Disabilita se il volume è instabile.</string>
-    <string name="bt_permission_denied">Autorizzazione Bluetooth negata. Impossibile scansionare i dispositivi.</string>
     <string name="wifi_autostart_title">Avvio automatico WiFi</string>
     <string name="wifi_autostart_content">Connesso a %s. Tocca per avviare Android Auto.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Adattatore Bluetooth</string>
+    <string name="bluetooth_adapter_description">Seleziona l\'adattatore/controller Bluetooth da utilizzare per l\'handshake. Utile per i sistemi con doppio Bluetooth.</string>
+    <string name="select_bt_adapter">Seleziona adattatore Bluetooth</string>
 </resources>

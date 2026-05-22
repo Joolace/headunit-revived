@@ -108,6 +108,13 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
             watchdogHandler.postDelayed(this, 2000)
         }
     }
+    private val exitRunnable = Runnable {
+        if (commManager.connectionState.value is CommManager.ConnectionState.Disconnected) {
+            AppLog.i("AapProjectionActivity: Reconnect timed out (20s). Finishing activity.")
+            hideReconnectingOverlay()
+            finish()
+        }
+    }
     private val watchdogRunnable = Runnable {
         if (!isSurfaceSet) {
             AppLog.w("Watchdog: Surface not set after 2s. Checking view state...")
@@ -187,9 +194,8 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         applyOrientationSettings()
+        super.onCreate(savedInstanceState)
 
 
         setContentView(R.layout.activity_headunit)
@@ -256,17 +262,20 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                                 hideReconnectingOverlay()
                                 finish()
                             } else {
-                                // For unexpected disconnects (especially Wireless), wait a tiny bit to see if service restarts it
-                                watchdogHandler.postDelayed({
-                                    if (commManager.connectionState.value is CommManager.ConnectionState.Disconnected) {
-                                        AppLog.i("AapProjectionActivity: Finishing after delay due to Disconnected state.")
-                                        hideReconnectingOverlay()
-                                        finish()
-                                    }
-                                }, 2000)
+                                // For unexpected disconnects (especially Wireless), show the reconnecting overlay immediately
+                                // and wait up to 20 seconds to see if the connection recovers
+                                AppLog.i("AapProjectionActivity: Unexpected disconnect. Showing reconnecting overlay and waiting up to 20s for recovery.")
+                                showReconnectingOverlay()
+                                
+                                watchdogHandler.removeCallbacks(exitRunnable)
+                                watchdogHandler.postDelayed(exitRunnable, 20000)
                             }
                         }
                         is CommManager.ConnectionState.HandshakeComplete -> {
+                            watchdogHandler.removeCallbacks(exitRunnable)
+                            if (overlayState == OverlayState.RECONNECTING) {
+                                hideReconnectingOverlay()
+                            }
                             // Lock the resolution so that orientation changes don't cause re-negotiation
                             HeadUnitScreenConfig.lockResolution()
                             
@@ -276,6 +285,12 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                             // becomes available.
                             if (isSurfaceSet) {
                                 commManager.startReading()
+                            }
+                        }
+                        is CommManager.ConnectionState.TransportStarted -> {
+                            watchdogHandler.removeCallbacks(exitRunnable)
+                            if (overlayState == OverlayState.RECONNECTING) {
+                                hideReconnectingOverlay()
                             }
                         }
                         else -> {}
@@ -387,6 +402,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
         watchdogHandler.removeCallbacks(watchdogRunnable)
         watchdogHandler.removeCallbacks(videoWatchdogRunnable)
         watchdogHandler.removeCallbacks(reconnectingWatchdog)
+        watchdogHandler.removeCallbacks(exitRunnable)
         if (isOrientationReceiverRegistered) {
             unregisterReceiver(orientationReceiver)
             isOrientationReceiverRegistered = false

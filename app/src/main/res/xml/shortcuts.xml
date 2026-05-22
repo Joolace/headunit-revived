@@ -9,7 +9,7 @@
         <intent
             android:action="com.andrerinas.headunitrevived.ACTION_CONNECT"
             android:targetPackage="com.andrerinas.headunitrevived"
-            android:targetClass="com.andrerinas.headunitrevived.main.MainActivity" />
+            android:targetClass="com.andrerinas.headunitrevived.main.AutomationActivity" />
     </shortcut>
     <shortcut
         android:shortcutId="self_mode"
@@ -20,7 +20,7 @@
         <intent
             android:action="com.andrerinas.headunitrevived.ACTION_START_SELF_MODE"
             android:targetPackage="com.andrerinas.headunitrevived"
-            android:targetClass="com.andrerinas.headunitrevived.main.MainActivity" />
+            android:targetClass="com.andrerinas.headunitrevived.main.AutomationActivity" />
     </shortcut>
 
     <shortcut
@@ -32,7 +32,7 @@
         <intent
             android:action="com.andrerinas.headunitrevived.ACTION_DISCONNECT"
             android:targetPackage="com.andrerinas.headunitrevived"
-            android:targetClass="com.andrerinas.headunitrevived.main.MainActivity" />
+            android:targetClass="com.andrerinas.headunitrevived.main.AutomationActivity" />
     </shortcut>
 
     <shortcut
@@ -44,7 +44,7 @@
         <intent
             android:action="com.andrerinas.headunitrevived.ACTION_STOP_SERVICE"
             android:targetPackage="com.andrerinas.headunitrevived"
-            android:targetClass="com.andrerinas.headunitrevived.main.MainActivity" />
+            android:targetClass="com.andrerinas.headunitrevived.main.AutomationActivity" />
     </shortcut>
 
     <shortcut
@@ -56,7 +56,7 @@
         <intent
             android:action="com.andrerinas.headunitrevived.ACTION_SET_NIGHT_MODE"
             android:targetPackage="com.andrerinas.headunitrevived"
-            android:targetClass="com.andrerinas.headunitrevived.main.MainActivity">
+            android:targetClass="com.andrerinas.headunitrevived.main.AutomationActivity">
             <extra android:name="state" android:value="day" />
         </intent>
     </shortcut>
@@ -70,7 +70,7 @@
         <intent
             android:action="com.andrerinas.headunitrevived.ACTION_SET_NIGHT_MODE"
             android:targetPackage="com.andrerinas.headunitrevived"
-            android:targetClass="com.andrerinas.headunitrevived.main.MainActivity">
+            android:targetClass="com.andrerinas.headunitrevived.main.AutomationActivity">
             <extra android:name="state" android:value="night" />
         </intent>
     </shortcut>
@@ -84,7 +84,7 @@
         <intent
             android:action="com.andrerinas.headunitrevived.ACTION_SET_NIGHT_MODE"
             android:targetPackage="com.andrerinas.headunitrevived"
-            android:targetClass="com.andrerinas.headunitrevived.main.MainActivity">
+            android:targetClass="com.andrerinas.headunitrevived.main.AutomationActivity">
             <extra android:name="state" android:value="auto" />
         </intent>
     </shortcut>

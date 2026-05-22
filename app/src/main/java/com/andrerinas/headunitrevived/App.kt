@@ -50,7 +50,7 @@ class App : Application() {
             Settings.syncAutoStartOnUsbToDeviceStorage(this, settings.autoStartOnUsb)
             Settings.syncAutoStartOnWifiToDeviceStorage(this, settings.autoStartOnWifi)
             Settings.syncAutoStartWifiSsidToDeviceStorage(this, settings.autoStartWifiSsid)
-            Settings.syncAutoStartBtMacToDeviceStorage(this, settings.autoStartBluetoothDeviceMac)
+            Settings.syncAutoStartBtMacsToDeviceStorage(this, settings.autoStartBluetoothDeviceMacs)
 
             // Apply app theme
             if (AppThemeManager.isStaticMode(settings.appTheme)) {

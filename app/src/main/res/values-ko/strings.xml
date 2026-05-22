@@ -154,7 +154,6 @@
     <string name="key_button_a">A 버튼(선택)</string>
     <string name="key_button_b">B 버튼(뒤로)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">앱 언어</string>
     <string name="system_default">시스템 기본값</string>
@@ -168,13 +167,6 @@
     <string name="usb_auto_connect_description">앱이 열릴 때 알려진 USB 기기에 자동으로 연결합니다.</string>
     <string name="auto_start_bt_label">Bluetooth 연결 시 자동 시작</string>
     <string name="auto_start_bt_description">특정 Bluetooth 기기가 연결되면 Headunit Revived를 자동으로 엽니다.</string>
-    <string name="auto_start_wifi_label">Wi-Fi 연결 시 자동 시작</string>
-    <string name="auto_start_wifi_description">특정 Wi-Fi SSID에 연결될 때 Headunit Revived를 자동으로 실행합니다.</string>
-    <string name="auto_start_wifi_ssid_label">Wi-Fi SSID</string>
-    <string name="auto_start_wifi_ssid_description">이 Wi-Fi SSID에 연결되어 있을 때만 연결을 시도합니다</string>
-    <string name="auto_start_wifi_warning">레거시 기능: 백그라운드 제한으로 인해 Android 8 이상에서는 동작이 불안정할 수 있습니다. 앱을 배터리 최적화 대상에서 제외했는지 확인하세요.</string>
-    <string name="enter_wifi_ssid">Wi-Fi SSID를 입력하세요</string>
-    <string name="wifi_ssid_not_set">설정 안 됨</string>
     <string name="listen_for_usb_devices_label">USB 기기 감지</string>
     <string name="listen_for_usb_devices_description">USB 기기가 연결되면 Android 시스템 프롬프트를 표시합니다.</string>
     <string name="auto_start_usb_label">USB 연결 시 자동 시작</string>
@@ -188,10 +180,18 @@
     <string name="auto_start_screen_on_description">화면이 켜질 때마다 앱을 자동으로 실행합니다. 완전히 종료되지 않거나 빠른 부팅 모드를 사용해 다른 자동 실행 옵션이 작동하지 않는 헤드 유닛에 적합합니다. 휴대전화나 태블릿에서는 권장하지 않습니다.</string>
     <string name="select_bt_device">Bluetooth 기기 선택</string>
     <string name="bt_device_not_set">설정 안 됨</string>
+    <string name="bt_devices_selected">개 기기 선택됨</string>
+    <string name="auto_start_wifi_label">Wi-Fi 연결 시 자동 시작</string>
+    <string name="auto_start_wifi_description">특정 Wi-Fi SSID에 연결될 때 Headunit Revived를 자동으로 실행합니다.</string>
+    <string name="auto_start_wifi_ssid_label">Wi-Fi SSID</string>
+    <string name="auto_start_wifi_ssid_description">이 Wi-Fi SSID에 연결되어 있을 때만 연결을 시도합니다</string>
+    <string name="auto_start_wifi_warning">레거시 기능: 백그라운드 제한으로 인해 Android 8 이상에서는 동작이 불안정할 수 있습니다. 앱을 배터리 최적화 대상에서 제외했는지 확인하세요.</string>
+    <string name="enter_wifi_ssid">Wi-Fi SSID를 입력하세요</string>
+    <string name="wifi_ssid_not_set">설정 안 됨</string>
     <string name="bt_permission_denied_title">Bluetooth 권한 필요</string>
     <string name="bt_permission_denied_message">페어링된 기기를 선택하려면 Bluetooth 권한이 필요합니다. 앱 설정에서 권한을 허용하세요.</string>
     <string name="overlay_permission_title">백그라운드 시작 권한</string>
-    <string name="overlay_permission_description">Bluetooth 기기가 연결될 때 Headunit Revived를 자동으로 실행하려면 다음 화면에서 "다른 앱 위에 표시" 권한을 허용하세요.</string>
+    <string name="overlay_permission_description">Bluetooth 기기가 연결될 때 Headunit Revived를 자동으로 실행하려면 다음 화면에서 \"다른 앱 위에 표시\" 권한을 허용하세요.</string>
     <string name="open_settings">설정</string>
     <string name="right_hand_drive">우핸들</string>
     <string name="right_hand_drive_description">우핸들 차량에 맞게 UI를 배치합니다</string>
@@ -246,6 +246,8 @@
     <string name="category_audio">오디오</string>
     <string name="enable_audio_sink">오디오 수신</string>
     <string name="enable_audio_sink_description">비활성화되면 헤드 유닛이 오디오를 수신하지 않습니다. 소리는 휴대폰에서 재생됩니다.</string>
+    <string name="static_audio_focus">정적 오디오 포커스</string>
+    <string name="static_audio_focus_description">휴대전화가 항상 오디오 포커스를 유지하고 있는 것으로 인식하도록 강제하여 범용 헤드유닛에서 오디오 라우팅이 끊기는 현상을 방지합니다. 내비게이션 음성 안내 시 소프트웨어 음량 감쇠(덕킹)도 수행합니다.</string>
     <string name="separate_audio_streams">오디오 스트림 분리</string>
     <string name="separate_audio_streams_description">하나의 멀티미디어 스트림 대신 음악, 통화, 알림에 별도의 오디오 채널을 사용합니다(일부 기기에서는 정상적으로 작동하지 않을 수 있음).</string>
     <string name="use_aac_audio">AAC 오디오 사용</string>
@@ -271,6 +273,7 @@
     <string name="mic_noise_suppressor_description">배경 소음을 줄입니다. 목소리가 먹먹하게 들리면 비활성화하세요.</string>
     <string name="mic_auto_gain_control">자동 게인 제어(AGC)</string>
     <string name="mic_auto_gain_control_description">마이크 음량을 자동으로 조절합니다. 음량이 불안정하면 비활성화하세요.</string>
+    <string name="mic_feature_unsupported">이 기능은 사용 중인 기기에서 지원되지 않습니다.</string>
 
     <!-- Info Settings -->
     <string name="category_info">정보</string>
@@ -456,7 +459,7 @@
     <string name="auto_enable_hotspot">Wi-Fi 핫스팟 자동 활성화</string>
     <string name="auto_enable_hotspot_description">이 기기에서 자동으로 Wi-Fi 핫스팟을 시작합니다. 모든 기기에서 작동하지는 않습니다</string>
     <string name="hotspot_warning_title">실험적 기능</string>
-    <string name="hotspot_warning_message">이 기능은 리플렉션 방식을 사용하므로 일부 기기에서는 작동하지 않을 수 있습니다. 또한 "시스템 설정 변경" 권한을 수동으로 허용해야 할 수 있습니다.</string>
+    <string name="hotspot_warning_message">이 기능은 리플렉션 방식을 사용하므로 일부 기기에서는 작동하지 않을 수 있습니다. 또한 \"시스템 설정 변경\" 권한을 수동으로 허용해야 할 수 있습니다.</string>
     <string name="hotspot_permission_title">권한 필요</string>
     <string name="hotspot_permission_message">핫스팟 기능은 \"시스템 설정 변경\" 권한이 필요합니다. 다음 화면에서 허용하세요.</string>
 
@@ -506,4 +509,9 @@
     <string name="error_usb_permission_failed">시스템 오류: USB 권한 대화상자를 요청하지 못했습니다.</string>
     <string name="wifi_autostart_title">Wi-Fi 자동 시작</string>
     <string name="wifi_autostart_content">%s에 연결되었습니다. Android Auto를 시작하려면 탭하세요.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Bluetooth 어댑터</string>
+    <string name="bluetooth_adapter_description">핸드셰이크에 사용할 Bluetooth 어댑터/컨트롤러를 선택합니다. 듀얼 Bluetooth 시스템에서 유용합니다.</string>
+    <string name="select_bt_adapter">Bluetooth 어댑터 선택</string>
 </resources>

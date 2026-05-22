@@ -36,6 +36,10 @@
     <string name="app_theme">Modo oscuro (Aplicación)</string>
     <string name="app_theme_description">Controlar la apariencia visual de la app</string>
     <string name="change_app_theme">Cambiar tema</string>
+    <string name="monochrome_icons">Iconos monocromáticos</string>
+    <string name="monochrome_icons_description">Usar iconos en escala de grises en la pantalla principal en modo Oscuro u Oscuro Extremo</string>
+    <string name="use_extreme_dark">Usar oscuro extremo</string>
+    <string name="use_extreme_dark_description">Usar fondo negro puro cuando el modo oscuro está activo</string>
     <string name="use_gradient_background">Usar fondo degradado</string>
     <string name="use_gradient_background_description_on">La app dibuja su propio fondo con el círculo de degradado centrado</string>
     <string name="use_gradient_background_description_off">Se está usando el fondo clásico de la app</string>
@@ -94,6 +98,11 @@
 
     <string name="start_in_fullscreen_mode">Iniciar en pantalla completa</string>
     <string name="start_in_fullscreen_mode_description">Activar modo de pantalla completa. Es necesario reiniciar la aplicación para aplicar los cambios.</string>
+    <string name="fullscreen_none">Normal (Barras visibles)</string>
+    <string name="fullscreen_immersive">Inmersivo (Barras ocultas)</string>
+    <string name="fullscreen_status_only">Ocultar solo barra de estado</string>
+    <string name="fullscreen_immersive_avoid_notch">Inmersivo (Evitar Notch)</string>
+    <string name="fullscreen_immersive_avoid_notch_desc">Oculta todas las barras y agrega espaciado para evitar que la proyección sea cubierta por el Notch/Recorte.</string>
 
     <string name="usb_status">Estado USB: %s</string>
     <string name="projection_status">Estado de Proyección: %s</string>
@@ -107,6 +116,13 @@
     <string name="back">Atrás</string>
     <string name="debug_mode">Modo de depuración</string>
     <string name="debug_mode_description">Activar más registro de eventos</string>
+    <string name="log_level">Nivel de log</string>
+    <string name="log_level_description">Elija el nivel de detalle de los mensajes de log para depuración.</string>
+    <string name="start_log_capture">Iniciar captura de log</string>
+    <string name="start_log_capture_description">Comienza a registrar los logs del sistema en un archivo.</string>
+    <string name="start_log_capture_in_silent">No se puede iniciar la grabación: nivel de registro silencioso seleccionado</string>
+    <string name="stop_log_capture">Detener captura de log</string>
+    <string name="stop_log_capture_description">Detiene la grabación y guarda el archivo de log.</string>
     <string name="export_logs">Exportar registros</string>
     <string name="export_logs_description">Guardar registros para depuración</string>
     <string name="use_native_ssl">Usar SSL nativo</string>
@@ -138,7 +154,6 @@
     <string name="key_button_a">Botón A (Seleccionar)</string>
     <string name="key_button_b">Botón B (Atrás)</string>
 
-
     <!-- Language Settings -->
     <string name="app_language">Idioma de la aplicación</string>
     <string name="system_default">Por defecto del sistema</string>
@@ -152,14 +167,6 @@
     <string name="usb_auto_connect_description">Se conecta automáticamente a un dispositivo USB conocido tan pronto como se abre la aplicación.</string>
     <string name="auto_start_bt_label">Auto-inicio por Bluetooth</string>
     <string name="auto_start_bt_description">Abrir automáticamente Headunit Revived cuando se conecte un dispositivo Bluetooth específico.</string>
-    <string name="auto_start_wifi_label">Inicio automático por Wi-Fi</string>
-    <string name="auto_start_wifi_description">Abre Headunit Revived automáticamente al conectarse a un SSID Wi-Fi específico.</string>
-    <string name="auto_start_wifi_ssid_label">SSID Wi-Fi</string>
-    <string name="auto_start_wifi_ssid_description">Conectar solo cuando se está conectado a este SSID Wi-Fi</string>
-    <string name="auto_start_wifi_warning">Función heredada: Es posible que esto no funcione de manera confiable en Android 8+ debido a restricciones en segundo plano. Asegúrese de que la aplicación esté excluida de la optimización de batería.</string>
-    <string name="enter_wifi_ssid">Ingrese el SSID Wi-Fi</string>
-    <string name="wifi_ssid_not_set">No establecido</string>
-
     <string name="listen_for_usb_devices_label">Escuchar dispositivos USB</string>
     <string name="listen_for_usb_devices_description">Mostrar el aviso del sistema Android al conectar un dispositivo USB.</string>
     <string name="auto_start_usb_label">Inicio automático por USB</string>
@@ -173,14 +180,22 @@
     <string name="auto_start_screen_on_description">Abrir la app cada vez que la pantalla se enciende. Ideal para radios que nunca se apagan completamente o usan modos de encendido rápido donde las otras opciones de inicio automático no funcionan. No recomendado para teléfonos o tablets.</string>
     <string name="select_bt_device">Seleccionar dispositivo Bluetooth</string>
     <string name="bt_device_not_set">No establecido</string>
+    <string name="bt_devices_selected">dispositivos seleccionados</string>
+    <string name="auto_start_wifi_label">Inicio automático por Wi-Fi</string>
+    <string name="auto_start_wifi_description">Abre Headunit Revived automáticamente al conectarse a un SSID Wi-Fi específico.</string>
+    <string name="auto_start_wifi_ssid_label">SSID Wi-Fi</string>
+    <string name="auto_start_wifi_ssid_description">Conectar solo cuando se está conectado a este SSID Wi-Fi</string>
+    <string name="auto_start_wifi_warning">Función heredada: Es posible que esto no funcione de manera confiable en Android 8+ debido a restricciones en segundo plano. Asegúrese de que la aplicación esté excluida de la optimización de batería.</string>
+    <string name="enter_wifi_ssid">Ingrese el SSID Wi-Fi</string>
+    <string name="wifi_ssid_not_set">No establecido</string>
     <string name="bt_permission_denied_title">Permiso de Bluetooth requerido</string>
     <string name="bt_permission_denied_message">Se necesita el permiso de Bluetooth para seleccionar dispositivos emparejados. Concédalo en los ajustes de la app.</string>
     <string name="overlay_permission_title">Permiso de inicio en segundo plano</string>
-    <string name="overlay_permission_description">Para permitir que Headunit Revived se abra automáticamente cuando se conecta Bluetooth, habilite el permiso "Mostrar sobre otras aplicaciones" en la siguiente pantalla.</string>
+    <string name="overlay_permission_description">Para permitir que Headunit Revived se abra automáticamente cuando se conecta Bluetooth, habilite el permiso \"Mostrar sobre otras aplicaciones\" en la siguiente pantalla.</string>
     <string name="open_settings">Ajustes</string>
-    <string name="wireless_connection_settings">Conexión inalámbrica</string>
     <string name="right_hand_drive">Conducción por la derecha</string>
     <string name="right_hand_drive_description">Posiciona la interfaz para conducción por el lado derecho</string>
+    <string name="wireless_connection_settings">Conexión inalámbrica</string>
     <string name="category_graphic">Gráficos</string>
     <string name="custom_insets">Márgenes personalizados</string>
     <string name="inset_top">Superior</string>
@@ -223,14 +238,16 @@
     <string name="enable">Activar</string>
     <string name="pref_stretch_screen_title">Estirar para llenar la pantalla</string>
     <string name="pref_stretch_screen_summary">Ignora la relación de aspecto para rellenar toda la pantalla (elimina las barras negras)</string>
-
-    <!-- Audio Settings -->
-        <string name="forced_scale">Escalado forzado (Corrección heredada)</string>
+    <string name="forced_scale">Escalado forzado (Corrección heredada)</string>
     <string name="forced_scale_description">Corrige problemas de escalado en algunos dispositivos antiguos que usan SurfaceView. Usar solo si la imagen se ve distorsionada o desplazada.</string>
 
-<string name="category_audio">Audio</string>
+
+    <!-- Audio Settings -->
+    <string name="category_audio">Audio</string>
     <string name="enable_audio_sink">Activar receptor de audio</string>
     <string name="enable_audio_sink_description">Si está desactivado, el audio se reproducirá en el teléfono conectado.</string>
+    <string name="static_audio_focus">Enfoque de audio estático</string>
+    <string name="static_audio_focus_description">Fuerza al teléfono a creer que el enfoque de audio se mantiene siempre, evitando pérdidas de enrutamiento de audio en unidades principales genéricas. También realiza atenuación de volumen por software durante las indicaciones de voz de navegación.</string>
     <string name="separate_audio_streams">Separar flujos de audio</string>
     <string name="separate_audio_streams_description">Separar los canales de audio para música, llamadas y notificaciones en lugar de un único flujo multimedia (puede no funcionar correctamente en algunos dispositivos).</string>
     <string name="use_aac_audio">Usar audio AAC</string>
@@ -239,6 +256,8 @@
     <string name="media_volume_offset">Multimedia</string>
     <string name="assistant_volume_offset">Asistente</string>
     <string name="navigation_volume_offset">Navegación</string>
+    <string name="microphone_settings">Ajustes del micrófono</string>
+    <string name="microphone_settings_description">Configura la entrada del micrófono y el procesamiento de audio.</string>
     <string name="mic_input_source">Fuente de entrada del micrófono</string>
     <string name="mic_input_source_description">Elija la fuente de audio para el micrófono.</string>
     <string-array name="mic_input_sources">
@@ -248,6 +267,13 @@
         <item>Comunicación de voz</item>
         <item>Auriculares Bluetooth (SCO)</item>
     </string-array>
+    <string name="mic_echo_canceler">Cancelación de eco (AEC)</string>
+    <string name="mic_echo_canceler_description">Intenta eliminar el eco del micrófono. Desactívalo si experimentas silencio o distorsión.</string>
+    <string name="mic_noise_suppressor">Supresión de ruido (NS)</string>
+    <string name="mic_noise_suppressor_description">Intenta reducir el ruido de fondo. Desactívalo si tu voz suena apagada.</string>
+    <string name="mic_auto_gain_control">Control automático de ganancia (AGC)</string>
+    <string name="mic_auto_gain_control_description">Ajusta automáticamente el volumen del micrófono. Desactívalo si el volumen es inestable.</string>
+    <string name="mic_feature_unsupported">Esta función no es compatible con tu dispositivo.</string>
 
     <!-- Info Settings -->
     <string name="category_info">Información</string>
@@ -311,6 +337,8 @@
     <string name="connection_interrupted">Conexión perdida</string>
     <string name="connection_interrupted_detail">Reintentando…</string>
     <string name="wifi_disconnect_toast">Android Auto desconectado: Si usas AA inalámbrico, desactiva \"Cambiar entre redes\" o \"Aceleración de red\" en ajustes WiFi del teléfono</string>
+    <string name="reset_usb_option">Restablecer conexión USB</string>
+    <string name="reset_usb_timeout">Dispositivo USB no encontrado. Revise la conexión.</string>
     <string name="notification_service_running">Headunit Revived está en ejecución</string>
     <string name="notification_projection_active">Android Auto está proyectado</string>
     <string name="shortcut_connect_title">Conectar</string>
@@ -327,8 +355,6 @@
     <string name="shortcut_night_mode_day_desc">Forzar modo día</string>
     <string name="shortcut_night_mode_night_title">Modo: Noche</string>
     <string name="shortcut_night_mode_night_desc">Forzar modo noche</string>
-    <string name="reset_usb_option">Restablecer conexión USB</string>
-    <string name="reset_usb_timeout">Dispositivo USB no encontrado. Revise la conexión.</string>
     <string name="setup_welcome_title">Configuración rápida</string>
     <string name="setup_welcome_msg">Este asistente te ayuda a elegir la mejor configuración para una experiencia fluida con Android Auto.\n\nSiempre puedes cambiar estos ajustes más tarde o reiniciar este asistente desde la configuración de la aplicación.</string>
     <string name="setup_start">Comenzar</string>
@@ -345,22 +371,13 @@
     <string name="setup_widescreen_detected">Pantalla panorámica detectada.</string>
     <string name="auto_optimize">Optimizar ajustes automáticamente</string>
     <string name="auto_optimize_desc">Ejecuta el chequeo del sistema para encontrar los mejores ajustes para tu dispositivo.</string>
-    <string name="fullscreen_none">Normal (Barras visibles)</string>
-    <string name="fullscreen_immersive">Inmersivo (Barras ocultas)</string>
-    <string name="fullscreen_immersive_avoid_notch">Inmersivo (Evitar Notch)</string>
-    <string name="fullscreen_immersive_avoid_notch_desc">Oculta todas las barras y agrega espaciado para evitar que la proyección sea cubierta por el Notch/Recorte.</string>
-    <string name="fullscreen_status_only">Ocultar solo barra de estado</string>
-    <string name="log_level">Nivel de log</string>
-    <string name="log_level_description">Elija el nivel de detalle de los mensajes de log para depuración.</string>
-    <string name="start_log_capture">Iniciar captura de log</string>
-    <string name="start_log_capture_description">Comienza a registrar los logs del sistema en un archivo.</string>
-    <string name="start_log_capture_in_silent">No se puede iniciar la grabación: nivel de registro silencioso seleccionado</string>
-    <string name="stop_log_capture">Detener captura de log</string>
-    <string name="stop_log_capture_description">Detiene la grabación y guarda el archivo de log.</string>
 
-    <!-- Navigation notifications -->
+    <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">Notificaciones de navegación</string>
-    <string name="show_navigation_notifications_description">Mostrar "En X metros Y" y la calle actual en notificaciones (para depuración)</string>
+    <string name="show_navigation_notifications_description">Mostrar \"En X metros Y\" y la calle actual en notificaciones (para depuración)</string>
+    <string name="media_session_aa_status_placeholder">Conectado</string>
+    <string name="sync_media_session_aa_metadata">Pista actual de AA en la sesión multimedia</string>
+    <string name="sync_media_session_aa_metadata_description">Mostrar título, artista, duración y portada del teléfono en la sesión multimedia del sistema y en la notificación multimedia</string>
     <string name="nav_notification_channel_name">Navegación</string>
     <string name="nav_notification_channel_description">Indicaciones paso a paso de Android Auto</string>
     <string name="nav_notification_title_format">En %1$d m — %2$s</string>
@@ -382,33 +399,35 @@
     <string name="nav_action_ferry">Ferry</string>
     <string name="nav_action_ferry_train">Ferry / tren</string>
     <string name="nav_action_destination">Llegada</string>
-    <string name="monochrome_icons">Iconos monocromáticos</string>
-    <string name="monochrome_icons_description">Usar iconos en escala de grises en la pantalla principal en modo Oscuro u Oscuro Extremo</string>
-    <string name="use_extreme_dark">Usar oscuro extremo</string>
-    <string name="use_extreme_dark_description">Usar fondo negro puro cuando el modo oscuro está activo</string>
     <string name="show_fps_counter">Mostrar contador de FPS</string>
     <string name="show_fps_counter_description">Muestra una superposición de FPS en tiempo real en la esquina superior izquierda durante la proyección.</string>
+
+    <!-- Auto-start permission strings -->
+    <string name="reopen_on_reconnection_label">Reabrir al reconectar</string>
+    <string name="reopen_on_reconnection_description">Al presionar el botón Salir, la app sigue ejecutándose en segundo plano y continúa monitoreando las conexiones USB. Si un dispositivo se reconecta, la app se reabre automáticamente.</string>
     <string name="overlay_permission_required">El inicio automático requiere el permiso \'Mostrar sobre otras apps\'</string>
     <string name="usb_permission_denied">Permiso USB denegado. Por favor, permita el acceso USB para conectar automáticamente.</string>
     <string name="overlay_permission_denied_auto_start_disabled">Permiso de superposición no otorgado. El inicio automático ha sido desactivado.</string>
-    <string name="use_white_background">Usar fondo de pantalla blanco en inicio</string>
-    <string name="reopen_on_reconnection_label">Reabrir al reconectar</string>
-    <string name="reopen_on_reconnection_description">Al presionar el botón Salir, la app sigue ejecutándose en segundo plano y continúa monitoreando las conexiones USB. Si un dispositivo se reconecta, la app se reabre automáticamente.</string>
 
+    <!-- Theme -->
+    <string name="use_white_background">Usar fondo de pantalla blanco en inicio</string>
     <string name="category_input">Ajustes de entrada</string>
     <string name="enable_rotary">Activar controlador giratorio (Rotary)</string>
     <string name="enable_rotary_description">Anuncia soporte para mandos y ruedas giratorias físicas. Desactiva esto si tu pantalla táctil no funciona correctamente.</string>
+
     <string name="kill_on_disconnect">Cerrar app al desconectar</string>
     <string name="kill_on_disconnect_description">Cerrar automáticamente la aplicación cuando Android Auto se desconecta</string>
     <string name="kill_on_disconnect_warning_title">Advertencia</string>
     <string name="kill_on_disconnect_warning">Los siguientes ajustes de reconexión entrarán en conflicto con el cierre de la app al desconectar:\n\n%1$s\n\nLos ajustes de conexión inicial (conexión automática, inicio automático) seguirán funcionando cuando la radio encienda. Sin embargo, tras la primera desconexión la app se cerrará inmediatamente en lugar de intentar reconectar.\n\nNota: Algunas radios aftermarket nunca se apagan completamente, solo hibernan, similar a un teléfono que bloquea la pantalla pero nunca se apaga realmente. Con esta opción activada, la app se cerrará tras la primera desconexión y podría no reabrirse automáticamente en el siguiente encendido.\n\n¿Deseas desactivar los ajustes de reconexión mencionados?</string>
     <string name="kill_on_disconnect_disable_and_enable">Desactivar y activar</string>
     <string name="kill_on_disconnect_enable_anyway">Activar de todos modos</string>
+    <string name="kill_on_disconnect_conflicts_disabled">Los ajustes en conflicto han sido desactivados</string>
     <string name="kill_on_disconnect_boot_warning">Tienes \"Iniciar al arrancar\" activado. Si la app se cierra al desconectar y este dispositivo hiberna en lugar de apagarse, la app podría no reabrirse automáticamente en el siguiente encendido porque no se genera un evento de arranque — el dispositivo simplemente despierta del modo de reposo.</string>
     <string name="kill_on_disconnect_screen_on_warning">Tienes activado \"Iniciar al encender la pantalla\". Esta opción abre la app cada vez que se enciende la pantalla. Combinado con cerrar al desconectar, la app se cerrará tras la desconexión pero se reabrirá inmediatamente cuando la pantalla se encienda de nuevo, creando un bucle de reinicio.</string>
-    <string name="kill_on_disconnect_conflicts_disabled">Los ajustes en conflicto han sido desactivados</string>
+
     <string name="wifi_disabled_info">Info: El Wi-Fi está desactivado.</string>
     <string name="bt_not_enabled">Info: El Bluetooth está desactivado.</string>
+    <string name="bt_permission_denied">Permiso de Bluetooth denegado. No se pueden escanear dispositivos.</string>
 
     <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">Información del vehículo</string>
@@ -436,20 +455,23 @@
     <string name="vehicle_year_error_invalid">Introduce un año válido</string>
     <string name="vehicle_year_error_max">El año no puede ser posterior a %1$d</string>
     <string name="vehicle_info_restart_note">Estos datos se envían a Android Auto cada vez que te conectas.</string>
+
     <string name="auto_enable_hotspot">Activar punto de acceso automáticamente</string>
     <string name="auto_enable_hotspot_description">Inicia automáticamente un punto de acceso Wi-Fi en este dispositivo. (No funcionará en todos los dispositivos)</string>
     <string name="hotspot_warning_title">Función experimental</string>
     <string name="hotspot_warning_message">Esta función utiliza reflexión y es posible que no funcione en todos los dispositivos. También puede requerir que se otorgue manualmente el permiso \"Modificar ajustes del sistema\".</string>
     <string name="hotspot_permission_title">Permiso requerido</string>
     <string name="hotspot_permission_message">La función de punto de acceso requiere el permiso \"Modificar ajustes del sistema\". Por favor, actívelo en la siguiente pantalla.</string>
+
+    <string name="supported_nativeaa">Soporte inalámbrico mejorado</string>
+    <string name="supported_nativeaa_desc">¡Buenas noticias! Tu dispositivo es compatible con el modo \"Inalámbrico Nativo\", que ofrece una experiencia de Android Auto más fluida. \n\nPara activarlo, necesitamos refrescar la caché de Bluetooth. Por favor: \n1. Elimina la vinculación existente en tu teléfono \n2. Pulsa OK para reiniciar el Bluetooth \n3. Vuelve a vincular tu teléfono \n\n¿Deseas cambiar al modo Inalámbrico Nativo ahora?</string>
     <string name="not_supported_nativeaa">El modo inalámbrico nativo parece no ser compatible</string>
     <string name="not_supported_nativeaa_desc">Es posible que su dispositivo no sea compatible con las funciones de Bluetooth o Wi-Fi necesarias para el modo inalámbrico nativo. Puede intentarlo de todos modos, pero si falla, use el modo \"Wireless Helper\" o \"Automático (Headunit Server)\" en su lugar.</string>
+
     <string name="wait_for_wifi">Esperar WiFi antes de WiFi Direct</string>
     <string name="wait_for_wifi_description">Al iniciar, espera a que el WiFi se conecte antes de iniciar WiFi Direct. Útil si tu radio tarda unos segundos en conectarse al WiFi después de encender.</string>
     <string name="wait_for_wifi_timeout">Tiempo de espera de WiFi</string>
     <string name="wireless_24ghz_warning">Nota: Android Auto inalámbrico en dispositivos de 2.4GHz puede causar lag, tirones y desconexiones. Si tiene problemas, pruebe a través de USB para confirmar si es una limitación de la red.</string>
-    <string name="supported_nativeaa">Soporte inalámbrico mejorado</string>
-    <string name="supported_nativeaa_desc">¡Buenas noticias! Tu dispositivo es compatible con el modo \"Inalámbrico Nativo\", que ofrece una experiencia de Android Auto más fluida. \n\nPara activarlo, necesitamos refrescar la caché de Bluetooth. Por favor: \n1. Elimina la vinculación existente en tu teléfono \n2. Pulsa OK para reiniciar el Bluetooth \n3. Vuelve a vincular tu teléfono \n\n¿Deseas cambiar al modo Inalámbrico Nativo ahora?</string>
     <string name="fake_speed_title">Desactivar bloqueo de video (Fake Speed)</string>
     <string name="fake_speed_description">Informa una velocidad baja constante (0.5 m/s) al teléfono para evitar que se bloquee el contenido de video mientras se conduce. Usar con precaución.</string>
     <string name="wireless_mode_helper">Wireless Helper</string>
@@ -484,19 +506,12 @@
     <string name="media_action_play">Reproducir</string>
     <string name="media_action_pause">Pausa</string>
     <string name="media_action_next">Siguiente</string>
-    <string name="media_session_aa_status_placeholder">Conectado</string>
-    <string name="sync_media_session_aa_metadata">Pista actual de AA en la sesión multimedia</string>
-    <string name="sync_media_session_aa_metadata_description">Mostrar título, artista, duración y portada del teléfono en la sesión multimedia del sistema y en la notificación multimedia</string>
     <string name="error_usb_permission_failed">Error del sistema: Fallo al solicitar el cuadro de diálogo de permiso USB.</string>
-    <string name="microphone_settings">Ajustes del micrófono</string>
-    <string name="microphone_settings_description">Configura la entrada del micrófono y el procesamiento de audio.</string>
-    <string name="mic_echo_canceler">Cancelación de eco (AEC)</string>
-    <string name="mic_echo_canceler_description">Intenta eliminar el eco del micrófono. Desactívalo si experimentas silencio o distorsión.</string>
-    <string name="mic_noise_suppressor">Supresión de ruido (NS)</string>
-    <string name="mic_noise_suppressor_description">Intenta reducir el ruido de fondo. Desactívalo si tu voz suena apagada.</string>
-    <string name="mic_auto_gain_control">Control automático de ganancia (AGC)</string>
-    <string name="mic_auto_gain_control_description">Ajusta automáticamente el volumen del micrófono. Desactívalo si el volumen es inestable.</string>
-    <string name="bt_permission_denied">Permiso de Bluetooth denegado. No se pueden escanear dispositivos.</string>
     <string name="wifi_autostart_title">Inicio automático de WiFi</string>
     <string name="wifi_autostart_content">Conectado a %s. Pulsa para iniciar Android Auto.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Adaptador Bluetooth</string>
+    <string name="bluetooth_adapter_description">Seleccione el adaptador/controlador Bluetooth que se utilizará para el protocolo de enlace. Útil para sistemas con doble Bluetooth.</string>
+    <string name="select_bt_adapter">Seleccionar adaptador Bluetooth</string>
 </resources>

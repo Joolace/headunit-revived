@@ -1,4 +1,3 @@
-
 <resources>
     <string name="app_name">Headunit Revived</string>
     <string name="menu">Menü</string>
@@ -155,11 +154,12 @@
     <string name="key_button_a">A Butonu (Seç)</string>
     <string name="key_button_b">B Butonu (Geri)</string>
 
-
+    <!-- Language Settings -->
     <string name="app_language">Uygulama Dili</string>
     <string name="system_default">Sistem Varsayılanı</string>
     <string name="change_language">Dili Değiştir</string>
 
+    <!-- Categories for SettingsFragment -->
     <string name="category_general">Genel</string>
     <string name="auto_start_self_mode">Dahili Modu otomatik başlat</string>
     <string name="auto_start_self_mode_description">Uygulama açıldığında Dahili Modu otomatik olarak başlat.</string>
@@ -167,14 +167,6 @@
     <string name="usb_auto_connect_description">Uygulama açıldığında bilinen bir USB cihazına otomatik olarak bağlan.</string>
     <string name="auto_start_bt_label">Bluetooth ile otomatik başlat</string>
     <string name="auto_start_bt_description">Belirli bir Bluetooth cihazı bağlandığında Headunit Revived\'ı otomatik olarak aç.</string>
-    <string name="auto_start_wifi_label">WiFi ile otomatik başlat</string>
-    <string name="auto_start_wifi_description">Belirli bir WiFi SSID\'sine bağlandığında Headunit Revived\'ı otomatik olarak aç.</string>
-    <string name="auto_start_wifi_ssid_label">WiFi SSID</string>
-    <string name="auto_start_wifi_ssid_description">Sadece bu WiFi SSID\'sine bağlandığında bağlan</string>
-    <string name="auto_start_wifi_warning">Eski özellik: Arka plan kısıtlamaları nedeniyle Android 8+ sürümlerinde güvenilir şekilde çalışmayabilir. Uygulamanın pil optimizasyonundan muaf tutulduğundan emin olun.</string>
-    <string name="enter_wifi_ssid">WiFi SSID girin</string>
-    <string name="wifi_ssid_not_set">Ayarlanmadı</string>
-
     <string name="listen_for_usb_devices_label">USB Cihazlarını Dinle</string>
     <string name="listen_for_usb_devices_description">Bir USB cihazı takıldığında Android sistem istemini göster.</string>
     <string name="auto_start_usb_label">USB ile otomatik başlat</string>
@@ -188,10 +180,18 @@
     <string name="auto_start_screen_on_description">Ekran her açıldığında uygulamayı açar. Tamamen kapanmayan veya diğer otomatik başlatma seçeneklerinin çalışmadığı hızlı önyükleme modlarını kullanan sistemler için idealdir. Telefonlar veya tabletler için önerilmez.</string>
     <string name="select_bt_device">Bluetooth Cihazı Seç</string>
     <string name="bt_device_not_set">Ayarlanmadı</string>
+    <string name="bt_devices_selected">cihaz seçildi</string>
+    <string name="auto_start_wifi_label">WiFi ile otomatik başlat</string>
+    <string name="auto_start_wifi_description">Belirli bir WiFi SSID\'sine bağlandığında Headunit Revived\'ı otomatik olarak aç.</string>
+    <string name="auto_start_wifi_ssid_label">WiFi SSID</string>
+    <string name="auto_start_wifi_ssid_description">Sadece bu WiFi SSID\'sine bağlandığında bağlan</string>
+    <string name="auto_start_wifi_warning">Eski özellik: Arka plan kısıtlamaları nedeniyle Android 8+ sürümlerinde güvenilir şekilde çalışmayabilir. Uygulamanın pil optimizasyonundan muaf tutulduğundan emin olun.</string>
+    <string name="enter_wifi_ssid">WiFi SSID girin</string>
+    <string name="wifi_ssid_not_set">Ayarlanmadı</string>
     <string name="bt_permission_denied_title">Bluetooth İzni Gerekli</string>
     <string name="bt_permission_denied_message">Eşleşmiş cihazları seçmek için Bluetooth izni gereklidir. Lütfen uygulama ayarlarından izin verin.</string>
     <string name="overlay_permission_title">Arka Planda Başlatma İzni</string>
-    <string name="overlay_permission_description">Bluetooth bağlandığında Headunit Revived\'ın otomatik olarak açılmasına izin vermek için lütfen bir sonraki ekranda "Diğer uygulamaların üzerinde görüntüleme" iznini etkinleştirin.</string>
+    <string name="overlay_permission_description">Bluetooth bağlandığında Headunit Revived\'ın otomatik olarak açılmasına izin vermek için lütfen bir sonraki ekranda \"Diğer uygulamaların üzerinde görüntüleme\" iznini etkinleştirin.</string>
     <string name="open_settings">Ayarlar</string>
     <string name="right_hand_drive">Sağdan direksiyon</string>
     <string name="right_hand_drive_description">Arayüzü sağdan direksiyonlu sürüş için konumlandırın</string>
@@ -204,6 +204,7 @@
     <string name="inset_right">Sağ</string>
     <string name="category_debug">Hata Ayıklama</string>
 
+    <!-- Video Settings -->
     <string name="category_video">Video</string>
     <string name="force_software_decoding">Yazılımsal Dekoderi Zorla</string>
     <string name="force_software_decoding_description">Bazı cihazlardaki sorunları çözebilir ancak performansı düşüktür</string>
@@ -241,9 +242,12 @@
     <string name="forced_scale_description">SurfaceView kullanan bazı eski cihazlardaki ölçekleme sorunlarını düzeltir. Sadece görüntü bozuk veya kaymış görünüyorsa kullanın.</string>
 
 
+    <!-- Audio Settings -->
     <string name="category_audio">Ses</string>
     <string name="enable_audio_sink">Dahili Ses Çıkışı</string>
     <string name="enable_audio_sink_description">Devre dışı bırakılırsa multimedya sistemi ses almaz; ses doğrudan telefondan çalmaya devam eder.</string>
+    <string name="static_audio_focus">Statik Ses Odağı</string>
+    <string name="static_audio_focus_description">Telefonun ses odağının her zaman korunduğuna inanmasını sağlayarak genel ana ünitelerde ses yönlendirme kayıplarını önler. Ayrıca navigasyon sesli komutları sırasında yazılımsal ses kısma (ducking) işlemi gerçekleştirir.</string>
     <string name="separate_audio_streams">Ayrı Ses Akışları</string>
     <string name="separate_audio_streams_description">Tek bir multimedya akışının yerine müzik, aramalar ve bildirimler için ses kanallarını ayırın (bazı cihazlarda düzgün çalışmayabilir).</string>
     <string name="use_aac_audio">AAC Ses Kullan</string>
@@ -252,6 +256,8 @@
     <string name="media_volume_offset">Medya Ses Dengesi</string>
     <string name="assistant_volume_offset">Asistan Ses Dengesi</string>
     <string name="navigation_volume_offset">Navigasyon Ses Dengesi</string>
+    <string name="microphone_settings">Mikrofon Ayarları</string>
+    <string name="microphone_settings_description">Mikrofon girişini ve ses işlemeyi yapılandırın.</string>
     <string name="mic_input_source">Mikrofon Giriş Kaynağı</string>
     <string name="mic_input_source_description">Mikrofon için ses kaynağını seçin.</string>
     <string-array name="mic_input_sources">
@@ -261,7 +267,15 @@
         <item>Sesli İletişim (Yankı + gürültü engellenmiş)</item>
         <item>Bluetooth Kulaklık (SCO)</item>
     </string-array>
+    <string name="mic_echo_canceler">Yankı giderme (AEC)</string>
+    <string name="mic_echo_canceler_description">Mikrofondaki yankıyı gidermeye çalışır. Sessizlik veya bozulma yaşıyorsanız bunu devre dışı bırakın.</string>
+    <string name="mic_noise_suppressor">Gürültü bastırma (NS)</string>
+    <string name="mic_noise_suppressor_description">Arka plan gürültüsünü azaltmaya çalışır. Sesiniz boğuk geliyorsa bunu devre dışı bırakın.</string>
+    <string name="mic_auto_gain_control">Otomatik kazanç kontrolü (AGC)</string>
+    <string name="mic_auto_gain_control_description">Mikrofon ses seviyesini otomatik olarak ayarlar. Ses seviyesi dengesizse bunu devre dışı bırakın.</string>
+    <string name="mic_feature_unsupported">Bu özellik cihazınızda desteklenmiyor.</string>
 
+    <!-- Info Settings -->
     <string name="category_info">Bilgi</string>
     <string name="about">Hakkında &amp; Destek</string>
     <string name="about_description">Headunit Revived hakkında daha fazla bilgi alın</string>
@@ -269,6 +283,7 @@
     <string name="about_title">Headunit Revived Hakkında</string>
     <string name="copyright">© 2025-%d André Rinas</string>
 
+    <!-- Safety Disclaimer -->
     <string name="disclaimer_title">Güvenlik &amp; Sorumluluk</string>
     <string name="disclaimer_header">Önemli Uyarı</string>
     <string name="disclaimer_accept">Anlıyorum ve Kabul Ediyorum</string>
@@ -281,6 +296,7 @@
         Bu proje bağımsız bir açık kaynak girişimidir ve Google LLC veya Android Auto markasıyla bağlı değildir, onlar tarafından onaylanmamıştır veya onlarla bağlantılı değildir.
     ]]></string>
 
+    <!-- Toast Messages -->
     <string name="searching">Aranıyor…</string>
     <string name="auto_connecting_to">%s cihazına otomatik bağlanılıyor…</string>
     <string name="auto_connecting_usb">USB cihazına otomatik bağlanılıyor…</string>
@@ -356,6 +372,7 @@
     <string name="auto_optimize">Ayarları Otomatik Optimize Et</string>
     <string name="auto_optimize_desc">Cihazınız için en iyi ayarları bulmak üzere sistem kontrolünü çalıştırın.</string>
 
+    <!-- Navigation notifications (from any AA nav app) -->
     <string name="show_navigation_notifications">Navigasyon bildirimleri</string>
     <string name="show_navigation_notifications_description">Bildirimlerde \"X metre sonra Y yap\" ve mevcut caddeyi göster (hata ayıklama için)</string>
     <string name="media_session_aa_status_placeholder">Bağlı</string>
@@ -385,12 +402,14 @@
     <string name="show_fps_counter">FPS Sayacını Göster</string>
     <string name="show_fps_counter_description">Yansıtma sırasında sol üst köşede gerçek zamanlı bir FPS göstergesi görüntüler.</string>
 
+    <!-- Auto-start permission strings -->
     <string name="reopen_on_reconnection_label">Yeniden bağlantıda tekrar aç</string>
     <string name="reopen_on_reconnection_description">Çıkış düğmesine bastığınızda, uygulama arka planda çalışmaya devam eder ve USB bağlantılarını izlemeyi sürdürür. Bir cihaz yeniden bağlandığında uygulama otomatik olarak tekrar açılır.</string>
     <string name="overlay_permission_required">Otomatik başlatma için \'Diğer uygulamaların üzerinde görüntüleme\' izni gereklidir</string>
     <string name="usb_permission_denied">USB izni reddedildi. Otomatik bağlanmak için lütfen USB erişimine izin verin.</string>
     <string name="overlay_permission_denied_auto_start_disabled">Üstte görüntüleme izni verilmedi. Otomatik başlatma devre dışı bırakıldı.</string>
 
+    <!-- Theme -->
     <string name="use_white_background">Beyaz ana ekran duvar kağıdı kullan</string>
     <string name="category_input">Giriş Ayarları</string>
     <string name="enable_rotary">Döner Kontrolcüyü (Rotary) Etkinleştir</string>
@@ -408,7 +427,9 @@
 
     <string name="wifi_disabled_info">Bilgi: Wi-Fi devre dışı.</string>
     <string name="bt_not_enabled">Bluetooth devre dışı</string>
+    <string name="bt_permission_denied">Bluetooth izni reddedildi. Cihazlar taranamıyor.</string>
 
+    <!-- Vehicle Info Settings -->
     <string name="vehicle_info_settings">Araç bilgileri</string>
     <string name="vehicle_info_settings_description">Aracınızın telefonunuzda nasıl görüneceğini özelleştirin</string>
     <string name="ui_scale">UI Ölçeği</string>
@@ -438,9 +459,9 @@
     <string name="auto_enable_hotspot">Erişim Noktasını Otomatik Etkinleştir</string>
     <string name="auto_enable_hotspot_description">Bu cihazda otomatik olarak bir Wi-Fi erişim noktası başlatır. (Her cihazda çalışmayabilir)</string>
     <string name="hotspot_warning_title">Deneysel Özellik</string>
-    <string name="hotspot_warning_message">Bu özellik yansıma (reflection) kullanır ve tüm cihazlarda çalışmayabilir. Ayrıca "Sistem ayarlarını değiştir" izninin manuel olarak verilmesini gerektirebilir.</string>
+    <string name="hotspot_warning_message">Bu özellik yansıma (reflection) kullanır ve tüm cihazlarda çalışmayabilir. Ayrıca \"Sistem ayarlarını değiştir\" izninin manuel olarak verilmesini gerektirebilir.</string>
     <string name="hotspot_permission_title">İzin Gerekli</string>
-    <string name="hotspot_permission_message">Erişim noktası özelliği "Sistem ayarlarını değiştir" iznini gerektirir. Lütfen bir sonraki ekranda bu izni etkinleştirin.</string>
+    <string name="hotspot_permission_message">Erişim noktası özelliği \"Sistem ayarlarını değiştir\" iznini gerektirir. Lütfen bir sonraki ekranda bu izni etkinleştirin.</string>
 
     <string name="supported_nativeaa">Gelişmiş Kablosuz Desteği</string>
     <string name="supported_nativeaa_desc">Harika haber! Cihazınız, daha sorunsuz bir Android Auto deneyimi sağlayan \"Native Wireless\" (Yerel Kablosuz) modunu destekliyor. \n\nBunu etkinleştirmek için Bluetooth önbelleğinizi yenilememiz gerekiyor. Lütfen: \n1. Telefonunuzdaki mevcut eşleşmeyi kaldırın \n2. Bluetooth\'u yeniden başlatmak için Tamam\'a tıklayın \n3. Telefonunuzu tekrar eşleştirin \n\nŞimdi Native AA moduna geçmek ister misiniz?</string>
@@ -486,15 +507,11 @@
     <string name="media_action_pause">Duraklat</string>
     <string name="media_action_next">Sonraki</string>
     <string name="error_usb_permission_failed">Sistem hatası: USB izin iletişim kutusu istenemedi.</string>
-    <string name="microphone_settings">Mikrofon Ayarları</string>
-    <string name="microphone_settings_description">Mikrofon girişini ve ses işlemeyi yapılandırın.</string>
-    <string name="mic_echo_canceler">Yankı giderme (AEC)</string>
-    <string name="mic_echo_canceler_description">Mikrofondaki yankıyı gidermeye çalışır. Sessizlik veya bozulma yaşıyorsanız bunu devre dışı bırakın.</string>
-    <string name="mic_noise_suppressor">Gürültü bastırma (NS)</string>
-    <string name="mic_noise_suppressor_description">Arka plan gürültüsünü azaltmaya çalışır. Sesiniz boğuk geliyorsa bunu devre dışı bırakın.</string>
-    <string name="mic_auto_gain_control">Otomatik kazanç kontrolü (AGC)</string>
-    <string name="mic_auto_gain_control_description">Mikrofon ses seviyesini otomatik olarak ayarlar. Ses seviyesi dengesizse bunu devre dışı bırakın.</string>
-    <string name="bt_permission_denied">Bluetooth izni reddedildi. Cihazlar taranamıyor.</string>
     <string name="wifi_autostart_title">WiFi Otomatik Başlatma</string>
     <string name="wifi_autostart_content">%s ağına bağlandı. Android Auto\'yu başlatmak için dokunun.</string>
+
+    <!-- Bluetooth Adapter Selection -->
+    <string name="bluetooth_adapter_label">Bluetooth Adaptörü</string>
+    <string name="bluetooth_adapter_description">Bağlantı kurulumu (handshake) için kullanılacak Bluetooth adaptörünü/denetleyicisini seçin. Çift Bluetooth sistemleri için kullanışlıdır.</string>
+    <string name="select_bt_adapter">Bluetooth Adaptörünü Seçin</string>
 </resources>
