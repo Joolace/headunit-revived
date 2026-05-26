@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.media.AudioDeviceInfo
 import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioRecord
@@ -12,6 +13,7 @@ import android.media.MediaRecorder
 import android.media.audiofx.AcousticEchoCanceler
 import android.media.audiofx.AutomaticGainControl
 import android.media.audiofx.NoiseSuppressor
+import android.os.Build
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import com.andrerinas.headunitrevived.utils.AppLog
@@ -103,11 +105,26 @@ class MicRecorder(private val micSampleRate: Int, private val context: Context) 
         } catch (e: Exception) {}
         scoReceiver = null
         
-        audioManager.stopBluetoothSco()
-        @Suppress("DEPRECATION")
-        audioManager.isBluetoothScoOn = false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val device = audioManager.communicationDevice
+            if (device != null) {
+                AppLog.i("MicRecorder: Clearing communication device: ${device.productName}")
+            }
+            audioManager.clearCommunicationDevice()
+        } else {
+            audioManager.stopBluetoothSco()
+            @Suppress("DEPRECATION")
+            audioManager.isBluetoothScoOn = false
+        }
+
+        try {
+            audioManager.mode = AudioManager.MODE_NORMAL
+        } catch (e: Exception) {
+            AppLog.e("MicRecorder: Failed to restore audio mode to MODE_NORMAL", e)
+        }
+
         bluetoothScoStarted = false
-        AppLog.i("MicRecorder: Bluetooth SCO stopped")
+        AppLog.i("MicRecorder: Bluetooth SCO stopped and audio settings restored")
     }
 
     private fun micAudioRead(aud_buf: ByteArray, max_len: Int): Int {
@@ -126,6 +143,17 @@ class MicRecorder(private val micSampleRate: Int, private val context: Context) 
         return len
     }
 
+    private fun getAudioSource(index: Int): Int {
+        return when (index) {
+            0 -> MediaRecorder.AudioSource.DEFAULT
+            1 -> MediaRecorder.AudioSource.MIC
+            2 -> MediaRecorder.AudioSource.VOICE_RECOGNITION
+            3 -> MediaRecorder.AudioSource.VOICE_COMMUNICATION
+            4, SOURCE_BLUETOOTH_SCO -> SOURCE_BLUETOOTH_SCO
+            else -> MediaRecorder.AudioSource.DEFAULT
+        }
+    }
+
     fun start(): Int {
         if (!isAvailable) {
             AppLog.w("MicRecorder: Cannot start, mic not available on this device")
@@ -137,7 +165,7 @@ class MicRecorder(private val micSampleRate: Int, private val context: Context) 
             return -3
         }
 
-        val configuredSource = settings.micInputSource
+        val configuredSource = getAudioSource(settings.micInputSource)
         
         if (configuredSource == SOURCE_BLUETOOTH_SCO) {
             startScoAndRecord()
@@ -151,32 +179,68 @@ class MicRecorder(private val micSampleRate: Int, private val context: Context) 
     private fun startScoAndRecord() {
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         
-        // 1. Listen for SCO connection state
-        scoReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                val state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE, -1)
-                AppLog.d("MicRecorder: SCO State change: $state")
-                
-                if (state == AudioManager.SCO_AUDIO_STATE_CONNECTED) {
-                    AppLog.i("MicRecorder: SCO Connected. Starting AudioRecord.")
-                    // On many devices, even with SCO, we should use MIC or DEFAULT 
-                    // as VOICE_COMMUNICATION might try to use the device's own noise cancellation.
-                    startRecording(MediaRecorder.AudioSource.MIC)
-                } else if (state == AudioManager.SCO_AUDIO_STATE_DISCONNECTED && bluetoothScoStarted) {
-                    AppLog.w("MicRecorder: SCO Disconnected unexpectedly.")
-                    stop()
+        // Check for BLUETOOTH_CONNECT permission on Android 12+ (API 31+)
+        val hasBluetoothPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PermissionChecker.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PermissionChecker.PERMISSION_GRANTED
+        } else {
+            true
+        }
+
+        // Set audio mode to MODE_IN_COMMUNICATION to force SCO routing
+        try {
+            audioManager.mode = AudioManager.MODE_IN_COMMUNICATION
+        } catch (e: Exception) {
+            AppLog.e("MicRecorder: Failed to set audio mode to MODE_IN_COMMUNICATION", e)
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && hasBluetoothPermission) {
+            AppLog.i("MicRecorder: API 31+. Using setCommunicationDevice for Bluetooth routing.")
+            val devices = audioManager.availableCommunicationDevices
+            val bluetoothDevice = devices.find { 
+                it.type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO || 
+                it.type == AudioDeviceInfo.TYPE_BLE_HEADSET
+            }
+            if (bluetoothDevice != null) {
+                val success = audioManager.setCommunicationDevice(bluetoothDevice)
+                AppLog.i("MicRecorder: setCommunicationDevice result: $success for device: ${bluetoothDevice.productName} (${bluetoothDevice.type})")
+            } else {
+                AppLog.w("MicRecorder: No Bluetooth SCO/BLE headset found in available communication devices.")
+            }
+            // On API 31+, we can start recording directly on the communication channel
+            startRecording(MediaRecorder.AudioSource.VOICE_COMMUNICATION)
+            bluetoothScoStarted = true
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !hasBluetoothPermission) {
+                AppLog.w("MicRecorder: Missing BLUETOOTH_CONNECT permission on API 31+. Falling back to legacy SCO.")
+            }
+            // Legacy path (API < 31 or missing BLUETOOTH_CONNECT permission on API 31+)
+            // 1. Listen for SCO connection state
+            scoReceiver = object : BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    val state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE, -1)
+                    AppLog.d("MicRecorder: SCO State change: $state")
+                    
+                    if (state == AudioManager.SCO_AUDIO_STATE_CONNECTED) {
+                        AppLog.i("MicRecorder: SCO Connected. Starting AudioRecord.")
+                        // On many devices, even with SCO, we should use MIC or DEFAULT 
+                        // as VOICE_COMMUNICATION might try to use the device's own noise cancellation.
+                        startRecording(MediaRecorder.AudioSource.MIC)
+                    } else if (state == AudioManager.SCO_AUDIO_STATE_DISCONNECTED && bluetoothScoStarted) {
+                        AppLog.w("MicRecorder: SCO Disconnected unexpectedly.")
+                        stop()
+                    }
                 }
             }
+            
+            ContextCompat.registerReceiver(context, scoReceiver, IntentFilter(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED), ContextCompat.RECEIVER_EXPORTED)
+            
+            // 2. Start SCO
+            AppLog.i("MicRecorder: Starting Bluetooth SCO...")
+            audioManager.startBluetoothSco()
+            @Suppress("DEPRECATION")
+            audioManager.isBluetoothScoOn = true
+            bluetoothScoStarted = true
         }
-        
-        ContextCompat.registerReceiver(context, scoReceiver, IntentFilter(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED), ContextCompat.RECEIVER_EXPORTED)
-        
-        // 2. Start SCO
-        AppLog.i("MicRecorder: Starting Bluetooth SCO...")
-        audioManager.startBluetoothSco()
-        @Suppress("DEPRECATION")
-        audioManager.isBluetoothScoOn = true
-        bluetoothScoStarted = true
     }
 
     private fun startRecording(source: Int) {
