@@ -847,9 +847,16 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
             return super.dispatchKeyEvent(event)
         }
 
-        // 1. Let the system handle volume and back keys
-        if (event.keyCode == KeyEvent.KEYCODE_BACK || 
-            event.keyCode == KeyEvent.KEYCODE_VOLUME_UP || 
+        // 1. Let the system handle volume keys and unmapped back keys.
+        // If Back was explicitly learned in Keymap, route it through CommManager
+        // so it can be remapped and sent to Android Auto.
+        if (ProjectionKeyPolicy.shouldRouteBackKeyToProjection(settings.keyCodes, event.keyCode)) {
+            commManager.sendKey(event.keyCode, event.action == KeyEvent.ACTION_DOWN)
+            return true
+        }
+
+        if (event.keyCode == KeyEvent.KEYCODE_BACK ||
+            event.keyCode == KeyEvent.KEYCODE_VOLUME_UP ||
             event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || 
             event.keyCode == KeyEvent.KEYCODE_VOLUME_MUTE) {
             return super.dispatchKeyEvent(event)
