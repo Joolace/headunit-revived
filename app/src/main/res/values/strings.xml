@@ -29,6 +29,7 @@
     <string name="threshold_light_hint">Dark mode activates when ambient light drops below this level</string>
     <string name="threshold_brightness_hint">Dark mode activates when screen brightness is below this value. Android reports brightness as 0–255, but the actual range may vary by device. You may need to experiment to find the right threshold for your device.</string>
     <string name="current_light_reading">Current light: %d Lux</string>
+    <string name="current_brightness_reading">Current brightness: %d / 255</string>
     <string name="enable_fine_lux_control">Fine control (0–100 Lux)</string>
     <string name="night_mode_start">Night Mode Start Time</string>
     <string name="night_mode_end">Night Mode End Time</string>

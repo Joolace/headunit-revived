@@ -38,6 +38,7 @@ class NightMode(private val settings: Settings, val hasGPSLocation: Boolean) {
                 Settings.NightMode.SCREEN_BRIGHTNESS -> {
                     if (currentBrightness >= 0) currentBrightness < settings.nightModeThresholdBrightness else false
                 }
+                Settings.NightMode.CAR_SIGNAL -> false // Handled directly in NightModeManager
             }
         }
 
@@ -55,6 +56,7 @@ class NightMode(private val settings: Settings, val hasGPSLocation: Boolean) {
             }
             Settings.NightMode.LIGHT_SENSOR -> "NightMode: Sensor ($currentLux < ${settings.nightModeThresholdLux})"
             Settings.NightMode.SCREEN_BRIGHTNESS -> "NightMode: Brightness ($currentBrightness < ${settings.nightModeThresholdBrightness})"
+            Settings.NightMode.CAR_SIGNAL -> "NightMode: Car ILL+ signal"
         }
     }
 

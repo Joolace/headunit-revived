@@ -4,7 +4,10 @@ import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.database.ContentObserver
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings as SystemSettings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +69,19 @@ class DarkModeFragment : Fragment(), SensorEventListener {
     // Sensor for live lux reading
     private var cachedLux: Float = -1f
     private var sensorManager: SensorManager? = null
+
+    // Live screen brightness reading (mirrors how the manager reads it)
+    private var cachedBrightness: Int = -1
+    private val brightnessObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
+        override fun onChange(selfChange: Boolean) {
+            val newBrightness = readBrightness()
+            if (newBrightness != cachedBrightness) {
+                cachedBrightness = newBrightness
+                scheduleListRefresh()
+            }
+        }
+    }
+
     private val refreshHandler = Handler(Looper.getMainLooper())
     private val refreshRunnable = Runnable {
         if (isAdded && ::settingsAdapter.isInitialized) {
@@ -402,12 +418,15 @@ class DarkModeFragment : Fragment(), SensorEventListener {
             val hint = getString(if (isSensor) R.string.threshold_light_hint else R.string.threshold_brightness_hint)
             val currentReading = if (isSensor) {
                 if (cachedLux >= 0) getString(R.string.current_light_reading, cachedLux.toInt()) else ""
-            } else { "" }
+            } else {
+                if (cachedBrightness >= 0) getString(R.string.current_brightness_reading, cachedBrightness) else ""
+            }
             val displayValue = if (isSensor) {
                 val base = "${currentValue ?: 0} Lux"
                 if (currentReading.isNotEmpty()) "$base ($currentReading)" else base
             } else {
-                "${currentValue ?: 0} / 255"
+                val base = "${currentValue ?: 0} / 255"
+                if (currentReading.isNotEmpty()) "$base ($currentReading)" else base
             }
 
             items.add(SettingItem.SettingEntry(
@@ -435,7 +454,7 @@ class DarkModeFragment : Fragment(), SensorEventListener {
                             minLabel = "0",
                             maxLabel = "255",
                             formatValue = { v -> "$v" },
-                            currentReading = "",
+                            currentReading = currentReading,
                             sliderMax = 255,
                             onConfirm = { newVal ->
                                 pendingAppThemeThresholdBrightness = newVal
@@ -446,6 +465,7 @@ class DarkModeFragment : Fragment(), SensorEventListener {
                     }
                 }
             ))
+
         }
 
         // App theme sub-options: time pickers for Manual Time
@@ -518,12 +538,15 @@ class DarkModeFragment : Fragment(), SensorEventListener {
             val hint = getString(if (isSensor) R.string.threshold_light_hint else R.string.threshold_brightness_hint)
             val nmCurrentReading = if (isSensor) {
                 if (cachedLux >= 0) getString(R.string.current_light_reading, cachedLux.toInt()) else ""
-            } else { "" }
+            } else {
+                if (cachedBrightness >= 0) getString(R.string.current_brightness_reading, cachedBrightness) else ""
+            }
             val displayValue = if (isSensor) {
                 val base = "${currentValue ?: 0} Lux"
                 if (nmCurrentReading.isNotEmpty()) "$base ($nmCurrentReading)" else base
             } else {
-                "${currentValue ?: 0} / 255"
+                val base = "${currentValue ?: 0} / 255"
+                if (nmCurrentReading.isNotEmpty()) "$base ($nmCurrentReading)" else base
             }
 
             items.add(SettingItem.SettingEntry(
@@ -551,7 +574,7 @@ class DarkModeFragment : Fragment(), SensorEventListener {
                             minLabel = "0",
                             maxLabel = "255",
                             formatValue = { v -> "$v" },
-                            currentReading = "",
+                            currentReading = nmCurrentReading,
                             sliderMax = 255,
                             onConfirm = { newVal ->
                                 pendingThresholdBrightness = newVal
@@ -562,6 +585,7 @@ class DarkModeFragment : Fragment(), SensorEventListener {
                     }
                 }
             ))
+
         }
 
         // Night mode sub-options: time pickers for Manual Time
@@ -668,13 +692,43 @@ class DarkModeFragment : Fragment(), SensorEventListener {
         if (lightSensor != null) {
             sensorManager?.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL)
         }
+
+        // Observe screen brightness changes so the threshold dialog/list show a live value
+        cachedBrightness = readBrightness()
+        val cr = requireContext().contentResolver
+        cr.registerContentObserver(
+            SystemSettings.System.getUriFor(SystemSettings.System.SCREEN_BRIGHTNESS),
+            false, brightnessObserver
+        )
+        if (Build.VERSION.SDK_INT >= 28) {
+            cr.registerContentObserver(
+                SystemSettings.System.getUriFor("screen_brightness_float"),
+                false, brightnessObserver
+            )
+        }
     }
 
     override fun onPause() {
         super.onPause()
         sensorManager?.unregisterListener(this)
+        try { requireContext().contentResolver.unregisterContentObserver(brightnessObserver) } catch (_: Exception) {}
         refreshHandler.removeCallbacks(refreshRunnable)
     }
+
+    private fun readBrightness(): Int {
+        val cr = requireContext().contentResolver
+        if (Build.VERSION.SDK_INT >= 28) {
+            try {
+                val f = SystemSettings.System.getFloat(cr, "screen_brightness_float")
+                if (!f.isNaN()) return (f * 255f).toInt().coerceIn(0, 255)
+            } catch (_: Exception) { /* fall through */ }
+        }
+        return try {
+            SystemSettings.System.getInt(cr, SystemSettings.System.SCREEN_BRIGHTNESS)
+                .coerceIn(0, 255)
+        } catch (_: Exception) { -1 }
+    }
+
 
     private fun scheduleListRefresh() {
         refreshHandler.removeCallbacks(refreshRunnable)

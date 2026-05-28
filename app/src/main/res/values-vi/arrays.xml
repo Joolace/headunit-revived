@@ -7,6 +7,7 @@
         <item>Theo giờ thủ công</item>
         <item>Cảm biến ánh sáng</item>
         <item>Độ sáng màn hình</item>
+        <item>Tín hiệu đèn xe (ILL+)</item>
     </string-array>
 
     <string-array name="app_theme">
@@ -18,6 +19,7 @@
         <item>Theo giờ thủ công</item>
         <item>Cảm biến ánh sáng</item>
         <item>Độ sáng màn hình</item>
+        <item>Tín hiệu đèn xe (ILL+)</item>
     </string-array>
 
     <string-array name="screen_orientation">

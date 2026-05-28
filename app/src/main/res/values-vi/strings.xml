@@ -29,6 +29,7 @@
     <string name="threshold_light_hint">Chế độ tối kích hoạt khi ánh sáng môi trường thấp hơn mức này</string>
     <string name="threshold_brightness_hint">Chế độ tối kích hoạt khi độ sáng màn hình thấp hơn mức này. Android báo độ sáng dưới dạng 0–255, nhưng dải thực tế có thể khác tuỳ máy. Bạn có thể cần thử để tìm ngưỡng phù hợp.</string>
     <string name="current_light_reading">Ánh sáng hiện tại: %d Lux</string>
+    <string name="current_brightness_reading">Độ sáng hiện tại: %d / 255</string>
     <string name="enable_fine_lux_control">Điều chỉnh tinh (0–100 Lux)</string>
     <string name="night_mode_start">Giờ bắt đầu chế độ tối</string>
     <string name="night_mode_end">Giờ kết thúc chế độ tối</string>

@@ -34,6 +34,7 @@ class AppThemeManager(
     private var isFirstSensorReading = true
     private var isSensorRegistered = false
     private var isObserverRegistered = false
+    private var isCarSignalObserverRegistered = false
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -50,6 +51,14 @@ class AppThemeManager(
     private val brightnessObserver = object : ContentObserver(handler) {
         override fun onChange(selfChange: Boolean) {
             update()
+        }
+    }
+
+    // Car ILL+ is a binary signal already debounced by the car hardware, so emit
+    // immediately instead of going through the 2s sensor-noise debounce.
+    private val carSignalObserver = object : ContentObserver(handler) {
+        override fun onChange(selfChange: Boolean) {
+            update(debounce = false)
         }
     }
 
@@ -91,6 +100,10 @@ class AppThemeManager(
             context.contentResolver.unregisterContentObserver(brightnessObserver)
             isObserverRegistered = false
         }
+        if (isCarSignalObserverRegistered) {
+            context.contentResolver.unregisterContentObserver(carSignalObserver)
+            isCarSignalObserverRegistered = false
+        }
         handler.removeCallbacks(debounceRunnable)
     }
 
@@ -129,6 +142,21 @@ class AppThemeManager(
                 isObserverRegistered = false
             }
         }
+
+        if (theme == Settings.AppTheme.CAR_SIGNAL) {
+            if (!isCarSignalObserverRegistered) {
+                context.contentResolver.registerContentObserver(
+                    SystemSettings.System.getUriFor("car_mode"),
+                    false, carSignalObserver
+                )
+                isCarSignalObserverRegistered = true
+            }
+        } else {
+            if (isCarSignalObserverRegistered) {
+                context.contentResolver.unregisterContentObserver(carSignalObserver)
+                isCarSignalObserverRegistered = false
+            }
+        }
     }
 
     private fun update(debounce: Boolean = true) {
@@ -160,6 +188,18 @@ class AppThemeManager(
                         currentBrightness < thresholdBrightness
                     }
                     AppLog.d("AppThemeManager: SCREEN_BRIGHTNESS brightness=$currentBrightness threshold=$thresholdBrightness isNight=$isNight")
+                }
+            }
+            Settings.AppTheme.CAR_SIGNAL -> {
+                val carMode = try {
+                    SystemSettings.System.getInt(context.contentResolver, "car_mode")
+                } catch (_: Exception) { -1 }
+                if (carMode >= 0) {
+                    isNight = carMode != 0
+                    AppLog.d("AppThemeManager: CAR_SIGNAL car_mode=$carMode isNight=$isNight")
+                } else {
+                    AppLog.w("AppThemeManager: CAR_SIGNAL key 'car_mode' not present; treating as day")
+                    isNight = lastEmittedNight ?: false
                 }
             }
             Settings.AppTheme.AUTO_SUNRISE -> {
@@ -223,6 +263,21 @@ class AppThemeManager(
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     private fun readBrightness(): Int {
+        // On API 28+ (Android 9+) the brightness slider primarily writes to
+        // `screen_brightness_float` (0.0..1.0). The legacy integer SCREEN_BRIGHTNESS
+        // may be stale, missing (when slider hits 0), or driven by auto-brightness,
+        // which on some Android 10 ROMs makes it diverge from the slider. Prefer the
+        // float when available and fall back to the integer otherwise.
+        if (Build.VERSION.SDK_INT >= 28) {
+            try {
+                val f = SystemSettings.System.getFloat(
+                    context.contentResolver, "screen_brightness_float"
+                )
+                if (!f.isNaN()) {
+                    return (f * 255f).toInt().coerceIn(0, 255)
+                }
+            } catch (_: Exception) { /* fall through to integer */ }
+        }
         return try {
             SystemSettings.System.getInt(
                 context.contentResolver, SystemSettings.System.SCREEN_BRIGHTNESS

@@ -7,6 +7,7 @@
         <item>Manual Time</item>
         <item>Light Sensor</item>
         <item>Screen Brightness</item>
+        <item>Car Headlight Signal (ILL+)</item>
     </string-array>
 
     <string-array name="app_theme">
@@ -18,6 +19,7 @@
         <item>Manual Time</item>
         <item>Light Sensor</item>
         <item>Screen Brightness</item>
+        <item>Car Headlight Signal (ILL+)</item>
     </string-array>
 
     <string-array name="screen_orientation">

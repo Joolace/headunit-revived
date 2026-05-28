@@ -537,7 +537,8 @@ class Settings(context: Context) {
         NIGHT(2),
         MANUAL_TIME(3),
         LIGHT_SENSOR(4),
-        SCREEN_BRIGHTNESS(5);
+        SCREEN_BRIGHTNESS(5),
+        CAR_SIGNAL(6);
 
         companion object {
             private val map = NightMode.values().associateBy(NightMode::value)
@@ -881,7 +882,8 @@ class Settings(context: Context) {
         AUTO_SUNRISE(4),
         MANUAL_TIME(5),
         LIGHT_SENSOR(6),
-        SCREEN_BRIGHTNESS(7);
+        SCREEN_BRIGHTNESS(7),
+        CAR_SIGNAL(8);
 
         companion object {
             private val map = values().associateBy(AppTheme::value)

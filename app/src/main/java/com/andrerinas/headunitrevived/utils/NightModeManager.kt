@@ -34,6 +34,7 @@ class NightModeManager(
     private var isFirstSensorReading = true
     private var isSensorRegistered = false
     private var isObserverRegistered = false
+    private var isCarSignalObserverRegistered = false
     
     private val handler = Handler(Looper.getMainLooper())
 
@@ -51,6 +52,16 @@ class NightModeManager(
     private val brightnessObserver = object : ContentObserver(handler) {
         override fun onChange(selfChange: Boolean) {
             update()
+        }
+    }
+
+    // Separate observer instance for the car-signal key so unregister doesn't
+    // accidentally remove the brightness observer when switching modes.
+    // Car ILL+ is a binary signal already debounced by the car hardware, so emit
+    // immediately instead of going through the 2s sensor-noise debounce.
+    private val carSignalObserver = object : ContentObserver(handler) {
+        override fun onChange(selfChange: Boolean) {
+            update(debounce = false)
         }
     }
 
@@ -94,6 +105,10 @@ class NightModeManager(
         if (isObserverRegistered) {
             context.contentResolver.unregisterContentObserver(brightnessObserver)
             isObserverRegistered = false
+        }
+        if (isCarSignalObserverRegistered) {
+            context.contentResolver.unregisterContentObserver(carSignalObserver)
+            isCarSignalObserverRegistered = false
         }
         handler.removeCallbacks(debounceRunnable)
     }
@@ -146,6 +161,23 @@ class NightModeManager(
                 isObserverRegistered = false
             }
         }
+
+        // 3. Car Headlight Signal Observer (Settings.System.car_mode: 0 = day, 1 = night)
+        if (settings.nightMode == Settings.NightMode.CAR_SIGNAL) {
+            if (!isCarSignalObserverRegistered) {
+                context.contentResolver.registerContentObserver(
+                    SystemSettings.System.getUriFor("car_mode"),
+                    false,
+                    carSignalObserver
+                )
+                isCarSignalObserverRegistered = true
+            }
+        } else {
+            if (isCarSignalObserverRegistered) {
+                context.contentResolver.unregisterContentObserver(carSignalObserver)
+                isCarSignalObserverRegistered = false
+            }
+        }
     }
 
     // Made public so Service can force an update
@@ -179,6 +211,24 @@ class NightModeManager(
                     } else {
                         currentBrightness < thresholdBrightness
                     }
+                    AppLog.d("NightModeManager: SCREEN_BRIGHTNESS brightness=$currentBrightness threshold=$thresholdBrightness isNight=$isNight")
+                } else {
+                    AppLog.w("NightModeManager: SCREEN_BRIGHTNESS read failed; keeping previous state")
+                    isNight = lastEmittedValue ?: false
+                }
+            }
+            Settings.NightMode.CAR_SIGNAL -> {
+                // Many Chinese aftermarket head units (e.g. OLEDPRO) expose the car's
+                // ILL+ headlight signal as Settings.System.car_mode (0 = day, 1 = night).
+                val carMode = try {
+                    SystemSettings.System.getInt(context.contentResolver, "car_mode")
+                } catch (_: Exception) { -1 }
+                if (carMode >= 0) {
+                    isNight = carMode != 0
+                    AppLog.d("NightModeManager: CAR_SIGNAL car_mode=$carMode isNight=$isNight")
+                } else {
+                    AppLog.w("NightModeManager: CAR_SIGNAL key 'car_mode' not present; keeping previous state")
+                    isNight = lastEmittedValue ?: false
                 }
             }
             // Delegate to standard calculator for other modes (Auto, Day, Night, Manual)
@@ -227,6 +277,21 @@ class NightModeManager(
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     private fun readBrightness(): Int {
+        // On API 28+ (Android 9+) the brightness slider primarily writes to
+        // `screen_brightness_float` (0.0..1.0). The legacy integer SCREEN_BRIGHTNESS
+        // may be stale, missing (when slider hits 0), or driven by auto-brightness,
+        // which on some Android 10 ROMs makes it diverge from the slider. Prefer the
+        // float when available and fall back to the integer otherwise.
+        if (Build.VERSION.SDK_INT >= 28) {
+            try {
+                val f = SystemSettings.System.getFloat(
+                    context.contentResolver, "screen_brightness_float"
+                )
+                if (!f.isNaN()) {
+                    return (f * 255f).toInt().coerceIn(0, 255)
+                }
+            } catch (_: Exception) { /* fall through to integer */ }
+        }
         return try {
             SystemSettings.System.getInt(
                 context.contentResolver, SystemSettings.System.SCREEN_BRIGHTNESS
