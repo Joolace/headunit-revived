@@ -422,7 +422,7 @@
     <string name="kill_on_disconnect_disable_and_enable">Tắt và bật</string>
     <string name="kill_on_disconnect_enable_anyway">Vẫn bật</string>
     <string name="kill_on_disconnect_conflicts_disabled">Đã tắt các cài đặt xung đột</string>
-    <string name="kill_on_disconnect_boot_warning">Bạn đang bật \"Khởi động khi mở máy\". Nếu ứng dụng đóng khi ngắt kết nối và máy này ngủ đông thay vì tắt, ứng dụng có thể không tự mở lại ở chu kỳ đánh lửa kế tiếp vì không có sự kiện khởi động — máy chỉ đơn giản là thức dậy.</string>
+    <string name="kill_on_disconnect_boot_warning">Bạn đang bật \"Khởi động khi mở máy\". Nếu ứng dụng đóng khi ngắt kết nối và máy này ngủ đông thay vì tắt, ứng dụng có thể không tự mở lại ở lần khởi động xe tiếp theo vì không có sự kiện khởi động — máy chỉ đơn giản là thức dậy.</string>
     <string name="kill_on_disconnect_screen_on_warning">Bạn đang bật \"Khởi động khi bật màn hình\". Cài đặt này mở ứng dụng mỗi lần màn hình bật. Kết hợp với việc đóng khi ngắt kết nối, ứng dụng sẽ đóng sau khi ngắt nhưng mở lại ngay khi màn hình bật, tạo vòng lặp khởi động lại.</string>
 
     <string name="wifi_disabled_info">Thông tin: Wi-Fi đang tắt.</string>
