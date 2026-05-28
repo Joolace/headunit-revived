@@ -132,6 +132,7 @@
 
     <string name="key_soft_left">Soft Left</string>
     <string name="key_soft_right">Soft Right</string>
+    <string name="key_back">Back</string>
     <string name="key_dpad_up">D-Pad Up</string>
     <string name="key_dpad_down">D-Pad Down</string>
     <string name="key_dpad_left">D-Pad Left</string>
