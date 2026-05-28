@@ -238,7 +238,7 @@
     <string name="enable">Bật</string>
     <string name="pref_stretch_screen_title">Kéo dãn lấp đầy màn hình</string>
     <string name="pref_stretch_screen_summary">Bỏ qua tỉ lệ khung hình để lấp đầy màn hình (loại bỏ viền đen)</string>
-    <string name="forced_scale">Tỉ lệ ép buộc (Khắc phục cũ)</string>
+    <string name="forced_scale">Tỉ lệ ép buộc (Khắc phục cho máy cũ)</string>
     <string name="forced_scale_description">Khắc phục lỗi tỉ lệ trên một số máy cũ dùng SurfaceView. Chỉ dùng khi hình bị méo hoặc lệch.</string>
 
 
