@@ -173,11 +173,10 @@
     <string name="auto_start_screen_on_description">فتح التطبيق في كل مرة يتم فيها تشغيل الشاشة. مثالي لأجهزة الراديو التي لا تنطفئ تمامًا أو تستخدم أوضاع التشغيل السريع حيث لا تعمل خيارات التشغيل التلقائي الأخرى. غير موصى به للهواتف أو الأجهزة اللوحية.</string>
     <string name="select_bt_device">اختر جهاز البلوتوث</string>
     <string name="bt_device_not_set">غير محدد</string>
-    <string name="bt_permission_denied">تم رفض إذن Bluetooth</string>
     <string name="bt_permission_denied_title">مطلوب إذن البلوتوث</string>
     <string name="bt_permission_denied_message">إذن البلوتوث مطلوب لاختيار الأجهزة المقترنة. يرجى منحه في إعدادات التطبيق.</string>
     <string name="overlay_permission_title">إذن البدء في الخلفية</string>
-    <string name="overlay_permission_description">للسماح لـ Headunit Revived بالفتح التلقائي عند اتصال البلوتوث، يرجى تفعيل إذن "العرض فوق التطبيقات الأخرى" في الشاشة التالية.</string>
+    <string name="overlay_permission_description">للسماح لـ Headunit Revived بالفتح التلقائي عند اتصال البلوتوث، يرجى تفعيل إذن \"العرض فوق التطبيقات الأخرى\" في الشاشة التالية.</string>
     <string name="open_settings">الإعدادات</string>
     <string name="wireless_connection_settings">اتصال لاسلكي</string>
     <string name="right_hand_drive">القيادة على اليمين</string>
@@ -226,10 +225,10 @@
     <string name="pref_stretch_screen_summary">يتجاهل نسبة العرض إلى الارتفاع لملء الشاشة بأكملها (يزيل الأشرطة السوداء)</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">قياس إجباري (إصلاح قديم)</string>
+    <string name="forced_scale">قياس إجباري (إصلاح قديم)</string>
     <string name="forced_scale_description">يصحح مشاكل القياس على بعض الأجهزة القديمة التي تستخدم SurfaceView. استخدمه فقط إذا كانت الصورة تبدو مشوهة أو مزاحة.</string>
 
-<string name="category_audio">الصوت</string>
+    <string name="category_audio">الصوت</string>
     <string name="enable_audio_sink">مخرج الصوت</string>
     <string name="enable_audio_sink_description">إذا كان معطلا، لن تستقبل وحدة الرأس الصوت. سيشغل الصوت من الهاتف.</string>
     <string name="separate_audio_streams">فصل تيارات الصوت</string>
@@ -307,7 +306,7 @@
     <string name="success">نجاح</string>
     <string name="failed">فشل</string>
     <string name="failed_start_android_auto">فشل تشغيل Android Auto</string>
-    <string name="failed_self_mode_android10">من المحتمل أن يكون "Self-mode" محظورًا من قبل Google على Android 10 (AA 16.4+). راجع README.</string>
+    <string name="failed_self_mode_android10">من المحتمل أن يكون \"Self-mode\" محظورًا من قبل Google على Android 10 (AA 16.4+). راجع README.</string>
     <string name="android_auto_starting">جار تشغيل Android Auto…</string>
     <string name="connection_interrupted">فُقد الاتصال</string>
     <string name="connection_interrupted_detail">جارٍ إعادة المحاولة…</string>
@@ -365,7 +364,7 @@
 
     <!-- Navigation notifications -->
     <string name="show_navigation_notifications">إشعارات الملاحة</string>
-    <string name="show_navigation_notifications_description">عرض "بعد X متر Y" والشارع الحالي في الإشعارات (للتصحيح)</string>
+    <string name="show_navigation_notifications_description">عرض \"بعد X متر Y\" والشارع الحالي في الإشعارات (للتصحيح)</string>
     <string name="nav_notification_channel_name">الملاحة</string>
     <string name="nav_notification_channel_description">توجيهات الملاحة من Android Auto</string>
     <string name="nav_notification_title_format">بعد %1$d م — %2$s</string>
@@ -526,4 +525,14 @@
     <string name="bt_permission_denied">تم رفض إذن البلوتوث. لا يمكن مسح الأجهزة.</string>
     <string name="wifi_autostart_title">بدء تشغيل WiFi تلقائياً</string>
     <string name="wifi_autostart_content">متصل بـ %s. اضغط لبدء أندرويد أوتو.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">استخدام SSL الأصلي</string>
+    <string name="use_native_ssl_description">استخدام مكتبة OpenSSL الأصلية (أسرع على الأجهزة القديمة). يتطلب إعادة التشغيل.</string>
+    <string name="bt_devices_selected">أجهزة محددة</string>
+    <string name="static_audio_focus">تركيز الصوت الثابت</string>
+    <string name="static_audio_focus_description">إجبار الهاتف على الاعتقاد بأن تركيز الصوت مستمر دائمًا، مما يمنع فقدان توجيه الصوت على وحدات الرأس العامة. يقوم أيضًا بخفض الصوت برمجيًا أثناء التوجيهات الصوتية للملاحة.</string>
+    <string name="bluetooth_adapter_label">محول البلوتوث</string>
+    <string name="bluetooth_adapter_description">اختر محول/وحدة تحكم البلوتوث لاستخدامها في المصافحة. مفيد للأنظمة التي تحتوي على منفذي بلوتوث.</string>
+    <string name="select_bt_adapter">حدد محول البلوتوث</string>
 </resources>

@@ -173,11 +173,10 @@
     <string name="auto_start_screen_on_description">Відкривати додаток щоразу, коли вмикається екран. Ідеально для автомагнітол, які ніколи повністю не вимикаються або використовують режими швидкого запуску, де інші параметри автозапуску не працюють. Не рекомендується для телефонів та планшетів.</string>
     <string name="select_bt_device">Вибрати Bluetooth-пристрій</string>
     <string name="bt_device_not_set">Не задано</string>
-    <string name="bt_permission_denied">Відмовлено в дозволі Bluetooth. Не вдається сканувати пристрої.</string>
     <string name="bt_permission_denied_title">Потрібен дозвіл Bluetooth</string>
     <string name="bt_permission_denied_message">Дозвіл Bluetooth необхідний для вибору сполучених пристроїв. Надайте його в налаштуваннях застосунку.</string>
     <string name="overlay_permission_title">Дозвіл на запуск у фоні</string>
-    <string name="overlay_permission_description">Щоб Headunit Revived міг автоматично відкриватися при підключенні Bluetooth, увімкніть дозвіл "Показувати поверх інших програм" на наступному екрані.</string>
+    <string name="overlay_permission_description">Щоб Headunit Revived міг автоматично відкриватися при підключенні Bluetooth, увімкніть дозвіл \"Показувати поверх інших програм\" на наступному екрані.</string>
     <string name="open_settings">Налаштування</string>
     <string name="wireless_connection_settings">Бездротове з\'єднання</string>
     <string name="right_hand_drive">Правостороннє керування</string>
@@ -226,10 +225,10 @@
     <string name="pref_stretch_screen_summary">Ігнорує співвідношення сторін для заповнення всього дисплея (прибирає чорні смуги)</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">Примусове масштабування (Legacy Fix)</string>
+    <string name="forced_scale">Примусове масштабування (Legacy Fix)</string>
     <string name="forced_scale_description">Виправляє проблеми з масштабуванням на деяких старих пристроях, що використовують SurfaceView. Використовуйте лише якщо зображення виглядає спотвореним або зміщеним.</string>
 
-<string name="category_audio">Звук</string>
+    <string name="category_audio">Звук</string>
     <string name="enable_audio_sink">Увімкнути аудіоприймач</string>
     <string name="enable_audio_sink_description">Якщо вимкнено, головний пристрій не працюватиме як аудіоприймач. Звук відтворюватиметься з телефону.</string>
     <string name="separate_audio_streams">Роздільні аудіопотоки</string>
@@ -298,7 +297,7 @@
     <string name="share">Поділитися</string>
     <string name="close">Закрити</string>
     <string name="failed_export_logs">Помилка експорту журналу</string>
-    <string name="failed_export_in_silent_logs">Не вдалося експортувати логи: вибрано рівень Silent</string>
+    <string name="failed_export_in_silent_logs">Не вдалося експортувати логи: вибрано рівень логування Silent</string>
     <string name="switching_to_android_auto">Перемикання на Android Auto…</string>
     <string name="switch_failed">Помилка перемикання</string>
     <string name="requesting_usb_permission">Запит дозволу USB…</string>
@@ -357,7 +356,7 @@
     <string name="start_log_capture">Почати запис лога</string>
     <string name="start_log_capture_description">Починає запис системних логів у файл.</string>
     <string name="start_log_capture_in_applog_file">Повідомлення Log записуються у файл лише під час активного запису</string>
-    <string name="start_log_capture_in_silent">Не вдалося розпочати запис: вибрано рівень Silent</string>
+    <string name="start_log_capture_in_silent">Не вдалося розпочати запис: вибрано рівень логування Silent</string>
     <string name="stop_log_capture">Зупинити запис лога</string>
     <string name="stop_log_capture_description">Зупиняє запис і зберігає файл лога.</string>
 
@@ -527,4 +526,14 @@
     <string name="bt_permission_denied">У дозволі Bluetooth відмовлено. Неможливо сканувати пристрої.</string>
     <string name="wifi_autostart_title">Автозапуск WiFi</string>
     <string name="wifi_autostart_content">Підключено до %s. Натисніть, щоб запустити Android Auto.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Використовувати системний SSL</string>
+    <string name="use_native_ssl_description">Використовувати системний OpenSSL (швидше на старіших пристроях). Потрібне перезавантаження.</string>
+    <string name="bt_devices_selected">пристроїв вибрано</string>
+    <string name="static_audio_focus">Статичний аудіофокус</string>
+    <string name="static_audio_focus_description">Примусово змушує телефон вважати, що аудіофокус утримується постійно, запобігаючи втраті маршрутизації звуку на універсальних магнітолах. Також виконує програмне приглушення звука (ducking) під час голосових підказок навігатора.</string>
+    <string name="bluetooth_adapter_label">Bluetooth-адаптер</string>
+    <string name="bluetooth_adapter_description">Виберіть Bluetooth-адаптер/контролер для встановлення зв\'язку. Корисно для систем із подвійним Bluetooth.</string>
+    <string name="select_bt_adapter">Вибрати Bluetooth-адаптер</string>
 </resources>

@@ -193,11 +193,10 @@
     <string name="auto_start_screen_on_description">Die App jedes Mal öffnen, wenn der Bildschirm eingeschaltet wird. Ideal für Autoradios, die nie vollständig herunterfahren oder Schnellstart-Modi verwenden, bei denen die anderen Autostart-Optionen nicht funktionieren. Nicht empfohlen für Telefone oder Tablets.</string>
     <string name="select_bt_device">Bluetooth-Gerät wählen</string>
     <string name="bt_device_not_set">Nicht festgelegt</string>
-    <string name="bt_permission_denied">Bluetooth-Berechtigung verweigert</string>
     <string name="bt_permission_denied_title">Bluetooth-Berechtigung erforderlich</string>
     <string name="bt_permission_denied_message">Die Bluetooth-Berechtigung wird benötigt, um gekoppelte Geräte auszuwählen. Bitte in den App-Einstellungen erteilen.</string>
     <string name="overlay_permission_title">Hintergrund-Start Berechtigung</string>
-    <string name="overlay_permission_description">Damit Headunit Revived automatisch starten kann, wenn Bluetooth verbindet, aktivieren Sie bitte die Berechtigung "Über anderen Apps einblenden" im nächsten Bildschirm.</string>
+    <string name="overlay_permission_description">Damit Headunit Revived automatisch starten kann, wenn Bluetooth verbindet, aktivieren Sie bitte die Berechtigung \"Über anderen Apps einblenden\" im nächsten Bildschirm.</string>
     <string name="open_settings">Einstellungen</string>
     <string name="right_hand_drive">Rechtslenker</string>
     <string name="right_hand_drive_description">Benutzeroberfläche für Rechtsverkehr ausrichten</string>
@@ -379,7 +378,7 @@
 
     <!-- Navigation notifications -->
     <string name="show_navigation_notifications">Navigationsbenachrichtigungen</string>
-    <string name="show_navigation_notifications_description">„In X Metern Y" und aktuelle Straße in Benachrichtigungen anzeigen (zum Debuggen)</string>
+    <string name="show_navigation_notifications_description">„In X Metern Y\" und aktuelle Straße in Benachrichtigungen anzeigen (zum Debuggen)</string>
     <string name="nav_notification_channel_name">Navigation</string>
     <string name="nav_notification_channel_description">Abbiegehinweise von Android Auto</string>
     <string name="nav_notification_title_format">In %1$d m — %2$s</string>
@@ -533,4 +532,12 @@
     <string name="bt_permission_denied">Bluetooth-Berechtigung verweigert. Suche nach Geräten nicht möglich.</string>
     <string name="wifi_autostart_title">WiFi Auto-Start</string>
     <string name="wifi_autostart_content">Verbunden mit %s. Tippen, um Android Auto zu starten.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Native SSL nutzen</string>
+    <string name="use_native_ssl_description">Nutze native OpenSSL Bibliothek (schneller auf alten Geräten). Neustart erforderlich.</string>
+    <string name="bt_devices_selected">Geräte ausgewählt</string>
+    <string name="bluetooth_adapter_label">Bluetooth-Adapter</string>
+    <string name="bluetooth_adapter_description">Wähle den Bluetooth-Adapter/Controller für den Handshake aus. Nützlich bei Systemen mit zwei Bluetooth-Modulen.</string>
+    <string name="select_bt_adapter">Bluetooth-Adapter auswählen</string>
 </resources>

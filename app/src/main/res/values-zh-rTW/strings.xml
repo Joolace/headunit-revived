@@ -172,7 +172,6 @@
     <string name="auto_start_screen_on_description">每次螢幕開啟時開啟應用程式。適用於從未完全關機或使用快速開機模式的車機，其中其他自動啟動選項無法使用。不建議用於手機或平板電腦。</string>
     <string name="select_bt_device">選擇藍牙裝置</string>
     <string name="bt_device_not_set">未設定</string>
-    <string name="bt_permission_denied">Bluetooth 權限遭拒</string>
     <string name="bt_permission_denied_title">需要藍牙權限</string>
     <string name="bt_permission_denied_message">需要藍牙權限才能選擇已配對的裝置。請在應用程式設定中授予權限。</string>
     <string name="overlay_permission_title">背景啟動權限</string>
@@ -225,10 +224,10 @@
     <string name="pref_stretch_screen_summary">忽略長寬比以填滿整個顯示器（移除黑邊）</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">強制縮放 (舊版修正)</string>
+    <string name="forced_scale">強制縮放 (舊版修正)</string>
     <string name="forced_scale_description">修正某些使用 SurfaceView 的舊裝置上的縮放問題。僅在影像看起來扭曲 or 位移時使用。</string>
 
-<string name="category_audio">音訊</string>
+    <string name="category_audio">音訊</string>
     <string name="enable_audio_sink">啟用音訊接收器</string>
     <string name="enable_audio_sink_description">如果已停用，主機將不會作為音訊接收器。 音訊將從手機播放。</string>
     <string name="separate_audio_streams">分離音訊串流</string>
@@ -297,7 +296,7 @@
     <string name="share">分享</string>
     <string name="close">關閉</string>
     <string name="failed_export_logs">匯出日誌失敗</string>
-    <string name="failed_export_in_silent_logs">無法導出日誌：已選擇靜音日誌等級</string>
+    <string name="failed_export_in_silent_logs">無法導出日誌：已選擇靜音日誌級別</string>
     <string name="switching_to_android_auto">切換至 Android Auto…</string>
     <string name="switch_failed">切換失敗</string>
     <string name="requesting_usb_permission">請求 USB 權限…</string>
@@ -356,7 +355,7 @@
     <string name="start_log_capture">開始擷取日誌</string>
     <string name="start_log_capture_description">開始將系統日誌記錄到檔案中。</string>
     <string name="start_log_capture_in_applog_file">Log 訊息僅在擷取啟用時寫入檔案</string>
-    <string name="start_log_capture_in_silent">無法開始記錄：已選擇靜音日誌等級</string>
+    <string name="start_log_capture_in_silent">無法開始記錄：已選擇靜音日誌級別</string>
     <string name="stop_log_capture">停止擷取日誌</string>
     <string name="stop_log_capture_description">停止記錄並儲存日誌檔案。</string>
 
@@ -526,4 +525,14 @@
     <string name="bt_permission_denied">藍牙權限遭拒，無法掃描裝置。</string>
     <string name="wifi_autostart_title">WiFi 自動啟動</string>
     <string name="wifi_autostart_content">已連接至 %s。點擊以啟動 Android Auto。</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">使用原生 SSL</string>
+    <string name="use_native_ssl_description">使用原生 OpenSSL 函式庫 (在舊裝置上速度更快)。 需要重啟。</string>
+    <string name="bt_devices_selected">個已選擇的裝置</string>
+    <string name="static_audio_focus">靜態音訊焦點</string>
+    <string name="static_audio_focus_description">強制讓手機認為音訊焦點一直被保留，以防止通用車機上的音訊路由丟失。在導航語音提示期間也會執行軟體音量衰減（Ducking）。</string>
+    <string name="bluetooth_adapter_label">藍牙適配器</string>
+    <string name="bluetooth_adapter_description">選擇用於交握的藍牙適配器/控制器。適用於雙藍牙系統。</string>
+    <string name="select_bt_adapter">選擇藍牙適配器</string>
 </resources>

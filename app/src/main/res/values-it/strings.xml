@@ -193,11 +193,10 @@
     <string name="auto_start_screen_on_description">Apri l\'app ogni volta che lo schermo si accende. Ideale per head unit che non si spengono mai completamente o utilizzano modalità di avvio rapido dove le altre opzioni di avvio automatico non funzionano. Non raccomandato per telefoni o tablet.</string>
     <string name="select_bt_device">Seleziona dispositivo Bluetooth</string>
     <string name="bt_device_not_set">Non impostato</string>
-    <string name="bt_permission_denied">Permesso Bluetooth negato</string>
     <string name="bt_permission_denied_title">Permesso Bluetooth richiesto</string>
     <string name="bt_permission_denied_message">Il permesso Bluetooth è necessario per selezionare i dispositivi associati. Per favore, concedilo nelle impostazioni dell\'app.</string>
     <string name="overlay_permission_title">Permesso avvio in background</string>
-    <string name="overlay_permission_description">Per consentire a Headunit Revived di aprirsi automaticamente quando si connette il Bluetooth, abilita il permesso "Mostra sopra altre app" nella schermata successiva.</string>
+    <string name="overlay_permission_description">Per consentire a Headunit Revived di aprirsi automaticamente quando si connette il Bluetooth, abilita il permesso \"Mostra sopra altre app\" nella schermata successiva.</string>
     <string name="open_settings">Impostazioni</string>
     <string name="right_hand_drive">Guida a destra</string>
     <string name="right_hand_drive_description">Posiziona l\'interfaccia utente per la guida sul lato destro</string>
@@ -533,4 +532,14 @@
     <string name="bt_permission_denied">Autorizzazione Bluetooth negata. Impossibile scansionare i dispositivi.</string>
     <string name="wifi_autostart_title">Avvio automatico WiFi</string>
     <string name="wifi_autostart_content">Connesso a %s. Tocca per avviare Android Auto.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Usa SSL Nativo</string>
+    <string name="use_native_ssl_description">Usa la libreria nativa OpenSSL (più veloce sui dispositivi più vecchi). Richiede il riavvio.</string>
+    <string name="bt_devices_selected">dispositivi selezionati</string>
+    <string name="static_audio_focus">Focus audio statico</string>
+    <string name="static_audio_focus_description">Forza il telefono a credere che il focus audio sia sempre attivo, prevenendo perdite di instradamento dell\'audio sulle unità principali generiche. Esegue anche l\'attenuazione software del volume (ducking) durante le istruzioni vocali di navigazione.</string>
+    <string name="bluetooth_adapter_label">Adattatore Bluetooth</string>
+    <string name="bluetooth_adapter_description">Seleziona l\'adattatore/controller Bluetooth da utilizzare per l\'handshake. Utile per i sistemi con doppio Bluetooth.</string>
+    <string name="select_bt_adapter">Seleziona adattatore Bluetooth</string>
 </resources>

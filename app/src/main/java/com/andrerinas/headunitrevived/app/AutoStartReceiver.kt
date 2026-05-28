@@ -15,10 +15,10 @@ class AutoStartReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action
-        // Use device-protected storage so the BT MAC is readable during locked boot
-        val targetMac = Settings.getAutoStartBtMac(context)
+        // Use device-protected storage so the BT MACs are readable during locked boot
+        val targetMacs = Settings.getAutoStartBtMacs(context)
 
-        if (targetMac.isEmpty()) return
+        if (targetMacs.isEmpty()) return
         
         val isLocked = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && 
                       !(context.getSystemService(Context.USER_SERVICE) as UserManager).isUserUnlocked
@@ -40,7 +40,7 @@ class AutoStartReceiver : BroadcastReceiver() {
 
             AppLog.i("BT Device connected: ${device?.name} (${device?.address})")
 
-            if (device?.address == targetMac) {
+            if (device != null && targetMacs.contains(device.address)) {
                 AppLog.i("MATCH! Starting AapService via Bluetooth Auto-start...")
                 
                 // Start the service to make the app alive

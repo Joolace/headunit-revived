@@ -84,14 +84,52 @@ class SocketAccessoryConnection(private val ip: String, private val port: Int, p
                 val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                   val net = cm.activeNetwork
-
-                    if (net != null) {
+                    var netToBind: android.net.Network? = null
+                    try {
+                        val request = android.net.NetworkRequest.Builder()
+                            .addTransportType(android.net.NetworkCapabilities.TRANSPORT_WIFI)
+                            .build()
+                        val latch = java.util.concurrent.CountDownLatch(1)
+                        var wifiNetwork: android.net.Network? = null
+                        val callback = object : ConnectivityManager.NetworkCallback() {
+                            override fun onAvailable(network: android.net.Network) {
+                                wifiNetwork = network
+                                latch.countDown()
+                            }
+                        }
+                        cm.registerNetworkCallback(request, callback)
+                        latch.await(750, java.util.concurrent.TimeUnit.MILLISECONDS)
                         try {
-                            net.bindSocket(transport)
-                            AppLog.i("Bound socket to active network: $net")
+                            cm.unregisterNetworkCallback(callback)
+                        } catch (_: Exception) {}
+
+                        if (wifiNetwork != null) {
+                            netToBind = wifiNetwork
+                            AppLog.i("Found active WiFi/P2P network via callback: $wifiNetwork")
+                        } else {
+                            val activeNet = cm.activeNetwork
+                            if (activeNet != null) {
+                                val caps = cm.getNetworkCapabilities(activeNet)
+                                if (caps != null && caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                                    AppLog.i("Active network is cellular. Skipping binding to prevent EHOSTUNREACH.")
+                                } else {
+                                    netToBind = activeNet
+                                    AppLog.i("Active network is not cellular: $activeNet. Using for binding.")
+                                }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        AppLog.w("Error scanning networks for binding", e)
+                        // Fallback to active network on failure
+                        netToBind = cm.activeNetwork
+                    }
+
+                    if (netToBind != null) {
+                        try {
+                            netToBind.bindSocket(transport)
+                            AppLog.i("Bound socket to network: $netToBind")
                         } catch (e: Exception) {
-                            AppLog.w("Failed to bind socket to network", e)
+                            AppLog.w("Failed to bind socket to network $netToBind", e)
                         }
                     }
                 } else {

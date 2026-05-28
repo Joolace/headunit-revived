@@ -169,5 +169,12 @@ class NavigationUpdateIntent(
          * Estimated time at arrival as provided by the nav app (`estimated_time_at_arrival` string), or empty.
          */
         const val EXTRA_ESTIMATED_ARRIVAL = "estimated_arrival"
+
+        /**
+         * Signature-level permission required to receive or send [NavigationUpdateIntent] broadcasts.
+         * Senders must call sendBroadcast(intent, BROADCAST_PERMISSION).
+         * Receivers must request this permission using <uses-permission> and should enforce it in their manifest declaration.
+         */
+        const val BROADCAST_PERMISSION = "${HeadUnit.packageName}.permission.NAVIGATION_UPDATE"
     }
 }

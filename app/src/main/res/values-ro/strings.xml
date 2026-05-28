@@ -189,11 +189,10 @@
     <string name="auto_start_screen_on_description">Deschide aplicația de fiecare dată când ecranul se aprinde. Ideal pentru unitățile auto care nu se opresc niciodată complet sau folosesc moduri de pornire rapidă unde celelalte opțiuni de pornire automată nu funcționează. Nu este recomandat pentru telefoane sau tablete.</string>
     <string name="select_bt_device">Selectează dispozitivul Bluetooth</string>
     <string name="bt_device_not_set">Nesetat</string>
-    <string name="bt_permission_denied">Permisiunea Bluetooth refuzat?</string>
     <string name="bt_permission_denied_title">Permisiune Bluetooth necesară</string>
     <string name="bt_permission_denied_message">E nevoie de permisiunea Bluetooth pentru a selecta dispozitivele asociate. Te rog să o acorzi din setările aplicației.</string>
     <string name="overlay_permission_title">Permisiune pornire în fundal</string>
-    <string name="overlay_permission_description">Pentru a lăsa Headunit Revived să se deschidă automat la conectarea Bluetooth-ului, activează permisiunea "Afișare peste alte aplicații" în ecranul următor.</string>
+    <string name="overlay_permission_description">Pentru a lăsa Headunit Revived să se deschidă automat la conectarea Bluetooth-ului, activează permisiunea \"Afișare peste alte aplicații\" în ecranul următor.</string>
     <string name="open_settings">Setări</string>
     <string name="wireless_connection_settings">Conexiune wireless</string>
     <string name="right_hand_drive">Volan pe dreapta</string>
@@ -242,10 +241,10 @@
     <string name="pref_stretch_screen_summary">Ignoră raportul de aspect pentru a umple întregul afișaj (elimină barele negre)</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">Scalare forțată (Fix legacy)</string>
+    <string name="forced_scale">Scalare forțată (Fix legacy)</string>
     <string name="forced_scale_description">Corectează problemele de scalare pe unele dispozitive mai vechi care folosesc SurfaceView. Utilizați numai dacă imaginea pare distorsionată sau deplasată.</string>
 
-<string name="category_audio">Audio</string>
+    <string name="category_audio">Audio</string>
     <string name="enable_audio_sink">Receptor Audio (Sink)</string>
     <string name="enable_audio_sink_description">Dacă dezactivezi asta, playerul nu va primi semnal audio. Sunetul se va auzi din telefon.</string>
     <string name="separate_audio_streams">Fluxuri audio separate</string>
@@ -314,7 +313,7 @@
     <string name="share">Distribuie</string>
     <string name="close">Închide</string>
     <string name="failed_export_logs">Exportul logurilor a eșuat</string>
-    <string name="failed_export_in_silent_logs">Nu se pot exporta jurnalele: nivelul jurnalului Silen?ios selectat</string>
+    <string name="failed_export_in_silent_logs">Nu se pot exporta jurnalele: nivelul jurnalului Silențios selectat</string>
     <string name="switching_to_android_auto">Se trece la Android Auto…</string>
     <string name="switch_failed">Trecerea a eșuat</string>
     <string name="requesting_usb_permission">Se cere permisiunea USB…</string>
@@ -363,7 +362,7 @@
 
     <!-- Navigation notifications -->
     <string name="show_navigation_notifications">Notificări de navigare</string>
-    <string name="show_navigation_notifications_description">Afișează „Peste X metri Y" și strada curentă în notificări (pentru depanare)</string>
+    <string name="show_navigation_notifications_description">Afișează „Peste X metri Y\" și strada curentă în notificări (pentru depanare)</string>
     <string name="nav_notification_channel_name">Navigare</string>
     <string name="nav_notification_channel_description">Instrucțiuni pas cu pas de la Android Auto</string>
     <string name="nav_notification_title_format">Peste %1$d m — %2$s</string>
@@ -527,4 +526,14 @@
     <string name="bt_permission_denied">Permisiunea Bluetooth a fost refuzată. Nu se pot scana dispozitive.</string>
     <string name="wifi_autostart_title">Pornire automată WiFi</string>
     <string name="wifi_autostart_content">Conectat la %s. Atingeți pentru a porni Android Auto.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Folosește SSL Nativ</string>
+    <string name="use_native_ssl_description">Folosește librăria nativă OpenSSL (mai rapidă pe dispozitive vechi). Necesită repornire.</string>
+    <string name="bt_devices_selected">dispozitive selectate</string>
+    <string name="static_audio_focus">Focus audio static</string>
+    <string name="static_audio_focus_description">Forțează telefonul să creadă că focusul audio este menținut mereu, prevenind pierderile de rutare audio pe unitățile auto generice. De asemenea, efectuează atenuarea volumului prin software (ducking) în timpul instrucțiunilor vocale de navigare.</string>
+    <string name="bluetooth_adapter_label">Adaptor Bluetooth</string>
+    <string name="bluetooth_adapter_description">Selectați adaptorul/controlerul Bluetooth de utilizat pentru handshake. Util pentru sistemele cu Bluetooth dual.</string>
+    <string name="select_bt_adapter">Selectați adaptorul Bluetooth</string>
 </resources>

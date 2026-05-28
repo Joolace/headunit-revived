@@ -38,6 +38,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
 import com.andrerinas.headunitrevived.utils.Settings
 import com.andrerinas.headunitrevived.utils.VpnControl
+import com.andrerinas.headunitrevived.utils.BluetoothHelper
 
 class HomeFragment : Fragment() {
 
@@ -422,12 +423,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showNativeAaDeviceSelector() {
-        val adapter = if (Build.VERSION.SDK_INT >= 18) {
-            (requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
-        } else {
-            @Suppress("DEPRECATION")
-            BluetoothAdapter.getDefaultAdapter()
-        }
+        val adapter = BluetoothHelper.getBluetoothAdapter(requireContext())
 
         if (adapter == null || !adapter.isEnabled) {
             Toast.makeText(requireContext(), getString(R.string.bt_not_enabled), Toast.LENGTH_SHORT).show()

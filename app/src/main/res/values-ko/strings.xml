@@ -120,20 +120,16 @@
     <string name="log_level_description">내보낼 로그 레벨을 필터링합니다.</string>
     <string name="start_log_capture">로그 캡처 시작</string>
     <string name="start_log_capture_description">디버깅을 위해 전체 로그를 기록합니다.</string>
-    <string name="start_log_capture_in_silent">로그 기록을 시작할 수 없습니다. 무음 로그 레벨이 선택되어 있습니다.</string>
     <string name="start_log_capture_in_applog_file">Log 메시지는 캡처가 활성화된 동안에만 파일에 기록됩니다</string>
-    <string name="start_log_capture_in_silent">기록을 시작할 수 없습니다: Silent 로깅 수준이 선택되었습니다</string>
+    <string name="start_log_capture_in_silent">로그 기록을 시작할 수 없습니다. 무음 로그 레벨이 선택되어 있습니다.</string>
     <string name="stop_log_capture">로그 캡처 중지</string>
     <string name="stop_log_capture_description">로그 기록 중입니다… 중지하려면 탭하세요.</string>
     <string name="export_logs">로그 내보내기</string>
-    <string name="export_logs_description">디버깅용 로그를 저장합니다.</string>
     <string name="use_native_ssl">네이티브 SSL 사용</string>
     <string name="use_native_ssl_description">네이티브 OpenSSL 라이브러리를 사용합니다(구형 기기에서 더 빠를 수 있음). 재시작이 필요합니다.</string>
+    <string name="export_logs_description">디버깅용 로그를 저장합니다.</string>
     <string name="not_set">설정 안 됨</string>
     <string name="keymap_description">헤드 유닛의 키 바인딩을 변경합니다.</string>
-    <string name="export_logs_description">디버깅을 위해 로그를 저장합니다.</string>
-    <string name="not_set">설정되지 않음</string>
-    <string name="keymap_description">헤드유닛의 키 바인딩을 변경합니다.</string>
 
     <string name="key_soft_left">소프트 왼쪽</string>
     <string name="key_soft_right">소프트 오른쪽</string>
@@ -192,12 +188,11 @@
     <string name="auto_start_screen_on_label">화면 켜짐 시 자동 실행</string>
     <string name="auto_start_screen_on_description">화면이 켜질 때마다 앱을 자동으로 실행합니다. 완전히 종료되지 않거나 빠른 부팅 모드를 사용해 다른 자동 실행 옵션이 작동하지 않는 헤드 유닛에 적합합니다. 휴대전화나 태블릿에서는 권장하지 않습니다.</string>
     <string name="select_bt_device">Bluetooth 기기 선택</string>
-    <string name="bt_permission_denied">Bluetooth 권한이 거부되었습니다</string>
     <string name="bt_device_not_set">설정 안 됨</string>
     <string name="bt_permission_denied_title">Bluetooth 권한 필요</string>
     <string name="bt_permission_denied_message">페어링된 기기를 선택하려면 Bluetooth 권한이 필요합니다. 앱 설정에서 권한을 허용하세요.</string>
     <string name="overlay_permission_title">백그라운드 시작 권한</string>
-    <string name="overlay_permission_description">Bluetooth 기기가 연결될 때 Headunit Revived를 자동으로 실행하려면 다음 화면에서 "다른 앱 위에 표시" 권한을 허용하세요.</string>
+    <string name="overlay_permission_description">Bluetooth 기기가 연결될 때 Headunit Revived를 자동으로 실행하려면 다음 화면에서 \"다른 앱 위에 표시\" 권한을 허용하세요.</string>
     <string name="open_settings">설정</string>
     <string name="right_hand_drive">우핸들</string>
     <string name="right_hand_drive_description">우핸들 차량에 맞게 UI를 배치합니다</string>
@@ -463,7 +458,7 @@
     <string name="auto_enable_hotspot">Wi-Fi 핫스팟 자동 활성화</string>
     <string name="auto_enable_hotspot_description">이 기기에서 자동으로 Wi-Fi 핫스팟을 시작합니다. 모든 기기에서 작동하지는 않습니다</string>
     <string name="hotspot_warning_title">실험적 기능</string>
-    <string name="hotspot_warning_message">이 기능은 리플렉션 방식을 사용하므로 일부 기기에서는 작동하지 않을 수 있습니다. 또한 "시스템 설정 변경" 권한을 수동으로 허용해야 할 수 있습니다.</string>
+    <string name="hotspot_warning_message">이 기능은 리플렉션 방식을 사용하므로 일부 기기에서는 작동하지 않을 수 있습니다. 또한 \"시스템 설정 변경\" 권한을 수동으로 허용해야 할 수 있습니다.</string>
     <string name="hotspot_permission_title">권한 필요</string>
     <string name="hotspot_permission_message">핫스팟 기능은 \"시스템 설정 변경\" 권한이 필요합니다. 다음 화면에서 허용하세요.</string>
 
@@ -513,4 +508,12 @@
     <string name="error_usb_permission_failed">시스템 오류: USB 권한 대화상자를 요청하지 못했습니다.</string>
     <string name="wifi_autostart_title">Wi-Fi 자동 시작</string>
     <string name="wifi_autostart_content">%s에 연결되었습니다. Android Auto를 시작하려면 탭하세요.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="bt_devices_selected">개 기기 선택됨</string>
+    <string name="static_audio_focus">정적 오디오 포커스</string>
+    <string name="static_audio_focus_description">휴대전화가 항상 오디오 포커스를 유지하고 있는 것으로 인식하도록 강제하여 범용 헤드유닛에서 오디오 라우팅이 끊기는 현상을 방지합니다. 내비게이션 음성 안내 시 소프트웨어 음량 감쇠(덕킹)도 수행합니다.</string>
+    <string name="bluetooth_adapter_label">Bluetooth 어댑터</string>
+    <string name="bluetooth_adapter_description">핸드셰이크에 사용할 Bluetooth 어댑터/컨트롤러를 선택합니다. 듀얼 Bluetooth 시스템에서 유용합니다.</string>
+    <string name="select_bt_adapter">Bluetooth 어댑터 선택</string>
 </resources>

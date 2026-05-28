@@ -172,11 +172,10 @@
     <string name="auto_start_screen_on_description">De app openen telkens wanneer het scherm wordt ingeschakeld. Ideaal voor autoradio\'s die nooit volledig uitschakelen of snelle opstartmodi gebruiken waarbij de andere autostart-opties niet werken. Niet aanbevolen voor telefoons of tablets.</string>
     <string name="select_bt_device">Selecteer Bluetooth-apparaat</string>
     <string name="bt_device_not_set">Niet ingesteld</string>
-    <string name="bt_permission_denied">Bluetooth-machtiging geweigerd</string>
     <string name="bt_permission_denied_title">Bluetooth-toestemming vereist</string>
     <string name="bt_permission_denied_message">Bluetooth-toestemming is nodig om gekoppelde apparaten te selecteren. Verleen deze in de app-instellingen.</string>
     <string name="overlay_permission_title">Toestemming voor starten op achtergrond</string>
-    <string name="overlay_permission_description">Om Headunit Revived automatisch te openen wanneer Bluetooth verbinding maakt, dient u de toestemming "Weergeven over andere apps" in te schakelen in het volgende scherm.</string>
+    <string name="overlay_permission_description">Om Headunit Revived automatisch te openen wanneer Bluetooth verbinding maakt, dient u de toestemming \"Weergeven over andere apps\" in te schakelen in het volgende scherm.</string>
     <string name="open_settings">Instellingen</string>
     <string name="wireless_connection_settings">Draadloze verbinding</string>
     <string name="right_hand_drive">Rechts hand gestuurd</string>
@@ -225,10 +224,10 @@
     <string name="pref_stretch_screen_summary">Negeert de beeldverhouding om het volledige display te vullen (verwijdert zwarte balken)</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">Geforceerde schaal (Legacy Fix)</string>
+    <string name="forced_scale">Geforceerde schaal (Legacy Fix)</string>
     <string name="forced_scale_description">Corrigeert schalingsproblemen op sommige oudere apparaten die SurfaceView gebruiken. Alleen gebruiken als het beeld vervormd of verschoven is.</string>
 
-<string name="category_audio">Audio</string>
+    <string name="category_audio">Audio</string>
     <string name="enable_audio_sink">Audio-sink inschakelen</string>
     <string name="enable_audio_sink_description">Indien uitgeschakeld, fungeert de autoradio niet als audio-uitgang. Het geluid wordt dan vanaf de telefoon afgespeeld.</string>
     <string name="separate_audio_streams">Afzonderlijke audiostreams</string>
@@ -297,7 +296,7 @@
     <string name="share">Delen</string>
     <string name="close">Sluiten</string>
     <string name="failed_export_logs">Exporteren van logs mislukt</string>
-    <string name="failed_export_in_silent_logs">Kan logbestanden niet exporteren: Stille logboekregistratie geselecteerd</string>
+    <string name="failed_export_in_silent_logs">Kan de logbestanden niet exporteren: Stille logboekregistratie geselecteerd</string>
     <string name="switching_to_android_auto">Overschakelen naar Android Auto…</string>
     <string name="switch_failed">Overschakelen mislukt</string>
     <string name="requesting_usb_permission">USB-toestemming aanvragen…</string>
@@ -362,7 +361,7 @@
 
     <!-- Navigation notifications -->
     <string name="show_navigation_notifications">Navigatiemeldingen</string>
-    <string name="show_navigation_notifications_description">Toon "Over X meter Y" en huidige straat in meldingen (voor foutopsporing)</string>
+    <string name="show_navigation_notifications_description">Toon \"Over X meter Y\" en huidige straat in meldingen (voor foutopsporing)</string>
     <string name="nav_notification_channel_name">Navigatie</string>
     <string name="nav_notification_channel_description">Afslag-voor-afslag navigatie van Android Auto</string>
     <string name="nav_notification_title_format">Over %1$d m — %2$s</string>
@@ -526,4 +525,14 @@
     <string name="bt_permission_denied">Bluetooth-toestemming geweigerd. Kan niet scannen naar apparaten.</string>
     <string name="wifi_autostart_title">WiFi Auto-Start</string>
     <string name="wifi_autostart_content">Verbonden met %s. Tik om Android Auto te starten.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Gebruik Native SSL</string>
+    <string name="use_native_ssl_description">Gebruik de native OpenSSL-bibliotheek (sneller op oudere apparaten). Vereist een herstart.</string>
+    <string name="bt_devices_selected">apparaten geselecteerd</string>
+    <string name="static_audio_focus">Statische audiofocus</string>
+    <string name="static_audio_focus_description">Dwingt de telefoon te geloven dat de audiofocus altijd behouden blijft, wat verlies van audioroutering op generieke headunits voorkomt. Voert ook softwarematige volumevermindering (ducking) uit tijdens navigatie-aanwijzingen.</string>
+    <string name="bluetooth_adapter_label">Bluetooth-adapter</string>
+    <string name="bluetooth_adapter_description">Selecteer de Bluetooth-adapter/-controller die moet worden gebruikt voor de handshake. Handig voor systemen met dubbele Bluetooth.</string>
+    <string name="select_bt_adapter">Selecteer Bluetooth-adapter</string>
 </resources>

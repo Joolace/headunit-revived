@@ -173,11 +173,10 @@
     <string name="auto_start_screen_on_description">Abrir o app sempre que a tela ligar. Ideal para centrais multimídia que nunca desligam completamente ou usam modos de inicialização rápida onde as outras opções de início automático não funcionam. Não recomendado para celulares ou tablets.</string>
     <string name="select_bt_device">Selecionar dispositivo Bluetooth</string>
     <string name="bt_device_not_set">Não definido</string>
-    <string name="bt_permission_denied">Permissão do Bluetooth negada</string>
     <string name="bt_permission_denied_title">Permissão de Bluetooth necessária</string>
     <string name="bt_permission_denied_message">A permissão de Bluetooth é necessária para selecionar dispositivos pareados. Conceda-a nas configurações do app.</string>
     <string name="overlay_permission_title">Permissão de início em segundo plano</string>
-    <string name="overlay_permission_description">Para permitir que o Headunit Revived abra automaticamente quando o Bluetooth conectar, ative a permissão "Sobrepor a outros apps" na próxima tela.</string>
+    <string name="overlay_permission_description">Para permitir que o Headunit Revived abra automaticamente quando o Bluetooth conectar, ative a permissão \"Sobrepor a outros apps\" na próxima tela.</string>
     <string name="open_settings">Configurações</string>
     <string name="wireless_connection_settings">Conexão sem fio</string>
     <string name="right_hand_drive">Direção à direita</string>
@@ -226,10 +225,10 @@
     <string name="pref_stretch_screen_summary">Ignora a proporção original para preencher todo o visor (remove as barras pretas)</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">Escala forçada (Modo de compatibilidade)</string>
+    <string name="forced_scale">Escala forçada (Modo de compatibilidade)</string>
     <string name="forced_scale_description">Corrige problemas de escala em alguns dispositivos antigos que usam SurfaceView. Use apenas se a imagem parecer distorcida ou deslocada.</string>
 
-<string name="category_audio">Áudio</string>
+    <string name="category_audio">Áudio</string>
     <string name="enable_audio_sink">Ativar receptor de áudio</string>
     <string name="enable_audio_sink_description">Se desativado, a central não atuará como receptor de áudio. O áudio tocará no celular.</string>
     <string name="separate_audio_streams">Separar fluxos de áudio</string>
@@ -363,7 +362,7 @@
 
     <!-- Navigation notifications -->
     <string name="show_navigation_notifications">Notificações de navegação</string>
-    <string name="show_navigation_notifications_description">Mostrar "Em X metros Y" e a rua atual nas notificações (para depuração)</string>
+    <string name="show_navigation_notifications_description">Mostrar \"Em X metros Y\" e a rua atual nas notificações (para depuração)</string>
     <string name="nav_notification_channel_name">Navegação</string>
     <string name="nav_notification_channel_description">Indicações passo a passo do Android Auto</string>
     <string name="nav_notification_title_format">Em %1$d m — %2$s</string>
@@ -527,4 +526,14 @@
     <string name="bt_permission_denied">Permissão Bluetooth negada. Não é possível escanear dispositivos.</string>
     <string name="wifi_autostart_title">Início automático de WiFi</string>
     <string name="wifi_autostart_content">Conectado a %s. Toque para iniciar o Android Auto.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Usar SSL nativo</string>
+    <string name="use_native_ssl_description">Usa a biblioteca nativa do OpenSSL (mais rápido em dispositivos antigos). Requer reinício.</string>
+    <string name="bt_devices_selected">dispositivos selecionados</string>
+    <string name="static_audio_focus">Foco de áudio estático</string>
+    <string name="static_audio_focus_description">Força o telefone a acreditar que o foco de áudio está sempre ativo, evitando perdas de roteamento de áudio em centrais multimídia genéricas. Também realiza atenuação de volume (ducking) por software durante as instruções de voz de navegação.</string>
+    <string name="bluetooth_adapter_label">Adaptador Bluetooth</string>
+    <string name="bluetooth_adapter_description">Selecione o adaptador/controlador Bluetooth a ser usado para a conexão. Útil para sistemas com Bluetooth duplo.</string>
+    <string name="select_bt_adapter">Selecionar adaptador Bluetooth</string>
 </resources>

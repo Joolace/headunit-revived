@@ -25,6 +25,7 @@ import com.andrerinas.headunitrevived.main.settings.SettingsAdapter
 import com.andrerinas.headunitrevived.aap.AapService
 import com.andrerinas.headunitrevived.utils.AppLog
 import com.andrerinas.headunitrevived.utils.Settings
+import com.andrerinas.headunitrevived.utils.BluetoothHelper
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -40,8 +41,7 @@ class AutoStartFragment : Fragment() {
     private var pendingAutoStartOnScreenOn: Boolean? = null
     private var pendingListenForUsbDevices: Boolean? = null
     private var pendingAutoStartOnUsb: Boolean? = null
-    private var pendingAutoStartBtName: String? = null
-    private var pendingAutoStartBtMac: String? = null
+    private val pendingAutoStartBtMacs = mutableSetOf<String>()
     private var pendingAutoStartOnWifi: Boolean? = null
     private var pendingAutoStartWifiSsid: String? = null
     private var pendingReopenOnReconnection: Boolean? = null
@@ -80,8 +80,8 @@ class AutoStartFragment : Fragment() {
         pendingAutoStartOnScreenOn = settings.autoStartOnScreenOn
         pendingListenForUsbDevices = settings.listenForUsbDevices
         pendingAutoStartOnUsb = settings.autoStartOnUsb
-        pendingAutoStartBtName = settings.autoStartBluetoothDeviceName
-        pendingAutoStartBtMac = settings.autoStartBluetoothDeviceMac
+        pendingAutoStartBtMacs.clear()
+        pendingAutoStartBtMacs.addAll(settings.autoStartBluetoothDeviceMacs)
         pendingAutoStartOnWifi = settings.autoStartOnWifi
         pendingAutoStartWifiSsid = settings.autoStartWifiSsid
         pendingReopenOnReconnection = settings.reopenOnReconnection
@@ -168,10 +168,31 @@ class AutoStartFragment : Fragment() {
             settings.autoStartOnUsb = it
             Settings.syncAutoStartOnUsbToDeviceStorage(requireContext(), it)
         }
-        pendingAutoStartBtName?.let { settings.autoStartBluetoothDeviceName = it }
-        pendingAutoStartBtMac?.let {
-            settings.autoStartBluetoothDeviceMac = it
-            Settings.syncAutoStartBtMacToDeviceStorage(requireContext(), it)
+        settings.autoStartBluetoothDeviceMacs = pendingAutoStartBtMacs
+        Settings.syncAutoStartBtMacsToDeviceStorage(requireContext(), pendingAutoStartBtMacs)
+        if (pendingAutoStartBtMacs.isNotEmpty()) {
+            val firstMac = pendingAutoStartBtMacs.first()
+            val adapter = BluetoothHelper.getBluetoothAdapter(requireContext())
+            val hasBtConnectPermission = if (Build.VERSION.SDK_INT >= 31) {
+                ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.BLUETOOTH_CONNECT) == android.content.pm.PackageManager.PERMISSION_GRANTED
+            } else true
+            var name = ""
+            if (hasBtConnectPermission && adapter?.isEnabled == true) {
+                try {
+                    val device = adapter.getRemoteDevice(firstMac)
+                    name = device.name ?: ""
+                } catch (e: Exception) {}
+            }
+            if (name.isEmpty()) {
+                name = if (settings.autoStartBluetoothDeviceMac == firstMac) {
+                    settings.autoStartBluetoothDeviceName
+                } else {
+                    "Unknown Device"
+                }
+            }
+            settings.autoStartBluetoothDeviceName = name
+        } else {
+            settings.autoStartBluetoothDeviceName = ""
         }
         pendingAutoStartOnWifi?.let {
             settings.autoStartOnWifi = it
@@ -184,7 +205,7 @@ class AutoStartFragment : Fragment() {
         pendingReopenOnReconnection?.let { settings.reopenOnReconnection = it }
 
         // Check for Overlay permission if any auto-start is configured
-        if ((!pendingAutoStartBtMac.isNullOrEmpty() || pendingAutoStartOnUsb == true || 
+        if ((pendingAutoStartBtMacs.isNotEmpty() || pendingAutoStartOnUsb == true || 
             pendingAutoStartOnBoot == true || pendingAutoStartOnScreenOn == true || 
             pendingAutoStartOnWifi == true) && Build.VERSION.SDK_INT >= 23) {
             if (!android.provider.Settings.canDrawOverlays(requireContext())) {
@@ -221,7 +242,7 @@ class AutoStartFragment : Fragment() {
                 pendingAutoStartOnScreenOn != settings.autoStartOnScreenOn ||
                 pendingListenForUsbDevices != settings.listenForUsbDevices ||
                 pendingAutoStartOnUsb != settings.autoStartOnUsb ||
-                pendingAutoStartBtMac != settings.autoStartBluetoothDeviceMac ||
+                pendingAutoStartBtMacs != settings.autoStartBluetoothDeviceMacs ||
                 pendingAutoStartOnWifi != settings.autoStartOnWifi ||
                 pendingAutoStartWifiSsid != settings.autoStartWifiSsid ||
                 pendingReopenOnReconnection != settings.reopenOnReconnection
@@ -304,7 +325,7 @@ class AutoStartFragment : Fragment() {
         items.add(SettingItem.SettingEntry(
             stableId = "autoStartBt",
             nameResId = R.string.auto_start_bt_label,
-            value = if (pendingAutoStartBtName.isNullOrEmpty()) getString(R.string.bt_device_not_set) else pendingAutoStartBtName!!,
+            value = getBluetoothSummaryText(),
             onClick = {
                 showBluetoothDeviceSelector()
             }
@@ -367,11 +388,11 @@ class AutoStartFragment : Fragment() {
                 pendingAutoStartOnUsb = false
                 disabled = true
             }
-            if (!settings.autoStartBluetoothDeviceMac.isNullOrEmpty()) {
-                settings.autoStartBluetoothDeviceMac = ""
+            if (settings.autoStartBluetoothDeviceMacs.isNotEmpty()) {
+                settings.autoStartBluetoothDeviceMacs = emptySet()
                 settings.autoStartBluetoothDeviceName = ""
-                pendingAutoStartBtMac = ""
-                pendingAutoStartBtName = ""
+                Settings.syncAutoStartBtMacsToDeviceStorage(requireContext(), emptySet())
+                pendingAutoStartBtMacs.clear()
                 disabled = true
             }
             if (settings.autoStartOnWifi) {
@@ -398,12 +419,7 @@ class AutoStartFragment : Fragment() {
             return
         }
 
-        val adapter = if (Build.VERSION.SDK_INT >= 18) {
-            (requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as android.bluetooth.BluetoothManager).adapter
-        } else {
-            @Suppress("DEPRECATION")
-            android.bluetooth.BluetoothAdapter.getDefaultAdapter()
-        }
+        val adapter = BluetoothHelper.getBluetoothAdapter(requireContext())
 
         if (adapter == null || !adapter.isEnabled) {
             val enableIntent = Intent(android.bluetooth.BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -418,25 +434,98 @@ class AutoStartFragment : Fragment() {
             return
         }
 
-        val deviceNames = bondedDevices.map { it.name ?: "Unknown Device" }.toTypedArray()
+        val deviceNames = bondedDevices.map { device ->
+            val hardwareName = device.name ?: "Unknown Device"
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val alias = device.alias
+                if (!alias.isNullOrEmpty() && alias != hardwareName) {
+                    "$alias ($hardwareName)"
+                } else {
+                    alias ?: hardwareName
+                }
+            } else {
+                hardwareName
+            }
+        }.toTypedArray()
+
+        val checkedItems = bondedDevices.map { pendingAutoStartBtMacs.contains(it.address) }.toBooleanArray()
+        val selectedMacs = pendingAutoStartBtMacs.toMutableSet()
 
         MaterialAlertDialogBuilder(requireContext(), R.style.DarkAlertDialog)
             .setTitle(R.string.select_bt_device)
-            .setItems(deviceNames) { _, which ->
+            .setMultiChoiceItems(deviceNames, checkedItems) { _, which, isChecked ->
                 val device = bondedDevices[which]
-                pendingAutoStartBtMac = device.address
-                pendingAutoStartBtName = device.name
+                if (isChecked) {
+                    selectedMacs.add(device.address)
+                } else {
+                    selectedMacs.remove(device.address)
+                }
+            }
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                pendingAutoStartBtMacs.clear()
+                pendingAutoStartBtMacs.addAll(selectedMacs)
                 checkChanges()
                 updateSettingsList()
             }
             .setNeutralButton(R.string.remove) { _, _ ->
-                pendingAutoStartBtMac = ""
-                pendingAutoStartBtName = ""
+                pendingAutoStartBtMacs.clear()
                 checkChanges()
                 updateSettingsList()
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
+    }
+
+    private fun getBluetoothSummaryText(): String {
+        if (pendingAutoStartBtMacs.isEmpty()) {
+            return getString(R.string.bt_device_not_set)
+        }
+
+        val adapter = BluetoothHelper.getBluetoothAdapter(requireContext())
+        val hasBtConnectPermission = if (Build.VERSION.SDK_INT >= 31) {
+            ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.BLUETOOTH_CONNECT) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        } else true
+
+        val bondedAddresses = if (adapter?.isEnabled == true && hasBtConnectPermission) {
+            try {
+                adapter.bondedDevices.map { it.address }.toSet()
+            } catch (e: SecurityException) { null }
+        } else null
+
+        val validSelectedMacs = if (bondedAddresses != null) {
+            pendingAutoStartBtMacs.filter { bondedAddresses.contains(it) }
+        } else {
+            pendingAutoStartBtMacs.toList()
+        }
+
+        if (validSelectedMacs.isEmpty()) {
+            return getString(R.string.bt_device_not_set)
+        }
+
+        return if (validSelectedMacs.size == 1) {
+            val mac = validSelectedMacs.first()
+            if (hasBtConnectPermission && adapter?.isEnabled == true) {
+                try {
+                    val device = adapter.getRemoteDevice(mac)
+                    val hardwareName = device.name ?: mac
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        device.alias ?: hardwareName
+                    } else {
+                        hardwareName
+                    }
+                } catch (e: Exception) {
+                    mac
+                }
+            } else {
+                if (settings.autoStartBluetoothDeviceMac == mac && settings.autoStartBluetoothDeviceName.isNotEmpty()) {
+                    settings.autoStartBluetoothDeviceName
+                } else {
+                    mac
+                }
+            }
+        } else {
+            "${validSelectedMacs.size} ${getString(R.string.bt_devices_selected)}"
+        }
     }
 
     private fun showBluetoothPermissionDeniedDialog() {

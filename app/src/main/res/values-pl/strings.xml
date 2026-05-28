@@ -173,11 +173,10 @@
     <string name="auto_start_screen_on_description">Otwieraj aplikację za każdym razem, gdy ekran się włącza. Idealne dla radioodtwarzaczy samochodowych, które nigdy się całkowicie nie wyłączają lub używają trybów szybkiego uruchamiania, gdzie inne opcje automatycznego startu nie działają. Niezalecane dla telefonów i tabletów.</string>
     <string name="select_bt_device">Wybierz urządzenie Bluetooth</string>
     <string name="bt_device_not_set">Nie ustawiono</string>
-    <string name="bt_permission_denied">Uprawnienie Bluetooth odmówione</string>
     <string name="bt_permission_denied_title">Wymagane uprawnienie Bluetooth</string>
     <string name="bt_permission_denied_message">Uprawnienie Bluetooth jest wymagane do wyboru sparowanych urządzeń. Przyznaj je w ustawieniach aplikacji.</string>
     <string name="overlay_permission_title">Uprawnienie do startu w tle</string>
-    <string name="overlay_permission_description">Aby umożliwić automatyczne otwarcie Headunit Revived po połączeniu Bluetooth, włącz uprawnienie "Wyświetlanie nad innymi aplikacjami" na następnym ekranie.</string>
+    <string name="overlay_permission_description">Aby umożliwić automatyczne otwarcie Headunit Revived po połączeniu Bluetooth, włącz uprawnienie \"Wyświetlanie nad innymi aplikacjami\" na następnym ekranie.</string>
     <string name="open_settings">Ustawienia</string>
     <string name="wireless_connection_settings">Połączenie bezprzewodowe</string>
     <string name="right_hand_drive">Kierownica po prawej stronie</string>
@@ -226,10 +225,10 @@
     <string name="pref_stretch_screen_summary">Ignoruje proporcje ekranu, aby wypełnić cały wyświetlacz (usuwa czarne paski)</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">Wymuszone skalowanie (Poprawka legacy)</string>
+    <string name="forced_scale">Wymuszone skalowanie (Poprawka legacy)</string>
     <string name="forced_scale_description">Naprawia problemy ze skalowaniem na niektórych starszych urządzeniach korzystających z SurfaceView. Używaj tylko wtedy, gdy obraz jest zniekształcony lub przesunięty.</string>
 
-<string name="category_audio">Dźwięk</string>
+    <string name="category_audio">Dźwięk</string>
     <string name="enable_audio_sink">Włącz wyjście dźwięku</string>
     <string name="enable_audio_sink_description">Jeśli wyłączone, jednostka nie będzie działać jako wyjście dźwięku. Dźwięk będzie odtwarzany z telefonu.</string>
     <string name="separate_audio_streams">Oddzielne strumienie audio</string>
@@ -363,7 +362,7 @@
 
     <!-- Navigation notifications -->
     <string name="show_navigation_notifications">Powiadomienia nawigacji</string>
-    <string name="show_navigation_notifications_description">Pokaż „Za X metrów Y" i aktualną ulicę w powiadomieniach (do debugowania)</string>
+    <string name="show_navigation_notifications_description">Pokaż „Za X metrów Y\" i aktualną ulicę w powiadomieniach (do debugowania)</string>
     <string name="nav_notification_channel_name">Nawigacja</string>
     <string name="nav_notification_channel_description">Wskazówki nawigacyjne z Android Auto</string>
     <string name="nav_notification_title_format">Za %1$d m — %2$s</string>
@@ -527,4 +526,14 @@
     <string name="bt_permission_denied">Odmowa uprawnień Bluetooth. Nie można skanować urządzeń.</string>
     <string name="wifi_autostart_title">Auto-Start WiFi</string>
     <string name="wifi_autostart_content">Połączono z %s. Dotknij, aby uruchomić Android Auto.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Użyj natywnego SSL</string>
+    <string name="use_native_ssl_description">Użyj natywnej bibliotei OpenSSL (szybsze na starszych urządzeniach). Wymaga restartu.</string>
+    <string name="bt_devices_selected">wybranych urządzeń</string>
+    <string name="static_audio_focus">Statyczne skupienie dźwięku</string>
+    <string name="static_audio_focus_description">Wymusza na telefonie przekonanie, że skupienie dźwięku jest zawsze utrzymywane, co zapobiega utracie routingu dźwięku na uniwersalnych jednostkach głównych. Wykonuje również programowe wyciszanie (ducking) podczas wskazówek głosowych nawigacji.</string>
+    <string name="bluetooth_adapter_label">Adapter Bluetooth</string>
+    <string name="bluetooth_adapter_description">Wybierz adapter/kontroler Bluetooth do użycia podczas uścisku dłoni (handshake). Przydatne w systemach z podwójnym Bluetooth.</string>
+    <string name="select_bt_adapter">Wybierz adapter Bluetooth</string>
 </resources>

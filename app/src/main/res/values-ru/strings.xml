@@ -173,11 +173,10 @@
     <string name="auto_start_screen_on_description">Открывать приложение каждый раз при включении экрана. Идеально для автомагнитол, которые никогда полностью не выключаются или используют режимы быстрого запуска, где другие параметры автозапуска не работают. Не рекомендуется для телефонов и планшетов.</string>
     <string name="select_bt_device">Выбрать Bluetooth-устройство</string>
     <string name="bt_device_not_set">Не задано</string>
-    <string name="bt_permission_denied">Требуется разрешение Bluetooth</string>
     <string name="bt_permission_denied_title">Требуется разрешение Bluetooth</string>
     <string name="bt_permission_denied_message">Разрешение Bluetooth необходимо для выбора сопряжённых устройств. Предоставьте его в настройках приложения.</string>
     <string name="overlay_permission_title">Разрешение на запуск в фоне</string>
-    <string name="overlay_permission_description">Чтобы Headunit Revived мог автоматически открываться при подключении Bluetooth, включите разрешение "Показывать поверх других приложений" на следующем экране.</string>
+    <string name="overlay_permission_description">Чтобы Headunit Revived мог автоматически открываться при подключении Bluetooth, включите разрешение \"Показывать поверх других приложений\" на следующем экране.</string>
     <string name="open_settings">Настройки</string>
     <string name="wireless_connection_settings">Беспроводное соединение</string>
     <string name="right_hand_drive">Праворульный автомобиль</string>
@@ -226,10 +225,10 @@
     <string name="pref_stretch_screen_summary">Игнорирует соотношение сторон для заполнения всего дисплея (убирает черные полосы)</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">Принудительное масштабирование (Legacy Fix)</string>
+    <string name="forced_scale">Принудительное масштабирование (Legacy Fix)</string>
     <string name="forced_scale_description">Исправляет проблемы с масштабированием на некоторых старых устройствах, использующих SurfaceView. Используйте только если изображение выглядит искаженным или смещенным.</string>
 
-<string name="category_audio">Аудио</string>
+    <string name="category_audio">Аудио</string>
     <string name="enable_audio_sink">Включить вывод звука</string>
     <string name="enable_audio_sink_description">Если выключить этот параметр, то ГУ не будет выводить звук. Звук будет воспроизводиться на телефоне.</string>
     <string name="separate_audio_streams">Раздельные аудиопотоки</string>
@@ -526,4 +525,14 @@
     <string name="bt_permission_denied">В разрешении Bluetooth отказано. Невозможно сканировать устройства.</string>
     <string name="wifi_autostart_title">Автозапуск WiFi</string>
     <string name="wifi_autostart_content">Подключено к %s. Нажмите, чтобы запустить Android Auto.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Использовать Native SSL</string>
+    <string name="use_native_ssl_description">Использовать нативную библиотеку OpenSSL (быстрее на старых устройствах). Требуется перезапуск.</string>
+    <string name="bt_devices_selected">устройств выбрано</string>
+    <string name="static_audio_focus">Статический аудиофокус</string>
+    <string name="static_audio_focus_description">Принудительно заставляет телефон считать, что аудиофокус удерживается постоянно, предотвращая потерю маршрутизации звука на универсальных магнитолах. Также выполняет программное приглушение звука (ducking) во время голосовых подсказок навигатора.</string>
+    <string name="bluetooth_adapter_label">Bluetooth-адаптер</string>
+    <string name="bluetooth_adapter_description">Выберите Bluetooth-адаптер/контроллер для сопряжения. Полезно для систем с двойным Bluetooth.</string>
+    <string name="select_bt_adapter">Выбор Bluetooth-адаптера</string>
 </resources>

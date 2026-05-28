@@ -172,7 +172,6 @@
     <string name="auto_start_screen_on_description">Az alkalmazás megnyitása minden alkalommal, amikor a képernyő bekapcsol. Ideális olyan autórádiókhoz, amelyek soha nem kapcsolnak ki teljesen, vagy gyorsindítási módot használnak, ahol a többi automatikus indítási lehetőség nem működik. Telefonokhoz és táblagépekhez nem ajánlott.</string>
     <string name="select_bt_device">Bluetooth eszköz kiválasztása</string>
     <string name="bt_device_not_set">Nincs beállítva</string>
-    <string name="bt_permission_denied">Bluetooth-engedély megtagadva</string>
     <string name="bt_permission_denied_title">Bluetooth-engedély szükséges</string>
     <string name="bt_permission_denied_message">A párosított eszközök kiválasztásához Bluetooth-engedély szükséges. Kérjük, engedélyezze az alkalmazás beállításaiban.</string>
     <string name="overlay_permission_title">Háttérben indítás engedélye</string>
@@ -225,10 +224,10 @@
     <string name="pref_stretch_screen_summary">Figyelmen kívül hagyja a képarányt a teljes kijelző kitöltéséhez (eltávolítja a fekete sávokat)</string>
 
     <!-- Audio Settings -->
-        <string name="forced_scale">Kényszerített méretezés (Legacy javítás)</string>
+    <string name="forced_scale">Kényszerített méretezés (Legacy javítás)</string>
     <string name="forced_scale_description">Javítja a méretezési problémákat egyes régebbi, SurfaceView-t használó eszközökön. Csak akkor használja, ha a kép torz vagy eltolt.</string>
 
-<string name="category_audio">Hang</string>
+    <string name="category_audio">Hang</string>
     <string name="enable_audio_sink">Hang fogadása</string>
     <string name="enable_audio_sink_description">Ha nincs engedélyezve, a fejegység nem kap hangot. A hang a telefonon fog szólni.</string>
     <string name="separate_audio_streams">Különálló hangfolyamok</string>
@@ -364,7 +363,7 @@
 
     <!-- Navigation notifications -->
     <string name="show_navigation_notifications">Navigációs értesítések</string>
-    <string name="show_navigation_notifications_description">„X méter múlva Y" és az aktuális utca megjelenítése az értesítésekben (hibakereséshez)</string>
+    <string name="show_navigation_notifications_description">„X méter múlva Y\" és az aktuális utca megjelenítése az értesítésekben (hibakereséshez)</string>
     <string name="nav_notification_channel_name">Navigáció</string>
     <string name="nav_notification_channel_description">Részletes navigációs utasítások az Android Auto-tól</string>
     <string name="nav_notification_title_format">%1$d m múlva — %2$s</string>
@@ -525,4 +524,14 @@
     <string name="bt_permission_denied">Bluetooth engedély megtagadva. Nem lehet eszközöket keresni.</string>
     <string name="wifi_autostart_title">WiFi automatikus indítás</string>
     <string name="wifi_autostart_content">Csatlakozva a következőhöz: %s. Koppintson az Android Auto indításához.</string>
+
+    <!-- New strings merged from 2.3.1 -->
+    <string name="use_native_ssl">Natív SSL használata</string>
+    <string name="use_native_ssl_description">Natív OpenSSL könyvtár használata (régebbi eszközökön gyorsabb).</string>
+    <string name="bt_devices_selected">kiválasztott eszköz</string>
+    <string name="static_audio_focus">Statikus audió fókusz</string>
+    <string name="static_audio_focus_description">Arra kényszeríti a telefont, hogy azt higgye, az audió fókusz mindig aktív, megakadályozva az audió útvonalválasztási hibákat az univerzális fejegységeken. Szoftveres hangerő-csökkentést (ducking) is végez a navigációs hangutasítások alatt.</string>
+    <string name="bluetooth_adapter_label">Bluetooth adapter</string>
+    <string name="bluetooth_adapter_description">Válassza ki a kézfogáshoz használandó Bluetooth adaptert/vezérlőt. Kettős Bluetooth-rendszerek esetén hasznos.</string>
+    <string name="select_bt_adapter">Bluetooth adapter kiválasztása</string>
 </resources>

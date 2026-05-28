@@ -63,6 +63,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
     private lateinit var projectionView: IProjectionView
     private val videoDecoder: VideoDecoder by lazy { App.provide(this).videoDecoder }
     private val settings: Settings by lazy { Settings(this) }
+    private val cachedKeyCodes: Map<Int, Int> by lazy { settings.keyCodes }
     private var isSurfaceSet = false
     private var overlayState = OverlayState.STARTING
     private val watchdogHandler = android.os.Handler(android.os.Looper.getMainLooper())
@@ -79,7 +80,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
     private var initialY = 0f
     private var isPotentialGesture = false
     private var fpsTextView: TextView? = null
-    
+
     private var isOrientationReceiverRegistered = false
     private var isNightModeReceiverRegistered = false
     private var isFinishReceiverRegistered = false
@@ -278,7 +279,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                 commManager.connectionState.collect { state ->
                     val first = isFirstEmission
                     isFirstEmission = false
-                    
+
                     if (first && state is CommManager.ConnectionState.Disconnected) {
                         AppLog.i("AapProjectionActivity: Ignoring initial Disconnected state from StateFlow replay.")
                         return@collect
@@ -301,7 +302,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                                 // and wait up to 20 seconds to see if the connection recovers
                                 AppLog.i("AapProjectionActivity: Unexpected disconnect. Showing reconnecting overlay and waiting up to 20s for recovery.")
                                 showReconnectingOverlay()
-                                
+
                                 watchdogHandler.removeCallbacks(exitRunnable)
                                 watchdogHandler.postDelayed(exitRunnable, 20000)
                             }
@@ -313,7 +314,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                             }
                             // Lock the resolution so that orientation changes don't cause re-negotiation
                             HeadUnitScreenConfig.lockResolution()
-                            
+
                             // Handshake done. If the surface is already ready (e.g. reconnect
                             // while the activity is in the foreground), start reading immediately.
                             // If not, onSurfaceChanged() will call startReading() when the surface
@@ -333,7 +334,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                 }
             }
         }
-        
+
         ContextCompat.registerReceiver(this, finishReceiver, android.content.IntentFilter("com.andrerinas.headunitrevived.ACTION_FINISH_ACTIVITIES"), ContextCompat.RECEIVER_NOT_EXPORTED)
         isFinishReceiverRegistered = true
 
@@ -363,7 +364,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
         setFullscreen() // Call setFullscreen here as well
 
         val loadingOverlay = findViewById<View>(R.id.loading_overlay)
-        
+
         // [FIX] If we are already connected and frames are flowing (e.g. activity recreation),
         // hide the overlay immediately to prevent the "Android Auto is starting" flicker.
         if (commManager.isConnected && videoDecoder.lastFrameRenderedMs > 0) {
@@ -677,7 +678,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
 
     private fun setFullscreen() {
         val container = findViewById<View>(R.id.container)
-        
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && settings.fullscreenMode != Settings.FullscreenMode.NONE) {
             window.addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
@@ -711,11 +712,11 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
     private fun showExitDialog() {
         val options = mutableListOf<ExitOption>()
         options.add(ExitOption(R.string.exit_dialog_stop, R.drawable.ic_stop, Color.RED))
-        
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             options.add(ExitOption(R.string.exit_dialog_pip, R.drawable.ic_pip, Color.LTGRAY))
         }
-        
+
         options.add(ExitOption(R.string.exit_dialog_background, R.drawable.ic_home, Color.LTGRAY))
         options.add(ExitOption(R.string.exit_dialog_settings, R.drawable.ic_settings_quick, Color.LTGRAY))
 
@@ -728,11 +729,11 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                 val option = options[position]
                 val iconView = view.findViewById<android.widget.ImageView>(R.id.icon)
                 val textView = view.findViewById<android.widget.TextView>(R.id.text)
-                
+
                 textView.setText(option.titleResId)
                 iconView.setImageResource(option.iconResId)
                 iconView.setColorFilter(option.iconColor)
-                
+
                 return view
             }
         }
@@ -773,7 +774,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                 var width = videoDecoder.videoWidth.coerceAtLeast(1).toFloat()
                 var height = videoDecoder.videoHeight.coerceAtLeast(1).toFloat()
                 val ratio = width / height
-                
+
                 // Android supports PiP aspect ratios between 1/2.39 (0.418) and 2.39.
                 // If we exceed this (e.g. on ultrawide headunits), PiP entry will fail.
                 if (ratio > 2.39f) {
@@ -829,7 +830,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
 
     override fun onUserLeaveHint() {
         // Optional: Auto-enter PiP if user presses home
-        
+
         // For now, we only enter via dialog as requested.
         super.onUserLeaveHint()
     }
@@ -858,12 +859,12 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                 }
             }
         }
-        
+
         // 2. Legacy Touch handling for older devices (API < 19)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             sendTouchEvent(ev)
         }
-        
+
         return super.dispatchTouchEvent(ev)
     }
 
@@ -875,7 +876,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
     override fun onSurfaceChanged(surface: android.view.Surface, width: Int, height: Int) {
         AppLog.i("[UI_DEBUG] [AapProjectionActivity] onSurfaceChanged. Actual surface dimensions: width=$width, height=$height")
         isSurfaceSet = true
-        
+
         videoDecoder.setSurface(surface)
 
         // --- Surface Mismatch Detection ---
@@ -972,7 +973,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
         }
 
         val view = projectionView as View
-        // Use the container's "Anchor" dimensions (full touch surface) as the reference, 
+        // Use the container's "Anchor" dimensions (full touch surface) as the reference,
         // not the potentially resized projectionView's dimensions.
         val viewW = HeadUnitScreenConfig.getUsableWidth().toFloat()
         val viewH = HeadUnitScreenConfig.getUsableHeight().toFloat()
@@ -985,11 +986,11 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
         val uiW = videoW - marginW
         val uiH = videoH - marginH
 
-        // Logic check: When forcedScale is active, the visual behavior of 'stretchToFill' 
+        // Logic check: When forcedScale is active, the visual behavior of 'stretchToFill'
         // is inverted (True = Aspect Ratio Centered, False = Stretched to Screen).
         // We adjust the touch mapping to match this visual reality.
         val isStretch = if (HeadUnitScreenConfig.forcedScale) {
-            !settings.stretchToFill 
+            !settings.stretchToFill
         } else {
             settings.stretchToFill
         }
@@ -999,7 +1000,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
             val pointerId = event.getPointerId(pointerIndex)
             val px = event.getX(pointerIndex)
             val py = event.getY(pointerIndex)
-            
+
             var videoX = 0f
             var videoY = 0f
 
@@ -1046,10 +1047,18 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
             return super.dispatchKeyEvent(event)
         }
 
-        // 1. Let the system handle volume and back keys
-        if (event.keyCode == KeyEvent.KEYCODE_BACK || 
-            event.keyCode == KeyEvent.KEYCODE_VOLUME_UP || 
-            event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || 
+        // 1. Let the system handle volume keys and unmapped back keys.
+        // If Back was explicitly learned in Keymap and transport is running,
+        // route it through CommManager so it can be remapped and sent to Android Auto.
+        if (commManager.connectionState.value is CommManager.ConnectionState.TransportStarted &&
+            ProjectionKeyPolicy.shouldRouteBackKeyToProjection(cachedKeyCodes, event.keyCode)) {
+            commManager.sendKey(event.keyCode, action == KeyEvent.ACTION_DOWN)
+            return true
+        }
+
+        if (event.keyCode == KeyEvent.KEYCODE_BACK ||
+            event.keyCode == KeyEvent.KEYCODE_VOLUME_UP ||
+            event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN ||
             event.keyCode == KeyEvent.KEYCODE_VOLUME_MUTE) {
             return super.dispatchKeyEvent(event)
         }

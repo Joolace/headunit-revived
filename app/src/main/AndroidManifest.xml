@@ -30,6 +30,10 @@
         android:name="android.hardware.bluetooth"
         android:required="false" />
 
+    <permission
+        android:name="com.andrerinas.headunitrevived.permission.NAVIGATION_UPDATE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
