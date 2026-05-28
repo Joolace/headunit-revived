@@ -499,19 +499,21 @@ class CommManager(
     // -----------------------------------------------------------------------------------------
 
     /**
-     * Initiates a user-requested disconnect.
+     * Initiates a disconnect.
      *
      * Sets state to [ConnectionState.Disconnected] synchronously so callers see the change
      * immediately, then schedules async cleanup via [doDisconnect]. A ByeByeRequest is sent
      * to the phone before closing the connection.
      */
-    fun disconnect(sendByeBye: Boolean = true) {
+    fun disconnect(sendByeBye: Boolean = true, isUserExit: Boolean = true) {
         if (_connectionState.value is ConnectionState.Disconnected) return
 
         HeadUnitScreenConfig.unlockResolution()
 
-        _connectionState.value = ConnectionState.Disconnected(isUserExit = true)
-        _transport?.wasUserExit = true
+        _connectionState.value = ConnectionState.Disconnected(isUserExit = isUserExit)
+        if (isUserExit) {
+            _transport?.wasUserExit = true
+        }
         _disconnectJob = _scope.launch { doDisconnect(sendByeBye) }
         if (settings.killOnDisconnect) {
             android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({

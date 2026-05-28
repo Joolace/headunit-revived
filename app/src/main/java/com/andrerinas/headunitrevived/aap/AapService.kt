@@ -1669,7 +1669,7 @@ class AapService : Service(), UsbReceiver.Listener {
         if (commManager.isConnectedToUsbDevice(device)) {
             // Cable physically removed — the USB connection is already dead, so skip the
             // ByeByeRequest send (which would block ~1 s trying to write to a gone device).
-            commManager.disconnect(sendByeBye = false)
+            commManager.disconnect(sendByeBye = false, isUserExit = false)
         }
     }
 
@@ -1677,7 +1677,7 @@ class AapService : Service(), UsbReceiver.Listener {
         AppLog.i("USB Accessory detached. This might be a transient state (e.g., 100% battery). Attempting to re-sync...")
         userExitedAA = false
         if (commManager.isConnected) {
-            commManager.disconnect(sendByeBye = false)
+            commManager.disconnect(sendByeBye = false, isUserExit = false)
         }
         
         // Wait a bit and check if the device is still there in normal mode

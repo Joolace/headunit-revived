@@ -264,12 +264,13 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                                 finish()
                             } else {
                                 // For unexpected disconnects (especially Wireless), show the reconnecting overlay immediately
-                                // and wait up to 20 seconds to see if the connection recovers
-                                AppLog.i("AapProjectionActivity: Unexpected disconnect. Showing reconnecting overlay and waiting up to 20s for recovery.")
+                                // and wait up to 20 seconds (or 8 seconds for USB) to see if the connection recovers.
+                                val timeoutMs = if (settings.lastConnectionType == Settings.CONNECTION_TYPE_USB) 8000L else 20000L
+                                AppLog.i("AapProjectionActivity: Unexpected disconnect. Showing reconnecting overlay and waiting up to ${timeoutMs / 1000}s for recovery.")
                                 showReconnectingOverlay()
                                 
                                 watchdogHandler.removeCallbacks(exitRunnable)
-                                watchdogHandler.postDelayed(exitRunnable, 20000)
+                                watchdogHandler.postDelayed(exitRunnable, timeoutMs)
                             }
                         }
                         is CommManager.ConnectionState.HandshakeComplete -> {
