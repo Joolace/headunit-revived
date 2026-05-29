@@ -87,7 +87,7 @@ class SocketAccessoryConnection(private val ip: String, private val port: Int, p
                     var netToBind: android.net.Network? = null
                     try {
                         var wifiNetwork: android.net.Network? = null
-                        
+
                         // 1. Try synchronous scan of existing networks first (instant and reliable if connected)
                         val networks = cm.allNetworks
                         for (net in networks) {
@@ -111,11 +111,14 @@ class SocketAccessoryConnection(private val ip: String, private val port: Int, p
                                     latch.countDown()
                                 }
                             }
-                            cm.registerNetworkCallback(request, callback)
-                            latch.await(1500, java.util.concurrent.TimeUnit.MILLISECONDS)
                             try {
-                                cm.unregisterNetworkCallback(callback)
-                            } catch (_: Exception) {}
+                                cm.registerNetworkCallback(request, callback)
+                                latch.await(1500, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            } finally {
+                                try {
+                                    cm.unregisterNetworkCallback(callback)
+                                } catch (_: Exception) {}
+                            }
                         }
 
                         if (wifiNetwork != null) {
@@ -168,7 +171,7 @@ class SocketAccessoryConnection(private val ip: String, private val port: Int, p
                         }
                     }
                 }
-                
+
                 // Chinese Headunit Mediatek Correction
                 try {
                     transport.connect(InetSocketAddress(ip, port), 5000)
