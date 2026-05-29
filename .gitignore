@@ -75,3 +75,5 @@ bug/
 headunit-revived/
 user_logs
 deploy_old_tablet.sh
+.antigravitycli
+.agents

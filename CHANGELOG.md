@@ -1,4 +1,10 @@
 # Changelog
+### v.2.3.2-alpha
+- try to fix connection lost on carrier lost again
+- keep usb disconnection for 8s alive, for maybe restarts of usb dongles
+- Implement car headlight signal mode (ILL+) for night theme management, thanks to @minhtuanact
+- Add settings export and import functionality with backup options, thanks to @JanRi3D
+
 ### v.2.3.1
 - Fixed a connection lost on for example borders
 - Binding socket to wifi network if available to prevent connection drops on carrier lost
