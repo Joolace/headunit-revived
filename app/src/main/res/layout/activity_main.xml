@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/android_auto_starting"
-                    android:textColor="#FF5722"
+                    android:textColor="@android:color/white"
                     android:textSize="27sp" />
             </LinearLayout>
         </LinearLayout>
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="@string/android_auto_starting"
-                android:textColor="#4CAF50"
+                android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:shadowColor="#AA000000"
                 android:shadowDx="1"
