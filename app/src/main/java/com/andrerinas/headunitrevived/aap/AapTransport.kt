@@ -60,7 +60,7 @@ import javax.net.ssl.SSLEngineResult
  */
 class AapTransport(
         audioDecoder: AudioDecoder,
-        videoDecoder: VideoDecoder,
+        private val videoDecoder: VideoDecoder,
         audioManager: AudioManager,
         internal val settings: Settings,
         private val notification: BackgroundNotification,
@@ -129,11 +129,24 @@ class AapTransport(
     val isAlive: Boolean
         get() = pollThread?.isAlive ?: false
 
+    private fun triggerFocusCycleRecovery() {
+        AppLog.w("AapTransport: Requesting recovery keyframe via focus cycle.")
+        send(com.andrerinas.headunitrevived.aap.protocol.messages.VideoFocusEvent(gain = false, unsolicited = false))
+        Thread {
+            try { Thread.sleep(100) } catch (ignore: Exception) {}
+            send(com.andrerinas.headunitrevived.aap.protocol.messages.VideoFocusEvent(gain = true, unsolicited = true))
+        }.start()
+    }
+
     init {
         micRecorder.listener = this
         aapAudio = AapAudio(audioDecoder, audioManager, settings)
         aapVideo = AapVideo(videoDecoder, settings) {
-            send(com.andrerinas.headunitrevived.aap.protocol.messages.VideoFocusEvent(gain = true, unsolicited = true))
+            triggerFocusCycleRecovery()
+        }
+
+        videoDecoder.onDecoderError = {
+            triggerFocusCycleRecovery()
         }
     }
 
@@ -181,6 +194,8 @@ class AapTransport(
         pollThread?.quit()
         sendThread?.quit()
         aapAudio.releaseAllFocus()
+
+        videoDecoder.onDecoderError = null
 
         try {            // Don't join the poll thread from within itself — it would block for the full
             // timeout since the thread can't finish while it's waiting for itself to finish.
