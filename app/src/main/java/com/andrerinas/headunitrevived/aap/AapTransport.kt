@@ -132,10 +132,11 @@ class AapTransport(
     private fun triggerFocusCycleRecovery() {
         AppLog.w("AapTransport: Requesting recovery keyframe via focus cycle.")
         send(com.andrerinas.headunitrevived.aap.protocol.messages.VideoFocusEvent(gain = false, unsolicited = false))
-        Thread {
-            try { Thread.sleep(100) } catch (ignore: Exception) {}
-            send(com.andrerinas.headunitrevived.aap.protocol.messages.VideoFocusEvent(gain = true, unsolicited = true))
-        }.start()
+        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+            if (isAlive) {
+                send(com.andrerinas.headunitrevived.aap.protocol.messages.VideoFocusEvent(gain = true, unsolicited = true))
+            }
+        }, 100)
     }
 
     init {

@@ -201,7 +201,8 @@ class HomeFragment : Fragment() {
      *   work was queued.
      */
     private fun attemptAutoConnect(): Boolean {
-        val appSettings = App.provide(requireContext()).settings
+        val ctx = context ?: return false
+        val appSettings = App.provide(ctx).settings
 
         // [FIX] Skip manual WiFi connection if Native AA is selected.
         // Native AA handles its own handshake via Bluetooth/P2P.
@@ -230,7 +231,7 @@ class HomeFragment : Fragment() {
                     Toast.makeText(requireContext(), getString(R.string.auto_connecting_to, ip), Toast.LENGTH_SHORT).show()
                     val ctx = requireContext()
                     lifecycleScope.launch(Dispatchers.IO) { App.provide(ctx).commManager.connect(ip, 5277) }
-                    ContextCompat.startForegroundService(requireContext(), Intent(requireContext(), AapService::class.java).apply {
+                    ContextCompat.startForegroundService(ctx, Intent(ctx, AapService::class.java).apply {
                         action = AapService.ACTION_CONNECT_SOCKET
                     })
                     true

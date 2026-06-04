@@ -207,7 +207,7 @@ class VideoDecoder(private val settings: Settings) {
                 stop("restart: $decoderRestartReason")
                 decoderNeedsRestart = false
                 decoderRestartReason = null
-                pendingKeyframeRequest = true
+                onDecoderError?.invoke()
             }
 
             // Buffer management for backward compatibility
