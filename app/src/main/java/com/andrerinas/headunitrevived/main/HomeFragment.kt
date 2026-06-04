@@ -277,9 +277,8 @@ class HomeFragment : Fragment() {
             commManager.isConnected) return false
 
         AppLog.i("HomeFragment: Requesting single-USB auto-connect via AapService")
-        ContextCompat.startForegroundService(requireContext(),
-            Intent(requireContext(), AapService::class.java).apply {
-                action = AapService.ACTION_CHECK_USB
+        ContextCompat.startForegroundService(ctx,
+            Intent(ctx, AapService::class.java).apply {
             })
         return true
     }
