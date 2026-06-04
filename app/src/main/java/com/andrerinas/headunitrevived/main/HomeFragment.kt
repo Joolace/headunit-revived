@@ -271,14 +271,15 @@ class HomeFragment : Fragment() {
      *   connected) blocked it. Same intent as [attemptAutoConnect].
      */
     private fun attemptSingleUsbAutoConnect(): Boolean {
-        val appSettings = App.provide(requireContext()).settings
+        val ctx = context ?: return false
+        val appSettings = App.provide(ctx).settings
         if (!appSettings.autoConnectSingleUsbDevice ||
             !appSettings.hasAcceptedDisclaimer ||
             commManager.isConnected) return false
 
         AppLog.i("HomeFragment: Requesting single-USB auto-connect via AapService")
-        ContextCompat.startForegroundService(requireContext(),
-            Intent(requireContext(), AapService::class.java).apply {
+        ContextCompat.startForegroundService(ctx,
+            Intent(ctx, AapService::class.java).apply {
                 action = AapService.ACTION_CHECK_USB
             })
         return true
@@ -433,7 +434,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 3 -> { // Native AA
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && 
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
                         ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                         bluetoothPermissionLauncher.launch(android.Manifest.permission.BLUETOOTH_CONNECT)
                     } else {
@@ -495,8 +496,8 @@ class HomeFragment : Fragment() {
         }
 
         val deviceNames = bondedDevices.map { it.name ?: "Unknown Device" }.toTypedArray()
-        
-        
+
+
         activeDialog = MaterialAlertDialogBuilder(requireContext(), R.style.DarkAlertDialog)
             .setTitle(R.string.select_bt_device)
             .setItems(deviceNames) { _, which ->
@@ -568,12 +569,12 @@ class HomeFragment : Fragment() {
             .setTitle(getString(R.string.searching)) // Initial title
             .setView(dialogView)
             .setNegativeButton(R.string.cancel, null)
-            .setOnDismissListener { 
+            .setOnDismissListener {
                 collectJob?.cancel()
                 if (activeDialog == it) activeDialog = null
             }
             .create()
-        
+
         activeDialog = dialog
 
         deviceListView.setOnItemClickListener { _, _, which, _ ->
@@ -610,7 +611,7 @@ class HomeFragment : Fragment() {
                 listAdapter.clear()
                 listAdapter.addAll(endpoints)
                 listAdapter.notifyDataSetChanged()
-                
+
                 if (endpoints.isEmpty()) {
                     dialog.setTitle(getString(R.string.searching))
                     searchingText.visibility = View.GONE
