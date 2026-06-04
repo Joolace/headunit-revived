@@ -535,6 +535,12 @@
     <string name="bluetooth_adapter_label">Bluetooth-адаптер</string>
     <string name="bluetooth_adapter_description">Выберите Bluetooth-адаптер/контроллер для сопряжения. Полезно для систем с двойным Bluetooth.</string>
     <string name="select_bt_adapter">Выбор Bluetooth-адаптера</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Настроить Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">Показать QR-код для автоматического подключения телефона</string>
+    <string name="hotspot_qr_description">QR-код конфигурации Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Отсканируйте этот QR-код с помощью сканера в приложении Wireless Helper на вашем телефоне.</string>
+    <string name="share_hotspot_qr_error">Не удалось получить данные активной точки доступа Wi-Fi. Убедитесь, что точка доступа включена и геолокация разрешена.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">Текущая яркость: %d / 255</string>
@@ -571,11 +577,6 @@
     <string name="reset_settings_discard_pending">Сброс настроек отменит несохранённые изменения. Продолжить?</string>
     <string name="settings_reset">Настройки сброшены до значений по умолчанию</string>
     <string name="settings_reset_failed">Не удалось сбросить настройки: %1$s</string>
-    <string name="share_hotspot_qr_title">Настроить Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">Показать QR-код для автоматического подключения телефона</string>
     <string name="hotspot_ssid_hint">SSID точки доступа</string>
     <string name="hotspot_pass_hint">Пароль точки доступа</string>
-    <string name="hotspot_qr_description">QR-код настройки Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Отсканируйте этот QR-код с помощью QR-сканера в Wireless Helper на вашем телефоне.</string>
-    <string name="share_hotspot_qr_error">Не удалось получить данные активной точки доступа Wi-Fi. Убедитесь, что точка доступа включена, а Геолокация активна.</string>
 </resources>

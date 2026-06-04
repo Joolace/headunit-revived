@@ -535,6 +535,12 @@
     <string name="bluetooth_adapter_label">Adaptér Bluetooth</string>
     <string name="bluetooth_adapter_description">Vyberte adaptér/ovladač Bluetooth, který se má použít pro handshake. Užitečné pro systémy s duálním Bluetooth.</string>
     <string name="select_bt_adapter">Vybrat adaptér Bluetooth</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Nakonfigurovat Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">Zobrazit QR kód pro automatické připojení telefonu</string>
+    <string name="hotspot_qr_description">Konfigurační QR kód Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Naskenujte tento QR kód pomocí QR skeneru v aplikaci Wireless Helper na vašem telefonu.</string>
+    <string name="share_hotspot_qr_error">Nepodařilo se načíst přihlašovací údaje k aktivnímu hotspotu Wi-Fi. Ujistěte se, že je hotspot zapnutý a jsou povoleny služby určování polohy.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">Aktuální jas: %d / 255</string>
@@ -571,11 +577,6 @@
     <string name="reset_settings_discard_pending">Obnovení nastavení zahodí neuložené změny. Pokračovat?</string>
     <string name="settings_reset">Nastavení obnoveno na výchozí</string>
     <string name="settings_reset_failed">Obnovení nastavení selhalo: %1$s</string>
-    <string name="share_hotspot_qr_title">Konfigurovat Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">Zobrazit QR kód pro automatické připojení telefonu</string>
     <string name="hotspot_ssid_hint">SSID hotspotu</string>
     <string name="hotspot_pass_hint">Heslo hotspotu</string>
-    <string name="hotspot_qr_description">QR kód konfigurace Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Naskenujte tento QR kód pomocí QR skeneru v aplikaci Wireless Helper ve svém telefonu.</string>
-    <string name="share_hotspot_qr_error">Nelze získat aktuální přihlašovací údaje Wi-Fi hotspotu. Zkontrolujte, zda je hotspot zapnutý a Poloha povolena.</string>
 </resources>

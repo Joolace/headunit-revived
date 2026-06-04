@@ -515,6 +515,12 @@
     <string name="bluetooth_adapter_label">Bộ điều hợp Bluetooth</string>
     <string name="bluetooth_adapter_description">Chọn bộ điều hợp/bộ điều khiển Bluetooth dùng để bắt tay. Hữu ích cho hệ thống Bluetooth kép.</string>
     <string name="select_bt_adapter">Chọn bộ điều hợp Bluetooth</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Cấu hình Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">Hiển thị mã QR để tự động kết nối điện thoại</string>
+    <string name="hotspot_qr_description">Mã QR cấu hình Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Quét mã QR này bằng Trình quét QR trong Wireless Helper trên điện thoại của bạn.</string>
+    <string name="share_hotspot_qr_error">Không thể truy xuất thông tin đăng nhập của điểm phát sóng Wi-Fi đang hoạt động. Vui lòng đảm bảo rằng điểm phát sóng của bạn đã được bật và dịch vụ Định vị đã được kích hoạt.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="exit_dialog_settings">Cài đặt nhanh</string>
@@ -550,13 +556,8 @@
     <string name="reset_settings_discard_pending">Đặt lại cài đặt sẽ huỷ các thay đổi chưa lưu. Tiếp tục?</string>
     <string name="settings_reset">Đã đặt lại cài đặt về mặc định</string>
     <string name="settings_reset_failed">Đặt lại cài đặt thất bại: %1$s</string>
-    <string name="share_hotspot_qr_title">Cấu hình Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">Hiển thị mã QR để điện thoại tự động kết nối</string>
     <string name="hotspot_ssid_hint">SSID điểm phát sóng</string>
     <string name="hotspot_pass_hint">Mật khẩu điểm phát sóng</string>
-    <string name="hotspot_qr_description">Mã QR cấu hình Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Quét mã QR này bằng trình quét QR trong Wireless Helper trên điện thoại của bạn.</string>
-    <string name="share_hotspot_qr_error">Không thể lấy thông tin điểm phát Wi-Fi đang hoạt động. Hãy đảm bảo điểm phát của bạn đang bật và Vị trí được kích hoạt.</string>
 
     <!-- Loading screen -->
     <string name="loading_screen">Màn hình tải</string>

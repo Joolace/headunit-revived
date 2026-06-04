@@ -536,6 +536,12 @@
     <string name="bluetooth_adapter_label">Adaptor Bluetooth</string>
     <string name="bluetooth_adapter_description">Selectați adaptorul/controlerul Bluetooth de utilizat pentru handshake. Util pentru sistemele cu Bluetooth dual.</string>
     <string name="select_bt_adapter">Selectați adaptorul Bluetooth</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Configurare Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">Afișează codul QR pentru conectarea automată a telefonului</string>
+    <string name="hotspot_qr_description">Cod QR de configurare Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Scanează acest cod QR folosind scanerul QR din Wireless Helper pe telefonul tău.</string>
+    <string name="share_hotspot_qr_error">Nu s-au putut prelua acreditările hotspot-ului Wi-Fi activ. Asigură-te că hotspot-ul este pornit și locația este activată.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">Luminozitate curentă: %d / 255</string>
@@ -572,11 +578,6 @@
     <string name="reset_settings_discard_pending">Resetarea setărilor va anula modificările nesalvate. Continuați?</string>
     <string name="settings_reset">Setări resetate la valorile implicite</string>
     <string name="settings_reset_failed">Resetarea setărilor a eșuat: %1$s</string>
-    <string name="share_hotspot_qr_title">Configurează Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">Afișează codul QR pentru conectarea automată a telefonului</string>
     <string name="hotspot_ssid_hint">SSID hotspot</string>
     <string name="hotspot_pass_hint">Parola hotspot</string>
-    <string name="hotspot_qr_description">Cod QR de configurare Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Scanați acest cod QR folosind scanerul QR din Wireless Helper de pe telefonul dvs.</string>
-    <string name="share_hotspot_qr_error">Nu s-au putut obține datele hotspotului Wi-Fi activ. Verificați dacă hotspotul este pornit și Locația este activată.</string>
 </resources>

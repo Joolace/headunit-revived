@@ -535,6 +535,12 @@
     <string name="bluetooth_adapter_label">Bluetooth-adapter</string>
     <string name="bluetooth_adapter_description">Selecteer de Bluetooth-adapter/-controller die moet worden gebruikt voor de handshake. Handig voor systemen met dubbele Bluetooth.</string>
     <string name="select_bt_adapter">Selecteer Bluetooth-adapter</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Wireless Helper configureren</string>
+    <string name="share_hotspot_qr_desc">QR-code tonen voor automatische telefoonverbinding</string>
+    <string name="hotspot_qr_description">Configuratie QR-code voor Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Scan deze QR-code met de QR-scanner in Wireless Helper op uw telefoon.</string>
+    <string name="share_hotspot_qr_error">Kon inloggegevens van actieve Wi-Fi-hotspot niet ophalen. Zorg ervoor dat uw hotspot is ingeschakeld en locatie is geactiveerd.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">Huidige helderheid: %d / 255</string>
@@ -571,11 +577,6 @@
     <string name="reset_settings_discard_pending">Het herstellen van de instellingen verwijdert je niet-opgeslagen wijzigingen. Doorgaan?</string>
     <string name="settings_reset">Instellingen teruggezet naar standaardwaarden</string>
     <string name="settings_reset_failed">Herstellen van instellingen mislukt: %1$s</string>
-    <string name="share_hotspot_qr_title">Wireless Helper configureren</string>
-    <string name="share_hotspot_qr_desc">Toon QR-code voor automatische telefoonverbinding</string>
     <string name="hotspot_ssid_hint">Hotspot-SSID</string>
     <string name="hotspot_pass_hint">Hotspot-wachtwoord</string>
-    <string name="hotspot_qr_description">QR-code voor configuratie van Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Scan deze QR-code met de QR-scanner in Wireless Helper op je telefoon.</string>
-    <string name="share_hotspot_qr_error">Kon de gegevens van de actieve Wi-Fi-hotspot niet ophalen. Zorg ervoor dat je hotspot is ingeschakeld en dat Locatie is geactiveerd.</string>
 </resources>

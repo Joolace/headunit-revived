@@ -510,6 +510,12 @@
     <string name="bluetooth_adapter_label">Bluetooth Adaptörü</string>
     <string name="bluetooth_adapter_description">Bağlantı kurulumu (handshake) için kullanılacak Bluetooth adaptörünü/denetleyicisini seçin. Çift Bluetooth sistemleri için kullanışlıdır.</string>
     <string name="select_bt_adapter">Bluetooth Adaptörünü Seçin</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Wireless Helper\'ı Yapılandır</string>
+    <string name="share_hotspot_qr_desc">Telefon otomatik bağlantısı için QR Kodunu göster</string>
+    <string name="hotspot_qr_description">Wireless Helper Yapılandırma QR Kodu</string>
+    <string name="scan_with_wireless_helper">Bu QR Kodunu telefonunuzdaki Wireless Helper\'da bulunan QR Tarayıcıyı kullanarak tarayın.</string>
+    <string name="share_hotspot_qr_error">Etkin Wi-Fi erişim noktası kimlik bilgileri alınamadı. Lütfen erişim noktanızın açık olduğundan ve Konumun etkinleştirildiğinden emin olun.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">Geçerli parlaklık: %d / 255</string>
@@ -546,13 +552,8 @@
     <string name="reset_settings_discard_pending">Ayarları sıfırlamak kaydedilmemiş değişiklikleri silecek. Devam edilsin mi?</string>
     <string name="settings_reset">Ayarlar varsayılanlara sıfırlandı</string>
     <string name="settings_reset_failed">Ayarlar sıfırlanamadı: %1$s</string>
-    <string name="share_hotspot_qr_title">Wireless Helper Yapılandır</string>
-    <string name="share_hotspot_qr_desc">Telefonun otomatik bağlanması için QR Kodu göster</string>
     <string name="hotspot_ssid_hint">Erişim noktası SSID</string>
     <string name="hotspot_pass_hint">Erişim noktası parolası</string>
-    <string name="hotspot_qr_description">Wireless Helper Yapılandırma QR Kodu</string>
-    <string name="scan_with_wireless_helper">Telefonunuzdaki Wireless Helper içinde bulunan QR tarayıcı ile bu QR Kodu tarayın.</string>
-    <string name="share_hotspot_qr_error">Aktif Wi-Fi erişim noktası bilgileri alınamadı. Erişim noktanızın açık ve Konum özelliğinin etkin olduğundan emin olun.</string>
 
     <!-- Loading screen -->
     <string name="loading_screen">Yükleme ekranı</string>

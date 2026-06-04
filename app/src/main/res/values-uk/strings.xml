@@ -536,6 +536,12 @@
     <string name="bluetooth_adapter_label">Bluetooth-адаптер</string>
     <string name="bluetooth_adapter_description">Виберіть Bluetooth-адаптер/контролер для встановлення зв\'язку. Корисно для систем із подвійним Bluetooth.</string>
     <string name="select_bt_adapter">Вибрати Bluetooth-адаптер</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Налаштувати Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">Показати QR-код для автоматичного підключення телефону</string>
+    <string name="hotspot_qr_description">QR-код конфігурації Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Відскануйте цей QR-код за допомогою сканера в додатку Wireless Helper на вашому телефоні.</string>
+    <string name="share_hotspot_qr_error">Не вдалося отримати облікові дані активної точки доступу Wi-Fi. Переконайтеся, що точку доступу увімкнено, а геолокацію активовано.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">Поточна яскравість: %d / 255</string>
@@ -572,11 +578,6 @@
     <string name="reset_settings_discard_pending">Скидання налаштувань скасує незбережені зміни. Продовжити?</string>
     <string name="settings_reset">Налаштування скинуто до типових</string>
     <string name="settings_reset_failed">Не вдалося скинути налаштування: %1$s</string>
-    <string name="share_hotspot_qr_title">Налаштувати Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">Показати QR-код для автоматичного підключення телефона</string>
     <string name="hotspot_ssid_hint">SSID точки доступу</string>
     <string name="hotspot_pass_hint">Пароль точки доступу</string>
-    <string name="hotspot_qr_description">QR-код налаштування Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Відскануйте цей QR-код за допомогою QR-сканера у Wireless Helper на вашому телефоні.</string>
-    <string name="share_hotspot_qr_error">Не вдалося отримати дані активної точки доступу Wi-Fi. Переконайтеся, що точку доступу увімкнено, а Місцезнаходження активне.</string>
 </resources>

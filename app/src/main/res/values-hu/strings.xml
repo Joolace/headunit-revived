@@ -570,11 +570,12 @@
     <string name="reset_settings_discard_pending">A beállítások visszaállítása eldobja a nem mentett változtatásokat. Folytatja?</string>
     <string name="settings_reset">Beállítások visszaállítva</string>
     <string name="settings_reset_failed">A beállítások visszaállítása sikertelen: %1$s</string>
-    <string name="share_hotspot_qr_title">Wireless Helper konfigurálása</string>
-    <string name="share_hotspot_qr_desc">QR kód megjelenítése a telefon automatikus csatlakozásához</string>
     <string name="hotspot_ssid_hint">Hotspot SSID</string>
     <string name="hotspot_pass_hint">Hotspot jelszó</string>
-    <string name="hotspot_qr_description">Wireless Helper konfigurációs QR kód</string>
-    <string name="scan_with_wireless_helper">Olvassa be ezt a QR kódot a telefonján a Wireless Helper QR olvasójával.</string>
-    <string name="share_hotspot_qr_error">Nem sikerült lekérni az aktív Wi-Fi hotspot adatait. Győződjön meg róla, hogy a hotspot be van kapcsolva és a Helymeghatározás engedélyezve van.</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Wireless Helper konfigurálása</string>
+    <string name="share_hotspot_qr_desc">QR-kód megjelenítése a telefon automatikus csatlakozásához</string>
+    <string name="hotspot_qr_description">Wireless Helper konfigurációs QR-kód</string>
+    <string name="scan_with_wireless_helper">Szkenneld be ezt a QR-kódot a telefonodon lévő Wireless Helper QR-szkennerével.</string>
+    <string name="share_hotspot_qr_error">Nem sikerült lekérni az aktív Wi-Fi hotspot adatait. Győződj meg róla, hogy a hotspot be van kapcsolva, és a helyszolgáltatás engedélyezett.</string>
 </resources>

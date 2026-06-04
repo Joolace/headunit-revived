@@ -542,6 +542,12 @@
     <string name="bluetooth_adapter_label">Adattatore Bluetooth</string>
     <string name="bluetooth_adapter_description">Seleziona l\'adattatore/controller Bluetooth da utilizzare per l\'handshake. Utile per i sistemi con doppio Bluetooth.</string>
     <string name="select_bt_adapter">Seleziona adattatore Bluetooth</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Configura Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">Mostra il codice QR per la connessione automatica del telefono</string>
+    <string name="hotspot_qr_description">Codice QR di configurazione di Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Scansiona questo codice QR usando lo scanner QR in Wireless Helper sul tuo telefono.</string>
+    <string name="share_hotspot_qr_error">Impossibile recuperare le credenziali dell\'hotspot Wi-Fi attivo. Assicurati che l\'hotspot sia attivo e che la geolocalizzazione sia abilitata.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">Luminosità attuale: %d / 255</string>
@@ -578,11 +584,6 @@
     <string name="reset_settings_discard_pending">Il ripristino delle impostazioni eliminerà le modifiche non salvate. Continuare?</string>
     <string name="settings_reset">Impostazioni ripristinate ai valori predefiniti</string>
     <string name="settings_reset_failed">Ripristino delle impostazioni non riuscito: %1$s</string>
-    <string name="share_hotspot_qr_title">Configura Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">Mostra il QR Code per la connessione automatica del telefono</string>
     <string name="hotspot_ssid_hint">SSID hotspot</string>
     <string name="hotspot_pass_hint">Password hotspot</string>
-    <string name="hotspot_qr_description">QR Code di configurazione Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Scansiona questo QR Code usando lo scanner QR di Wireless Helper sul tuo telefono.</string>
-    <string name="share_hotspot_qr_error">Impossibile ottenere le credenziali dell\'hotspot Wi-Fi attivo. Assicurati che l\'hotspot sia acceso e la Posizione abilitata.</string>
 </resources>

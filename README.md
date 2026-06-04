@@ -56,10 +56,7 @@ adb shell am start -a android.intent.action.VIEW -d "headunit://connect?ip=192.1
 ## Planned
 ### v3.0.0
 - Theme-Options for Colors and Images, Car-Logos
-- Change settings in Projection, maybe call it "Quick-Settings"
-- Remove Native-SSL Libraries to reduce filesize
 - Add Permission Checker
-- Settings-Reset Button
 
 ## Known Issues
 - **Google Maps in Portrait Mode:** Touch interactions (searching, scrolling) within Google Maps may not work as expected when using Portrait Mode on some devices. **Fix:** Try reducing the **Pixel density (DPI)** setting to **below 200** (e.g., 190) in the app settings. This often restores full functionality.
@@ -78,8 +75,9 @@ adb shell am start -a android.intent.action.VIEW -d "headunit://connect?ip=192.1
 - Added settings export and import functionality with backup options, thanks to @JanRi3D
 - Added whitelist to usb connection for not interrupting with iPhones and other usb devices
 - Added QR Code for easy connection with wireless helper
-- Fixed: BT auto-connect dragging phone into wireless flow during USB session, thanks @andrecuellar
-- Persist Auto-Optimize wizard settings synchronously, thanks @andrecuellar
+- Fixed: BT auto-connect dragging phone into wireless flow during USB session, thanks to @andrecuellar
+- Persist Auto-Optimize wizard settings synchronously, thanks to @andrecuellar
+- Added ability to swipe with two fingers from the right side to switch fullscreen mode and Normal (all bars) mode, thanks to @Anton111111
 
 ### v.2.3.1
 - Fixed a connection lost on for example borders

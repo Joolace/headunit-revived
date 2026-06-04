@@ -55,6 +55,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.andrerinas.headunitrevived.main.QuickSettingsFragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import java.io.File
+import kotlin.math.abs
 
 class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, VideoDimensionsListener {
 
@@ -79,6 +80,10 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
     private var initialX = 0f
     private var initialY = 0f
     private var isPotentialGesture = false
+
+    // Activity-local override for fullscreen mode. If non-null, setFullscreen() will use this
+    // instead of persisting to Settings. This keeps toggles local to the Activity lifecycle.
+    private var activityFullscreenOverride: Settings.FullscreenMode? = null
     private var fpsTextView: TextView? = null
 
     private var isOrientationReceiverRegistered = false
@@ -404,6 +409,9 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
         isForeground = false
         AppLog.i("AapProjectionActivity: onPause")
         super.onPause()
+        // Clear any activity-local fullscreen override when leaving the Activity so
+        // the stored settings remain authoritative on next resume.
+        activityFullscreenOverride = null
         watchdogHandler.removeCallbacks(watchdogRunnable)
         watchdogHandler.removeCallbacks(videoWatchdogRunnable)
         watchdogHandler.removeCallbacks(reconnectingWatchdog)
@@ -680,11 +688,14 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
     private fun setFullscreen() {
         val container = findViewById<View>(R.id.container)
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && settings.fullscreenMode != Settings.FullscreenMode.NONE) {
+        // Use activity-local override if present, otherwise use stored settings
+        val mode = activityFullscreenOverride ?: settings.fullscreenMode
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && mode != Settings.FullscreenMode.NONE) {
             window.addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
 
-        SystemUI.apply(window, container, settings.fullscreenMode) {
+        SystemUI.apply(window, container, mode) {
             if (::projectionView.isInitialized) {
                 ProjectionViewScaler.updateScale(projectionView as View, videoDecoder.videoWidth, videoDecoder.videoHeight)
             }
@@ -692,16 +703,17 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
 
         // Workaround for API < 19 (Jelly Bean) where Sticky Immersive Mode doesn't exist.
         // If bars appear (e.g. on touch), hide them again after a delay.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && settings.fullscreenMode != Settings.FullscreenMode.NONE) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && mode != Settings.FullscreenMode.NONE) {
             window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
                 if ((visibility and View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
                     // Bars are visible. Hide them again.
                     android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                        SystemUI.apply(window, container, settings.fullscreenMode) {
-            if (::projectionView.isInitialized) {
-                ProjectionViewScaler.updateScale(projectionView as View, videoDecoder.videoWidth, videoDecoder.videoHeight)
-            }
-        }
+                        val effectiveMode = activityFullscreenOverride ?: settings.fullscreenMode
+                        SystemUI.apply(window, container, effectiveMode) {
+                            if (::projectionView.isInitialized) {
+                                ProjectionViewScaler.updateScale(projectionView as View, videoDecoder.videoWidth, videoDecoder.videoHeight)
+                            }
+                        }
                     }, 2000)
                 }
             }
@@ -839,21 +851,34 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
     private val commManager get() = App.provide(this).commManager
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        // 1. 2-finger swipe detection from the left edge (to open exit menu)
+        // 1. 2-finger swipe detection from the left or right edge (to open exit menu or toggle fullscreen)
         if (ev.pointerCount == 2) {
             when (ev.actionMasked) {
                 MotionEvent.ACTION_POINTER_DOWN -> {
                     initialX = ev.getX(0)
                     initialY = ev.getY(0)
-                    isPotentialGesture = initialX < 100
+                    isPotentialGesture = initialX < 100 || initialX > HeadUnitScreenConfig.getUsableWidth() - 100
                 }
                 MotionEvent.ACTION_MOVE -> {
                     if (isPotentialGesture) {
                         val deltaX = ev.getX(0) - initialX
-                        val deltaY = Math.abs(ev.getY(0) - initialY)
+                        val deltaY = abs(ev.getY(0) - initialY)
                         if (deltaX > 200 && deltaY < 100) {
                             isPotentialGesture = false
                             showExitDialog()
+                            return true // Consume
+                        }
+
+                        if (deltaX < -200 && deltaY < 100) {
+                            isPotentialGesture = false
+                            val currentEffective = activityFullscreenOverride ?: settings.fullscreenMode
+                            if (currentEffective != Settings.FullscreenMode.NONE) {
+                                activityFullscreenOverride = Settings.FullscreenMode.NONE
+                                setFullscreen()
+                            } else {
+                                activityFullscreenOverride = null
+                                setFullscreen()
+                            }
                             return true // Consume
                         }
                     }

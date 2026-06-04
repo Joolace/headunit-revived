@@ -1,5 +1,5 @@
 # Changelog
-### v.3.0.0-alpha
+### v.3.0.0-beta1
 - Added: Custom loading screen (image/GIF/video), thanks to @andrecuellar
 - Added: Settings-Reset Button, if you mess up something in the settings, you can now reset them to default
 - Removed: Old deprecated ssl library written in C-Code for better maintenance, stability and smaller file sizes
@@ -10,6 +10,9 @@
 - Added settings export and import functionality with backup options, thanks to @JanRi3D
 - Added whitelist to usb connection for not interrupting with iPhones and other usb devices
 - Added QR Code for easy connection with wireless helper
+- Fixed: BT auto-connect dragging phone into wireless flow during USB session, thanks to @andrecuellar
+- Persist Auto-Optimize wizard settings synchronously, thanks to @andrecuellar
+- Added ability to swipe with two fingers from the right side to switch fullscreen mode and Normal (all bars) mode, thanks to @Anton111111
 
 ### v.2.3.1
 - Fixed a connection lost on for example borders

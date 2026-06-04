@@ -127,23 +127,34 @@ class HomeFragment : Fragment() {
                 Settings.AUTO_CONNECT_LAST_SESSION -> {
                     if (appSettings.autoConnectLastSession && !hasAttemptedAutoConnect && !commManager.isConnected) {
                         hasAttemptedAutoConnect = true
-                        (requireActivity() as? MainActivity)?.beginAutoConnect("auto-connect last session")
-                        attemptAutoConnect()
+                        if (attemptAutoConnect()) {
+                            (requireActivity() as? MainActivity)?.beginAutoConnect(
+                                "auto-connect last session",
+                                MainActivity.ConnectionUiMode.PILL
+                            )
+                        }
                     }
                 }
                 Settings.AUTO_CONNECT_SELF_MODE -> {
                     if ((appSettings.autoStartSelfMode || forceSelfModeLaunch) && !hasAutoStarted && !commManager.isConnected) {
                         hasAutoStarted = true
                         forceSelfModeLaunch = false // Reset once processed
-                        (requireActivity() as? MainActivity)?.beginAutoConnect("auto-start self mode")
+                        (requireActivity() as? MainActivity)?.beginAutoConnect(
+                            "auto-start self mode",
+                            MainActivity.ConnectionUiMode.PILL
+                        )
                         startSelfMode()
                     }
                 }
                 Settings.AUTO_CONNECT_SINGLE_USB -> {
                     if (appSettings.autoConnectSingleUsbDevice && !hasAttemptedSingleUsbAutoConnect && !commManager.isConnected) {
                         hasAttemptedSingleUsbAutoConnect = true
-                        (requireActivity() as? MainActivity)?.beginAutoConnect("auto-connect single USB")
-                        attemptSingleUsbAutoConnect()
+                        if (attemptSingleUsbAutoConnect()) {
+                            (requireActivity() as? MainActivity)?.beginAutoConnect(
+                                "auto-connect single USB",
+                                MainActivity.ConnectionUiMode.PILL
+                            )
+                        }
                     }
                 }
             }
@@ -180,29 +191,39 @@ class HomeFragment : Fragment() {
         startSelfModeInternal()
     }
 
-    private fun attemptAutoConnect() {
-        val appSettings = App.provide(requireContext()).settings
+    /**
+     * Tries to start an auto-reconnect to the last session.
+     *
+     * @return `true` if a connection attempt was actually dispatched (so the
+     *   caller should surface the pill), `false` if nothing was started (e.g.
+     *   Native AA mode, no last session, missing USB device or permission).
+     *   Returning a flag prevents the pill from being shown for 30 s when no
+     *   work was queued.
+     */
+    private fun attemptAutoConnect(): Boolean {
+        val ctx = context ?: return false
+        val appSettings = App.provide(ctx).settings
 
         // [FIX] Skip manual WiFi connection if Native AA is selected.
         // Native AA handles its own handshake via Bluetooth/P2P.
         if (appSettings.wifiConnectionMode == 3) {
             AppLog.i("HomeFragment: Native AA mode active. Skipping manual auto-connect attempt.")
-            return
+            return false
         }
 
         if (!appSettings.autoConnectLastSession ||
             !appSettings.hasAcceptedDisclaimer ||
             commManager.isConnected) {
-            return
+            return false
         }
 
         val connectionType = appSettings.lastConnectionType
         if (connectionType.isEmpty()) {
             AppLog.i("Auto-connect: No last session to reconnect to")
-            return
+            return false
         }
 
-        when (connectionType) {
+        return when (connectionType) {
             Settings.CONNECTION_TYPE_WIFI -> {
                 val ip = appSettings.lastConnectionIp
                 if (ip.isNotEmpty()) {
@@ -210,10 +231,11 @@ class HomeFragment : Fragment() {
                     Toast.makeText(requireContext(), getString(R.string.auto_connecting_to, ip), Toast.LENGTH_SHORT).show()
                     val ctx = requireContext()
                     lifecycleScope.launch(Dispatchers.IO) { App.provide(ctx).commManager.connect(ip, 5277) }
-                    ContextCompat.startForegroundService(requireContext(), Intent(requireContext(), AapService::class.java).apply {
+                    ContextCompat.startForegroundService(ctx, Intent(ctx, AapService::class.java).apply {
                         action = AapService.ACTION_CONNECT_SOCKET
                     })
-                }
+                    true
+                } else false
             }
             Settings.CONNECTION_TYPE_USB -> {
                 val lastUsbDevice = appSettings.lastConnectionUsbDevice
@@ -228,29 +250,40 @@ class HomeFragment : Fragment() {
                         ContextCompat.startForegroundService(requireContext(), Intent(requireContext(), AapService::class.java).apply {
                             action = AapService.ACTION_CHECK_USB
                         })
+                        true
                     } else {
                         AppLog.i("Auto-connect: USB device $lastUsbDevice not found or no permission")
+                        false
                     }
-                }
+                } else false
             }
             Settings.CONNECTION_TYPE_NEARBY -> {
                 AppLog.i("Auto-connect: Last session was via Google Nearby. AapService will handle discovery.")
                 // No manual connect(ip) needed, NearbyManager in AapService manages this automatically on start.
+                true
             }
+            else -> false
         }
     }
 
-    private fun attemptSingleUsbAutoConnect() {
-        val appSettings = App.provide(requireContext()).settings
+    /**
+     * @return `true` if a single-USB connection attempt was dispatched,
+     *   `false` if guards (setting disabled, disclaimer pending, already
+     *   connected) blocked it. Same intent as [attemptAutoConnect].
+     */
+    private fun attemptSingleUsbAutoConnect(): Boolean {
+        val ctx = context ?: return false
+        val appSettings = App.provide(ctx).settings
         if (!appSettings.autoConnectSingleUsbDevice ||
             !appSettings.hasAcceptedDisclaimer ||
-            commManager.isConnected) return
+            commManager.isConnected) return false
 
         AppLog.i("HomeFragment: Requesting single-USB auto-connect via AapService")
-        ContextCompat.startForegroundService(requireContext(),
-            Intent(requireContext(), AapService::class.java).apply {
+        ContextCompat.startForegroundService(ctx,
+            Intent(ctx, AapService::class.java).apply {
                 action = AapService.ACTION_CHECK_USB
             })
+        return true
     }
 
     private val originalBackgrounds = mapOf(
@@ -320,7 +353,10 @@ class HomeFragment : Fragment() {
                 aapIntent.putExtra(AapProjectionActivity.EXTRA_FOCUS, true)
                 startActivity(aapIntent)
             } else {
-                (requireActivity() as? MainActivity)?.beginAutoConnect("manual self mode")
+                (requireActivity() as? MainActivity)?.beginAutoConnect(
+                    "manual self mode",
+                    MainActivity.ConnectionUiMode.OVERLAY
+                )
                 startSelfMode()
             }
         }
@@ -347,7 +383,10 @@ class HomeFragment : Fragment() {
                         Toast.makeText(requireContext(), getString(R.string.already_scanning), Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(requireContext(), getString(R.string.searching_headunit_server), Toast.LENGTH_SHORT).show()
-                        (requireActivity() as? MainActivity)?.beginAutoConnect("manual WiFi headunit server scan")
+                        (requireActivity() as? MainActivity)?.beginAutoConnect(
+                            "manual WiFi headunit server scan",
+                            MainActivity.ConnectionUiMode.OVERLAY
+                        )
                         val intent = Intent(requireContext(), AapService::class.java).apply {
                             action = AapService.ACTION_START_WIRELESS_SCAN
                         }
@@ -361,7 +400,10 @@ class HomeFragment : Fragment() {
                         val strategy = App.provide(requireContext()).settings.helperConnectionStrategy
                         if (strategy == 4) {
                             if (!AapService.scanningState.value) {
-                                (requireActivity() as? MainActivity)?.beginAutoConnect("manual WiFi helper scan")
+                                (requireActivity() as? MainActivity)?.beginAutoConnect(
+                                    "manual WiFi helper scan",
+                                    MainActivity.ConnectionUiMode.OVERLAY
+                                )
                                 val intent = Intent(requireContext(), AapService::class.java).apply {
                                     action = AapService.ACTION_START_WIRELESS_SCAN
                                 }
@@ -381,7 +423,10 @@ class HomeFragment : Fragment() {
                             Toast.makeText(requireContext(), getString(R.string.already_searching_phone), Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(requireContext(), getString(R.string.searching_phone), Toast.LENGTH_SHORT).show()
-                            (requireActivity() as? MainActivity)?.beginAutoConnect("manual WiFi helper scan")
+                            (requireActivity() as? MainActivity)?.beginAutoConnect(
+                                "manual WiFi helper scan",
+                                MainActivity.ConnectionUiMode.OVERLAY
+                            )
                             val intent = Intent(requireContext(), AapService::class.java).apply {
                                 action = AapService.ACTION_START_WIRELESS_SCAN
                             }
@@ -390,7 +435,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 3 -> { // Native AA
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && 
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
                         ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                         bluetoothPermissionLauncher.launch(android.Manifest.permission.BLUETOOTH_CONNECT)
                     } else {
@@ -452,15 +497,18 @@ class HomeFragment : Fragment() {
         }
 
         val deviceNames = bondedDevices.map { it.name ?: "Unknown Device" }.toTypedArray()
-        
-        
+
+
         activeDialog = MaterialAlertDialogBuilder(requireContext(), R.style.DarkAlertDialog)
             .setTitle(R.string.select_bt_device)
             .setItems(deviceNames) { _, which ->
                 val device = bondedDevices[which]
                 AppLog.i("HomeFragment: Manually selected ${device.name} for Native-AA poke")
 
-                (requireActivity() as? MainActivity)?.beginAutoConnect("manual Native-AA poke")
+                (requireActivity() as? MainActivity)?.beginAutoConnect(
+                    "manual Native-AA poke",
+                    MainActivity.ConnectionUiMode.OVERLAY
+                )
                 val intent = Intent(requireContext(), AapService::class.java).apply {
                     action = AapService.ACTION_NATIVE_AA_POKE
                     putExtra(AapService.EXTRA_MAC, device.address)
@@ -522,12 +570,12 @@ class HomeFragment : Fragment() {
             .setTitle(getString(R.string.searching)) // Initial title
             .setView(dialogView)
             .setNegativeButton(R.string.cancel, null)
-            .setOnDismissListener { 
+            .setOnDismissListener {
                 collectJob?.cancel()
                 if (activeDialog == it) activeDialog = null
             }
             .create()
-        
+
         activeDialog = dialog
 
         deviceListView.setOnItemClickListener { _, _, which, _ ->
@@ -544,6 +592,7 @@ class HomeFragment : Fragment() {
                 dialog.dismiss()
                 (requireActivity() as? MainActivity)?.beginAutoConnect(
                     "manual Nearby select ${endpoint.name}",
+                    MainActivity.ConnectionUiMode.OVERLAY,
                     statusText
                 )
 
@@ -563,7 +612,7 @@ class HomeFragment : Fragment() {
                 listAdapter.clear()
                 listAdapter.addAll(endpoints)
                 listAdapter.notifyDataSetChanged()
-                
+
                 if (endpoints.isEmpty()) {
                     dialog.setTitle(getString(R.string.searching))
                     searchingText.visibility = View.GONE

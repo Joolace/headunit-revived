@@ -535,6 +535,12 @@
     <string name="bluetooth_adapter_label">藍牙適配器</string>
     <string name="bluetooth_adapter_description">選擇用於交握的藍牙適配器/控制器。適用於雙藍牙系統。</string>
     <string name="select_bt_adapter">選擇藍牙適配器</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">設定 Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">顯示用於手機自動連線的 QR Code</string>
+    <string name="hotspot_qr_description">Wireless Helper 設定 QR Code</string>
+    <string name="scan_with_wireless_helper">請使用您手機上 Wireless Helper 的 QR 碼掃描器掃描此 QR Code。</string>
+    <string name="share_hotspot_qr_error">無法取得作用中的 Wi-Fi 熱點憑證。請確保您的熱點已開啟且已啟用定位服務。</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">當前亮度：%d / 255</string>
@@ -571,11 +577,6 @@
     <string name="reset_settings_discard_pending">重設設定將會放棄未儲存的變更。要繼續嗎？</string>
     <string name="settings_reset">設定已重設為預設值</string>
     <string name="settings_reset_failed">設定重設失敗：%1$s</string>
-    <string name="share_hotspot_qr_title">設定 Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">顯示 QR Code 以便手機自動連線</string>
     <string name="hotspot_ssid_hint">熱點 SSID</string>
     <string name="hotspot_pass_hint">熱點密碼</string>
-    <string name="hotspot_qr_description">Wireless Helper 設定 QR Code</string>
-    <string name="scan_with_wireless_helper">請使用手機上 Wireless Helper 中的 QR 掃描器掃描此 QR Code。</string>
-    <string name="share_hotspot_qr_error">無法取得目前 Wi-Fi 熱點的認證資訊。請確認熱點已開啟，且位置資訊已啟用。</string>
 </resources>

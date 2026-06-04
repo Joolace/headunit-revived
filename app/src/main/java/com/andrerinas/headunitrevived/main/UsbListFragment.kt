@@ -173,7 +173,10 @@ class UsbListFragment : Fragment() {
                     // Device is in Accessory Mode but we are NOT connected.
                     // Start connection immediately.
                     Toast.makeText(mContext, R.string.android_auto_starting, Toast.LENGTH_SHORT).show()
-                    (mContext as? MainActivity)?.beginAutoConnect("manual USB list (accessory mode)")
+                    (mContext as? MainActivity)?.beginAutoConnect(
+                        "manual USB list (accessory mode)",
+                        MainActivity.ConnectionUiMode.OVERLAY
+                    )
                     ContextCompat.startForegroundService(mContext, Intent(mContext, AapService::class.java).apply {
                         action = AapService.ACTION_CHECK_USB
                     })
@@ -184,7 +187,10 @@ class UsbListFragment : Fragment() {
                         val usbMode = UsbAccessoryMode(usbManager)
                         if (usbMode.connectAndSwitch(device.wrappedDevice)) {
                             Toast.makeText(mContext, R.string.switching_to_android_auto, Toast.LENGTH_SHORT).show()
-                            (mContext as? MainActivity)?.beginAutoConnect("manual USB list (AOA switch)")
+                            (mContext as? MainActivity)?.beginAutoConnect(
+                                "manual USB list (AOA switch)",
+                                MainActivity.ConnectionUiMode.OVERLAY
+                            )
                         } else {
                             Toast.makeText(mContext, R.string.switch_failed, Toast.LENGTH_SHORT).show()
                         }

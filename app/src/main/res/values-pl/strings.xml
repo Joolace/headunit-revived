@@ -536,6 +536,12 @@
     <string name="bluetooth_adapter_label">Adapter Bluetooth</string>
     <string name="bluetooth_adapter_description">Wybierz adapter/kontroler Bluetooth do użycia podczas uścisku dłoni (handshake). Przydatne w systemach z podwójnym Bluetooth.</string>
     <string name="select_bt_adapter">Wybierz adapter Bluetooth</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Skonfiguruj Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">Pokaż kod QR do automatycznego połączenia telefonu</string>
+    <string name="hotspot_qr_description">Kod QR konfiguracji Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Zeskanuj ten kod QR za pomocą skanera w aplikacji Wireless Helper na telefonie.</string>
+    <string name="share_hotspot_qr_error">Nie udało się pobrać danych uwierzytelniających aktywnego punktu dostępu Wi-Fi. Upewnij się, że punkt dostępu jest włączony, a lokalizacja aktywna.</string>
 
     <!-- Brightness, quick settings, key back, backup, wireless helper QR -->
     <string name="current_brightness_reading">Aktualna jasność: %d / 255</string>
@@ -572,11 +578,6 @@
     <string name="reset_settings_discard_pending">Przywrócenie ustawień spowoduje odrzucenie niezapisanych zmian. Kontynuować?</string>
     <string name="settings_reset">Ustawienia przywrócone do domyślnych</string>
     <string name="settings_reset_failed">Przywracanie ustawień nie powiodło się: %1$s</string>
-    <string name="share_hotspot_qr_title">Skonfiguruj Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">Pokaż kod QR do automatycznego połączenia z telefonem</string>
     <string name="hotspot_ssid_hint">SSID hotspota</string>
     <string name="hotspot_pass_hint">Hasło hotspota</string>
-    <string name="hotspot_qr_description">Kod QR konfiguracji Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Zeskanuj ten kod QR za pomocą skanera QR w aplikacji Wireless Helper na telefonie.</string>
-    <string name="share_hotspot_qr_error">Nie udało się pobrać danych aktywnego hotspota Wi-Fi. Upewnij się, że hotspot jest włączony, a Lokalizacja aktywna.</string>
 </resources>

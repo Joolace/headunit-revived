@@ -535,6 +535,12 @@
     <string name="bluetooth_adapter_label">Adaptador Bluetooth</string>
     <string name="bluetooth_adapter_description">Seleccione el adaptador/controlador Bluetooth que se utilizará para el protocolo de enlace. Útil para sistemas con doble Bluetooth.</string>
     <string name="select_bt_adapter">Seleccionar adaptador Bluetooth</string>
+    <!-- QR Code Generator -->
+    <string name="share_hotspot_qr_title">Configurar Wireless Helper</string>
+    <string name="share_hotspot_qr_desc">Mostrar código QR para la conexión automática del teléfono</string>
+    <string name="hotspot_qr_description">Código QR de configuración de Wireless Helper</string>
+    <string name="scan_with_wireless_helper">Escanea este código QR usando el escáner QR en Wireless Helper en tu teléfono.</string>
+    <string name="share_hotspot_qr_error">No se pudieron obtener las credenciales de punto de acceso Wi-Fi activo. Asegúrate de que el punto de acceso esté activado y la ubicación habilitada.</string>
 
     <!-- Brightness reading (night mode) -->
     <string name="current_brightness_reading">Brillo actual: %d / 255</string>
@@ -579,11 +585,6 @@
     <string name="key_back">Atrás</string>
 
     <!-- Wireless Helper hotspot QR -->
-    <string name="share_hotspot_qr_title">Configurar Wireless Helper</string>
-    <string name="share_hotspot_qr_desc">Mostrar código QR para autoconexión del móvil</string>
     <string name="hotspot_ssid_hint">SSID del punto de acceso</string>
     <string name="hotspot_pass_hint">Contraseña del punto de acceso</string>
-    <string name="hotspot_qr_description">Código QR de configuración de Wireless Helper</string>
-    <string name="scan_with_wireless_helper">Escanea este código QR con el escáner QR de Wireless Helper en tu móvil.</string>
-    <string name="share_hotspot_qr_error">No se han podido obtener las credenciales del punto de acceso Wi-Fi activo. Asegúrate de que el punto de acceso está activado y la ubicación habilitada.</string>
 </resources>
