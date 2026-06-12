@@ -60,7 +60,7 @@
     <string name="gles_required_message">მონოქრომული რეჟიმისთვის საჭიროა GLES რენდერინგი, რათა ვიდეო გამოსახულებაზე ნაცრისფერი ფილტრი იქნას გამოყენებული. ჩავრთოთ GLES?</string>
     <string name="enable_gles">GLES-ის ჩართვა</string>
     <string name="category_navigation">ნავიგაცია</string>
-    <string name="category_wireless">უ線ო კავშირი</string>
+    <string name="category_wireless">უსადენო კავშირი</string>
 
     <string name="reconnection_required_title">საჭიროა ხელახალი კავშირი</string>
     <string name="reconnection_required_message">მოწყობილობა მოლოდინის რეჟიმშია. გთხოვთ გამორთოთ და ხელახლა შეაერთოთ USB კაბელი Android Auto-ს დასაწყებად.</string>
