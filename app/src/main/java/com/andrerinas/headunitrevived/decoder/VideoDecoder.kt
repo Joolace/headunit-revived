@@ -1,6 +1,7 @@
 package com.andrerinas.headunitrevived.decoder
 
 import android.media.MediaCodec
+import android.media.MediaCodecInfo
 import android.media.MediaCodecList
 import android.media.MediaFormat
 import android.os.Build
