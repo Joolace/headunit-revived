@@ -73,11 +73,15 @@ class MainViewModel(application: Application): AndroidViewModel(application), Us
             return devices
                 .filter { shouldIncludeDevice(it.isInAccessoryMode, anyNonAccessory) }
                 .distinctBy { it.uniqueName }
-                .sortedWith(Comparator { lhs, rhs ->
-                    if (lhs.isInAccessoryMode) return@Comparator -1
-                    if (rhs.isInAccessoryMode) return@Comparator 1
-                    if (allowDevices.contains(lhs.uniqueName)) return@Comparator -1
-                    if (allowDevices.contains(rhs.uniqueName)) return@Comparator 1
+                                .sortedWith(Comparator { lhs, rhs ->
+                    if (lhs.isInAccessoryMode != rhs.isInAccessoryMode) {
+                        return@Comparator if (lhs.isInAccessoryMode) -1 else 1
+                    }
+                    val lhsAllowed = allowDevices.contains(lhs.uniqueName)
+                    val rhsAllowed = allowDevices.contains(rhs.uniqueName)
+                    if (lhsAllowed != rhsAllowed) {
+                        return@Comparator if (lhsAllowed) -1 else 1
+                    }
                     lhs.uniqueName.compareTo(rhs.uniqueName)
                 })
         }

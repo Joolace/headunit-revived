@@ -938,7 +938,7 @@ class AapService : Service(), UsbReceiver.Listener {
 
         val intent = AapProjectionActivity.intent(this).apply {
             putExtra(AapProjectionActivity.EXTRA_FOCUS, true)
-            addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         }
 
         val canOverlay = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && AndroidSettings.canDrawOverlays(this)
