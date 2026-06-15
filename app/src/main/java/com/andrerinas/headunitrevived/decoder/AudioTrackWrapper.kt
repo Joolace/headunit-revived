@@ -33,6 +33,7 @@ class AudioTrackWrapper(
     private var codecHandlerThread: HandlerThread? = null
     private val freeInputBuffers = LinkedBlockingQueue<Int>()
     private val writeExecutor = Executors.newSingleThreadExecutor()
+    private val writeSemaphore = java.util.concurrent.Semaphore(3)
 
     // Limit queue capacity to provide backpressure to the network thread if audio playback is slow
     private val dataQueue = if (audioQueueCapacity > 0)
@@ -142,6 +143,7 @@ class AudioTrackWrapper(
                         info: MediaCodec.BufferInfo
                     ) {
                         try {
+                            if (!isRunning) return
                             val outputBuffer = codec.getOutputBuffer(index)
                             if (outputBuffer != null && info.size > 0) {
                                 val chunk = ByteArray(info.size)
@@ -149,18 +151,24 @@ class AudioTrackWrapper(
                                 outputBuffer.get(chunk)
                                 outputBuffer.clear()
 
+                                writeSemaphore.acquire()
                                 // Write to AudioTrack or Mixer using executor
                                 writeExecutor.submit {
                                     try {
                                         writeToTrack(chunk)
                                     } catch (e: Exception) {
                                         AppLog.e("Error writing decoded AAC to AudioTrack", e)
+                                    } finally {
+                                        writeSemaphore.release()
                                     }
                                 }
                             }
                             codec.releaseOutputBuffer(index, false)
                         } catch (e: Exception) {
                             AppLog.e("Error processing AAC output", e)
+                            if (e is InterruptedException) {
+                                Thread.currentThread().interrupt()
+                            }
                         }
                     }
 
@@ -223,7 +231,8 @@ class AudioTrackWrapper(
                     }
                 }
             } catch (e: InterruptedException) {
-                if (!isRunning && dataQueue.isEmpty()) break
+                dataQueue.clear()
+                break
             } catch (e: Exception) {
                 AppLog.e("Error in AudioTrackWrapper run loop", e)
                 isRunning = false
@@ -261,6 +270,7 @@ class AudioTrackWrapper(
         }
     }
 
+    @Throws(InterruptedException::class)
     private fun queueInput(inputData: ByteArray) {
         try {
             // Wait for input buffer (with timeout to avoid deadlock if codec dies)
@@ -281,6 +291,8 @@ class AudioTrackWrapper(
             } else {
                 AppLog.w("AAC Input Buffer timeout (200ms) - dropping frame")
             }
+        } catch (e: InterruptedException) {
+            throw e
         } catch (e: Exception) {
             AppLog.e("Error queuing AAC input", e)
         }
@@ -371,8 +383,10 @@ class AudioTrackWrapper(
         if (!isRunning) return
 
         try {
-            // put() blocks if queue is full (Backpressure)
-            dataQueue.put(buffer.copyOfRange(offset, offset + size))
+            val success = dataQueue.offer(buffer.copyOfRange(offset, offset + size), 5, TimeUnit.MILLISECONDS)
+            if (!success) {
+                AppLog.w("Audio queue is full, dropping audio frame to prevent stalling")
+            }
         } catch (e: InterruptedException) {
             AppLog.w("Interrupted while putting audio data to queue")
         }
@@ -403,9 +417,11 @@ class AudioTrackWrapper(
         try {
             if (!writeExecutor.awaitTermination(1, TimeUnit.SECONDS)) {
                 AppLog.w("Audio write executor did not terminate in time")
+                writeExecutor.shutdownNow()
             }
         } catch (e: InterruptedException) {
             AppLog.w("Audio write executor interrupted during shutdown")
+            writeExecutor.shutdownNow()
         }
 
         if (mixer != null) {
