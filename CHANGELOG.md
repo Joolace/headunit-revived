@@ -15,6 +15,9 @@
 - Added ability to swipe with two fingers from the right side to switch fullscreen mode and Normal (all bars) mode, thanks to @Anton111111
 - Improved: usb button auto connect, thanks to @bezprobeloff
 - Catched an fatal error listed in the play console
+- Fixed: Audio Stutter on some devices since 2.1.1
+- Fixed: USB device list duplicates and Android Auto projection launch on Android 10+, thanks to @jeancarloscc
+- Enhanced: Google Nearby. It was buggy with 2 FPS video
 
 ### v.2.3.1
 - Fixed a connection lost on for example borders
