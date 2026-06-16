@@ -389,14 +389,6 @@ class AapTransport(
     fun send(keyCode: Int, isPress: Boolean) {
         val aapKeyCode = KeyCode.convert(keyCode)
 
-        if (keyCode == KeyEvent.KEYCODE_GUIDE) {
-            // Hack for navigation button to simulate touch
-            val action = if (isPress)
-                Input.TouchEvent.PointerAction.TOUCH_ACTION_DOWN else Input.TouchEvent.PointerAction.TOUCH_ACTION_UP
-            this.send(TouchEvent(SystemClock.elapsedRealtime(), action, 99, 444))
-            return
-        }
-
         if (keyCode == KeyEvent.KEYCODE_N) {
             val intent = Intent(AapService.ACTION_REQUEST_NIGHT_MODE_UPDATE)
             intent.setPackage(context.packageName)
