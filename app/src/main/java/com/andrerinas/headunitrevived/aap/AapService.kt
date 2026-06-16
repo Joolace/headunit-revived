@@ -67,7 +67,6 @@ import android.view.WindowManager
 import android.media.AudioManager
 import com.andrerinas.headunitrevived.utils.HotspotManager
 import com.andrerinas.headunitrevived.utils.VpnControl
-import com.andrerinas.headunitrevived.utils.SilentAudioPlayer
 import com.andrerinas.headunitrevived.connection.CarKeyReceiver
 import com.andrerinas.headunitrevived.connection.NativeAaHandshakeManager
 import com.andrerinas.headunitrevived.connection.NearbyManager
@@ -105,7 +104,6 @@ class AapService : Service(), UsbReceiver.Listener {
     private var nearbyManager: NearbyManager? = null
     private var wifiAutoStartReceiver: WifiAutoStartReceiver? = null
     private var carKeyReceiver: CarKeyReceiver? = null
-    private var silentAudioPlayer: SilentAudioPlayer? = null
     private var wirelessServer: WirelessServer? = null
     private var networkDiscovery: NetworkDiscovery? = null
     private var mediaSession: MediaSessionCompat? = null
@@ -732,7 +730,6 @@ class AapService : Service(), UsbReceiver.Listener {
 
 
         carKeyReceiver = CarKeyReceiver()
-        silentAudioPlayer = SilentAudioPlayer(this)
 
         checkAlreadyConnectedUsb()
         registerNetworkMonitor()
@@ -888,10 +885,7 @@ class AapService : Service(), UsbReceiver.Listener {
         updateNotification()
         acquireWifiLock()
 
-        // Start silent audio hack to keep media focus (helps with steering wheel buttons)
-        if (settings.enableAudioSink) {
-            silentAudioPlayer?.start()
-        }
+        // Silent audio hack removed to prevent mixing/resampling stuttering issues
 
         // Register the comprehensive steering wheel key receiver
         if (!isCarKeyReceiverRegistered) {
@@ -1058,8 +1052,6 @@ class AapService : Service(), UsbReceiver.Listener {
         isSwitchingToAccessory.set(false)
         releaseWifiLock()
 
-        // Cleanup steering wheel and audio focus hacks
-        silentAudioPlayer?.stop()
         // Release any permanent audio focus we may have requested when connected
         releasePermanentAudioFocus()
         if (isCarKeyReceiverRegistered) {

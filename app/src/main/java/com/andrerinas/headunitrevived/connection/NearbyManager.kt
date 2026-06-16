@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import com.andrerinas.headunitrevived.utils.AppLog
 import com.andrerinas.headunitrevived.utils.Settings
 import com.google.android.gms.nearby.Nearby
+import com.google.android.gms.nearby.connection.BandwidthInfo
 import com.google.android.gms.nearby.connection.ConnectionInfo
 import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback
 import com.google.android.gms.nearby.connection.ConnectionResolution
@@ -51,6 +52,7 @@ class NearbyManager(
     private var activeNearbySocket: NearbySocket? = null
     private var activeEndpointId: String? = null
     private var activePipes: Array<android.os.ParcelFileDescriptor>? = null
+    private var upgradeTimeoutJob: kotlinx.coroutines.Job? = null
     private val settings = Settings(context)
 
     fun start() {
@@ -92,6 +94,8 @@ class NearbyManager(
         AppLog.i("NearbyManager: Stopping discovery and disconnecting from any active endpoint...")
         isRunning = false
         isConnecting = false
+        upgradeTimeoutJob?.cancel()
+        upgradeTimeoutJob = null
         connectionsClient.stopDiscovery()
         activeEndpointId?.let {
             connectionsClient.disconnectFromEndpoint(it)
@@ -197,7 +201,40 @@ class NearbyManager(
                 ConnectionsStatusCodes.STATUS_OK -> {
                     isConnecting = false
                     activeEndpointId = endpointId
+                    AppLog.i("NearbyManager: Connected successfully! Waiting up to 10s for bandwidth upgrade to HIGH quality (Wi-Fi)...")
+
+                    // Start a 10-second timeout for the Wi-Fi bandwidth upgrade
+                    upgradeTimeoutJob?.cancel()
+                    upgradeTimeoutJob = scope.launch {
+                        kotlinx.coroutines.delay(10_000)
+                        if (activeNearbySocket == null && activeEndpointId == endpointId) {
+                            AppLog.e("NearbyManager: Bandwidth upgrade timed out after 10s. Disconnecting to prevent Bluetooth fallback.")
+                            scope.launch(Dispatchers.Main) {
+                                android.widget.Toast.makeText(
+                                    context, 
+                                    "Google Nearby connection failed: Wi-Fi bandwidth upgrade timed out. Please check Wi-Fi & Bluetooth settings.", 
+                                    android.widget.Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            stop()
+                        }
+                    }
+                }
+                ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED -> AppLog.w("NearbyManager: Connection REJECTED by $endpointId")
+                ConnectionsStatusCodes.STATUS_ERROR -> AppLog.e("NearbyManager: Connection ERROR with $endpointId")
+                else -> AppLog.w("NearbyManager: Unknown connection result code: ${status.statusCode}")
+            }
+        }
+
+        override fun onBandwidthChanged(endpointId: String, bandwidthInfo: BandwidthInfo) {
+            AppLog.i("NearbyManager: Bandwidth changed for $endpointId: Quality=${bandwidthInfo.quality}")
+            if (bandwidthInfo.quality == BandwidthInfo.Quality.HIGH) {
+                if (activeEndpointId == endpointId && activeNearbySocket == null) {
+                    AppLog.i("NearbyManager: Wi-Fi Bandwidth Upgrade successful (Quality: HIGH). Initiating stream tunnel...")
                     
+                    upgradeTimeoutJob?.cancel()
+                    upgradeTimeoutJob = null
+
                     val socket = NearbySocket()
                     activeNearbySocket = socket
 
@@ -236,9 +273,6 @@ class NearbyManager(
                         onSocketReady(sock)
                     }
                 }
-                ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED -> AppLog.w("NearbyManager: Connection REJECTED by $endpointId")
-                ConnectionsStatusCodes.STATUS_ERROR -> AppLog.e("NearbyManager: Connection ERROR with $endpointId")
-                else -> AppLog.w("NearbyManager: Unknown connection result code: ${status.statusCode}")
             }
         }
 
@@ -247,6 +281,8 @@ class NearbyManager(
             if (activeEndpointId == endpointId) {
                 activeEndpointId = null
                 isConnecting = false
+                upgradeTimeoutJob?.cancel()
+                upgradeTimeoutJob = null
             }
         }
     }
