@@ -58,6 +58,17 @@ class VideoDecoder(private val settings: Settings) {
          * Used for MANUAL codec selection (User override).
          */
         fun isHevcSupported(): Boolean {
+            return isHevcDecoderAvailable(includeSoftware = false)
+        }
+
+        /**
+         * Checks if H.265 (HEVC) decoding is present.
+         *
+         * Hardware-only is still the default because software HEVC has no real-time
+         * performance guarantee. includeSoftware is used only for explicit user
+         * overrides before falling back to bundled/native decoders.
+         */
+        fun isHevcDecoderAvailable(includeSoftware: Boolean): Boolean {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return false
 
             val codecList = MediaCodecList(MediaCodecList.ALL_CODECS)
@@ -66,22 +77,26 @@ class VideoDecoder(private val settings: Settings) {
                 for (type in info.supportedTypes) {
                     if (type.equals("video/hevc", ignoreCase = true)) {
                         val name = info.name.lowercase()
-                        // Filter out known software codecs
                         val isSoftware = name.startsWith("omx.google.") ||
                                 name.startsWith("c2.android.") ||
                                 name.startsWith("omx.ffmpeg.") ||
                                 name.contains(".sw.") ||
                                 name.contains("software")
 
-                        if (!isSoftware) return true
+                        if (includeSoftware || !isSoftware) return true
                     }
                 }
             }
             return false
         }
+
+        fun isBundledHevcDecoderAvailable(): Boolean {
+            return FfmpegHevcDecoder.isAvailable()
+        }
     }
 
     private var codec: MediaCodec? = null
+    private var softwareHevcDecoder: FfmpegHevcDecoder? = null
     private var codecBufferInfo: MediaCodec.BufferInfo? = null
     private var mSurface: Surface? = null
     private var outputThread: Thread? = null
@@ -149,7 +164,7 @@ class VideoDecoder(private val settings: Settings) {
             if (mSurface === surface) return
             
             AppLog.i("New surface set: $surface")
-            if (codec != null) {
+            if (codec != null || softwareHevcDecoder != null) {
                 stop("New surface")
             }
             mSurface = surface
@@ -180,8 +195,14 @@ class VideoDecoder(private val settings: Settings) {
             } catch (e: Exception) {
                 AppLog.e("Error releasing decoder", e)
             }
+            try {
+                softwareHevcDecoder?.stop()
+            } catch (e: Exception) {
+                AppLog.e("Error releasing software HEVC decoder", e)
+            }
             
             codec = null
+            softwareHevcDecoder = null
             inputBuffers = null
             legacyFrameBuffer = null
             codecBufferInfo = null
@@ -236,9 +257,14 @@ class VideoDecoder(private val settings: Settings) {
 
 
             // Initialization phase: detect codec and configuration (SPS/PPS)
-            if (codec == null) {
+            if (codec == null && softwareHevcDecoder == null) {
                 val detectedType = detectCodecType(frameData, frameOffset, size)
-                val typeToUse = detectedType ?: if (codecName.contains("265")) CodecType.H265 else CodecType.H264
+                val requestedType = if (codecName.contains("265")) CodecType.H265 else CodecType.H264
+                val typeToUse = if (requestedType == CodecType.H265) {
+                    CodecType.H265
+                } else {
+                    detectedType ?: requestedType
+                }
                 currentCodecType = typeToUse
 
                 if (!codecConfigured) {
@@ -260,7 +286,22 @@ class VideoDecoder(private val settings: Settings) {
                 if (mSurface == null || !mSurface!!.isValid) return
                 if (mWidth == 0 || mHeight == 0) return 
                 
-                start(typeToUse.mimeType, settings.forceSoftwareDecoding || forceSoftware, mWidth, mHeight)
+                if (shouldUseBundledHevc(typeToUse, settings.forceSoftwareDecoding || forceSoftware)) {
+                    startBundledHevc(mWidth, mHeight)
+                } else {
+                    start(typeToUse.mimeType, settings.forceSoftwareDecoding || forceSoftware, mWidth, mHeight)
+                }
+            }
+
+            softwareHevcDecoder?.let { decoder ->
+                val renderedFrames = decoder.decode(frameData, frameOffset, size)
+                if (renderedFrames > 0) {
+                    onSoftwareFramesRendered(renderedFrames)
+                } else if (renderedFrames < 0) {
+                    AppLog.e("Bundled HEVC decoder failed with code $renderedFrames")
+                    scheduleRestart("software_hevc_error_$renderedFrames")
+                }
+                return
             }
 
             if (codec == null) return
@@ -278,6 +319,51 @@ class VideoDecoder(private val settings: Settings) {
                     return
                 }
             }
+        }
+    }
+
+    private fun shouldUseBundledHevc(type: CodecType, forceSoftware: Boolean): Boolean {
+        return type == CodecType.H265 &&
+                forceSoftware &&
+                settings.softwareVideoDecoder == Settings.SoftwareVideoDecoder.BUNDLED_FFMPEG &&
+                FfmpegHevcDecoder.isAvailable()
+    }
+
+    private fun startBundledHevc(width: Int, height: Int) {
+        try {
+            val surface = mSurface ?: return
+            AppLog.i("Configuring bundled FFmpeg HEVC decoder for ${width}x$height")
+            val decoder = FfmpegHevcDecoder(surface, width, height)
+            if (!decoder.start()) {
+                AppLog.e("Bundled FFmpeg HEVC decoder is unavailable")
+                return
+            }
+            softwareHevcDecoder = decoder
+            currentCodecName = "ffmpeg-hevc"
+            running = true
+            startTime = System.nanoTime()
+            AppLog.i("Bundled FFmpeg HEVC decoder initialized")
+        } catch (e: Exception) {
+            AppLog.e("Failed to start bundled FFmpeg HEVC decoder", e)
+            softwareHevcDecoder = null
+            running = false
+        }
+    }
+
+    private fun onSoftwareFramesRendered(renderedFrames: Int) {
+        lastFrameRenderedMs = SystemClock.elapsedRealtime()
+        onFirstFrameListener?.let { it(); onFirstFrameListener = null }
+
+        frameCount += renderedFrames
+        val now = System.currentTimeMillis()
+        val elapsed = now - lastFpsLogTime
+        if (elapsed >= 1000) {
+            if (lastFpsLogTime != 0L) {
+                val fps = (frameCount * 1000 / elapsed).toInt()
+                onFpsChanged?.invoke(fps)
+            }
+            frameCount = 0
+            lastFpsLogTime = now
         }
     }
 

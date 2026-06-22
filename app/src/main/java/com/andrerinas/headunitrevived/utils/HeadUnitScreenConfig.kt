@@ -197,6 +197,7 @@ object HeadUnitScreenConfig {
 
         val selectedResolution = Settings.Resolution.fromId(currentSettings.resolutionId)
         val isPortraitDisplay = screenHeightPx > screenWidthPx
+        val canNegotiateHevc = canNegotiateHevcHighResolution()
 
         // 1. Determine base negotiated resolution
         if (isResolutionLocked) {
@@ -223,7 +224,7 @@ object HeadUnitScreenConfig {
                     screenWidthPx <= 800 && screenHeightPx <= 480 -> Control.Service.MediaSinkService.VideoConfiguration.VideoCodecResolutionType._800x480
                     (screenWidthPx >= 3840 || screenHeightPx >= 2160) && VideoDecoder.isHevcSupported() && Build.VERSION.SDK_INT >= 24 -> 
                         Control.Service.MediaSinkService.VideoConfiguration.VideoCodecResolutionType._3840x2160
-                    (screenWidthPx >= 2560 || screenHeightPx >= 1440) && VideoDecoder.isHevcSupported() && Build.VERSION.SDK_INT >= 24 -> 
+                    (screenWidthPx >= 2560 || screenHeightPx >= 1440) && canNegotiateHevc && Build.VERSION.SDK_INT >= 24 ->
                         Control.Service.MediaSinkService.VideoConfiguration.VideoCodecResolutionType._2560x1440
                     screenWidthPx > 1280 || screenHeightPx > 720 -> Control.Service.MediaSinkService.VideoConfiguration.VideoCodecResolutionType._1920x1080
                     else -> Control.Service.MediaSinkService.VideoConfiguration.VideoCodecResolutionType._1280x720
@@ -291,6 +292,15 @@ object HeadUnitScreenConfig {
             resString.split("x")[1].toInt()
         } catch (e: Exception) {
             480
+        }
+    }
+
+    private fun canNegotiateHevcHighResolution(): Boolean {
+        if (VideoDecoder.isHevcSupported()) return true
+        if (currentSettings.videoCodec != "H.265" || !currentSettings.forceSoftwareDecoding) return false
+        return when (currentSettings.softwareVideoDecoder) {
+            Settings.SoftwareVideoDecoder.BUNDLED_FFMPEG -> VideoDecoder.isBundledHevcDecoderAvailable()
+            Settings.SoftwareVideoDecoder.DEVICE_MEDIACODEC -> VideoDecoder.isHevcDecoderAvailable(includeSoftware = true)
         }
     }
 

@@ -273,6 +273,13 @@ class Settings(private val context: Context) {
         get() = prefs.getBoolean("force-software-decoding", false)
         set(value) { prefs.edit().putBoolean("force-software-decoding", value).apply() }
 
+    var softwareVideoDecoder: SoftwareVideoDecoder
+        get() {
+            val value = prefs.getInt("software-video-decoder", SoftwareVideoDecoder.BUNDLED_FFMPEG.value)
+            return SoftwareVideoDecoder.fromInt(value) ?: SoftwareVideoDecoder.BUNDLED_FFMPEG
+        }
+        set(value) { prefs.edit().putInt("software-video-decoder", value.value).apply() }
+
     var rightHandDrive: Boolean
         get() = prefs.getBoolean("right-hand-drive", false)
         set(value) { prefs.edit().putBoolean("right-hand-drive", value).apply() }
@@ -571,6 +578,16 @@ class Settings(private val context: Context) {
                 get() = values().map { it.resName }.toTypedArray()
             val allResolutions: Array<Resolution>
                 get() = values()
+        }
+    }
+
+    enum class SoftwareVideoDecoder(val value: Int) {
+        DEVICE_MEDIACODEC(0),
+        BUNDLED_FFMPEG(1);
+
+        companion object {
+            private val map = values().associateBy(SoftwareVideoDecoder::value)
+            fun fromInt(value: Int) = map[value]
         }
     }
 

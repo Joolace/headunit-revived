@@ -46,8 +46,22 @@ class ServiceDiscoveryResponse(private val context: Context)
             val video = Control.Service.newBuilder().also { service ->
                 service.id = Channel.ID_VID
                 service.mediaSinkService = Control.Service.MediaSinkService.newBuilder().also { mediaSinkServiceBuilder ->
+                    val explicitSoftwareHevc =
+                        settings.videoCodec == "H.265" &&
+                                settings.forceSoftwareDecoding &&
+                                when (settings.softwareVideoDecoder) {
+                                    com.andrerinas.headunitrevived.utils.Settings.SoftwareVideoDecoder.BUNDLED_FFMPEG ->
+                                        com.andrerinas.headunitrevived.decoder.VideoDecoder.isBundledHevcDecoderAvailable()
+                                    com.andrerinas.headunitrevived.utils.Settings.SoftwareVideoDecoder.DEVICE_MEDIACODEC ->
+                                        com.andrerinas.headunitrevived.decoder.VideoDecoder.isHevcDecoderAvailable(includeSoftware = true)
+                                }
+                    val hevcAvailableForUserChoice =
+                        com.andrerinas.headunitrevived.decoder.VideoDecoder.isHevcSupported() || explicitSoftwareHevc
+                    val hevcAvailableForHighResolution =
+                        com.andrerinas.headunitrevived.decoder.VideoDecoder.isHevcReliable() || explicitSoftwareHevc
+
                     val codecToRequest = when (settings.videoCodec) {
-                        "H.265" -> if (com.andrerinas.headunitrevived.decoder.VideoDecoder.isHevcSupported()) {
+                        "H.265" -> if (hevcAvailableForUserChoice) {
                             Media.MediaCodecType.MEDIA_CODEC_VIDEO_H265
                         } else {
                             Media.MediaCodecType.MEDIA_CODEC_VIDEO_H264_BP
@@ -71,10 +85,11 @@ class ServiceDiscoveryResponse(private val context: Context)
                     val phoneWidthMargin = HeadUnitScreenConfig.getWidthMargin()
                     val phoneHeightMargin = HeadUnitScreenConfig.getHeightMargin()
 
-                    // Enforce H.265 for 1440p resolution as required by Android Auto, but ONLY if hardware supports it
+                    // Enforce H.265 for 1440p resolution as required by Android Auto.
+                    // Software HEVC is allowed only when the user explicitly selected it.
                     val effectiveCodec = if ((negotiatedResolution == Control.Service.MediaSinkService.VideoConfiguration.VideoCodecResolutionType._2560x1440 ||
                         negotiatedResolution == Control.Service.MediaSinkService.VideoConfiguration.VideoCodecResolutionType._1440x2560) &&
-                        com.andrerinas.headunitrevived.decoder.VideoDecoder.isHevcReliable()) {
+                        hevcAvailableForHighResolution) {
                         AppLog.i("Resolution is 1440p -> Enforcing H.265 codec")
                         Media.MediaCodecType.MEDIA_CODEC_VIDEO_H265
                     } else {
