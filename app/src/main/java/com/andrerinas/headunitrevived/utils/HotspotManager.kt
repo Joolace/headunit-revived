@@ -10,6 +10,7 @@ import android.util.Log
 import com.android.dx.DexMaker
 import com.android.dx.TypeId
 import java.lang.reflect.Method
+import com.andrerinas.headunitrevived.utils.SoftApConfigCompat
 
 /**
  * Manages WiFi Hotspot (tethering) using reflection + dexmaker.
@@ -37,10 +38,15 @@ object HotspotManager {
             }
         }
 
-        if (tryConnectivityManager(context, enabled)) return true
+        // Use SoftApConfiguration for Android 30+ if available
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (SoftApConfigCompat.enableHotspot(context, enabled)) return true
+        }
+        // Newer API: TetheringManager (official) before ConnectivityManager fallback
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (tryTetheringManager(context, enabled)) return true
         }
+        if (tryConnectivityManager(context, enabled)) return true
         if (tryLegacyWifiManager(context, enabled)) return true
 
         AppLog.w("HotspotManager: All hotspot attempts failed.")
@@ -80,7 +86,7 @@ object HotspotManager {
                 else -> false
             }
         } catch (e: Exception) {
-            AppLog.e("HotspotManager: CM path failed: ${e.message}")
+            AppLog.e("HotspotManager: CM path failed", e)
             return false
         }
     }
@@ -116,7 +122,7 @@ object HotspotManager {
 
             return generatedClass.getDeclaredConstructor().newInstance()
         } catch (e: Exception) {
-            AppLog.e("HotspotManager: Dexmaker failed: ${e.message}")
+            AppLog.e("HotspotManager: Dexmaker failed", e)
             return null
         }
     }
@@ -135,7 +141,10 @@ object HotspotManager {
                 stopMethod?.invoke(tm, 0)
                 return true
             }
-        } catch (e: Exception) { return false }
+        } catch (e: Exception) {
+            AppLog.e("HotspotManager: TetheringManager path failed", e)
+            return false
+        }
     }
 
     private fun tryLegacyWifiManager(context: Context, enabled: Boolean): Boolean {
