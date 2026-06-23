@@ -118,8 +118,10 @@ class VideoDecoder(private val settings: Settings) {
 
     var dimensionsListener: VideoDimensionsListener? = null
     var onFpsChanged: ((Int) -> Unit)? = null
+    var softwareYuvFrameSink: SoftwareYuvFrameSink? = null
     private var frameCount = 0
     private var lastFpsLogTime = 0L
+    private var loggedFirstSoftwareFrame = false
     @Volatile var onFirstFrameListener: (() -> Unit)? = null
     @Volatile var lastFrameRenderedMs: Long = 0L
 
@@ -216,6 +218,7 @@ class VideoDecoder(private val settings: Settings) {
             }
             // Keep VPS/SPS/PPS cached so we can re-inject them on restart
             lastFrameRenderedMs = 0L
+            loggedFirstSoftwareFrame = false
             AppLog.i("Decoder stopped: $reason")
         }
     }
@@ -333,7 +336,17 @@ class VideoDecoder(private val settings: Settings) {
         try {
             val surface = mSurface ?: return
             AppLog.i("Configuring bundled FFmpeg HEVC decoder for ${width}x$height")
-            val decoder = FfmpegHevcDecoder(surface, width, height)
+            val yuvFrameSink = if (settings.viewMode == Settings.ViewMode.GLES) {
+                softwareYuvFrameSink
+            } else {
+                null
+            }
+            val decoder = FfmpegHevcDecoder(
+                surface = if (yuvFrameSink == null) surface else null,
+                yuvFrameSink = yuvFrameSink,
+                width = width,
+                height = height
+            )
             if (!decoder.start()) {
                 AppLog.e("Bundled FFmpeg HEVC decoder is unavailable")
                 return
@@ -352,6 +365,10 @@ class VideoDecoder(private val settings: Settings) {
 
     private fun onSoftwareFramesRendered(renderedFrames: Int) {
         lastFrameRenderedMs = SystemClock.elapsedRealtime()
+        if (!loggedFirstSoftwareFrame) {
+            loggedFirstSoftwareFrame = true
+            AppLog.i("First bundled software HEVC frame rendered")
+        }
         onFirstFrameListener?.let { it(); onFirstFrameListener = null }
 
         frameCount += renderedFrames

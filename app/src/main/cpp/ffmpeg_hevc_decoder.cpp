@@ -16,6 +16,7 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavutil/avutil.h>
 #include <libavutil/imgutils.h>
+#include <libavutil/pixdesc.h>
 #include <libswscale/swscale.h>
 }
 #endif
@@ -25,11 +26,22 @@ namespace {
 #if HUR_HAVE_FFMPEG
 class HevcDecoder {
 public:
-    HevcDecoder(ANativeWindow* outputWindow, int fallbackWidth, int fallbackHeight, int threadCount)
-        : window(outputWindow), requestedWidth(fallbackWidth), requestedHeight(fallbackHeight), threads(threadCount) {}
+    HevcDecoder(JNIEnv* env, ANativeWindow* outputWindow, jobject yuvCallback, int fallbackWidth, int fallbackHeight, int threadCount)
+        : window(outputWindow), requestedWidth(fallbackWidth), requestedHeight(fallbackHeight), threads(threadCount) {
+        env->GetJavaVM(&javaVm);
+        if (yuvCallback != nullptr) {
+            callback = env->NewGlobalRef(yuvCallback);
+            jclass callbackClass = env->GetObjectClass(yuvCallback);
+            onYuvFrameMethod = env->GetMethodID(
+                callbackClass,
+                "onNativeYuv420Frame",
+                "(IILjava/nio/ByteBuffer;ILjava/nio/ByteBuffer;ILjava/nio/ByteBuffer;I)Z");
+            env->DeleteLocalRef(callbackClass);
+        }
+    }
 
     ~HevcDecoder() {
-        release();
+        release(nullptr);
     }
 
     bool start() {
@@ -66,7 +78,7 @@ public:
             return false;
         }
 
-        if (requestedWidth > 0 && requestedHeight > 0) {
+        if (window != nullptr && requestedWidth > 0 && requestedHeight > 0) {
             ANativeWindow_setBuffersGeometry(window, requestedWidth, requestedHeight, WINDOW_FORMAT_RGBA_8888);
         }
         return true;
@@ -92,26 +104,40 @@ public:
         int result = avcodec_send_packet(codecContext, packet);
         av_packet_unref(packet);
         if (result == AVERROR(EAGAIN)) {
-            return receiveFrames();
+            return receiveFrames(env);
         }
         if (result < 0) {
             LOGE("avcodec_send_packet failed: %d", result);
             return -4;
         }
 
-        return receiveFrames();
+        return receiveFrames(env);
     }
 
-    void release() {
+    void release(JNIEnv* env) {
+        JNIEnv* effectiveEnv = env;
+        if (effectiveEnv == nullptr && javaVm != nullptr) {
+            javaVm->GetEnv(reinterpret_cast<void**>(&effectiveEnv), JNI_VERSION_1_6);
+        }
         if (swsContext != nullptr) {
             sws_freeContext(swsContext);
             swsContext = nullptr;
         }
+        if (yuvSwsContext != nullptr) {
+            sws_freeContext(yuvSwsContext);
+            yuvSwsContext = nullptr;
+        }
         if (rgbaBuffer != nullptr) {
             av_freep(&rgbaBuffer);
         }
+        if (yuvBuffer != nullptr) {
+            av_freep(&yuvBuffer);
+        }
         if (rgbaFrame != nullptr) {
             av_frame_free(&rgbaFrame);
+        }
+        if (yuvFrame != nullptr) {
+            av_frame_free(&yuvFrame);
         }
         if (frame != nullptr) {
             av_frame_free(&frame);
@@ -126,10 +152,14 @@ public:
             ANativeWindow_release(window);
             window = nullptr;
         }
+        if (callback != nullptr && effectiveEnv != nullptr) {
+            effectiveEnv->DeleteGlobalRef(callback);
+            callback = nullptr;
+        }
     }
 
 private:
-    int receiveFrames() {
+    int receiveFrames(JNIEnv* env) {
         int rendered = 0;
         while (true) {
             const int result = avcodec_receive_frame(codecContext, frame);
@@ -140,7 +170,7 @@ private:
                 LOGE("avcodec_receive_frame failed: %d", result);
                 return -5;
             }
-            if (!renderFrame()) {
+            if (!renderFrame(env)) {
                 av_frame_unref(frame);
                 return -6;
             }
@@ -183,9 +213,20 @@ private:
         return true;
     }
 
-    bool renderFrame() {
+    bool renderFrame(JNIEnv* env) {
         const int width = frame->width > 0 ? frame->width : codecContext->width;
         const int height = frame->height > 0 ? frame->height : codecContext->height;
+
+        if (callback != nullptr) {
+            logYuvFrameFormat(width, height);
+            return renderYuvFrame(env, width, height);
+        }
+
+        if (window == nullptr) {
+            LOGE("No output window configured");
+            return false;
+        }
+
         if (!ensureRgbaBuffer(width, height)) {
             LOGE("Failed to prepare RGBA buffer for %dx%d", width, height);
             return false;
@@ -241,18 +282,144 @@ private:
         return true;
     }
 
+    bool renderYuvFrame(JNIEnv* env, int width, int height) {
+        if (env == nullptr || callback == nullptr || onYuvFrameMethod == nullptr) {
+            return false;
+        }
+
+        AVFrame* outputFrame = frame;
+        if (frame->format != AV_PIX_FMT_YUV420P && frame->format != AV_PIX_FMT_YUVJ420P) {
+            if (!ensureYuv420Frame(width, height)) {
+                LOGE("Failed to prepare YUV420 conversion frame for format %d", frame->format);
+                return false;
+            }
+            yuvSwsContext = sws_getCachedContext(
+                yuvSwsContext,
+                width,
+                height,
+                static_cast<AVPixelFormat>(frame->format),
+                width,
+                height,
+                AV_PIX_FMT_YUV420P,
+                SWS_FAST_BILINEAR,
+                nullptr,
+                nullptr,
+                nullptr);
+            if (yuvSwsContext == nullptr) {
+                LOGE("Failed to create YUV swscale context");
+                return false;
+            }
+            sws_scale(
+                yuvSwsContext,
+                frame->data,
+                frame->linesize,
+                0,
+                height,
+                yuvFrame->data,
+                yuvFrame->linesize);
+            outputFrame = yuvFrame;
+        }
+
+        jobject yBuffer = env->NewDirectByteBuffer(outputFrame->data[0], outputFrame->linesize[0] * height);
+        jobject uBuffer = env->NewDirectByteBuffer(outputFrame->data[1], outputFrame->linesize[1] * (height / 2));
+        jobject vBuffer = env->NewDirectByteBuffer(outputFrame->data[2], outputFrame->linesize[2] * (height / 2));
+        if (yBuffer == nullptr || uBuffer == nullptr || vBuffer == nullptr) {
+            if (yBuffer != nullptr) env->DeleteLocalRef(yBuffer);
+            if (uBuffer != nullptr) env->DeleteLocalRef(uBuffer);
+            if (vBuffer != nullptr) env->DeleteLocalRef(vBuffer);
+            return false;
+        }
+
+        const jboolean accepted = env->CallBooleanMethod(
+            callback,
+            onYuvFrameMethod,
+            width,
+            height,
+            yBuffer,
+            outputFrame->linesize[0],
+            uBuffer,
+            outputFrame->linesize[1],
+            vBuffer,
+            outputFrame->linesize[2]);
+        env->DeleteLocalRef(yBuffer);
+        env->DeleteLocalRef(uBuffer);
+        env->DeleteLocalRef(vBuffer);
+        return accepted == JNI_TRUE && !env->ExceptionCheck();
+    }
+
+    void logYuvFrameFormat(int width, int height) {
+        if (loggedYuvFrameFormat) return;
+        loggedYuvFrameFormat = true;
+        const char* name = av_get_pix_fmt_name(static_cast<AVPixelFormat>(frame->format));
+        LOGI("FFmpeg output frame format=%s(%d) size=%dx%d linesizes=%d/%d/%d color_range=%d colorspace=%d",
+             name != nullptr ? name : "unknown",
+             frame->format,
+             width,
+             height,
+             frame->linesize[0],
+             frame->linesize[1],
+             frame->linesize[2],
+             frame->color_range,
+             frame->colorspace);
+    }
+
+    bool ensureYuv420Frame(int width, int height) {
+        if (yuvFrame != nullptr && yuvBuffer != nullptr && yuvWidth == width && yuvHeight == height) {
+            return true;
+        }
+        if (yuvBuffer != nullptr) {
+            av_freep(&yuvBuffer);
+        }
+        if (yuvFrame == nullptr) {
+            yuvFrame = av_frame_alloc();
+            if (yuvFrame == nullptr) {
+                return false;
+            }
+        }
+        const int bufferSize = av_image_get_buffer_size(AV_PIX_FMT_YUV420P, width, height, 1);
+        if (bufferSize <= 0) {
+            return false;
+        }
+        yuvBuffer = static_cast<uint8_t*>(av_malloc(bufferSize));
+        if (yuvBuffer == nullptr) {
+            return false;
+        }
+        if (av_image_fill_arrays(
+                yuvFrame->data,
+                yuvFrame->linesize,
+                yuvBuffer,
+                AV_PIX_FMT_YUV420P,
+                width,
+                height,
+                1) < 0) {
+            return false;
+        }
+        yuvWidth = width;
+        yuvHeight = height;
+        return true;
+    }
+
     ANativeWindow* window = nullptr;
+    JavaVM* javaVm = nullptr;
+    jobject callback = nullptr;
+    jmethodID onYuvFrameMethod = nullptr;
     AVCodecContext* codecContext = nullptr;
     AVPacket* packet = nullptr;
     AVFrame* frame = nullptr;
     AVFrame* rgbaFrame = nullptr;
+    AVFrame* yuvFrame = nullptr;
     SwsContext* swsContext = nullptr;
+    SwsContext* yuvSwsContext = nullptr;
     uint8_t* rgbaBuffer = nullptr;
+    uint8_t* yuvBuffer = nullptr;
     int rgbaWidth = 0;
     int rgbaHeight = 0;
+    int yuvWidth = 0;
+    int yuvHeight = 0;
     int requestedWidth = 0;
     int requestedHeight = 0;
     int threads = 2;
+    bool loggedYuvFrameFormat = false;
 };
 #endif
 
@@ -271,15 +438,24 @@ Java_com_andrerinas_headunitrevived_decoder_FfmpegHevcDecoder_00024Companion_nat
 
 extern "C" JNIEXPORT jlong JNICALL
 Java_com_andrerinas_headunitrevived_decoder_FfmpegHevcDecoder_00024Companion_nativeCreate(
-    JNIEnv* env, jobject, jobject surface, jint width, jint height, jint threadCount) {
+    JNIEnv* env, jobject, jobject surface, jobject callback, jboolean useYuvCallback, jint width, jint height, jint threadCount) {
 #if HUR_HAVE_FFMPEG
-    ANativeWindow* window = ANativeWindow_fromSurface(env, surface);
-    if (window == nullptr) {
+    ANativeWindow* window = nullptr;
+    if (surface != nullptr) {
+        window = ANativeWindow_fromSurface(env, surface);
+    }
+    if (window == nullptr && useYuvCallback != JNI_TRUE) {
         LOGE("ANativeWindow_fromSurface failed");
         return 0;
     }
 
-    auto decoder = std::make_unique<HevcDecoder>(window, width, height, threadCount);
+    auto decoder = std::make_unique<HevcDecoder>(
+        env,
+        window,
+        useYuvCallback == JNI_TRUE ? callback : nullptr,
+        width,
+        height,
+        threadCount);
     if (!decoder->start()) {
         return 0;
     }
@@ -287,6 +463,8 @@ Java_com_andrerinas_headunitrevived_decoder_FfmpegHevcDecoder_00024Companion_nat
 #else
     (void)env;
     (void)surface;
+    (void)callback;
+    (void)useYuvCallback;
     (void)width;
     (void)height;
     (void)threadCount;
@@ -314,11 +492,15 @@ Java_com_andrerinas_headunitrevived_decoder_FfmpegHevcDecoder_00024Companion_nat
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_andrerinas_headunitrevived_decoder_FfmpegHevcDecoder_00024Companion_nativeRelease(
-    JNIEnv*, jobject, jlong handle) {
+    JNIEnv* env, jobject, jlong handle) {
 #if HUR_HAVE_FFMPEG
     auto* decoder = reinterpret_cast<HevcDecoder*>(handle);
+    if (decoder != nullptr) {
+        decoder->release(env);
+    }
     delete decoder;
 #else
+    (void)env;
     (void)handle;
 #endif
 }

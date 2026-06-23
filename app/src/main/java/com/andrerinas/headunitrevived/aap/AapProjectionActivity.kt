@@ -31,6 +31,7 @@ import com.andrerinas.headunitrevived.app.SurfaceActivity
 import com.andrerinas.headunitrevived.connection.CommManager
 import com.andrerinas.headunitrevived.contract.KeyIntent
 import kotlinx.coroutines.launch
+import com.andrerinas.headunitrevived.decoder.SoftwareYuvFrameSink
 import com.andrerinas.headunitrevived.decoder.VideoDecoder
 import com.andrerinas.headunitrevived.decoder.VideoDimensionsListener
 import com.andrerinas.headunitrevived.utils.AppLog
@@ -220,6 +221,8 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
             AppLog.i("Recreating projection view due to settings change...")
             val container = findViewById<FrameLayout>(R.id.container)
             if (::projectionView.isInitialized) {
+                videoDecoder.softwareYuvFrameSink = null
+                videoDecoder.stop("projectionViewRecreate")
                 container.removeView(projectionView as View)
             }
             isSurfaceSet = false
@@ -655,6 +658,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
 
     private fun hideLoadingOverlay(loadingOverlay: View?) {
         overlayState = OverlayState.HIDDEN
+        AppLog.i("Hiding loading overlay after first video frame")
 
         // CRITICAL: Stop custom video FIRST — VideoView/SurfaceView has its own
         // rendering layer that ignores parent alpha animations and can stay visible
@@ -1149,6 +1153,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
         stopPerformanceOverlayUpdates()
         AppLog.i("AapProjectionActivity.onDestroy called. isFinishing=$isFinishing")
         App.isPiPActive = false
+        videoDecoder.softwareYuvFrameSink = null
         videoDecoder.dimensionsListener = null
     }
 
@@ -1203,7 +1208,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
             container.setBackgroundColor(Color.BLACK)
         } else if (settings.viewMode == Settings.ViewMode.GLES) {
             AppLog.i("Using GlProjectionView")
-            val glView = com.andrerinas.headunitrevived.view.GlProjectionView(this)
+            val glView = GlProjectionView(this)
             glView.layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
@@ -1223,6 +1228,10 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
 
         val view = projectionView as View
         container.addView(view)
+        videoDecoder.softwareYuvFrameSink = projectionView as? SoftwareYuvFrameSink
+        if (videoDecoder.softwareYuvFrameSink != null) {
+            AppLog.i("Using GLES YUV sink for bundled software HEVC")
+        }
 
         projectionView.addCallback(this)
     }

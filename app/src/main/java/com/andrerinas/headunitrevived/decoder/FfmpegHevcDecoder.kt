@@ -3,9 +3,11 @@ package com.andrerinas.headunitrevived.decoder
 import android.os.SystemClock
 import android.view.Surface
 import com.andrerinas.headunitrevived.utils.AppLog
+import java.nio.ByteBuffer
 
 class FfmpegHevcDecoder(
-    private val surface: Surface,
+    private val surface: Surface?,
+    private val yuvFrameSink: SoftwareYuvFrameSink?,
     private val width: Int,
     private val height: Int
 ) {
@@ -23,12 +25,12 @@ class FfmpegHevcDecoder(
             AppLog.e("FFmpeg HEVC decoder is not available. Package FFmpeg headers/libs for this ABI.")
             return false
         }
-        if (!surface.isValid) {
+        if (yuvFrameSink == null && surface?.isValid != true) {
             AppLog.e("FFmpeg HEVC decoder cannot start: surface is invalid")
             return false
         }
 
-        nativeHandle = nativeCreate(surface, width, height, recommendedThreadCount())
+        nativeHandle = nativeCreate(surface, this, yuvFrameSink != null, width, height, recommendedThreadCount())
         if (nativeHandle == 0L) {
             AppLog.e("FFmpeg HEVC decoder failed to initialize")
             return false
@@ -55,6 +57,20 @@ class FfmpegHevcDecoder(
         return cores.coerceIn(2, 4)
     }
 
+    @Suppress("unused")
+    private fun onNativeYuv420Frame(
+        width: Int,
+        height: Int,
+        yPlane: ByteBuffer,
+        yStride: Int,
+        uPlane: ByteBuffer,
+        uStride: Int,
+        vPlane: ByteBuffer,
+        vStride: Int
+    ): Boolean {
+        return yuvFrameSink?.renderYuv420Frame(width, height, yPlane, yStride, uPlane, uStride, vPlane, vStride) == true
+    }
+
     companion object {
         private val libraryLoaded: Boolean = try {
             System.loadLibrary("hur_soft_hevc")
@@ -69,7 +85,7 @@ class FfmpegHevcDecoder(
         }
 
         private external fun nativeIsAvailable(): Boolean
-        private external fun nativeCreate(surface: Surface, width: Int, height: Int, threadCount: Int): Long
+        private external fun nativeCreate(surface: Surface?, callback: FfmpegHevcDecoder, useYuvCallback: Boolean, width: Int, height: Int, threadCount: Int): Long
         private external fun nativeDecode(handle: Long, buffer: ByteArray, offset: Int, size: Int, presentationTimeUs: Long): Int
         private external fun nativeRelease(handle: Long)
     }

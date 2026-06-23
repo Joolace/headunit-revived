@@ -9,6 +9,7 @@ import android.opengl.Matrix
 import android.os.Handler
 import android.os.Looper
 import android.view.Surface
+import com.andrerinas.headunitrevived.decoder.SoftwareYuvFrameSink
 import com.andrerinas.headunitrevived.utils.AppLog
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -16,7 +17,7 @@ import java.nio.FloatBuffer
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionView {
+class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionView, SoftwareYuvFrameSink {
 
     private val renderer: VideoRenderer
     private val callbacks = mutableListOf<IProjectionView.Callbacks>()
@@ -60,6 +61,19 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
         renderer.setDesaturation(value)
     }
 
+    override fun renderYuv420Frame(
+        width: Int,
+        height: Int,
+        yPlane: ByteBuffer,
+        yStride: Int,
+        uPlane: ByteBuffer,
+        uStride: Int,
+        vPlane: ByteBuffer,
+        vStride: Int
+    ): Boolean {
+        return renderer.queueYuv420Frame(width, height, yPlane, yStride, uPlane, uStride, vPlane, vStride)
+    }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         renderer.release()
@@ -71,6 +85,8 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
         
         private var textureId: Int = 0
         private var program: Int = 0
+        private var yuvProgram: Int = 0
+        private val yuvTextureIds = IntArray(3)
         
         private var mVPMatrix = FloatArray(16)
         private var sSTMatrix = FloatArray(16)
@@ -112,6 +128,27 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
             }
         """
 
+        private val yuvFragmentShaderCode = """
+            precision mediump float;
+            varying vec2 vTextureCoord;
+            uniform sampler2D yTexture;
+            uniform sampler2D uTexture;
+            uniform sampler2D vTexture;
+            uniform float uDesaturation;
+            void main() {
+                float y = 1.164383 * (texture2D(yTexture, vTextureCoord).r - 0.0625);
+                float u = texture2D(uTexture, vTextureCoord).r - 0.5;
+                float v = texture2D(vTexture, vTextureCoord).r - 0.5;
+                vec3 rgb;
+                rgb.r = y + 1.792741 * v;
+                rgb.g = y - 0.213249 * u - 0.532909 * v;
+                rgb.b = y + 2.112402 * u;
+                rgb = clamp(rgb, 0.0, 1.0);
+                float gray = dot(rgb, vec3(0.299, 0.587, 0.114));
+                gl_FragColor = vec4(mix(rgb, vec3(gray), uDesaturation), 1.0);
+            }
+        """
+
         private var vertexBuffer: FloatBuffer? = null
         private val squareCoords = floatArrayOf(
             -1.0f, -1.0f, 0.0f, // bottom left
@@ -127,12 +164,27 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
             1f, 1f
         )
         private var textureBuffer: FloatBuffer? = null
+        private val yuvTextureCoords = floatArrayOf(
+            0f, 1f,
+            1f, 1f,
+            0f, 0f,
+            1f, 0f
+        )
+        private var yuvTextureBuffer: FloatBuffer? = null
 
         private var maPositionHandle = 0
         private var maTextureHandle = 0
         private var muMVPMatrixHandle = 0
         private var muSTMatrixHandle = 0
         private var muDesaturationHandle = 0
+        private var yuvPositionHandle = 0
+        private var yuvTextureHandle = 0
+        private var yuvMVPMatrixHandle = 0
+        private var yuvSTMatrixHandle = 0
+        private var yuvDesaturationHandle = 0
+        private var yTextureHandle = 0
+        private var uTextureHandle = 0
+        private var vTextureHandle = 0
 
         @Volatile
         private var desaturation = 0.0f
@@ -142,8 +194,84 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
         }
 
         private var updateSurface = false
+        private var hasYuvFrame = false
+        private var pendingYuvFrame = false
+        private var yuvWidth = 0
+        private var yuvHeight = 0
+        private var uploadedYuvWidth = 0
+        private var uploadedYuvHeight = 0
+        private var yPlaneBuffer: ByteBuffer? = null
+        private var uPlaneBuffer: ByteBuffer? = null
+        private var vPlaneBuffer: ByteBuffer? = null
+        private var loggedFirstYuvFrame = false
+        private var loggedFirstYuvUpload = false
+        private var loggedFirstYuvDraw = false
 
         fun getSurface(): Surface? = surface
+
+        fun queueYuv420Frame(
+            width: Int,
+            height: Int,
+            yPlane: ByteBuffer,
+            yStride: Int,
+            uPlane: ByteBuffer,
+            uStride: Int,
+            vPlane: ByteBuffer,
+            vStride: Int
+        ): Boolean {
+            if (width <= 0 || height <= 0) return false
+            synchronized(this) {
+                ensureYuvBuffers(width, height)
+                copyPlane(yPlane, yStride, yPlaneBuffer!!, width, height)
+                copyPlane(uPlane, uStride, uPlaneBuffer!!, width / 2, height / 2)
+                copyPlane(vPlane, vStride, vPlaneBuffer!!, width / 2, height / 2)
+                yuvWidth = width
+                yuvHeight = height
+                hasYuvFrame = true
+                pendingYuvFrame = true
+                if (!loggedFirstYuvFrame) {
+                    loggedFirstYuvFrame = true
+                    AppLog.i("GlProjectionView: first YUV420 frame queued ${width}x$height strides=$yStride/$uStride/$vStride")
+                }
+            }
+            requestRender()
+            return true
+        }
+
+        private fun ensureYuvBuffers(width: Int, height: Int) {
+            val ySize = width * height
+            val chromaWidth = width / 2
+            val chromaHeight = height / 2
+            val chromaSize = chromaWidth * chromaHeight
+            if (yPlaneBuffer?.capacity() != ySize) {
+                yPlaneBuffer = ByteBuffer.allocateDirect(ySize)
+            }
+            if (uPlaneBuffer?.capacity() != chromaSize) {
+                uPlaneBuffer = ByteBuffer.allocateDirect(chromaSize)
+            }
+            if (vPlaneBuffer?.capacity() != chromaSize) {
+                vPlaneBuffer = ByteBuffer.allocateDirect(chromaSize)
+            }
+        }
+
+        private fun copyPlane(source: ByteBuffer, sourceStride: Int, dest: ByteBuffer, width: Int, height: Int) {
+            dest.clear()
+            val duplicate = source.duplicate()
+            if (sourceStride == width) {
+                duplicate.position(0)
+                duplicate.limit(width * height)
+                dest.put(duplicate)
+                dest.position(0)
+                return
+            }
+            for (y in 0 until height) {
+                val rowStart = y * sourceStride
+                duplicate.position(rowStart)
+                duplicate.limit(rowStart + width)
+                dest.put(duplicate)
+            }
+            dest.position(0)
+        }
 
         fun release() {
             surface?.let { s ->
@@ -178,6 +306,14 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
             GLES20.glAttachShader(program, vertexShader)
             GLES20.glAttachShader(program, fragmentShader)
             GLES20.glLinkProgram(program)
+            checkProgram(program, "OES")
+
+            val yuvFragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, yuvFragmentShaderCode)
+            yuvProgram = GLES20.glCreateProgram()
+            GLES20.glAttachShader(yuvProgram, vertexShader)
+            GLES20.glAttachShader(yuvProgram, yuvFragmentShader)
+            GLES20.glLinkProgram(yuvProgram)
+            checkProgram(yuvProgram, "YUV")
             
             // Get handles
             maPositionHandle = GLES20.glGetAttribLocation(program, "aPosition")
@@ -185,6 +321,24 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
             muMVPMatrixHandle = GLES20.glGetUniformLocation(program, "uMVPMatrix")
             muSTMatrixHandle = GLES20.glGetUniformLocation(program, "uSTMatrix")
             muDesaturationHandle = GLES20.glGetUniformLocation(program, "uDesaturation")
+            yuvPositionHandle = GLES20.glGetAttribLocation(yuvProgram, "aPosition")
+            yuvTextureHandle = GLES20.glGetAttribLocation(yuvProgram, "aTextureCoord")
+            yuvMVPMatrixHandle = GLES20.glGetUniformLocation(yuvProgram, "uMVPMatrix")
+            yuvSTMatrixHandle = GLES20.glGetUniformLocation(yuvProgram, "uSTMatrix")
+            yuvDesaturationHandle = GLES20.glGetUniformLocation(yuvProgram, "uDesaturation")
+            yTextureHandle = GLES20.glGetUniformLocation(yuvProgram, "yTexture")
+            uTextureHandle = GLES20.glGetUniformLocation(yuvProgram, "uTexture")
+            vTextureHandle = GLES20.glGetUniformLocation(yuvProgram, "vTexture")
+            AppLog.i("GlProjectionView: YUV handles pos=$yuvPositionHandle tex=$yuvTextureHandle mvp=$yuvMVPMatrixHandle st=$yuvSTMatrixHandle y=$yTextureHandle u=$uTextureHandle v=$vTextureHandle")
+
+            GLES20.glGenTextures(3, yuvTextureIds, 0)
+            for (id in yuvTextureIds) {
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, id)
+                GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR)
+                GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
+                GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE)
+                GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE)
+            }
 
             // Buffers
             val bb = ByteBuffer.allocateDirect(squareCoords.size * 4)
@@ -198,6 +352,12 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
             textureBuffer = bbT.asFloatBuffer()
             textureBuffer?.put(textureCoords)
             textureBuffer?.position(0)
+
+            val bbYuvT = ByteBuffer.allocateDirect(yuvTextureCoords.size * 4)
+            bbYuvT.order(ByteOrder.nativeOrder())
+            yuvTextureBuffer = bbYuvT.asFloatBuffer()
+            yuvTextureBuffer?.put(yuvTextureCoords)
+            yuvTextureBuffer?.position(0)
 
             // Create Surface
             surfaceTexture = SurfaceTexture(textureId)
@@ -230,6 +390,12 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
             
             GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
             GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
+
+            val shouldDrawYuv = synchronized(this) { hasYuvFrame }
+            if (shouldDrawYuv) {
+                drawYuvFrame()
+                return
+            }
             
             GLES20.glUseProgram(program)
             
@@ -253,6 +419,90 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
             GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
         }
 
+        private fun drawYuvFrame() {
+            val width: Int
+            val height: Int
+            synchronized(this) {
+                width = yuvWidth
+                height = yuvHeight
+                if (pendingYuvFrame) {
+                    GLES20.glPixelStorei(GLES20.GL_UNPACK_ALIGNMENT, 1)
+                    uploadYuvPlane(0, yuvTextureIds[0], yPlaneBuffer!!, width, height)
+                    uploadYuvPlane(1, yuvTextureIds[1], uPlaneBuffer!!, width / 2, height / 2)
+                    uploadYuvPlane(2, yuvTextureIds[2], vPlaneBuffer!!, width / 2, height / 2)
+                    uploadedYuvWidth = width
+                    uploadedYuvHeight = height
+                    pendingYuvFrame = false
+                    if (!loggedFirstYuvUpload) {
+                        loggedFirstYuvUpload = true
+                        AppLog.i("GlProjectionView: first YUV420 frame uploaded ${width}x$height")
+                    }
+                }
+            }
+
+            GLES20.glUseProgram(yuvProgram)
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, yuvTextureIds[0])
+            GLES20.glUniform1i(yTextureHandle, 0)
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE1)
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, yuvTextureIds[1])
+            GLES20.glUniform1i(uTextureHandle, 1)
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE2)
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, yuvTextureIds[2])
+            GLES20.glUniform1i(vTextureHandle, 2)
+
+            vertexBuffer?.position(0)
+            GLES20.glVertexAttribPointer(yuvPositionHandle, 3, GLES20.GL_FLOAT, false, 3 * 4, vertexBuffer)
+            GLES20.glEnableVertexAttribArray(yuvPositionHandle)
+
+            yuvTextureBuffer?.position(0)
+            GLES20.glVertexAttribPointer(yuvTextureHandle, 2, GLES20.GL_FLOAT, false, 2 * 4, yuvTextureBuffer)
+            GLES20.glEnableVertexAttribArray(yuvTextureHandle)
+
+            Matrix.setIdentityM(mVPMatrix, 0)
+            Matrix.scaleM(mVPMatrix, 0, mScaleX, mScaleY, 1f)
+            GLES20.glUniformMatrix4fv(yuvMVPMatrixHandle, 1, false, mVPMatrix, 0)
+            Matrix.setIdentityM(sSTMatrix, 0)
+            GLES20.glUniformMatrix4fv(yuvSTMatrixHandle, 1, false, sSTMatrix, 0)
+            GLES20.glUniform1f(yuvDesaturationHandle, desaturation)
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
+            if (!loggedFirstYuvDraw) {
+                loggedFirstYuvDraw = true
+                AppLog.i("GlProjectionView: first YUV420 frame drawn")
+            }
+        }
+
+        private fun uploadYuvPlane(index: Int, textureId: Int, buffer: ByteBuffer, width: Int, height: Int) {
+            buffer.position(0)
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + index)
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId)
+            if (uploadedYuvWidth != yuvWidth || uploadedYuvHeight != yuvHeight) {
+                GLES20.glTexImage2D(
+                    GLES20.GL_TEXTURE_2D,
+                    0,
+                    GLES20.GL_LUMINANCE,
+                    width,
+                    height,
+                    0,
+                    GLES20.GL_LUMINANCE,
+                    GLES20.GL_UNSIGNED_BYTE,
+                    buffer
+                )
+            } else {
+                GLES20.glTexSubImage2D(
+                    GLES20.GL_TEXTURE_2D,
+                    0,
+                    0,
+                    0,
+                    width,
+                    height,
+                    GLES20.GL_LUMINANCE,
+                    GLES20.GL_UNSIGNED_BYTE,
+                    buffer
+                )
+            }
+        }
+
         override fun onFrameAvailable(surfaceTexture: SurfaceTexture?) {
             synchronized(this) {
                 updateSurface = true
@@ -264,7 +514,22 @@ class GlProjectionView(context: Context) : GLSurfaceView(context), IProjectionVi
             val shader = GLES20.glCreateShader(type)
             GLES20.glShaderSource(shader, shaderCode)
             GLES20.glCompileShader(shader)
+            val status = IntArray(1)
+            GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, status, 0)
+            if (status[0] == 0) {
+                AppLog.e("GlProjectionView: shader compile failed: ${GLES20.glGetShaderInfoLog(shader)}")
+                GLES20.glDeleteShader(shader)
+                return 0
+            }
             return shader
+        }
+
+        private fun checkProgram(programId: Int, label: String) {
+            val status = IntArray(1)
+            GLES20.glGetProgramiv(programId, GLES20.GL_LINK_STATUS, status, 0)
+            if (status[0] == 0) {
+                AppLog.e("GlProjectionView: $label program link failed: ${GLES20.glGetProgramInfoLog(programId)}")
+            }
         }
     }
 }
