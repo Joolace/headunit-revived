@@ -46,8 +46,8 @@ object SoftApConfigCompat {
             val ssid = Settings(context).autoStartWifiSsid.ifEmpty { "HeadunitHotspot" }
             builderClass.getMethod("setSsid", String::class.java).invoke(builder, ssid)
 
-            // Use a default WPA2‑PSK password – can be made configurable later
-            val password = "12345678"
+            // Retrieve password from Settings (fallback to default)
+            val password = Settings(context).hotspotPassword.ifEmpty { "12345678" }
             // 0 = WPA2_PSK as per SoftApConfiguration constants
             builderClass.getMethod("setPassphrase", String::class.java, Int::class.javaPrimitiveType)
                 .invoke(builder, password, 1) // 1 = WPA2_PSK
