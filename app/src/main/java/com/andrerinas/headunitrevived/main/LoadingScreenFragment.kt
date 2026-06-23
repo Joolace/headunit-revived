@@ -447,6 +447,7 @@ class LoadingScreenFragment : Fragment() {
         }
 
         val dir = File(ctx.filesDir, "loading_media")
+        dir.listFiles()?.forEach { try { it.delete() } catch (e: Exception) {} }
         val destFile = File(dir, "loading_screen_${System.currentTimeMillis()}.$ext")
 
         // The media file can be up to 10 MB and may live on slow storage (SD
