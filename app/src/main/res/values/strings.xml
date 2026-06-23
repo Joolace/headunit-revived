@@ -585,4 +585,6 @@
     <string name="hotspot_qr_description">Wireless Helper Configuration QR Code</string>
     <string name="scan_with_wireless_helper">Scan this QR Code using the QR Scanner in Wireless Helper on your phone.</string>
     <string name="share_hotspot_qr_error">Could not retrieve active Wi-Fi hotspot credentials. Please ensure your hotspot is turned on and Location is enabled.</string>
+    <string name="use_libusb">Use Native USB Driver</string>
+    <string name="use_libusb_description">Use libusb for communication. Disable to use Android\'s standard USB API.</string>
 </resources>

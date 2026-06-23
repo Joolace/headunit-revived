@@ -9,7 +9,7 @@ import com.andrerinas.headunitrevived.utils.AppLog
 
 class UsbAccessoryMode(private val usbMgr: UsbManager) {
 
-    fun connectAndSwitch(device: UsbDevice): Boolean {
+    fun connectAndSwitch(device: UsbDevice, useLibusb: Boolean = false): Boolean {
         val connection: UsbDeviceConnection?
         try {
             connection = usbMgr.openDevice(device)                 // Open device for connection
@@ -23,7 +23,21 @@ class UsbAccessoryMode(private val usbMgr: UsbManager) {
             return false
         }
 
-        val result = switch(connection)
+        val result = if (useLibusb) {
+            AppLog.i("UsbAccessoryMode: Performing AOA switch via native libusb...")
+            val native = UsbNative()
+            if (native.wrap(connection, 0, 0)) {
+                val switchResult = native.accModeSwitch() == 0
+                native.close()
+                switchResult
+            } else {
+                AppLog.e("UsbAccessoryMode: Failed to wrap device for native AOA switch")
+                native.close()
+                false
+            }
+        } else {
+            switch(connection)
+        }
         connection.close()
 
         AppLog.i("Result: $result")

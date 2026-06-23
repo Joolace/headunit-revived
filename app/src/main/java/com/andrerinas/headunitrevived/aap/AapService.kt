@@ -1789,10 +1789,11 @@ class AapService : Service(), UsbReceiver.Listener {
             } else {
                 isSwitchingToAccessory.set(true)
                 val usbManager = getSystemService(Context.USB_SERVICE) as UsbManager
+                val settings = App.provide(this).settings
                 val usbMode = UsbAccessoryMode(usbManager)
                 serviceScope.launch(Dispatchers.IO) {
                     try {
-                        if (usbMode.connectAndSwitch(device)) {
+                        if (usbMode.connectAndSwitch(device, settings.useLibusb)) {
                             AppLog.i("Successfully requested switch to accessory mode for $deviceName")
                         } else {
                             AppLog.w("USB permission granted but connectAndSwitch failed for $deviceName")
@@ -1840,11 +1841,12 @@ class AapService : Service(), UsbReceiver.Listener {
         if (accessoryHandshakeFailures > MAX_STALE_ACCESSORY_RETRIES) {
             AppLog.i("Stale accessory detected: forcing re-enumeration via AOA descriptors for $deviceName")
             accessoryHandshakeFailures = 0
+            val settings = App.provide(this).settings
             val usbMode = UsbAccessoryMode(usbManager)
             isSwitchingToAccessory.set(true)
             serviceScope.launch(Dispatchers.IO) {
                 try {
-                    if (usbMode.connectAndSwitch(accessoryDevice)) {
+                    if (usbMode.connectAndSwitch(accessoryDevice, settings.useLibusb)) {
                         AppLog.i("AOA re-enumeration requested for stale device $deviceName")
                     } else {
                         AppLog.w("AOA re-enumeration failed for $deviceName")
@@ -1916,7 +1918,7 @@ class AapService : Service(), UsbReceiver.Listener {
                         val usbMode = UsbAccessoryMode(usbManager)
                         serviceScope.launch(Dispatchers.IO) {
                             try {
-                                if (usbMode.connectAndSwitch(device)) {
+                                if (usbMode.connectAndSwitch(device, settings.useLibusb)) {
                                     AppLog.i("Successfully requested switch to accessory mode for ${deviceCompat.uniqueName}")
                                 } else {
                                     AppLog.w("connectAndSwitch failed for ${deviceCompat.uniqueName}")
@@ -1987,7 +1989,7 @@ class AapService : Service(), UsbReceiver.Listener {
             val usbMode = UsbAccessoryMode(usbManager)
             serviceScope.launch(Dispatchers.IO) {
                 try {
-                    if (usbMode.connectAndSwitch(device)) {
+                    if (usbMode.connectAndSwitch(device, settings.useLibusb)) {
                         AppLog.i("Successfully requested switch to accessory mode for single USB device. Waiting for re-enumeration...")
                     } else {
                         AppLog.w("Single USB auto-connect: connectAndSwitch failed for $deviceName")

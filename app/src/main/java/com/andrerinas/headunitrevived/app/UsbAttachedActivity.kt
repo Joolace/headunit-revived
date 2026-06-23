@@ -152,10 +152,9 @@ class UsbAttachedActivity : Activity() {
         val usbMode = UsbAccessoryMode(usbManager)
         AppLog.i("Switching USB device to accessory mode " + deviceCompat.uniqueName)
         Toast.makeText(this, getString(R.string.switching_usb_accessory_mode, deviceCompat.uniqueName), Toast.LENGTH_SHORT).show()
-        // Run the USB control transfers on a background thread — they block for several
-        // hundred ms and must not execute on the main thread (ANR risk).
+        val useLibusb = settings?.useLibusb ?: false
         Thread {
-            val result = usbMode.connectAndSwitch(device)
+            val result = usbMode.connectAndSwitch(device, useLibusb)
             runOnUiThread {
                 if (result) {
                     Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()

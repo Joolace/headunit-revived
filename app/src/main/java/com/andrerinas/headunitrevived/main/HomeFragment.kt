@@ -395,8 +395,9 @@ class HomeFragment : Fragment() {
                 } else {
                     if (usbManager.hasPermission(device.wrappedDevice)) {
                         val usbMode = UsbAccessoryMode(usbManager)
+                        val useLibusb = App.provide(requireContext()).settings.useLibusb
                         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                            val success = usbMode.connectAndSwitch(device.wrappedDevice)
+                            val success = usbMode.connectAndSwitch(device.wrappedDevice, useLibusb)
                             withContext(Dispatchers.Main) {
                                 context?.let { ctx ->
                                     if (success) {

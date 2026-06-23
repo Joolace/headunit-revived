@@ -158,7 +158,8 @@ class CommManager(
      * Used by AapService to decide whether a USB detach event should trigger a disconnect.
      */
     fun isConnectedToUsbDevice(device: UsbDevice): Boolean =
-        (_connection as? UsbAccessoryConnection)?.isDeviceRunning(device) == true
+        (_connection as? UsbAccessoryConnection)?.isDeviceRunning(device) == true ||
+        (_connection as? LibusbAccessoryConnection)?.isDeviceRunning(device) == true
 
     // -----------------------------------------------------------------------------------------
     // connect() overloads — one for each transport type
@@ -190,7 +191,11 @@ class CommManager(
         try {
             _connectionState.emit(ConnectionState.Connecting)
             _connection?.disconnect()
-            _connection = UsbAccessoryConnection(usbManager, device)
+            _connection = if (settings.useLibusb) {
+                LibusbAccessoryConnection(usbManager, device)
+            } else {
+                UsbAccessoryConnection(usbManager, device)
+            }
 
             if (_connection?.connect() ?: false) {
                 settings.saveLastConnection(type = Settings.CONNECTION_TYPE_USB, usbDevice = UsbDeviceCompat.getUniqueName(device))

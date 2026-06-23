@@ -63,6 +63,13 @@ android {
         buildConfig = true
     }
 
+    externalNativeBuild {
+        cmake {
+            path("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
+    }
+
     val copyRootAssets = tasks.register<Copy>("copyRootAssets") {
         from("${project.rootDir}/CHANGELOG.md", "${project.rootDir}/LICENSE")
         into("${project.layout.buildDirectory.get().asFile}/generated/assets/root")

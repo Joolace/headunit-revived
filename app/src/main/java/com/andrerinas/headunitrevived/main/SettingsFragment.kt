@@ -73,6 +73,7 @@ class SettingsFragment : Fragment() {
     private var pendingMicInputSource: Int? = null
     private var pendingEnableRotary: Boolean? = null
     private var pendingAudioLatencyMultiplier: Int? = null
+    private var pendingUseLibusb: Boolean? = null
     private var pendingAudioQueueCapacity: Int? = null
     private var pendingShowFpsCounter: Boolean? = null
     private var pendingScreenOrientation: Settings.ScreenOrientation? = null
@@ -183,6 +184,7 @@ class SettingsFragment : Fragment() {
         pendingKillOnDisconnect = settings.killOnDisconnect
         pendingAutoEnableHotspot = settings.autoEnableHotspot
         pendingFakeSpeed = settings.fakeSpeed
+        pendingUseLibusb = settings.useLibusb
 
         pendingWifiConnectionMode = settings.wifiConnectionMode
         pendingHelperConnectionStrategy = settings.helperConnectionStrategy
@@ -261,6 +263,7 @@ class SettingsFragment : Fragment() {
         pendingKillOnDisconnect = settings.killOnDisconnect
         pendingAutoEnableHotspot = settings.autoEnableHotspot
         pendingFakeSpeed = settings.fakeSpeed
+        pendingUseLibusb = settings.useLibusb
         pendingWifiConnectionMode = settings.wifiConnectionMode
         pendingHelperConnectionStrategy = settings.helperConnectionStrategy
         pendingWaitForWifi = settings.waitForWifiBeforeWifiDirect
@@ -376,6 +379,7 @@ class SettingsFragment : Fragment() {
         pendingKillOnDisconnect?.let { settings.killOnDisconnect = it }
         pendingAutoEnableHotspot?.let { settings.autoEnableHotspot = it }
         pendingFakeSpeed?.let { settings.fakeSpeed = it }
+        pendingUseLibusb?.let { settings.useLibusb = it }
 
         val oldWifiMode = settings.wifiConnectionMode
         val oldHelperStrategy = settings.helperConnectionStrategy
@@ -468,7 +472,8 @@ class SettingsFragment : Fragment() {
                         pendingHelperConnectionStrategy != settings.helperConnectionStrategy ||
                         pendingWaitForWifi != settings.waitForWifiBeforeWifiDirect ||
                         pendingWaitForWifiTimeout != settings.waitForWifiTimeout ||
-                        pendingBluetoothManagerServiceName != settings.bluetoothManagerServiceName
+                        pendingBluetoothManagerServiceName != settings.bluetoothManagerServiceName ||
+                        pendingUseLibusb != settings.useLibusb
 
         hasChanges = anyChange
 
@@ -489,7 +494,8 @@ class SettingsFragment : Fragment() {
                           pendingInsetTop != settings.insetTop ||
                           pendingInsetRight != settings.insetRight ||
                           pendingInsetBottom != settings.insetBottom ||
-                          pendingWifiConnectionMode != settings.wifiConnectionMode
+                          pendingWifiConnectionMode != settings.wifiConnectionMode ||
+                          pendingUseLibusb != settings.useLibusb
 
         updateSaveButtonState()
     }
@@ -804,6 +810,18 @@ class SettingsFragment : Fragment() {
                     checkChanges()
                     updateSettingsList()
                 }
+            }
+        ))
+
+        items.add(SettingItem.ToggleSettingEntry(
+            stableId = "useLibusb",
+            nameResId = R.string.use_libusb,
+            descriptionResId = R.string.use_libusb_description,
+            isChecked = pendingUseLibusb!!,
+            onCheckedChanged = { isChecked ->
+                pendingUseLibusb = isChecked
+                checkChanges()
+                updateSettingsList()
             }
         ))
 

@@ -586,4 +586,6 @@
     <string name="reset_settings_discard_pending">Beim Zurücksetzen werden ungespeicherte Änderungen verworfen. Fortfahren?</string>
     <string name="settings_reset">Einstellungen auf Standardwerte zurückgesetzt</string>
     <string name="settings_reset_failed">Zurücksetzen der Einstellungen fehlgeschlagen: %1$s</string>
+    <string name="use_libusb">Nativen USB-Treiber nutzen</string>
+    <string name="use_libusb_description">Nutzt libusb für die USB-Verbindung. Deaktivieren, um die Android-Standard-USB-API zu nutzen.</string>
 </resources>

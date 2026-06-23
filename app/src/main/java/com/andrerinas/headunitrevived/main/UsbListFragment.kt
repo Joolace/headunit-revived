@@ -182,7 +182,7 @@ class UsbListFragment : Fragment() {
                     val usbManager = mContext.getSystemService(Context.USB_SERVICE) as UsbManager
                     if (usbManager.hasPermission(device.wrappedDevice)) {
                         val usbMode = UsbAccessoryMode(usbManager)
-                        if (usbMode.connectAndSwitch(device.wrappedDevice)) {
+                        if (usbMode.connectAndSwitch(device.wrappedDevice, mSettings.useLibusb)) {
                             Toast.makeText(mContext, R.string.switching_to_android_auto, Toast.LENGTH_SHORT).show()
                             (mContext as? MainActivity)?.beginAutoConnect(
                                 "manual USB list (AOA switch)",
