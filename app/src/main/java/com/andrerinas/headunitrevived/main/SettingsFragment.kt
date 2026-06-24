@@ -579,6 +579,18 @@ class SettingsFragment : Fragment() {
             }
         ))
 
+        items.add(SettingItem.ToggleSettingEntry(
+            stableId = "useLibusb",
+            nameResId = R.string.use_libusb,
+            descriptionResId = R.string.use_libusb_description,
+            isChecked = pendingUseLibusb!!,
+            onCheckedChanged = { isChecked ->
+                pendingUseLibusb = isChecked
+                checkChanges()
+                updateSettingsList()
+            }
+        ))
+
         // --- Wireless Connection ---
         items.add(SettingItem.CategoryHeader("wirelessConnection", R.string.category_wireless))
 
@@ -810,18 +822,6 @@ class SettingsFragment : Fragment() {
                     checkChanges()
                     updateSettingsList()
                 }
-            }
-        ))
-
-        items.add(SettingItem.ToggleSettingEntry(
-            stableId = "useLibusb",
-            nameResId = R.string.use_libusb,
-            descriptionResId = R.string.use_libusb_description,
-            isChecked = pendingUseLibusb!!,
-            onCheckedChanged = { isChecked ->
-                pendingUseLibusb = isChecked
-                checkChanges()
-                updateSettingsList()
             }
         ))
 

@@ -584,4 +584,7 @@
     <string name="log_source">로그 소스</string>
     <string name="log_source_logcat">Logcat</string>
     <string name="log_source_applog_file">파일로 직접 저장</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">네이티브 USB 드라이버 사용</string>
+    <string name="use_libusb_description">통신에 libusb를 사용합니다. Android의 표준 USB API를 사용하려면 비활성화하세요.</string>
 </resources>

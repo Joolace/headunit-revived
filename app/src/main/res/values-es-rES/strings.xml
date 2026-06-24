@@ -585,4 +585,7 @@
     <!-- Wireless Helper hotspot QR -->
     <string name="hotspot_ssid_hint">SSID del punto de acceso</string>
     <string name="hotspot_pass_hint">Contraseña del punto de acceso</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">Usar controlador USB nativo</string>
+    <string name="use_libusb_description">Usa libusb para la comunicación. Desactívalo para usar la API USB estándar de Android.</string>
 </resources>

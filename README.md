@@ -63,6 +63,9 @@ adb shell am start -a android.intent.action.VIEW -d "headunit://connect?ip=192.1
 - more customization options for the UI and the app itself
 
 ## Changelog
+### v.3.1.0
+- Added libusb as alternative to the native usb stack for better compatibility with some devices
+
 ### v.3.0.1
 - Fixed: App Exit on Disconnect
 - Enhanced: USB Workflow. This will hopefully eliminate some random usb disconnects

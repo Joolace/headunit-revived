@@ -577,4 +577,7 @@
     <string name="settings_reset_failed">Obnovení nastavení selhalo: %1$s</string>
     <string name="hotspot_ssid_hint">SSID hotspotu</string>
     <string name="hotspot_pass_hint">Heslo hotspotu</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">Použít nativní USB ovladač</string>
+    <string name="use_libusb_description">Použít libusb pro komunikaci. Vypnutím použijete standardní USB API pro Android.</string>
 </resources>

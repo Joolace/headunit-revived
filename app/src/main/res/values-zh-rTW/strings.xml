@@ -577,4 +577,7 @@
     <string name="settings_reset_failed">設定重設失敗：%1$s</string>
     <string name="hotspot_ssid_hint">熱點 SSID</string>
     <string name="hotspot_pass_hint">熱點密碼</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">使用原生 USB 驅動程式</string>
+    <string name="use_libusb_description">使用 libusb 進行通訊。停用以使用 Android 的標準 USB API。</string>
 </resources>

@@ -577,4 +577,7 @@
     <string name="settings_reset_failed">Herstellen van instellingen mislukt: %1$s</string>
     <string name="hotspot_ssid_hint">Hotspot-SSID</string>
     <string name="hotspot_pass_hint">Hotspot-wachtwoord</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">Gebruik native USB-stuurprogramma</string>
+    <string name="use_libusb_description">Gebruik libusb voor communicatie. Uitschakelen om de standaard USB-API van Android te gebruiken.</string>
 </resources>

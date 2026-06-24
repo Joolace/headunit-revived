@@ -578,4 +578,7 @@
     <string name="settings_reset_failed">Resetarea setărilor a eșuat: %1$s</string>
     <string name="hotspot_ssid_hint">SSID hotspot</string>
     <string name="hotspot_pass_hint">Parola hotspot</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">Utilizați driverul USB nativ</string>
+    <string name="use_libusb_description">Utilizează libusb pentru comunicare. Dezactivați pentru a utiliza API-ul USB standard Android.</string>
 </resources>

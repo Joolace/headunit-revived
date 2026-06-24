@@ -584,4 +584,7 @@
     <string name="settings_reset_failed">Ripristino delle impostazioni non riuscito: %1$s</string>
     <string name="hotspot_ssid_hint">SSID hotspot</string>
     <string name="hotspot_pass_hint">Password hotspot</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">Usa driver USB nativo</string>
+    <string name="use_libusb_description">Usa libusb per la comunicazione. Disattiva per utilizzare l\'API USB standard di Android.</string>
 </resources>

@@ -585,4 +585,7 @@
     <string name="settings_reset_failed">設定のリセットに失敗しました: %1$s</string>
     <string name="hotspot_ssid_hint">ホットスポット SSID</string>
     <string name="hotspot_pass_hint">ホットスポットのパスワード</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">ネイティブUSBドライバーを使用する</string>
+    <string name="use_libusb_description">通信にlibusbを使用します。Androidの標準USB APIを使用するには無効にしてください。</string>
 </resources>

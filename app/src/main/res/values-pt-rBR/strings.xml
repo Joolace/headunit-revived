@@ -578,4 +578,7 @@
     <string name="settings_reset_failed">Falha ao redefinir configurações: %1$s</string>
     <string name="hotspot_ssid_hint">SSID do hotspot</string>
     <string name="hotspot_pass_hint">Senha do hotspot</string>
+    <!-- Native USB Driver -->
+    <string name="use_libusb">Usar driver USB nativo</string>
+    <string name="use_libusb_description">Usa libusb para comunicação. Desative para usar a API USB padrão do Android.</string>
 </resources>
