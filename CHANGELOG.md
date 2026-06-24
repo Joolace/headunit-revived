@@ -1,10 +1,11 @@
 # Changelog
-### v.3.0.1-alpha
+### v.3.0.1
 - Fixed: App Exit on Disconnect
 - Enhanced: USB Workflow. This will hopefully eliminate some random usb disconnects
 - Fixed keyboard input on Android < 6 Devices
 - Enhanced WiFi Direct-Mode
 - Enhanced File Selector for some devices
+- Fixed some fatal errors, showing in play console
 
 ### v.3.0.0
 - Added: Custom loading screen (image/GIF/video), thanks to @andrecuellar

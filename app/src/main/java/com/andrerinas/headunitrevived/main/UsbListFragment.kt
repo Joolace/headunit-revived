@@ -148,7 +148,11 @@ class UsbListFragment : Fragment() {
             }
             lastClickTime = SystemClock.elapsedRealtime()
 
-            val device = deviceList.get(v.tag as Int)
+            val position = v.tag as? Int ?: return
+            if (position < 0 || position >= deviceList.size) {
+                return
+            }
+            val device = deviceList[position]
             if (v.id == android.R.id.button1) {
                 if (allowedDevices.contains(device.uniqueName)) {
                     allowedDevices.remove(device.uniqueName)
