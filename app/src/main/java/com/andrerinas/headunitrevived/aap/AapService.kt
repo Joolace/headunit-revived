@@ -1317,7 +1317,7 @@ class AapService : Service(), UsbReceiver.Listener {
     private fun initWifiModeWithOptionalWait() {
         val settings = App.provide(this).settings
 
-        if (settings.wifiConnectionMode != 2 || !settings.waitForWifiBeforeWifiDirect) {
+        if (settings.wifiConnectionMode != 2 || settings.helperConnectionStrategy != 1 || !settings.waitForWifiBeforeWifiDirect) {
             initWifiMode()
             return
         }

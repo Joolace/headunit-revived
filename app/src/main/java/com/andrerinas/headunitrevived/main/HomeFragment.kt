@@ -228,17 +228,21 @@ class HomeFragment : Fragment() {
 
         return when (connectionType) {
             Settings.CONNECTION_TYPE_WIFI -> {
-                val ip = appSettings.lastConnectionIp
-                if (ip.isNotEmpty()) {
-                    AppLog.i("Auto-connect: Attempting WiFi connection to $ip")
-                    Toast.makeText(requireContext(), getString(R.string.auto_connecting_to, ip), Toast.LENGTH_SHORT).show()
-                    val ctx = requireContext()
-                    lifecycleScope.launch(Dispatchers.IO) { App.provide(ctx).commManager.connect(ip, 5277) }
-                    ContextCompat.startForegroundService(ctx, Intent(ctx, AapService::class.java).apply {
-                        action = AapService.ACTION_CONNECT_SOCKET
-                    })
-                    true
-                } else false
+                if (appSettings.wifiConnectionMode == 1) {
+                    val ip = appSettings.lastConnectionIp
+                    if (ip.isNotEmpty()) {
+                        AppLog.i("Auto-connect: Attempting WiFi connection to $ip")
+                        Toast.makeText(ctx, getString(R.string.auto_connecting_to, ip), Toast.LENGTH_SHORT).show()
+                        lifecycleScope.launch(Dispatchers.IO) { App.provide(ctx).commManager.connect(ip, 5277) }
+                        ContextCompat.startForegroundService(ctx, Intent(ctx, AapService::class.java).apply {
+                            action = AapService.ACTION_CONNECT_SOCKET
+                        })
+                        true
+                    } else false
+                } else {
+                    AppLog.i("Auto-connect: Last session was WiFi, but connection mode is not Headunit Server. Skipping active connect.")
+                    false
+                }
             }
             Settings.CONNECTION_TYPE_USB -> {
                 val lastUsbDevice = appSettings.lastConnectionUsbDevice
