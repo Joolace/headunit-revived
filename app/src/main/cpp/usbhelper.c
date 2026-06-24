@@ -56,9 +56,12 @@ Java_com_andrerinas_headunitrevived_connection_UsbNative_claimInterface(JNIEnv *
 }
 
 JNIEXPORT jint JNICALL
-Java_com_andrerinas_headunitrevived_connection_UsbNative_nativeWrite(JNIEnv *env, jobject thiz, jlong handle_ptr, jbyteArray data, jint endpoint, jint timeout) {
+Java_com_andrerinas_headunitrevived_connection_UsbNative_nativeWrite(JNIEnv *env, jobject thiz, jlong handle_ptr, jbyteArray data, jint length, jint endpoint, jint timeout) {
     libusb_device_handle *handle = (libusb_device_handle *)handle_ptr;
-    jsize len = (*env)->GetArrayLength(env, data);
+    jsize array_len = (*env)->GetArrayLength(env, data);
+    if (length > array_len) {
+        length = array_len;
+    }
     jbyte *buf = (*env)->GetByteArrayElements(env, data, NULL);
     if (!buf) {
         LOGE("nativeWrite: GetByteArrayElements returned NULL");
@@ -66,7 +69,7 @@ Java_com_andrerinas_headunitrevived_connection_UsbNative_nativeWrite(JNIEnv *env
     }
     
     int transferred = 0;
-    int r = libusb_bulk_transfer(handle, (unsigned char)endpoint, (unsigned char *)buf, len, &transferred, timeout);
+    int r = libusb_bulk_transfer(handle, (unsigned char)endpoint, (unsigned char *)buf, length, &transferred, timeout);
     
     (*env)->ReleaseByteArrayElements(env, data, buf, JNI_ABORT);
     if (r < 0) {
@@ -76,35 +79,28 @@ Java_com_andrerinas_headunitrevived_connection_UsbNative_nativeWrite(JNIEnv *env
     return transferred;
 }
 
-JNIEXPORT jbyteArray JNICALL
-Java_com_andrerinas_headunitrevived_connection_UsbNative_nativeRead(JNIEnv *env, jobject thiz, jlong handle_ptr, jint endpoint, jint timeout) {
+JNIEXPORT jint JNICALL
+Java_com_andrerinas_headunitrevived_connection_UsbNative_nativeRead(JNIEnv *env, jobject thiz, jlong handle_ptr, jbyteArray jbuf, jint endpoint, jint timeout) {
     libusb_device_handle *handle = (libusb_device_handle *)handle_ptr;
-    
-    int buf_size = 163840;
-    unsigned char *buffer = malloc(buf_size);
+    jsize buf_size = (*env)->GetArrayLength(env, jbuf);
+    jbyte *buffer = (*env)->GetByteArrayElements(env, jbuf, NULL);
     if (!buffer) {
-        LOGE("nativeRead: failed to allocate memory");
-        return NULL;
+        LOGE("nativeRead: GetByteArrayElements returned NULL");
+        return -2;
     }
     
     int transferred = 0;
-    int r = libusb_bulk_transfer(handle, (unsigned char)endpoint, buffer, buf_size, &transferred, timeout);
+    int r = libusb_bulk_transfer(handle, (unsigned char)endpoint, (unsigned char *)buffer, buf_size, &transferred, timeout);
     
-    if (r < 0 && r != LIBUSB_ERROR_TIMEOUT) {
-        LOGE("libusb_bulk_transfer read failed: %d", r);
-        free(buffer);
-        return NULL;
+    (*env)->ReleaseByteArrayElements(env, jbuf, buffer, 0);
+    if (r < 0) {
+        if (r != LIBUSB_ERROR_TIMEOUT) {
+            LOGE("libusb_bulk_transfer read failed: %d", r);
+            return r;
+        }
+        return 0;
     }
-    
-    if (transferred < 0) transferred = 0;
-    else if (transferred > buf_size) transferred = buf_size;
-    
-    jbyteArray arr = (*env)->NewByteArray(env, transferred);
-    if (arr != NULL && transferred > 0) {
-        (*env)->SetByteArrayRegion(env, arr, 0, transferred, (jbyte *)buffer);
-    }
-    free(buffer);
-    return arr;
+    return transferred;
 }
 
 JNIEXPORT void JNICALL

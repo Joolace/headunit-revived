@@ -55,23 +55,23 @@ class UsbNative {
         }
     }
 
-    fun write(data: ByteArray, timeout: Int): Int {
+    fun write(data: ByteArray, length: Int, timeout: Int): Int {
         if (handlePtr == 0L) return -1
         return try {
-            nativeWrite(handlePtr, data, epOut, timeout)
+            nativeWrite(handlePtr, data, length, epOut, timeout)
         } catch (e: Throwable) {
             AppLog.e("UsbNative: Exception during write: ${e.message}")
             -1
         }
     }
 
-    fun read(timeout: Int): ByteArray? {
-        if (handlePtr == 0L) return null
+    fun read(buffer: ByteArray, timeout: Int): Int {
+        if (handlePtr == 0L) return -1
         return try {
-            nativeRead(handlePtr, epIn, timeout)
+            nativeRead(handlePtr, buffer, epIn, timeout)
         } catch (e: Throwable) {
             AppLog.e("UsbNative: Exception during read: ${e.message}")
-            null
+            -1
         }
     }
 
@@ -118,8 +118,8 @@ class UsbNative {
     private external fun wrapDevice(ctx: Long, fd: Int): Long
     private external fun detachKernel(handle: Long, iface: Int): Int
     private external fun claimInterface(handle: Long, iface: Int): Int
-    private external fun nativeWrite(handle: Long, data: ByteArray, endpoint: Int, timeout: Int): Int
-    private external fun nativeRead(handle: Long, endpoint: Int, timeout: Int): ByteArray?
+    private external fun nativeWrite(handle: Long, data: ByteArray, length: Int, endpoint: Int, timeout: Int): Int
+    private external fun nativeRead(handle: Long, jbuf: ByteArray, endpoint: Int, timeout: Int): Int
     private external fun nativeResetDevice(handle: Long)
     private external fun closeDevice(handle: Long)
     private external fun exitContext(ctx: Long)

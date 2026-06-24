@@ -19,7 +19,8 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
     private var usbNative: UsbNative? = null
 
     // Leftover buffer — serves read data without truncation
-    private var leftoverBuffer: ByteArray? = null
+    private val readBuffer = ByteArray(163840)
+    private var leftoverSize = 0
     private var leftoverPos = 0
 
     override val isSingleMessage: Boolean
@@ -138,15 +139,14 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
             usbInterface = null
             endpointIn = null
             endpointOut = null
-            leftoverBuffer = null
+            leftoverSize = 0
             leftoverPos = 0
         }
     }
 
     override fun sendBlocking(buf: ByteArray, length: Int, timeout: Int): Int {
         val native = usbNative ?: return -1
-        val data = if (buf.size == length) buf else buf.copyOfRange(0, length)
-        return native.write(data, timeout)
+        return native.write(buf, length, timeout)
     }
 
     override fun recvBlocking(buf: ByteArray, length: Int, timeout: Int, readFully: Boolean): Int {
@@ -154,16 +154,15 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
         var totalReturned = 0
 
         while (totalReturned < length) {
-            val leftover = leftoverBuffer
-            if (leftover != null) {
-                val available = leftover.size - leftoverPos
+            if (leftoverSize > 0) {
+                val available = leftoverSize - leftoverPos
                 val toCopy = minOf(length - totalReturned, available)
-                System.arraycopy(leftover, leftoverPos, buf, totalReturned, toCopy)
+                System.arraycopy(readBuffer, leftoverPos, buf, totalReturned, toCopy)
                 leftoverPos += toCopy
                 totalReturned += toCopy
 
-                if (leftoverPos >= leftover.size) {
-                    leftoverBuffer = null
+                if (leftoverPos >= leftoverSize) {
+                    leftoverSize = 0
                     leftoverPos = 0
                 }
 
@@ -171,15 +170,16 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
                 continue
             }
 
-            val readBytes = native.read(timeout)
-            if (readBytes == null) {
+            val transferred = native.read(readBuffer, timeout)
+            if (transferred < 0) {
+                isConnectedVal = false
                 return if (totalReturned > 0) totalReturned else -1
             }
-            if (readBytes.isEmpty()) {
+            if (transferred == 0) {
                 return totalReturned
             }
 
-            leftoverBuffer = readBytes
+            leftoverSize = transferred
             leftoverPos = 0
         }
 
