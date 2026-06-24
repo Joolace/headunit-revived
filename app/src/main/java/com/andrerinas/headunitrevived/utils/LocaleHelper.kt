@@ -127,7 +127,20 @@ object LocaleHelper {
      * Use this in attachBaseContext of Activities.
      */
     fun wrapContext(context: Context): Context {
-        val settings = Settings(context)
-        return applyLocale(context, settings)
+        try {
+            val isLocked = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val userManager = context.getSystemService(Context.USER_SERVICE) as? android.os.UserManager
+                userManager?.isUserUnlocked == false
+            } else {
+                false
+            }
+            if (isLocked) {
+                return context
+            }
+            val settings = Settings(context)
+            return applyLocale(context, settings)
+        } catch (e: Exception) {
+            return context
+        }
     }
 }
