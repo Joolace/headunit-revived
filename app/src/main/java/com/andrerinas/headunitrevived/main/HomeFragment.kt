@@ -548,6 +548,7 @@ class HomeFragment : Fragment() {
         gridLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 gridLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                if (!isAdded) return
 
                 val container = gridLayout.parent as? View ?: return
                 val containerW = container.width
