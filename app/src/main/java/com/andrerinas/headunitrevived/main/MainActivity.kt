@@ -499,17 +499,19 @@ class MainActivity : BaseActivity() {
         val scalePercent = settings.loadingScreenScalePercent
         val scale = scalePercent / 100f
 
-        if (overlay != null && customImage != null) {
-            overlay.post {
-                val cw = overlay.width
-                val ch = overlay.height
+        val ov = overlay
+        val img = customImage
+        if (ov != null && img != null) {
+            ov.post {
+                val cw = ov.width
+                val ch = ov.height
                 if (cw > 0 && ch > 0) {
-                    val lp = customImage.layoutParams as? FrameLayout.LayoutParams
+                    val lp = img.layoutParams as? FrameLayout.LayoutParams
                     if (lp != null) {
                         lp.width = (cw * scale).toInt()
                         lp.height = (ch * scale).toInt()
                         lp.gravity = android.view.Gravity.CENTER
-                        customImage.layoutParams = lp
+                        img.layoutParams = lp
                     }
                 }
             }

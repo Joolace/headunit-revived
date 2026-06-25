@@ -546,9 +546,13 @@ class HomeFragment : Fragment() {
     private fun constrainPortraitGridWidth(rootView: View) {
         val gridLayout = rootView.findViewById<android.widget.LinearLayout>(R.id.main_buttons_layout)
             ?: return
+        // Capture density before the callback — accessing `resources` inside onGlobalLayout
+        // is unsafe if the fragment has been detached by the time the layout pass fires.
+        val density = resources.displayMetrics.density
         gridLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 gridLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                if (!isAdded) return
 
                 val container = gridLayout.parent as? View ?: return
                 val containerW = container.width
@@ -556,22 +560,21 @@ class HomeFragment : Fragment() {
                 if (containerW == 0 || containerH == 0) return
 
                 // Reserved vertical space: 64 dp top-spacer + ~56 dp exit button (margin incl.)
-                val density = resources.displayMetrics.density
-                val reservedDp = (64 + 56) * density
-                // Extra per-row overhead: label (~20 sp≈20dp) + top margin (6 dp) + cell padding top+bottom (24 dp)
-                val rowOverheadDp = 50 * density
+                val reservedPx = (64 + 56) * density
+                // Extra per-row overhead: label (~20 sp≈20dp) + marginTop (6 dp) + cell padding top+bottom (24 dp)
+                val rowOverheadPx = 50 * density
 
-                val availableH = containerH - reservedDp
+                val availableH = containerH - reservedPx
                 // Max button edge that fits in one row without labels overflowing
-                val maxBtnFromH = ((availableH / 2f) - rowOverheadDp).toInt()
+                val maxBtnFromH = ((availableH / 2f) - rowOverheadPx).toInt()
                 val maxBtnFromW = containerW / 2
                 val maxBtn = minOf(maxBtnFromH, maxBtnFromW)
 
                 if (maxBtn <= 0) return
 
                 // Grid max-width = 2 buttons + 4 × cell-horizontal-padding (12 dp each side)
-                val cellPadH = (12 * 2 * 2 * density).toInt() // 2 cols × 2 sides × 12 dp
-                val maxGridW = maxBtn * 2 + cellPadH
+                val cellPadPx = (12 * 2 * 2 * density).toInt() // 2 cols × 2 sides × 12 dp
+                val maxGridW = maxBtn * 2 + cellPadPx
 
                 // Only shrink, never grow beyond what the existing constraints allow
                 if (maxGridW < containerW) {
