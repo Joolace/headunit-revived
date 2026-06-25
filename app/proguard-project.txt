@@ -31,6 +31,8 @@
 
 # --- JNI ---
 -keep class com.andrerinas.headunitrevived.aap.AapSslNative { *; }
+-keep class com.andrerinas.headunitrevived.decoder.FfmpegHevcDecoder { *; }
+-keep class com.andrerinas.headunitrevived.decoder.FfmpegHevcDecoder$Companion { *; }
 
 # --- Conscrypt Rules ---
 -dontwarn org.conscrypt.**

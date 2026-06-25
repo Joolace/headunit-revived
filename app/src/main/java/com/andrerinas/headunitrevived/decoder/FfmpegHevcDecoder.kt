@@ -2,9 +2,11 @@ package com.andrerinas.headunitrevived.decoder
 
 import android.os.SystemClock
 import android.view.Surface
+import androidx.annotation.Keep
 import com.andrerinas.headunitrevived.utils.AppLog
 import java.nio.ByteBuffer
 
+@Keep
 class FfmpegHevcDecoder(
     private val surface: Surface?,
     private val yuvFrameSink: SoftwareYuvFrameSink?,
@@ -57,6 +59,7 @@ class FfmpegHevcDecoder(
         return cores.coerceIn(2, 4)
     }
 
+    @Keep
     @Suppress("unused")
     private fun onNativeYuv420Frame(
         width: Int,

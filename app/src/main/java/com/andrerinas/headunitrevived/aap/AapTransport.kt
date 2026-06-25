@@ -195,6 +195,7 @@ class AapTransport(
         pollThread?.quit()
         sendThread?.quit()
         aapAudio.releaseAllFocus()
+        aapVideo.release()
 
         videoDecoder.onDecoderError = null
 

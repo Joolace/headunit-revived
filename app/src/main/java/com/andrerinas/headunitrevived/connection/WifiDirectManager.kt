@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.NetworkInfo
+import android.net.wifi.p2p.WifiP2pConfig
 import android.net.wifi.p2p.WifiP2pDevice
 import android.net.wifi.p2p.WifiP2pInfo
 import android.net.wifi.p2p.WifiP2pManager
@@ -569,46 +570,35 @@ class WifiDirectManager(private val context: Context) : WifiP2pManager.Connectio
 
         AppLog.i("WifiDirectManager: Attempting createGroup for Native AA (Attempt $retryCount)...")
 
-        // 5GHz Hack: Try to force 5GHz band using reflection
-        try {
-            val configClass = Class.forName("android.net.wifi.p2p.WifiP2pConfig")
-            val config = configClass.newInstance()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            try {
+                val config = WifiP2pConfig.Builder()
+                    .setGroupOperatingBand(WifiP2pConfig.GROUP_OWNER_BAND_5GHZ)
+                    .build()
 
-            val groupOwnerIntentField = configClass.getDeclaredField("groupOwnerIntent")
-            groupOwnerIntentField.isAccessible = true
-            groupOwnerIntentField.set(config, 15)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                val setGroupOperatingBandMethod = configClass.getMethod("setGroupOperatingBand", Int::class.javaPrimitiveType)
-                setGroupOperatingBandMethod.invoke(config, 2) // 2 = 5GHz band
+                AppLog.i("WifiDirectManager: Requesting Native AA P2P group on 5GHz band.")
+                mgr.createGroup(ch, config, object : WifiP2pManager.ActionListener {
+                    override fun onSuccess() {
+                        AppLog.i("WifiDirectManager: 5GHz createGroup SUCCESS!")
+                        isGroupOwner = true
+                        handler.postDelayed({
+                            mgr.requestConnectionInfo(ch, this@WifiDirectManager)
+                            mgr.requestGroupInfo(ch, this@WifiDirectManager)
+                        }, 1000L)
+                    }
+                    override fun onFailure(reason: Int) {
+                        val reasonStr = getP2pErrorString(reason)
+                        AppLog.w("WifiDirectManager: 5GHz createGroup failed ($reasonStr), falling back to standard...")
+                        standardCreateGroup(mgr, ch, retryCount)
+                    }
+                })
+                return
+            } catch (t: Throwable) {
+                AppLog.e("WifiDirectManager: 5GHz createGroup crashed before async result. Falling back to standard.", t)
             }
-
-            // The hidden method signature is createGroup(Channel, WifiP2pConfig, ActionListener)
-            val createGroupMethod = mgr.javaClass.getMethod("createGroup",
-                WifiP2pManager.Channel::class.java,
-                configClass,
-                WifiP2pManager.ActionListener::class.java)
-
-            createGroupMethod.invoke(mgr, ch, config, object : WifiP2pManager.ActionListener {
-                override fun onSuccess() {
-                    AppLog.i("WifiDirectManager: 5GHz Forced createGroup SUCCESS!")
-                    isGroupOwner = true
-                    handler.postDelayed({
-                        mgr.requestConnectionInfo(ch, this@WifiDirectManager)
-                        mgr.requestGroupInfo(ch, this@WifiDirectManager)
-                    }, 1000L)
-                }
-                override fun onFailure(reason: Int) {
-                    val reasonStr = getP2pErrorString(reason)
-                    AppLog.w("WifiDirectManager: 5GHz Forced createGroup failed ($reasonStr), falling back to standard...")
-                    standardCreateGroup(mgr, ch, retryCount)
-                }
-            })
-            return
-        } catch (e: Exception) {
-            AppLog.w("WifiDirectManager: 5GHz Hack failed: ${e.message}. Using standard createGroup.")
         }
 
+        AppLog.i("WifiDirectManager: 5GHz P2P group request requires Android 10+. Using standard createGroup.")
         standardCreateGroup(mgr, ch, retryCount)
     }
 

@@ -37,6 +37,12 @@ public:
                 "onNativeYuv420Frame",
                 "(IILjava/nio/ByteBuffer;ILjava/nio/ByteBuffer;ILjava/nio/ByteBuffer;I)Z");
             env->DeleteLocalRef(callbackClass);
+            if (env->ExceptionCheck() || onYuvFrameMethod == nullptr) {
+                env->ExceptionClear();
+                LOGE("YUV callback method onNativeYuv420Frame not found");
+                env->DeleteGlobalRef(callback);
+                callback = nullptr;
+            }
         }
     }
 
@@ -45,6 +51,11 @@ public:
     }
 
     bool start() {
+        if (window == nullptr && callback == nullptr) {
+            LOGE("No output window or YUV callback configured");
+            return false;
+        }
+
         const AVCodec* decoder = avcodec_find_decoder_by_name("hevc");
         if (decoder == nullptr) {
             decoder = avcodec_find_decoder(AV_CODEC_ID_HEVC);
