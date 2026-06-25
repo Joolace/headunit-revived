@@ -204,6 +204,7 @@
     <string name="right_hand_drive_description">Position UI for right-side driving</string>
     <string name="wireless_connection_settings">Wireless Connection</string>
     <string name="category_graphic">Graphic</string>
+
     <string name="custom_insets">Custom Insets (Margins)</string>
     <string name="inset_top">Top</string>
     <string name="inset_bottom">Bottom</string>
@@ -571,8 +572,6 @@
     <string name="wifi_autostart_content">Connected to %s. Tap to start Android Auto.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">Use Native SSL</string>
-    <string name="use_native_ssl_description">Use native OpenSSL library (faster on older devices). Requires restart.</string>
     <string name="key_back">Back</string>
     <string name="bt_devices_selected">devices selected</string>
     <string name="bluetooth_adapter_label">Bluetooth Adapter</string>

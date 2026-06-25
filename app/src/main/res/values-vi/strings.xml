@@ -126,8 +126,6 @@
     <string name="stop_log_capture_description">Đang ghi… chạm để dừng</string>
     <string name="export_logs">Xuất log</string>
     <string name="export_logs_description">Lưu log để gỡ lỗi</string>
-    <string name="use_native_ssl">Dùng SSL gốc (Native)</string>
-    <string name="use_native_ssl_description">Dùng thư viện OpenSSL gốc (nhanh hơn trên máy cũ). Cần khởi động lại.</string>
     <string name="not_set">Chưa đặt</string>
     <string name="keymap_description">Đổi gán phím cho Headunit</string>
 

@@ -1028,4 +1028,6 @@ class Settings(private val context: Context) {
         get() = prefs.getString("hotspot-password", "")!!
         set(value) = prefs.edit().putString("hotspot-password", value).apply()
 
+
+
 }

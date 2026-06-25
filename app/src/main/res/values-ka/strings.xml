@@ -553,8 +553,6 @@
     <string name="wifi_autostart_title">WiFi ავტო-გაშვება</string>
     <string name="wifi_autostart_content">დაკავშირებულია %s-თან. დააჭირეთ Android Auto-ს დასაწყებად.</string>
 
-    <string name="use_native_ssl">Native OpenSSL-ის გამოყენება</string>
-    <string name="use_native_ssl_description">Native OpenSSL ბიბლიოთეკის გამოყენება (უფრო სწრაფია ძველ მოწყობილობებზე). საჭიროებს გადატვირთვას.</string>
     <string name="bt_devices_selected">მოწყობილობა არჩეულია</string>
     <string name="bluetooth_adapter_label">Bluetooth ადაპტერი</string>
     <string name="bluetooth_adapter_description">აირჩიეთ Bluetooth ადაპტერი/კონტროლერი კავშირისთვის. სასარგებლოა ორმაგი Bluetooth სისტემებისთვის.</string>

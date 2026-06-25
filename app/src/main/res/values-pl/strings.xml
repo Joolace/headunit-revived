@@ -528,8 +528,6 @@
     <string name="wifi_autostart_content">Połączono z %s. Dotknij, aby uruchomić Android Auto.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">Użyj natywnego SSL</string>
-    <string name="use_native_ssl_description">Użyj natywnej bibliotei OpenSSL (szybsze na starszych urządzeniach). Wymaga restartu.</string>
     <string name="bt_devices_selected">wybranych urządzeń</string>
     <string name="static_audio_focus">Statyczne skupienie dźwięku</string>
     <string name="static_audio_focus_description">Wymusza na telefonie przekonanie, że skupienie dźwięku jest zawsze utrzymywane, co zapobiega utracie routingu dźwięku na uniwersalnych jednostkach głównych. Wykonuje również programowe wyciszanie (ducking) podczas wskazówek głosowych nawigacji.</string>

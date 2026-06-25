@@ -528,8 +528,6 @@
     <string name="wifi_autostart_content">Conectado a %s. Toque para iniciar o Android Auto.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">Usar SSL nativo</string>
-    <string name="use_native_ssl_description">Usa a biblioteca nativa do OpenSSL (mais rápido em dispositivos antigos). Requer reinício.</string>
     <string name="bt_devices_selected">dispositivos selecionados</string>
     <string name="static_audio_focus">Foco de áudio estático</string>
     <string name="static_audio_focus_description">Força o telefone a acreditar que o foco de áudio está sempre ativo, evitando perdas de roteamento de áudio em centrais multimídia genéricas. Também realiza atenuação de volume (ducking) por software durante as instruções de voz de navegação.</string>

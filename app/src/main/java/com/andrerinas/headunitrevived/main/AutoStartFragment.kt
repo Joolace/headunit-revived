@@ -549,7 +549,7 @@ class AutoStartFragment : Fragment() {
         input.setText(pendingAutoStartWifiSsid)
         input.setSelection(input.text.length)
 
-        MaterialAlertDialogBuilder(requireContext(), R.style.DarkAlertDialog)
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.DarkAlertDialog)
             .setTitle(R.string.enter_wifi_ssid)
             .setView(input)
             .setPositiveButton(R.string.save) { _, _ ->
@@ -558,6 +558,13 @@ class AutoStartFragment : Fragment() {
                 updateSettingsList()
             }
             .setNegativeButton(R.string.cancel, null)
-            .show()
+            .create()
+
+        dialog.window?.clearFlags(
+            android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+            android.view.WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+        )
+        dialog.show()
+        input.requestFocus()
     }
 }

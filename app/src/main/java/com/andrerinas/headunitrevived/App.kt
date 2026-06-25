@@ -31,6 +31,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
+
+
         
         // Enable vector drawable support on older Android versions
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
@@ -114,6 +117,11 @@ class App : Application() {
         val appStartTime = SystemClock.elapsedRealtime()
         var appThemeManager: AppThemeManager? = null
         var isPiPActive = false
+
+        @Volatile
+        var instance: App? = null
+            private set
+
 
         fun get(context: Context): App {
             return context.applicationContext as App

@@ -125,8 +125,6 @@
     <string name="stop_log_capture">로그 캡처 중지</string>
     <string name="stop_log_capture_description">로그 기록 중입니다… 중지하려면 탭하세요.</string>
     <string name="export_logs">로그 내보내기</string>
-    <string name="use_native_ssl">네이티브 SSL 사용</string>
-    <string name="use_native_ssl_description">네이티브 OpenSSL 라이브러리를 사용합니다(구형 기기에서 더 빠를 수 있음). 재시작이 필요합니다.</string>
     <string name="export_logs_description">디버깅용 로그를 저장합니다.</string>
     <string name="not_set">설정 안 됨</string>
     <string name="keymap_description">헤드 유닛의 키 바인딩을 변경합니다.</string>

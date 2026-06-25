@@ -20,7 +20,6 @@ class ServiceDiscoveryResponse(private val context: Context)
     companion object {
         private fun makeProto(context: Context): Message {
             val settings = App.provide(context).settings
-
             // Initialize HeadUnitScreenConfig with actual physical screen dimensions
             HeadUnitScreenConfig.init(context, context.resources.displayMetrics, settings)
 

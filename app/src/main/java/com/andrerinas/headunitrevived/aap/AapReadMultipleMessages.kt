@@ -22,22 +22,22 @@ internal class AapReadMultipleMessages(
 
     override fun doRead(connection: AccessoryConnection): Int {
         val size = try {
-            connection.recvBlocking(recvBuffer, recvBuffer.size, 150, false)
+            connection.recvBlocking(recvBuffer, recvBuffer.size, 5000, false)
         } catch (e: Exception) {
             AppLog.e("AapRead: Fatal read error: ${e.message}")
             return -1
         }
 
         if (size < 0) {
-            // read failure — discard any partial data accumulated in the FIFO
-            // so the parser re-syncs cleanly on the next successful read.
-            fifo.clear()
             // If the connection is dead (e.g. resetInterface failed to re-claim),
             // signal the transport to quit instead of spinning on a broken connection.
             if (!connection.isConnected) {
                 AppLog.e("AapRead: Connection lost. Stopping read loop.")
+                fifo.clear()
                 return -1
             }
+            // It was a timeout or temporary error. Do NOT clear the FIFO because USB/TCP
+            // is reliable and no bytes were lost. Discarding FIFO would desynchronize the stream.
             return 0
         }
         if (size == 0) return 0

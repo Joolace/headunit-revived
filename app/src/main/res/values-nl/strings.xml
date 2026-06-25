@@ -527,8 +527,6 @@
     <string name="wifi_autostart_content">Verbonden met %s. Tik om Android Auto te starten.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">Gebruik Native SSL</string>
-    <string name="use_native_ssl_description">Gebruik de native OpenSSL-bibliotheek (sneller op oudere apparaten). Vereist een herstart.</string>
     <string name="bt_devices_selected">apparaten geselecteerd</string>
     <string name="static_audio_focus">Statische audiofocus</string>
     <string name="static_audio_focus_description">Dwingt de telefoon te geloven dat de audiofocus altijd behouden blijft, wat verlies van audioroutering op generieke headunits voorkomt. Voert ook softwarematige volumevermindering (ducking) uit tijdens navigatie-aanwijzingen.</string>

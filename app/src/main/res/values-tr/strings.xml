@@ -502,8 +502,6 @@
     <string name="wifi_autostart_content">%s ağına bağlandı. Android Auto\'yu başlatmak için dokunun.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">Yerel SSL Kullan</string>
-    <string name="use_native_ssl_description">Yerel OpenSSL kütüphanesini kullan (eski cihazlarda daha hızlıdır). Yeniden başlatma gerektirir.</string>
     <string name="bt_devices_selected">cihaz seçildi</string>
     <string name="static_audio_focus">Statik Ses Odağı</string>
     <string name="static_audio_focus_description">Telefonun ses odağının her zaman korunduğuna inanmasını sağlayarak genel ana ünitelerde ses yönlendirme kayıplarını önler. Ayrıca navigasyon sesli komutları sırasında yazılımsal ses kısma (ducking) işlemi gerçekleştirir.</string>

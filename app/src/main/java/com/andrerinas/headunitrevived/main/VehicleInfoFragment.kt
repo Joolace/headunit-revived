@@ -305,7 +305,7 @@ class VehicleInfoFragment : Fragment() {
         }
         container.addView(editText)
 
-        MaterialAlertDialogBuilder(requireContext(), R.style.DarkAlertDialog)
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.DarkAlertDialog)
             .setTitle(titleResId)
             .setView(container)
             .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -315,7 +315,14 @@ class VehicleInfoFragment : Fragment() {
                 }
             }
             .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .create()
+
+        dialog.window?.clearFlags(
+            android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+            android.view.WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+        )
+        dialog.show()
+        editText.requestFocus()
     }
 
     private fun showYearInputDialog(currentValue: String, onResult: (String) -> Unit) {
@@ -334,7 +341,14 @@ class VehicleInfoFragment : Fragment() {
             .setView(editText)
             .setPositiveButton(android.R.string.ok, null)
             .setNegativeButton(android.R.string.cancel, null)
-            .show()
+            .create()
+
+        dialog.window?.clearFlags(
+            android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+            android.view.WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+        )
+        dialog.show()
+        editText.requestFocus()
 
         dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener {
             val text = editText.text.toString().trim()

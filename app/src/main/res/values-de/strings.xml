@@ -202,6 +202,7 @@
     <string name="right_hand_drive_description">Benutzeroberfläche für Rechtsverkehr ausrichten</string>
     <string name="wireless_connection_settings">Kabellose Verbindung</string>
     <string name="category_graphic">Grafik</string>
+
     <string name="custom_insets">Benutzerdefinierte Ränder</string>
     <string name="inset_top">Oben</string>
     <string name="inset_bottom">Unten</string>
@@ -534,8 +535,6 @@
     <string name="wifi_autostart_content">Verbunden mit %s. Tippen, um Android Auto zu starten.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">Native SSL nutzen</string>
-    <string name="use_native_ssl_description">Nutze native OpenSSL Bibliothek (schneller auf alten Geräten). Neustart erforderlich.</string>
     <string name="bt_devices_selected">Geräte ausgewählt</string>
     <string name="bluetooth_adapter_label">Bluetooth-Adapter</string>
     <string name="bluetooth_adapter_description">Wähle den Bluetooth-Adapter/Controller für den Handshake aus. Nützlich bei Systemen mit zwei Bluetooth-Modulen.</string>

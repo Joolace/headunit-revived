@@ -527,8 +527,6 @@
     <string name="wifi_autostart_content">متصل بـ %s. اضغط لبدء أندرويد أوتو.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">استخدام SSL الأصلي</string>
-    <string name="use_native_ssl_description">استخدام مكتبة OpenSSL الأصلية (أسرع على الأجهزة القديمة). يتطلب إعادة التشغيل.</string>
     <string name="bt_devices_selected">أجهزة محددة</string>
     <string name="static_audio_focus">تركيز الصوت الثابت</string>
     <string name="static_audio_focus_description">إجبار الهاتف على الاعتقاد بأن تركيز الصوت مستمر دائمًا، مما يمنع فقدان توجيه الصوت على وحدات الرأس العامة. يقوم أيضًا بخفض الصوت برمجيًا أثناء التوجيهات الصوتية للملاحة.</string>

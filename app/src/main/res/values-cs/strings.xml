@@ -527,8 +527,6 @@
     <string name="wifi_autostart_content">Připojeno k %s. Klepnutím spustíte Android Auto.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">Použít nativní SSL</string>
-    <string name="use_native_ssl_description">Použít nativní knihovnu OpenSSL (rychlejší na starších zařízeních). Vyžaduje restart.</string>
     <string name="bt_devices_selected">vybraných zařízení</string>
     <string name="static_audio_focus">Statické zaměření zvuku</string>
     <string name="static_audio_focus_description">Vynutí, aby si telefon myslel, že má neustále zaměřený zvuk, což zabraňuje ztrátě směrování zvuku na běžných hlavních jednotkách. Také provádí softwarové ztlumení (ducking) během navigačních hlasových pokynů.</string>

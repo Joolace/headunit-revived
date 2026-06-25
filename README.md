@@ -53,17 +53,24 @@ You can trigger a wireless connection attempt using an Android Intent. This is u
 adb shell am start -a android.intent.action.VIEW -d "headunit://connect?ip=192.168.1.25"
 ```
 
-## Planned
-### v3.0.0
-- Theme-Options for Colors and Images, Car-Logos
-- Add Permission Checker
-
 ## Known Issues
 - **Google Maps in Portrait Mode:** Touch interactions (searching, scrolling) within Google Maps may not work as expected when using Portrait Mode on some devices. **Fix:** Try reducing the **Pixel density (DPI)** setting to **below 200** (e.g., 190) in the app settings. This often restores full functionality.
 - **Wireless Connection Drops:** If the connection drops frequently, disable **"WiFi Assistant"** or **"Switch between networks"** in your phone's WiFi settings to prevent it from killing the connection due to "no internet." Check battery saving options.
 - **Self-mode on Android 10 (Q) and below:** Google has disabled the automatic wireless projection startup for Android 10 and below in Android Auto versions 16.4 and higher. While Self-mode still works on newer Android versions, it is normally impossible to trigger projection on Android 10 and below directly with recent Google app updates. **Workaround:** You can still use Self-mode on these devices by starting the built-in Android Auto Headunit Server and connecting via Wi-Fi mode (loopback). See the [Troubleshooting Guide](https://github.com/andreknieriem/headunit-revived/wiki/Troubleshooting#self-mode-on-android-10-q-and-below) for step-by-step instructions.
 
+## Planned
+- add libusb as alternative to the native usb stack for better compatibility with some devices
+- more customization options for the UI and the app itself
+
 ## Changelog
+### v.3.0.1
+- Fixed: App Exit on Disconnect
+- Enhanced: USB Workflow. This will hopefully eliminate some random usb disconnects
+- Fixed keyboard input on Android < 6 Devices
+- Enhanced WiFi Direct-Mode
+- Enhanced File Selector for some devices
+- Fixed some fatal errors, showing in play console
+
 ### v.3.0.0
 - Added: Custom loading screen (image/GIF/video), thanks to @andrecuellar
 - Added: Settings-Reset Button, if you mess up something in the settings, you can now reset them to default

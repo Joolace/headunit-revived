@@ -526,8 +526,6 @@
     <string name="wifi_autostart_content">Csatlakozva a következőhöz: %s. Koppintson az Android Auto indításához.</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">Natív SSL használata</string>
-    <string name="use_native_ssl_description">Natív OpenSSL könyvtár használata (régebbi eszközökön gyorsabb).</string>
     <string name="bt_devices_selected">kiválasztott eszköz</string>
     <string name="static_audio_focus">Statikus audió fókusz</string>
     <string name="static_audio_focus_description">Arra kényszeríti a telefont, hogy azt higgye, az audió fókusz mindig aktív, megakadályozva az audió útvonalválasztási hibákat az univerzális fejegységeken. Szoftveres hangerő-csökkentést (ducking) is végez a navigációs hangutasítások alatt.</string>

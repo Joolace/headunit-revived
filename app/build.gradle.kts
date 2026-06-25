@@ -114,7 +114,7 @@ android {
         minSdk = 16
         targetSdk = 36
         versionCode = 82
-        versionName = "3.0.0.6"
+        versionName = "3.0.1"
         setProperty("archivesBaseName", "${applicationId}_${versionName}")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true

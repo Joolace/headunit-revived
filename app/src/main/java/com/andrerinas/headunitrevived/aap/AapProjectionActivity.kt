@@ -319,9 +319,9 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                                 AppLog.w("AapProjectionActivity: Disconnected unexpectedly.")
                                 Toast.makeText(this@AapProjectionActivity, getString(R.string.wifi_disconnect_toast), Toast.LENGTH_LONG).show()
                             }
-                            // Only finish immediately if the user explicitly exited or it was a clean close.
-                            if (state.isUserExit || state.isClean) {
-                                AppLog.i("AapProjectionActivity: Finishing because state isUserExit=${state.isUserExit}, isClean=${state.isClean}")
+                            // Only finish immediately if the user explicitly exited, it was a clean close, or killOnDisconnect is enabled.
+                            if (state.isUserExit || state.isClean || settings.killOnDisconnect) {
+                                AppLog.i("AapProjectionActivity: Finishing because state isUserExit=${state.isUserExit}, isClean=${state.isClean}, killOnDisconnect=${settings.killOnDisconnect}")
                                 hideReconnectingOverlay()
                                 finish()
                             } else {

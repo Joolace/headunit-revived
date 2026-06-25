@@ -527,8 +527,6 @@
     <string name="wifi_autostart_content">已連接至 %s。點擊以啟動 Android Auto。</string>
 
     <!-- New strings merged from 2.3.1 -->
-    <string name="use_native_ssl">使用原生 SSL</string>
-    <string name="use_native_ssl_description">使用原生 OpenSSL 函式庫 (在舊裝置上速度更快)。 需要重啟。</string>
     <string name="bt_devices_selected">個已選擇的裝置</string>
     <string name="static_audio_focus">靜態音訊焦點</string>
     <string name="static_audio_focus_description">強制讓手機認為音訊焦點一直被保留，以防止通用車機上的音訊路由丟失。在導航語音提示期間也會執行軟體音量衰減（Ducking）。</string>
