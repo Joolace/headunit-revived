@@ -155,7 +155,10 @@ class LoadingScreenFragment : Fragment() {
                 var actualProgress = progress
                 if (actualProgress < 10) {
                     actualProgress = 10
-                    sliderScale?.progress = 10
+                    if (fromUser) {
+                        sliderScale?.progress = 10
+                        return
+                    }
                 }
                 settings.loadingScreenScalePercent = actualProgress
                 txtScaleValue?.text = "$actualProgress%"

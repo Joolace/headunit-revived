@@ -622,11 +622,13 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                         try {
                             val vw = mp.videoWidth
                             val vh = mp.videoHeight
-                            if (overlay != null) {
-                                val cw = overlay.width
-                                val ch = overlay.height
+                            val ov = overlay
+                            val cv = customVideo
+                            if (ov != null && cv != null) {
+                                val cw = ov.width
+                                val ch = ov.height
                                 if (cw > 0 && ch > 0) {
-                                    val lp = customVideo.layoutParams as FrameLayout.LayoutParams
+                                    val lp = cv.layoutParams as FrameLayout.LayoutParams
                                     if (keepRatio && vw > 0 && vh > 0) {
                                         val videoRatio = vw.toFloat() / vh
                                         val containerRatio = cw.toFloat() / ch
@@ -646,7 +648,7 @@ class AapProjectionActivity : SurfaceActivity(), IProjectionView.Callbacks, Vide
                                         lp.height = (ch * scale).toInt()
                                     }
                                     lp.gravity = android.view.Gravity.CENTER
-                                    customVideo.layoutParams = lp
+                                    cv.layoutParams = lp
                                 }
                             }
                         } catch (e: Exception) {
