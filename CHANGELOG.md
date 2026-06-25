@@ -4,6 +4,8 @@
 - Enhanced: USB Workflow. This will hopefully eliminate some random usb disconnects
 - Fixed keyboard input on Android < 6 Devices
 - Enhanced WiFi Direct-Mode
+- Added: Bundled FFmpeg HEVC decoder with decoder source setting and FPS/performance overlay
+- Enhanced: HEVC GLES/YUV rendering latency, audio buffering, and WiFi Direct fallback reliability
 - Enhanced File Selector for some devices
 - Fixed some fatal errors, showing in play console
 
