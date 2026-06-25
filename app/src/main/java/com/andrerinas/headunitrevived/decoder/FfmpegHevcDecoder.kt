@@ -32,7 +32,9 @@ class FfmpegHevcDecoder(
             return false
         }
 
-        nativeHandle = nativeCreate(surface, this, yuvFrameSink != null, width, height, recommendedThreadCount())
+        val threadCount = recommendedThreadCount()
+        AppLog.i("FFmpeg HEVC decoder thread count: $threadCount")
+        nativeHandle = nativeCreate(surface, this, yuvFrameSink != null, width, height, threadCount)
         if (nativeHandle == 0L) {
             AppLog.e("FFmpeg HEVC decoder failed to initialize")
             return false
@@ -56,7 +58,7 @@ class FfmpegHevcDecoder(
 
     private fun recommendedThreadCount(): Int {
         val cores = Runtime.getRuntime().availableProcessors()
-        return cores.coerceIn(2, 4)
+        return cores.coerceIn(2, 6)
     }
 
     @Keep

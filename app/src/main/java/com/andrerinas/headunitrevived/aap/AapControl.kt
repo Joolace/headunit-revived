@@ -78,14 +78,14 @@ internal class AapControlMedia(
 
         AppLog.i("Media Sink Setup Request: %d on channel %s", request.type, Channel.name(channel))
 
+        val maxUnacked = maxUnackedFor(channel)
         val configResponse = Media.Config.newBuilder().apply {
             status = Media.Config.ConfigStatus.HEADUNIT
-            // Use 30 for maxUnacked on wireless to avoid stalls due to jitter, 16 for USB.
-            maxUnacked = if (aapTransport.isWireless) 30 else 16
+            this.maxUnacked = maxUnacked
             
             addConfigurationIndices(0)
         }.build()
-        AppLog.i("Config response: %s", configResponse)
+        AppLog.i("Config response: %s (maxUnacked=%d)", configResponse, maxUnacked)
         val msg = AapMessage(channel, Media.MsgType.MEDIA_MESSAGE_CONFIG_VALUE, configResponse)
         aapTransport.send(msg)
 
@@ -104,6 +104,24 @@ internal class AapControlMedia(
         }
 
         return 0
+    }
+
+    private fun maxUnackedFor(channel: Int): Int {
+        if (channel == Channel.ID_VID) {
+            val softwareHevc =
+                aapTransport.settings.videoCodec == "H.265" &&
+                        aapTransport.settings.forceSoftwareDecoding &&
+                        aapTransport.settings.softwareVideoDecoder == Settings.SoftwareVideoDecoder.BUNDLED_FFMPEG
+            if (softwareHevc) {
+                // Keep the phone closer to decoder pace. A large wireless window lets video
+                // backlog turn into visible input lag when 2K HEVC is decoded in software.
+                return if (aapTransport.isWireless) 6 else 8
+            }
+            return if (aapTransport.isWireless) 12 else 16
+        }
+
+        // Audio still benefits from a wider jitter window, especially on wireless.
+        return if (aapTransport.isWireless) 30 else 16
     }
 
     private fun mediaSinkStopRequest(channel: Int): Int {

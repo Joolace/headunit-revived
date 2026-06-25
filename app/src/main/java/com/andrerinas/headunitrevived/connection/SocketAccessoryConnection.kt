@@ -172,6 +172,7 @@ class SocketAccessoryConnection(private val ip: String, private val port: Int, p
                     }
                 }
 
+                applyLowLatencySocketOptions(beforeConnect = true)
                 // Chinese Headunit Mediatek Correction
                 try {
                     transport.connect(InetSocketAddress(ip, port), 5000)
@@ -189,10 +190,7 @@ class SocketAccessoryConnection(private val ip: String, private val port: Int, p
             // power-save wakes, and bufferbloat. 1s was causing readFully to timeout
             // mid-header, desynchronizing the stream ("Failed to read full header").
             transport.soTimeout = 10000
-            transport.tcpNoDelay = true
-            transport.keepAlive = true
-            transport.reuseAddress = true
-            transport.trafficClass = 16 // IPTOS_LOWDELAY
+            applyLowLatencySocketOptions(beforeConnect = false)
             // Raw DataInputStream — no BufferedInputStream wrapper.
             // BufferedInputStream + readFully + timeout = internal buffer state corruption.
             input = DataInputStream(transport.getInputStream())
@@ -217,7 +215,30 @@ class SocketAccessoryConnection(private val ip: String, private val port: Int, p
         output = null
     }
 
+    private fun applyLowLatencySocketOptions(beforeConnect: Boolean) {
+        try { transport.tcpNoDelay = true } catch (_: Exception) {}
+        try { transport.keepAlive = true } catch (_: Exception) {}
+        try { transport.reuseAddress = true } catch (_: Exception) {}
+        try { transport.trafficClass = 0x10 } catch (_: Exception) {} // IPTOS_LOWDELAY
+        try { transport.setPerformancePreferences(0, 2, 1) } catch (_: Exception) {}
+
+        // Keep TCP queues bounded for projection. Large default buffers can hide Wi-Fi
+        // jitter but also allow old video data to accumulate before the decoder.
+        try { transport.receiveBufferSize = LOW_LATENCY_SOCKET_BUFFER_BYTES } catch (_: Exception) {}
+        try { transport.sendBufferSize = LOW_LATENCY_SOCKET_BUFFER_BYTES } catch (_: Exception) {}
+
+        if (!beforeConnect) {
+            AppLog.i(
+                "Socket low-latency options: tcpNoDelay=%s, recvBuf=%d, sendBuf=%d",
+                transport.tcpNoDelay,
+                transport.receiveBufferSize,
+                transport.sendBufferSize
+            )
+        }
+    }
+
     companion object {
         private const val DEF_BUFFER_LENGTH = 131080
+        private const val LOW_LATENCY_SOCKET_BUFFER_BYTES = 256 * 1024
     }
 }
