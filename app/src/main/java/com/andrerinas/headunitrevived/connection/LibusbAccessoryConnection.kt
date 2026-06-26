@@ -22,7 +22,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
     private var usbNative: UsbNative? = null
 
     // Direct ByteBuffer for JNI and tracking leftover state
-    private val readBuffer = ByteBuffer.allocateDirect(163840)
+    private val readBuffer = ByteBuffer.allocateDirect(16384)
     private var leftoverSize = 0
     private var leftoverPos = 0
 
