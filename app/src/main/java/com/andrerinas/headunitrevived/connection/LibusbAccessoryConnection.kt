@@ -20,6 +20,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
     private var endpointIn: UsbEndpoint? = null
     private var endpointOut: UsbEndpoint? = null
     private var usbNative: UsbNative? = null
+    private val stateLock = Any()
 
     // Direct ByteBuffer for JNI and tracking leftover state
     private val readBuffer = ByteBuffer.allocateDirect(16384)
@@ -39,7 +40,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
     }
 
     override suspend fun connect() = withContext(Dispatchers.IO) {
-        synchronized(sStateLock) {
+        synchronized(stateLock) {
             if (isConnectedVal || isConnecting) {
                 return@withContext false
             }
@@ -49,7 +50,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
         try {
             if (!usbMgr.hasPermission(device)) {
                 AppLog.e("LibusbAccessoryConnection: No permission for USB device")
-                synchronized(sStateLock) { isConnecting = false }
+                synchronized(stateLock) { isConnecting = false }
                 return@withContext false
             }
             
@@ -81,7 +82,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
             
             if (conn == null) {
                 AppLog.e("LibusbAccessoryConnection: connection is null")
-                synchronized(sStateLock) { isConnecting = false }
+                synchronized(stateLock) { isConnecting = false }
                 return@withContext false
             }
 
@@ -90,13 +91,13 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
                 return@withContext false
             }
 
-            synchronized(sStateLock) {
+            synchronized(stateLock) {
                 usbDeviceConnection = conn
             }
 
             if (device.interfaceCount <= 0) {
                 AppLog.e("LibusbAccessoryConnection: No interface found on device")
-                synchronized(sStateLock) {
+                synchronized(stateLock) {
                     conn.close()
                     usbDeviceConnection = null
                     isConnecting = false
@@ -104,13 +105,13 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
                 return@withContext false
             }
             val iface = device.getInterface(0)
-            synchronized(sStateLock) {
+            synchronized(stateLock) {
                 usbInterface = iface
             }
             
             if (!conn.claimInterface(iface, true)) {
                 AppLog.e("LibusbAccessoryConnection: Failed to claim interface")
-                synchronized(sStateLock) {
+                synchronized(stateLock) {
                     conn.close()
                     usbDeviceConnection = null
                     usbInterface = null
@@ -132,7 +133,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
             }
             if (epIn == null || epOut == null) {
                 AppLog.e("LibusbAccessoryConnection: Unable to find endpoints")
-                synchronized(sStateLock) {
+                synchronized(stateLock) {
                     conn.releaseInterface(iface)
                     conn.close()
                     usbDeviceConnection = null
@@ -142,13 +143,13 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
                 return@withContext false
             }
 
-            synchronized(sStateLock) {
+            synchronized(stateLock) {
                 endpointIn = epIn
                 endpointOut = epOut
             }
 
             if (!isConnecting) {
-                synchronized(sStateLock) {
+                synchronized(stateLock) {
                     conn.releaseInterface(iface)
                     conn.close()
                     usbDeviceConnection = null
@@ -163,7 +164,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
             val native = UsbNative()
             if (!native.wrap(conn, epIn.address, epOut.address)) {
                 AppLog.e("LibusbAccessoryConnection: Failed to wrap USB device via JNI")
-                synchronized(sStateLock) {
+                synchronized(stateLock) {
                     native.close()
                     conn.releaseInterface(iface)
                     conn.close()
@@ -176,7 +177,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
                 return@withContext false
             }
 
-            synchronized(sStateLock) {
+            synchronized(stateLock) {
                 if (!isConnecting) {
                     native.close()
                     conn.releaseInterface(iface)
@@ -196,7 +197,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
             return@withContext true
         } catch (e: Exception) {
             AppLog.e("LibusbAccessoryConnection: Error during connect: ${e.message}")
-            synchronized(sStateLock) {
+            synchronized(stateLock) {
                 isConnecting = false
             }
             disconnect()
@@ -205,14 +206,15 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
     }
 
     override fun disconnect() {
-        synchronized(sStateLock) {
+        synchronized(stateLock) {
             isConnecting = false
             isConnectedVal = false
         }
 
-        // Wait for active JNI transfers (readers/writers) to finish before freeing context
-        val start = System.currentTimeMillis()
-        while (activeTransfers.get() > 0 && System.currentTimeMillis() - start < 6000) {
+        // Wait for active JNI transfers (readers/writers) to finish before freeing context.
+        // Capped at 1500ms because the JNI read timeout chunk is capped at 1000ms.
+        val start = android.os.SystemClock.elapsedRealtime()
+        while (activeTransfers.get() > 0 && android.os.SystemClock.elapsedRealtime() - start < 1500) {
             try {
                 Thread.sleep(50)
             } catch (e: InterruptedException) {
@@ -220,7 +222,7 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
             }
         }
 
-        synchronized(sStateLock) {
+        synchronized(stateLock) {
             try {
                 usbNative?.close()
             } catch (e: Exception) {
@@ -266,8 +268,9 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
         try {
             if (!isConnectedVal) return -1
             var totalReturned = 0
+            val overallStart = android.os.SystemClock.elapsedRealtime()
 
-            while (totalReturned < length) {
+            while (totalReturned < length && isConnectedVal) {
                 if (leftoverSize > 0) {
                     val available = leftoverSize - leftoverPos
                     val toCopy = minOf(length - totalReturned, available)
@@ -287,14 +290,31 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
                     continue
                 }
 
+                if (!isConnectedVal) break
+
+                val jniTimeout = if (timeout <= 0) {
+                    1000
+                } else {
+                    val elapsed = android.os.SystemClock.elapsedRealtime() - overallStart
+                    val remaining = timeout - elapsed
+                    if (remaining <= 0) break
+                    minOf(remaining.toInt(), 1000)
+                }
+
                 readBuffer.clear()
-                val transferred = native.read(readBuffer, timeout)
+                val transferred = native.read(readBuffer, jniTimeout)
                 if (transferred < 0) {
                     isConnectedVal = false
                     return if (totalReturned > 0) totalReturned else -1
                 }
                 if (transferred == 0) {
-                    return totalReturned
+                    if (timeout > 0) {
+                        val elapsed = android.os.SystemClock.elapsedRealtime() - overallStart
+                        if (elapsed >= timeout) {
+                            break
+                        }
+                    }
+                    continue
                 }
 
                 leftoverSize = transferred
@@ -308,6 +328,5 @@ class LibusbAccessoryConnection(private val usbMgr: UsbManager, private val devi
     }
 
     companion object {
-        private val sStateLock = Any()
     }
 }

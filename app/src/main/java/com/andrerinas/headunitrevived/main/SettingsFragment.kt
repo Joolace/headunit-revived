@@ -584,7 +584,7 @@ class SettingsFragment : Fragment() {
                 stableId = "useLibusb",
                 nameResId = R.string.use_libusb,
                 descriptionResId = R.string.use_libusb_description,
-                isChecked = pendingUseLibusb!!,
+                isChecked = pendingUseLibusb ?: false,
                 onCheckedChanged = { isChecked ->
                     pendingUseLibusb = isChecked
                     checkChanges()
