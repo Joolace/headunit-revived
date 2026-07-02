@@ -33,13 +33,12 @@ class AboutFragment : Fragment() {
         copyrightText.text = getString(R.string.copyright, currentYear)
 
         val contentText = view.findViewById<TextView>(R.id.about_content_text)
-        
+
         val sb = StringBuilder()
         sb.append("<b>Special thanks to Mike Reidis for the original idea and android auto protocol and code.</b><br/>")
         sb.append("<a href=\"https://github.com/mikereidis/headunit\">https://github.com/mikereidis/headunit</a><br/><br/>")
         sb.append("<h3>Issues, bugs, and feedback or questions</h3>")
-        sb.append("If you need any help, go to the github page of this app. You will additionally can support me via <a href=\"https://www.paypal.me/anrinas\">Paypal</a><br/>")
-        sb.append("<a href=\"https://github.com/andreknieriem/headunit-revived\">https://github.com/andreknieriem/headunit-revived</a><br/><br/>")
+        sb.append("For any bugs of info contact me via email <a href=\"mailto:jool4ce@gmail.com\">jool4ce@gmail.com</a> or Discord jool4ce<br/><br/>")
 
         sb.append(parseMarkdownToHtml(readAsset("CHANGELOG.md")))
         sb.append("<br/><br/>")
@@ -67,23 +66,23 @@ class AboutFragment : Fragment() {
         html = html.replace(Regex("### (.*)"), "<h4>$1</h4>")
         html = html.replace(Regex("## (.*)"), "<h3>$1</h3>")
         html = html.replace(Regex("# (.*)"), "<h2>$1</h2>")
-        
+
         // Bold
         html = html.replace(Regex("\\*\\*(.*?)\\*\\*"), "<b>$1</b>")
-        
+
         // Lists
         html = html.replace(Regex("\n- (.*)"), "<br/>&#8226; $1")
-        
+
         // Newlines (Markdown preserves single newlines as space, but we want break for readability in log?)
         // Actually, let's just replace double newlines with paragraph, and single with br?
         // Simple approach: Replace \n with <br/> but be careful not to break tags.
         // For list items we already handled the newline prefix.
-        
+
         // Let's replace remaining newlines that are not part of tags
-        // This is tricky with regex. 
+        // This is tricky with regex.
         // Better: replace all \n with <br/> at the end?
         // The list replacement consumed the \n before the dash.
-        
+
         return html
     }
 
