@@ -13,7 +13,7 @@
     <color name="text_second">#bdbebd</color>
     <color name="text_dark">#b5babd</color>
     <color name="black_overlay">#66000000</color>
-    
+
     <color name="setting_background_color">#F0F0F0</color>
     <color name="brand_teal">#009688</color>
     <color name="divider_color">#1F000000</color>
@@ -22,10 +22,10 @@
     <color name="text_shadow">@android:color/transparent</color>
     <color name="extreme_dark_background">#000000</color>
     <color name="splash_text_white">#FFFFFF</color>
-    <color name="splash_text_revived">#214876</color>
+    <color name="splash_text_revived">#ffffff</color>
 
     <!-- Custom Menu Colors -->
-    <color name="color_projection_blue">#3198ef</color>
+    <color name="color_projection_blue">#000000</color>
     <color name="color_usb_orange">#f57c00</color>
     <color name="color_wifi_purple">#8e44ad</color>
     <color name="color_settings_darkblue">#2c3e50</color>

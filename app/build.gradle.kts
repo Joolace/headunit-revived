@@ -111,11 +111,11 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.andrerinas.headunitrevived"
+        applicationId = "com.joolace.dfskheadunit"
         minSdk = 16
         targetSdk = 36
         versionCode = 80
-        versionName = "3.1.0"
+        versionName = "1.0.0"
         setProperty("archivesBaseName", "${applicationId}_${versionName}")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Headunit Revived</string>
+    <string name="app_name">Headunit DFSK</string>
     <string name="menu">Menú</string>
     <string name="settings">Configuración</string>
 
@@ -12,7 +12,7 @@
     <string name="video">Android Auto</string>
     <string name="self_mode">Modo Autónomo</string>
     <string name="to_android_auto">Ir a Android Auto</string>
-    <string name="title">Headunit Revived</string>
+    <string name="title">Headunit DFSK</string>
     <string name="remove">Eliminar</string>
     <string name="usb">USB</string>
     <string name="wifi">Wi-Fi</string>
@@ -151,9 +151,9 @@
     <string name="usb_auto_connect">Conexión automática USB</string>
     <string name="usb_auto_connect_description">Se conecta automáticamente a un dispositivo USB conocido tan pronto como se abre la aplicación.</string>
     <string name="auto_start_bt_label">Auto-inicio por Bluetooth</string>
-    <string name="auto_start_bt_description">Abrir automáticamente Headunit Revived cuando se conecte un dispositivo Bluetooth específico.</string>
+    <string name="auto_start_bt_description">Abrir automáticamente Headunit DFSK cuando se conecte un dispositivo Bluetooth específico.</string>
     <string name="auto_start_wifi_label">Inicio automático por Wi-Fi</string>
-    <string name="auto_start_wifi_description">Abre Headunit Revived automáticamente al conectarse a un SSID Wi-Fi específico.</string>
+    <string name="auto_start_wifi_description">Abre Headunit DFSK automáticamente al conectarse a un SSID Wi-Fi específico.</string>
     <string name="auto_start_wifi_ssid_label">SSID Wi-Fi</string>
     <string name="auto_start_wifi_ssid_description">Conectar solo cuando se está conectado a este SSID Wi-Fi</string>
     <string name="auto_start_wifi_warning">Función heredada: Es posible que esto no funcione de manera confiable en Android 8+ debido a restricciones en segundo plano. Asegúrese de que la aplicación esté excluida de la optimización de batería.</string>
@@ -176,7 +176,7 @@
     <string name="bt_permission_denied_title">Permiso de Bluetooth requerido</string>
     <string name="bt_permission_denied_message">Se necesita el permiso de Bluetooth para seleccionar dispositivos emparejados. Concédalo en los ajustes de la app.</string>
     <string name="overlay_permission_title">Permiso de inicio en segundo plano</string>
-    <string name="overlay_permission_description">Para permitir que Headunit Revived se abra automáticamente cuando se conecta Bluetooth, habilite el permiso \"Mostrar sobre otras aplicaciones\" en la siguiente pantalla.</string>
+    <string name="overlay_permission_description">Para permitir que Headunit DFSK se abra automáticamente cuando se conecta Bluetooth, habilite el permiso \"Mostrar sobre otras aplicaciones\" en la siguiente pantalla.</string>
     <string name="open_settings">Ajustes</string>
     <string name="wireless_connection_settings">Conexión inalámbrica</string>
     <string name="right_hand_drive">Conducción por la derecha</string>
@@ -252,10 +252,10 @@
     <!-- Info Settings -->
     <string name="category_info">Información</string>
     <string name="about">Acerca de &amp; Soporte</string>
-    <string name="about_description">Obtenga más información sobre Headunit Revived</string>
+    <string name="about_description">Obtenga más información sobre Headunit DFSK</string>
     <string name="version">Versión</string>
-    <string name="about_title">Acerca de Headunit Revived</string>
-    <string name="copyright">© 2025-%d André Rinas</string>
+    <string name="about_title">Acerca de Headunit DFSK</string>
+    <string name="copyright">© 2025-%d Joolace</string>
 
     <!-- Safety Disclaimer -->
     <string name="disclaimer_title">Seguridad &amp; Responsabilidad</string>
@@ -265,7 +265,7 @@
         <b>1. Enfóquese en la carretera</b><br/>
         Operar este software mientras conduce puede ser distractivo y peligroso. Enfóquese siempre en la conducción segura y siga todas las normas de tráfico locales. Use esta aplicación solo cuando sea seguro hacerlo.<br/><br/>
         <b>2. Limitación de responsabilidad</b><br/>
-        Headunit Revived se proporciona \"tal cual\", sin garantía de ningún tipo. Los desarrolladores no asumen responsabilidad por ningún accidente, daño a su vehículo/dispositivo o consecuencias legales derivadas del uso de este software.<br/><br/>
+        Headunit DFSK se proporciona \"tal cual\", sin garantía de ningún tipo. Los desarrolladores no asumen responsabilidad por ningún accidente, daño a su vehículo/dispositivo o consecuencias legales derivadas del uso de este software.<br/><br/>
         <b>3. Sin afiliación</b><br/>
         Este projeto es una iniciativa independiente de código abierto y no está afiliado, respaldado o conectado a Google LLC o la marca Android Auto.
     ]]></string>
@@ -311,7 +311,7 @@
     <string name="connection_interrupted">Conexión perdida</string>
     <string name="connection_interrupted_detail">Reintentando…</string>
     <string name="wifi_disconnect_toast">Android Auto desconectado: Si usas AA inalámbrico, desactiva \"Cambiar entre redes\" o \"Aceleración de red\" en ajustes WiFi del teléfono</string>
-    <string name="notification_service_running">Headunit Revived está en ejecución</string>
+    <string name="notification_service_running">Headunit DFSK está en ejecución</string>
     <string name="notification_projection_active">Android Auto está proyectado</string>
     <string name="shortcut_connect_title">Conectar</string>
     <string name="shortcut_connect_desc">Conectar al último dispositivo conocido</string>
@@ -555,7 +555,7 @@
     <string name="export_settings_downloads">Guardar en Descargas</string>
     <string name="export_settings_app_folder">Guardar en la carpeta de copias de la app</string>
     <string name="import_settings">Importar configuración</string>
-    <string name="import_settings_description">Restaurar configuración desde una copia de seguridad de Headunit Revived</string>
+    <string name="import_settings_description">Restaurar configuración desde una copia de seguridad de Headunit DFSK</string>
     <string name="import_settings_choose_file">Elegir archivo de copia</string>
     <string name="import_settings_downloads">Importar desde Descargas</string>
     <string name="import_settings_app_folder">Importar desde la carpeta de copias de la app</string>
@@ -577,8 +577,8 @@
     <string name="no_file_picker_title">No hay selector de archivos disponible</string>
     <string name="no_file_picker_message">Este dispositivo no tiene un selector de archivos compatible. Puede usar Descargas o la carpeta de copias de la app en su lugar.</string>
     <string name="no_settings_backups_title">No se encontraron copias de seguridad</string>
-    <string name="no_settings_backups_message">No se encontraron copias de Headunit Revived en la carpeta de copias de la app. Exporte primero una copia a esa carpeta y luego impórtela desde aquí.</string>
-    <string name="no_settings_backups_downloads_message">No se encontraron copias de Headunit Revived en Descargas. Exporte primero una copia a Descargas y luego impórtela desde aquí.</string>
+    <string name="no_settings_backups_message">No se encontraron copias de Headunit DFSK en la carpeta de copias de la app. Exporte primero una copia a esa carpeta y luego impórtela desde aquí.</string>
+    <string name="no_settings_backups_downloads_message">No se encontraron copias de Headunit DFSK en Descargas. Exporte primero una copia a Descargas y luego impórtela desde aquí.</string>
 
     <!-- Keymap: back key label -->
     <string name="key_back">Atrás</string>
