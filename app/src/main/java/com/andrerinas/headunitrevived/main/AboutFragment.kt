@@ -35,8 +35,9 @@ class AboutFragment : Fragment() {
         val contentText = view.findViewById<TextView>(R.id.about_content_text)
 
         val sb = StringBuilder()
-        sb.append("<b>Special thanks to Mike Reidis for the original idea and android auto protocol and code.</b><br/>")
-        sb.append("<a href=\"https://github.com/mikereidis/headunit\">https://github.com/mikereidis/headunit</a><br/><br/>")
+        sb.append("<b>Special thanks to Mike Reidis and andreknieriem for the source code.</b><br/>")
+        sb.append("<a href=\"https://github.com/mikereidis/headunit\">https://github.com/mikereidis/headunit</a><br/>")
+        sb.append("<a href=\"https://github.com/andreknieriem/headunit-revived\">https://github.com/andreknieriem/headunit-revived</a><br/><br/>")
         sb.append("<h3>Issues, bugs, and feedback or questions</h3>")
         sb.append("For any bugs of info contact me via email <a href=\"mailto:jool4ce@gmail.com\">jool4ce@gmail.com</a> or Discord jool4ce<br/><br/>")
 
