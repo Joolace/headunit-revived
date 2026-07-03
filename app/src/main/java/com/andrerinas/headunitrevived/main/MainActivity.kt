@@ -34,6 +34,7 @@ import com.andrerinas.headunitrevived.utils.AppLog
 import android.content.res.Configuration
 import com.andrerinas.headunitrevived.utils.Settings
 import android.os.SystemClock
+import androidx.appcompat.app.AppCompatDelegate
 import com.andrerinas.headunitrevived.utils.SetupWizard
 import com.andrerinas.headunitrevived.utils.SystemUI
 import com.bumptech.glide.Glide
@@ -117,6 +118,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         requestedOrientation = Settings(this).screenOrientation.androidOrientation
         super.onCreate(savedInstanceState)
 
@@ -130,7 +132,7 @@ class MainActivity : BaseActivity() {
                 addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
             startActivity(aapIntent)
-            
+
             // If we are auto-forwarding, hide the splash immediately to avoid flashing it twice
             if (savedInstanceState == null) {
                 findViewById<View>(R.id.splash_overlay)?.visibility = View.GONE
@@ -168,32 +170,39 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_content) as androidx.navigation.fragment.NavHostFragment
         val navController = navHostFragment.navController
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // While the full-screen overlay is up, treat Back as cancel so the
-                // user isn't trapped if a manual connection attempt hangs. Pill
-                // mode is non-blocking, so Back falls through to its normal
-                // navigation behavior there.
-                if (autoConnectInProgress && autoConnectMode == ConnectionUiMode.OVERLAY) {
-                    cancelAutoConnect()
-                    return
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // While the full-screen overlay is up, treat Back as cancel so the
+                    // user isn't trapped if a manual connection attempt hangs. Pill
+                    // mode is non-blocking, so Back falls through to its normal
+                    // navigation behavior there.
+                    if (autoConnectInProgress && autoConnectMode == ConnectionUiMode.OVERLAY) {
+                        cancelAutoConnect()
+                        return
+                    }
+                    if (navController.navigateUp()) {
+                        return
+                    } else if (System.currentTimeMillis() - lastBackPressTime < 2000) {
+                        finish()
+                    } else {
+                        lastBackPressTime = System.currentTimeMillis()
+                        Toast.makeText(
+                            this@MainActivity,
+                            R.string.press_back_again_to_exit,
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
                 }
-                if (navController.navigateUp()) {
-                    return
-                } else if (System.currentTimeMillis() - lastBackPressTime < 2000) {
-                    finish()
-                } else {
-                    lastBackPressTime = System.currentTimeMillis()
-                    Toast.makeText(this@MainActivity, R.string.press_back_again_to_exit, Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+            },
+        )
 
         if (savedInstanceState == null) {
             val elapsedSinceStart = SystemClock.elapsedRealtime() - App.appStartTime
             val targetTotalDuration = 1200L
             val actualDelay = (targetTotalDuration - elapsedSinceStart).coerceAtLeast(0L)
-            
+
             showSplashWithDelay(actualDelay)
         } else {
             findViewById<View>(R.id.splash_overlay)?.visibility = View.GONE
@@ -207,7 +216,7 @@ class MainActivity : BaseActivity() {
         ContextCompat.registerReceiver(
             this, finishReceiver,
             android.content.IntentFilter("com.andrerinas.headunitrevived.ACTION_FINISH_ACTIVITIES"),
-            ContextCompat.RECEIVER_NOT_EXPORTED
+            ContextCompat.RECEIVER_NOT_EXPORTED,
         )
         isFinishReceiverRegistered = true
 
@@ -319,7 +328,8 @@ class MainActivity : BaseActivity() {
                     when (state) {
                         is CommManager.ConnectionState.Connecting,
                         is CommManager.ConnectionState.Connected,
-                        is CommManager.ConnectionState.StartingTransport -> {
+                        is CommManager.ConnectionState.StartingTransport,
+                            -> {
                             hasAdvancedToActiveState = true
                             // The pill/overlay should already be visible (set when auto-connect
                             // was requested); ensure it is in case the request raced with
@@ -329,7 +339,8 @@ class MainActivity : BaseActivity() {
                             }
                         }
                         is CommManager.ConnectionState.HandshakeComplete,
-                        is CommManager.ConnectionState.TransportStarted -> {
+                        is CommManager.ConnectionState.TransportStarted,
+                            -> {
                             // AapProjectionActivity is launching (HandshakeComplete) or
                             // has launched (TransportStarted). Hide our overlay so we
                             // don't keep video/animation resources alive while AAP
@@ -530,7 +541,7 @@ class MainActivity : BaseActivity() {
                             val scaleAnim = ObjectAnimator.ofPropertyValuesHolder(
                                 customImage,
                                 PropertyValuesHolder.ofFloat("scaleX", 1.0f, 1.05f),
-                                PropertyValuesHolder.ofFloat("scaleY", 1.0f, 1.05f)
+                                PropertyValuesHolder.ofFloat("scaleY", 1.0f, 1.05f),
                             )
                             scaleAnim.duration = 8000
                             scaleAnim.repeatMode = ObjectAnimator.REVERSE
@@ -651,7 +662,7 @@ class MainActivity : BaseActivity() {
         ContextCompat.registerReceiver(
             this, recreateReceiver,
             android.content.IntentFilter(ACTION_RECREATE_MAIN),
-            ContextCompat.RECEIVER_NOT_EXPORTED
+            ContextCompat.RECEIVER_NOT_EXPORTED,
         )
         isRecreateReceiverRegistered = true
     }
@@ -756,7 +767,7 @@ class MainActivity : BaseActivity() {
             return
         }
 
-        if (intentAction == AapService.ACTION_START_SELF_MODE || 
+        if (intentAction == AapService.ACTION_START_SELF_MODE ||
            (intentData?.scheme == "headunit" && intentData.host == "selfmode")) {
             AppLog.i("MainActivity: Forced self-mode start requested")
             HomeFragment.forceSelfModeLaunch = true
@@ -771,9 +782,12 @@ class MainActivity : BaseActivity() {
                 val ip = intentData.getQueryParameter("ip")
                 if (!ip.isNullOrEmpty()) {
                     AppLog.i("Received connect intent for IP: $ip")
-                    ContextCompat.startForegroundService(this, Intent(this, AapService::class.java).apply {
-                        action = AapService.ACTION_CONNECT_SOCKET
-                    })
+                    ContextCompat.startForegroundService(
+                        this,
+                        Intent(this, AapService::class.java).apply {
+                            action = AapService.ACTION_CONNECT_SOCKET
+                        },
+                    )
                     lifecycleScope.launch(Dispatchers.IO) { App.provide(this@MainActivity).commManager.connect(ip, 5277) }
                 } else {
                     AppLog.i("Received connect intent without IP -> triggering last session auto-connect")
@@ -803,7 +817,7 @@ class MainActivity : BaseActivity() {
         val requiredPermissions = mutableListOf(
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
         )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -827,7 +841,7 @@ class MainActivity : BaseActivity() {
             ActivityCompat.requestPermissions(
                 this,
                 permissionsToRequest.toTypedArray(),
-                permissionRequestCode
+                permissionRequestCode,
             )
         } else {
             AppLog.d("All required permissions already granted.")
@@ -890,13 +904,13 @@ class MainActivity : BaseActivity() {
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         AppLog.i("dispatchKeyEvent: keyCode=%d, action=%d", event.keyCode, event.action)
-        
+
         // Always give the KeymapFragment (if active) a chance to see the key
         val handled = keyListener?.onKeyEvent(event) ?: false
-        
+
         // If the key was handled by our listener (e.g. in KeymapFragment), stop here
         if (handled) return true
-        
+
         // Otherwise continue with standard handling
         return super.dispatchKeyEvent(event)
     }
